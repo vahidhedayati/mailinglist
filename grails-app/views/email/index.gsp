@@ -1,6 +1,4 @@
-<%@ page import="kportal.EnviroDivisions" %>
-<%@ page import="kportal.Environments" %>
-<%@ page import="kportal.Resources" %>
+
 <!DOCTYPE html>
 <html>
 	<head>
