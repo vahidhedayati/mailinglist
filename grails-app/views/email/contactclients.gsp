@@ -221,13 +221,13 @@ ${params.emailMessage }
 </g:else>
    
 
-	<div class="fieldcontain ${hasErrors(bean: params, field: 'dateTime', 'error')} ">
-	<label for="dateTime">
-		<g:message code="dateTime.label" default="Schedule Email: Date & Time" />
-		<span class="required-indicator">*</span>
-	</label>
 
-	 <input type="text" name="dateTime"  id="datepicker" placeholder="${params?.dateTime ?: current }" value="${params?.dateTime ?: current }" />
+			
+<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'dateTime', 'error')} ">
+	<label for="manager">
+		<g:message code="dateTime.label" default="dateTime" />
+	</label>
+	<jqueryPicker:time name="dateTime" value="{params?.dateTime ?: current }" />
 	</div>
 	
 	
@@ -238,9 +238,26 @@ ${params.emailMessage }
 		<g:message code="setDate.label" default="Issue/Resolve Date:" />
 		<span class="required-indicator">*</span>
 	</label>
+	<jqueryPicker:date name="setDate" value="${params.setDate }" />
+	</div>	
+		
+		
+	<div class="fieldcontain ${hasErrors(bean: params, field: 'setTime', 'error')} ">
+	<label for="setTime">
+		<g:message code="setTime.label" default="Issue/Resolve Time:" />
+		<span class="required-indicator">*</span>
+	</label>
+	<joda:timePicker name="setTime" value="" />
+	</div>
+		
 
-		 <input type="text" name="setDate" id="setDate"   required="true"  placeholder="dd/MM/yyyy" value="${params.setDate }" />
-	
+		
+	<div class="fieldcontain ${hasErrors(bean: params, field: 'setDate', 'error')} ">
+	<label for="setDate">
+		<g:message code="setDate.label" default="Issue/Resolve Date:" />
+		<span class="required-indicator">*</span>
+	</label>
+	<jqueryPicker:date name="setDate" value="${params.setDate }" />
 	</div>	
 		
 		
@@ -253,17 +270,13 @@ ${params.emailMessage }
 	</div>
 	
 	
-<div class="fieldcontain ${hasErrors(bean: params, field: 'send', 'error')} ">
-<label for="Trigger">
-<g:message code="dateTime.label" default="Trigger" />
-</label>
-
-					<g:submitButton name="Send Email" id="loginbtn" class="loginbtn" value="${message(code: 'default.button.SendEmail.label', default: 'Preview')}" />
-			
-				
-				</div>
-			</div>	
-			</g:form>
-
-
+	<div class="fieldcontain ${hasErrors(bean: params, field: 'send', 'error')} ">
+	<label for="Trigger">
+	<g:message code="dateTime.label" default="Trigger" />
+	</label>
+	<g:submitButton name="Send Email" id="loginbtn" class="loginbtn" value="${message(code: 'default.button.SendEmail.label', default: 'Preview')}" />
+	</div>
+	
+	</div>	
+	</g:form>
 </body></html>
