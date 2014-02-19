@@ -1,11 +1,8 @@
-<%@ page import="kportal.EnviroDivisions" %>
-<%@ page import="kportal.Environments" %>
-<%@ page import="kportal.Resources" %>
-<%@ page import="kportal.MailingList" %>
-<%@ page import="kportal.MailingListAttachments" %>
-<%@ page import="kportal.MailingListCat" %>
-<%@ page import="kportal.MailingListSenders" %>
-<%@ page import="kportal.MailingListTemplates" %>
+<%@ page import="org.grails.plugins.mailinglist.MailingList" %>
+<%@ page import="org.grails.plugins.mailinglist.MailingListAttachments" %>
+<%@ page import="org.grails.plugins.mailinglist.MailingListCat" %>
+<%@ page import="org.grails.plugins.mailinglist.MailingListSenders" %>
+<%@ page import="org.grails.plugins.mailinglist.MailingListTemplates" %>
 
 <!DOCTYPE html>
 <html>
