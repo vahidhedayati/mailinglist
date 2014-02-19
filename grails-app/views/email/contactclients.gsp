@@ -223,7 +223,7 @@ ${params.emailMessage }
 
 
 			
-<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'dateTime', 'error')} ">
+	<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'dateTime', 'error')} ">
 	<label for="manager">
 		<g:message code="dateTime.label" default="dateTime" />
 	</label>
@@ -249,25 +249,7 @@ ${params.emailMessage }
 	</label>
 	<joda:timePicker name="setTime" value="" />
 	</div>
-		
-
-		
-	<div class="fieldcontain ${hasErrors(bean: params, field: 'setDate', 'error')} ">
-	<label for="setDate">
-		<g:message code="setDate.label" default="Issue/Resolve Date:" />
-		<span class="required-indicator">*</span>
-	</label>
-	<jqueryPicker:date name="setDate" value="${params.setDate }" />
-	</div>	
-		
-		
-	<div class="fieldcontain ${hasErrors(bean: params, field: 'setTime', 'error')} ">
-	<label for="setTime">
-		<g:message code="setTime.label" default="Issue/Resolve Time:" />
-		<span class="required-indicator">*</span>
-	</label>
-	<joda:timePicker name="setTime" value="" />
-	</div>
+	
 	
 	
 	<div class="fieldcontain ${hasErrors(bean: params, field: 'send', 'error')} ">
