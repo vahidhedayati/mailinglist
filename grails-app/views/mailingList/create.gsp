@@ -1,4 +1,4 @@
-<%@ page import="kportal.MailingList" %>
+<%@ page import="org.grails.plugins.mailinglist.MailingList" %>
 <!DOCTYPE html>
 <html>
 	<head>
