@@ -1,0 +1,20 @@
+<plugin name='jquery-date-time-picker' version='0.1.0' grailsVersion='2.0 &gt; *'>
+  <author>Zoran Stojakovic</author>
+  <authorEmail>stojakovic.zoran+grails@gmail.com</authorEmail>
+  <title>Jquery Date Time Picker Plugin</title>
+  <description>Makes it easy to use jQuery date and time pickers.</description>
+  <documentation>http://grails.org/plugin/jquery-date-time-picker</documentation>
+  <type>JqueryDateTimePickerGrailsPlugin</type>
+  <resources>
+    <resource>JqueryDateTimePickerResources</resource>
+    <resource>org.grails.plugins.jquerydatetimepicker.JqueryDateTimePickerTagLib</resource>
+  </resources>
+  <repositories>
+    <repository name='grailsCentral' url='http://grails.org/plugins' />
+    <repository name='mavenCentral' url='http://repo1.maven.org/maven2/' />
+  </repositories>
+  <dependencies />
+  <plugins />
+  <runtimePluginRequirements />
+  <behavior />
+</plugin>

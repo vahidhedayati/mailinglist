@@ -1,0 +1,27 @@
+<plugin name='tiny-mce' version='3.4.9' grailsVersion='1.3 &gt; *'>
+  <author>S Vivek Krishna</author>
+  <authorEmail>vivek[at]intelligrape.com</authorEmail>
+  <title>TinyMce</title>
+  <description>\ A plugin with the tinyMce editor javascript and tags to embed the editor in your GSP pages
+
+                      </description>
+  <documentation>http://grails.org/plugin/tiny-mce</documentation>
+  <type>TinyMceGrailsPlugin</type>
+  <resources>
+    <resource>TinyMcePluginResources</resource>
+    <resource>org.grails.plugins.tinymce.TinyMceTagLib</resource>
+  </resources>
+  <repositories>
+    <repository name='grailsCentral' url='http://plugins.grails.org' />
+    <repository name='http://repo.grails.org/grails/plugins' url='http://repo.grails.org/grails/plugins/' />
+    <repository name='http://repo.grails.org/grails/core' url='http://repo.grails.org/grails/core/' />
+    <repository name='grailsCore' url='http://svn.codehaus.org/grails/trunk/grails-plugins' />
+    <repository name='mavenCentral' url='http://repo1.maven.org/maven2/' />
+  </repositories>
+  <dependencies />
+  <plugins />
+  <runtimePluginRequirements>
+    <plugin name='jquery' version='1.3 &gt; *' />
+  </runtimePluginRequirements>
+  <behavior />
+</plugin>
