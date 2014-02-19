@@ -138,14 +138,14 @@ ${params?.emailMessage}
 </div>
 
 
-	<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'dateTime', 'error')} ">
+
+		
+<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'dateTime', 'error')} ">
 	<label for="manager">
 		<g:message code="dateTime.label" default="dateTime" />
 	</label>
-	 <input type="text" name="dateTime" id="datepicker"   placeholder="${params?.dateTime ?: current }" value="${params.dateTime ?: current }" />
+	<jqueryPicker:time name="dateTime" value="{params?.dateTime ?: current }" />
 	</div>
-		
-
 
 	<fieldset class="buttons">
 					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
