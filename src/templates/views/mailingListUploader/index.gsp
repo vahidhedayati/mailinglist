@@ -33,8 +33,8 @@ The fields must be in the above format and the first line must be a heading sinc
 </p>
 <br/><br/>
 
-<p><b>2> 8 field CSV file</b><br/>
-<b>"Title","First Name","Middle Name","Last Name","Suffix","Categories","E-mail Address","E-mail Display Name" </b><br>
+<p><b>2> 7 field CSV file</b><br/>
+<b>"Title","First Name","Middle Name","Last Name","Categories","E-mail Address","E-mail Display Name" </b><br>
 
 The fields must be in the above format and the first line must be a heading since it ignores the first line of the csv file
 

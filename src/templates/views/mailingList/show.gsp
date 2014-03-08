@@ -104,32 +104,7 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${mailingListInstance?.siteid}">
-				<li class="fieldcontain">
-					<span id="siteid-label" class="property-label"><g:message code="mailingList.siteid.label" default="Siteid" /></span>
-					
-						<span class="property-value" aria-labelledby="siteid-label"><g:fieldValue bean="${mailingListInstance}" field="siteid"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${mailingListInstance?.suffix}">
-				<li class="fieldcontain">
-					<span id="suffix-label" class="property-label"><g:message code="mailingList.suffix.label" default="Suffix" /></span>
-					
-						<span class="property-value" aria-labelledby="suffix-label"><g:fieldValue bean="${mailingListInstance}" field="suffix"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${mailingListInstance?.title}">
-				<li class="fieldcontain">
-					<span id="title-label" class="property-label"><g:message code="mailingList.title.label" default="Title" /></span>
-					
-						<span class="property-value" aria-labelledby="title-label"><g:fieldValue bean="${mailingListInstance}" field="title"/></span>
-					
-				</li>
-				</g:if>
+				
 			
 			</ol>
 			<g:form>

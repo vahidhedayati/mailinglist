@@ -69,18 +69,3 @@
 	<g:select id="categories" name="categories.id" from="${MailingListCategories?.list()}" optionKey="id" required="" value="${mailingListInstance?.categories?.id}" class="many-to-one"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: mailingListInstance, field: 'siteid', 'error')} ">
-	<label for="siteid">
-		<g:message code="mailingList.siteid.label" default="Siteid" />
-		
-	</label>
-	<g:textField name="siteid" value="${mailingListInstance?.siteid}"/>
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: mailingListInstance, field: 'suffix', 'error')} ">
-	<label for="suffix">
-		<g:message code="mailingList.suffix.label" default="Suffix" />
-		
-	</label>
-	<g:textField name="suffix" value="${mailingListInstance?.suffix}"/>
-</div>

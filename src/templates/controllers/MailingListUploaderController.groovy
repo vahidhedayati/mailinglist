@@ -26,11 +26,11 @@ class MailingListUploaderController  {
 				if (rtype==1) {
 					println "2 field CSV file"
 				}else{
-					println "8 field CSV file"
+					println "7 field CSV file"
 				}
 			}
 			if (i>1) {
-				def title,fname,mname,sname,suffix,categories,email,display=''
+				def title,fname,mname,sname,categories,email,display=''
 				try {
 					
 				
@@ -43,8 +43,8 @@ class MailingListUploaderController  {
 						//def MailingList=MailingListUploaderController.classLoader.loadClass('MailingListUploaderController').newInstance()
 						def findlrh=MailingListCategories.findByEmailAddressAndCategories(email,cid)
 						if (!findlrh) {
-							def newEntry=new MailingList(title: '', firstName: '', middleName: '',lastName: '', suffix: '',
-							emailAddress: fname,emailDisplayName:title,siteid: '', mlcategories:cid, addedby: session.user  )
+							def newEntry=new MailingList(title: '', firstName: '', middleName: '',lastName: '', 
+							emailAddress: fname,emailDisplayName:title, categories:cid, addedby: session.user  )
 							if (! newEntry.save(flush: true)) {
 								output += "<div class=red>Error saving MailingList record</div> <br/> "
 							} else {
@@ -60,19 +60,17 @@ class MailingListUploaderController  {
 					   
 					   if  (tokens[2]) {mname=tokens[2]}
 					   if  (tokens[3]) {sname=tokens[3]}
-					   if  (tokens[4]) {suffix=tokens[4]}
-					   if  (tokens[5]) {categories=tokens[5]}
-					   if  (tokens[6]) {email=tokens[6]}
-					   if  (tokens[7]) {display=tokens[7]}
+					   if  (tokens[5]) {categories=tokens[4]}
+					   if  (tokens[6]) {email=tokens[5]}
+					   if  (tokens[7]) {display=tokens[6]}
 
 					
-					output += "Title: "+title+" |  Fname:"+fname+" | Mname: "+mname+" | Sname: "+sname+" | Suffix: "+suffix+" | Categories: "+categories+" | Email: "+email+" | Display Email: "+display
+					output += "Title: "+title+" |  Fname:"+fname+" | Mname: "+mname+" | Sname: "+sname+" |  Categories: "+categories+" | Email: "+email+" | Display Email: "+display
 					if  (!categories )  { categories='' }
 					if (!title) { title=''}
 					if (!fname) { fname=''}
 					if (!sname) { sname='' }
 					if (!mname) { mname=''}
-					if (!suffix) { suffix=''}
 					if (!email) { email='' }
 					if (!display) { display=''}
 					def findlrh=MailingList.where {
@@ -81,7 +79,7 @@ class MailingListUploaderController  {
 					if (!findlrh) {
 						
 						def newEntry=new MailingList(title: title, firstName: fname, middleName: mname,lastName: sname,
-						suffix: suffix,emailAddress: email,emailDisplayName:display,mlcategories:cid, siteid: categories, addedby: session.user  )
+						emailAddress: email,emailDisplayName:display,categories:cid,  addedby: session.user  )
 						if (! newEntry.save(flush: true)) {
 							output += "<div class=red>Error saving MailingList record</div> <br/> "
 						} else {
@@ -99,9 +97,7 @@ class MailingListUploaderController  {
 	
 	
 	def export() { 
-		def mcat=MailingListCategories.findById(params.id)
-		def etype=params.etype
-		if (!etype) { etype='2' }
+		def mcat=MailingListCategories.get(params.id)
 		mcat.mailinglist.each { ml -> 
 			def title=ml.title
 			def firstName=ml.firstName
@@ -110,7 +106,6 @@ class MailingListUploaderController  {
 			def emailAddress=ml.emailAddress
 			def emailDisplayName=ml.emailDisplayName
 			def addedby=ml.addedby
-			if (etype.equals('2')) {}
 		}
 		
 	}
