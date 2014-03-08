@@ -14,13 +14,14 @@ class CategoryBase implements Serializable {
 	static optionals = [  'addedby' ]
 	
     static constraints = {
-		addedby defaultValue: ''
 		name (maxLength: 200, blank: false, unique: true)
+		addedby nullable: true
     }
 	
 	static mapping = {
 		sort "name"
 		mailinglist cascade: 'all-delete-orphan'
+		addedby defaultValue: ''
 		table Holders.config.mailinglist.table.categories ?: 'MailingListCategories'
 	}
 	

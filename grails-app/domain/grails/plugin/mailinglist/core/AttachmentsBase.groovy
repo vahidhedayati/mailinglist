@@ -29,6 +29,8 @@ class AttachmentsBase  implements Serializable {
 	
 	static constraints = {
 		attachment(maxSize: 8388608, blank:false, minsize: 1) // 1MB	
+		addedby nullable: true
+		
 	}
 	
 	String toString() {	"${fullname}" }

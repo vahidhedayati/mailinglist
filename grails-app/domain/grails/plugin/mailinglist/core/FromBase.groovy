@@ -20,6 +20,7 @@ class FromBase implements Serializable {
 	
 	static constraints = {
 		emailAddress(maxLength:50,email:true,unique:true)
+		addedby nullable: true
 	}
 	
 	String toString() {

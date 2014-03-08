@@ -20,6 +20,7 @@ class TemplatesBase {
 	
 	static constraints = {
 		name (maxLength: 200, blank: false)
+		addedby nullable: true
 	}
 	
 	String toString() {

@@ -52,10 +52,7 @@
 					
 					<td>
 					
-						<% def g = new org.codehaus.groovy.grails.plugins.web.taglib.ApplicationTagLib() %>
-						<% def confirmurl= g.createLink(controller: 'MailingListSchedule', action: 'showmsg', id: deployInstance.id , absolute: 'true' ) %>
-							<extlink:returnLink link="${confirmurl}" description="Show Message ${deployInstance.id }" resolveit="0" choice="${session.linkchoice }"/>
-						
+						<g:createLink controller="MailingListSchedule" action='showmsg' id="${deployInstance.id }"  />						
 		
 					</td>
 					<td>	

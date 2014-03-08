@@ -11,12 +11,12 @@ class MailingListBase  implements Serializable {
 	
 	String emailAddress
 	
-	String emailDisplayName
-	String title
-	String firstName
-	String middleName
-	String lastName
-	String addedby
+	String emailDisplayName=''
+	String title=''
+	String firstName=''
+	String middleName=''
+	String lastName=''
+	String addedby=''
 	
 	static optionals = ['title','firstName', 'middleName','lastName', 'addedby', 'emailDisplayName']
 	
@@ -32,7 +32,13 @@ class MailingListBase  implements Serializable {
 	}
 
 	static constraints = {
-		emailAddress(maxLength:100,email:true, blank:false)	
+		emailAddress(maxLength:100,email:true, blank:false)
+		emailDisplayName nullable: true
+		title nullable: true
+		firstName nullable: true
+		middleName nullable: true
+		lastName nullable: true
+		addedby nullable: true
 	}
 	
 	String toString() { "${emailAddress}" }

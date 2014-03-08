@@ -35,7 +35,7 @@
 	<g:form action="scheduleEmail" >
 			<div id="contact-area">
 <div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'addedby', 'error')} ">
-	<g:hiddenField name="addedby" value="${session.username}"/>
+	<g:hiddenField name="addedby" value="${session?.username}"/>
 </div>
 
 		
@@ -43,7 +43,7 @@
 	<label for="manager">
 		<g:message code="manager.label" default="mailFrom" />
 	</label>
-	<g:textField name="mailFrom"   value="${session?.usersemail }"/>
+	<g:textField name="mailFrom"   value="${params?.mailFrom }"/>
 	</div>
 	
 	
@@ -141,7 +141,7 @@ ${params?.emailMessage}
 	<label for="manager">
 		<g:message code="dateTime.label" default="dateTime" />
 	</label>
-	<jqueryPicker:time name="dateTime" value="${params.dateTime ?: curr }" />
+	<jqueryPicker:time name="dateTime" value="${curr }" />
 	</div>
 
 	<fieldset class="buttons">

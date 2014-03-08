@@ -18,6 +18,7 @@ class SendersBase {
 	
 	static constraints = {
 		emailAddress(maxLength:50,email:true,unique:true)
+		addedby nullable: true
 	}
 	String toString() {
 		"${emailAddress}"

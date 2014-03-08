@@ -222,7 +222,7 @@ ${params.emailMessage }
 	<label for="manager">
 		<g:message code="dateTime.label" default="dateTime" />
 	</label>
-	<jqueryPicker:time name="dateTime" value="${params?.dateTime ?: curr }" />
+	<jqueryPicker:time name="dateTime" value="${curr }" />
 	</div>
 	
 	

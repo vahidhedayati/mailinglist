@@ -6,19 +6,19 @@ class ScheduleBase  implements Serializable  {
 	Date dateCreated
 	Date lastUpdated
 	String mailFrom
-	String recipientToGroup
-	String recipientToList
-	String recipientBCCList
-	String recipientCCList
+	String recipientToGroup=''
+	String recipientToList=''
+	String recipientBCCList=''
+	String recipientCCList=''
 	String subject
-	String mailingListTemplate
+	String mailingListTemplate=''
 	String emailMessage
-	String dateTime
-	String setDate
-	String setTime
-	String sendType
-	String addedby
-	String scheduleName
+	String dateTime=''
+	String setDate=''
+	String setTime=''
+	String sendType=''
+	String addedby=''
+	String scheduleName=''
 	
 	static hasMany = [ attachments: AttachmentsBase]
 	
@@ -50,6 +50,18 @@ class ScheduleBase  implements Serializable  {
 		deploymentComplete  defaultValue: false
 		table Holders.config.mailinglist.table.schedule ?:  'MailingListSchedule'
 	}
-	static constraints = {}
+	static constraints = {
+		addedby nullable: true
+		scheduleName nullable: true
+		recipientToGroup nullable: true
+		setTime nullable: true
+		setDate nullable: true
+		recipientToList nullable: true
+		recipientCCList nullable: true
+		recipientBCCList nullable: true
+		mailingListTemplate  nullable: true
+		
+		
+	}
 	
 }
