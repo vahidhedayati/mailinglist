@@ -1,11 +1,11 @@
-<g:render template="/import"/>
+<g:render template="/mailingList/mailingListImport"/>
 <!DOCTYPE html>
 <html>
 	<head>
 	
 		<meta name="layout" content="main">
 		
-		<g:set var="entityName" value="${message(code: 'environments.label', default: 'Environments')}" />
+		<g:set var="entityName" value="${message(code: 'environments.label', default: 'Contact A Person')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 		
 <ckeditor:resources/>
@@ -16,7 +16,6 @@
 	<div id="nav3"  class="nav3" role="navigation">
 	<ul id="nav">
 		<li><a class="home" href="${createLink(uri: '/MailingList/index')}">Schedule Announcement</a></li>			
-	
 	</ul>
 	</div>	
 
@@ -142,7 +141,7 @@ ${params?.emailMessage}
 	<label for="manager">
 		<g:message code="dateTime.label" default="dateTime" />
 	</label>
-	<jqueryPicker:time name="dateTime" value="{params?.dateTime ?: current }" />
+	<jqueryPicker:time name="dateTime" value="${params.dateTime ?: curr }" />
 	</div>
 
 	<fieldset class="buttons">

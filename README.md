@@ -23,17 +23,21 @@ Or via grails command line:
 	grails install-plugin mailinglist
 
 
+#### BuildConfig.groovy other plugins required for this plugin to work:
 
 
-## Required plugins to be installed in target project:	
+##### Required plugins to be installed in target project:	(Under BuildConfig.groovy under Plugins {... )
 
-	compile (":csv:0.3.1", ":quartz:1.0.1" , ":quartz-monitor:0.3-RC3",
-			":ckeditor:3.6.6.1.1" , ":tiny-mce:3.4.9" , ":joda-time:1.4",
-			":jquery-date-time-picker:0.1.0" , ":export:1.5" , ":mail:1.0.4",  ":jquery-ui:1.10.3")
+		compile (":csv:0.3.1", ":quartz:1.0.1" , ":quartz-monitor:0.3-RC3",
+		":ckeditor:3.6.6.1.1" , ":tiny-mce:3.4.9" , ":joda-time:1.4",
+		":jquery-date-time-picker:0.1.1" , ":export:1.5" , ":mail:1.0.4",  
+		":jquery-ui:1.10.3"
+		)
 	
 
-## layout/main.gsp update:  
-###jquery, jquery-ui libraries:
+#### BuildConfig.groovylayout/main.gsp update:  
+
+##### jquery, jquery-ui libraries:
 your layouts main.gsp: (add jquery-ui and jquery - or add them into ApplicationResources.groovy and ensure you refer to it in your main.gsp or relevant file
 
 	<g:javascript library="jquery-ui"/>
@@ -50,6 +54,7 @@ Now with that all in place open grails console or from the command line run
 	Where org.example.com is your package and 5 is the amount of dynamic schedule jobs to generate, thats it ! (besides configuration below)
 	
 
+#### Config.groovy changes
 
 Required Config.groovy configurations:
 
@@ -99,18 +104,6 @@ Required Config.groovy configurations:
 				}
 		}
 	}
-	jqueryDateTimePicker1 {
-		format {
-			java {
-				datetime = "dd-MM-yyyy HH:mm"
-				date = "dd-MM-yyyy"
-			}
-			picker {
-				date = "'dd-mm-yy'"
-				time = "'H-mm'"
-			}
-		}
-	}
 	jqueryDateTimePicker {
 		format {
 			java {
@@ -142,9 +135,46 @@ Required Config.groovy configurations:
 		multipartForm: 'multipart/form-data'
 	  ]
 	
+
+
+You will notice 	grails.baseURL externalUploadPath within ckeditor, this was done to externalise image uploads so upon a redployment the images were still available, the approach I took to this was to run values from setenv.sh within tomcat and pass this values in as variables into config.groovy as per below:
 	
 	
-	
+// configuration for plugin testing - will not be included in the plugin zip
+
+
+// In my tomcat setenv.sh
+
+	//UPLOADLOC="$CATALINA_HOME/uploads"
+	//JAVA_OPTS="$JAVA_OPTS -DUPLOADLOC=$UPLOADLOC"
+	//HOSTNAME=$(hostname)
+	//JAVA_OPTS="$JAVA_OPTS -DSERVERURL=$HOSTNAME"
+
+
+Produces running tomcat with the following values:
+
+	// -DUPLOADLOC=/opt/tomcat7/tc1/uploads
+	// -DSERVERURL=my.server.com
+
+
+In my Config.groovy at the top I have this
+
+	if (System.getProperty('UPLOADLOC')) {
+		externalUploadPath=System.getProperty('UPLOADLOC')+File.separator
+	}
+	if (System.getProperty('SERVERURL')) {
+		grails.baseURL='http://'+System.getProperty('SERVERURL')
+	}else{
+		grails.baseURL='http://localhost'
+	}
+
+Now those values are valid within the ckeditor configuration
+
+
+
+#### Boostrap changes
+
+An example BootStrap call to requeue outstanding or interuppted schedules is to add something like this :
 	
 
     class BootStrap {

@@ -1,6 +1,5 @@
 
-<g:render template="/import"/>
-
+<g:render template="/mailingList/mailingListImport"/>
 <div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'addedby', 'error')} ">
 	<label for="addedby">
 		<g:message code="mailingListSchedule.addedby.label" default="Addedby" />

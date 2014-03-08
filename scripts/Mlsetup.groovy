@@ -16,12 +16,6 @@ USAGE = """
 
 target (Mlsetup: 'Sets up a new maling list project' ) {
 
-	/*if(new File(basedir, "grails-app/conf/MailingListConfig.groovy").exists()) {
-		println "MailingListConfig.groovy exists, try removing this config file to reinstall."
-		println "Nothing changed."
-		exit(1)
-	}*/
-
 	
 	def (pack,amount) = parseArgs()
 	def packdir = pack.replace('.', '/')
@@ -111,7 +105,7 @@ target (Mlsetup: 'Sets up a new maling list project' ) {
 	imf.append('<%@ page import="'+pack+'.MailingListSenders" %>\n')
 	imf.append('<%@ page import="'+pack+'.MailingListTemplates" %>\n')
 	imf.append('<%@ page import="'+pack+'.MailingList" %>\n')
-	new File(basedir, "grails-app/views/_import.gsp").write(imf.toString())
+	new File(basedir, "grails-app/views/mailingList/_mailingListImport.gsp").write(imf.toString())
 	
 	
 	mkdir(dir:"${basedir}/grails-app/domain/${packdir}")
@@ -142,7 +136,96 @@ target (Mlsetup: 'Sets up a new maling list project' ) {
 	new File(basedir, "grails-app/services/${packdir}/QuartzEmailCheckerService.groovy").write(qecs.toString())
 	new File(basedir, "grails-app/services/${packdir}/QuartzStatusService.groovy").write(qss.toString())
 
-	println """Completed to finalise add compile ":quartz-monitor:0.3-RC3"  to your BuildConfig.groovy and refresh dependencies"""
+	println """Completed to finalise add :
+	compile (":csv:0.3.1", ":quartz:1.0.1" , ":quartz-monitor:0.3-RC3",
+		":ckeditor:3.6.6.1.1" , ":tiny-mce:3.4.9" , ":joda-time:1.4",
+		":jquery-date-time-picker:0.1.1" , ":export:1.5" , ":mail:1.0.4",  
+		":jquery-ui:1.10.3"
+		)
+  To your BuildConfig.groovy and refresh dependencies. 
+
+
+Required Config.groovy configurations:
+
+
+	// Optional values to override DB table names for this plugin:
+	//mailinglist.table.schedule='MyScheduler'
+	//mailinglist.table.attachments='something'
+	//mailinglist.table.categories='something'
+	//mailinglist.table.from='something'
+	//mailinglist.table.mailinglist='something'
+	//mailinglist.table.schedule='something'
+	//mailinglist.table.senders='something'
+	//mailinglist.table.templates='something'
+	
+
+	
+	ckeditor {
+		//config = "/js/myckconfig.js"
+			skipAllowedItemsCheck = false
+		defaultFileBrowser = "ofm"
+		upload {
+			//basedir = "/uploads/"
+			
+			baseurl="BASEURL"+'/uploads/'
+			basedir = "EXTERNAL_UPLOAD_PATH"
+				overwrite = false
+				link {
+					browser = true
+					upload = false
+					allowed = []
+					denied = ['html', 'htm', 'php', 'php2', 'php3', 'php4', 'php5',
+							  'phtml', 'pwml', 'inc', 'asp', 'aspx', 'ascx', 'jsp',
+							  'cfm', 'cfc', 'pl', 'bat', 'exe', 'com', 'dll', 'vbs', 'js', 'reg',
+							  'cgi', 'htaccess', 'asis', 'sh', 'shtml', 'shtm', 'phtm']
+				}
+				image {
+					browser = true
+					upload = true
+					allowed = ['jpg', 'gif', 'jpeg', 'png']
+					denied = []
+				}
+				flash {
+					browser = false
+					upload = false
+					allowed = ['swf']
+					denied = []
+				}
+		}
+	}
+	jqueryDateTimePicker {
+		format {
+			java {
+				datetime = "dd/MM/yyyy HH.mm"
+				date = "dd/MM/yyyy"
+			}
+			picker {
+				date = "'dd/mm/yy'"
+				time = "'H.mm'"
+			}
+		}
+	}
+	
+	grails.mime.types = [ html: ['text/html','application/xhtml+xml'],
+		xml: ['text/xml', 'application/xml'],
+		text: 'text-plain',
+		js: 'text/javascript',
+		rss: 'application/rss+xml',
+		atom: 'application/atom+xml',
+		css: 'text/css',
+		csv: 'text/csv',
+		pdf: 'application/pdf',
+		rtf: 'application/rtf',
+		excel: 'application/vnd.ms-excel',
+		ods: 'application/vnd.oasis.opendocument.spreadsheet',
+		all: '*/*',
+		json: ['application/json','text/json'],
+		form: 'application/x-www-form-urlencoded',
+		multipartForm: 'multipart/form-data'
+	  ]
+	
+	
+Its then ready for use."""
 }
 
 def parseArgs() {

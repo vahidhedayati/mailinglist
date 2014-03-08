@@ -1,4 +1,4 @@
-<g:render template="/import"/>
+<g:render template="/mailingList/mailingListImport"/>
 
 <!DOCTYPE html>
 <html>
@@ -222,7 +222,7 @@ ${params.emailMessage }
 	<label for="manager">
 		<g:message code="dateTime.label" default="dateTime" />
 	</label>
-	<jqueryPicker:time name="dateTime" value="{params?.dateTime ?: current }" />
+	<jqueryPicker:time name="dateTime" value="${params?.dateTime ?: curr }" />
 	</div>
 	
 	

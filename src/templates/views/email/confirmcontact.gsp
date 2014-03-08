@@ -1,4 +1,4 @@
-<g:render template="/import"/>
+<g:render template="/mailingList/mailingListImport"/>
 <!DOCTYPE html>
 <html>
 	<head>

@@ -13,7 +13,7 @@ class EmailController  {
 		def dFormat="dd/MM/yyyy HH.mm"
 		SimpleDateFormat df = new SimpleDateFormat(dFormat);
 		def current= df.format(curr)
-		 [current:current] 
+		 [current:current, curr:curr] 
 		
 	}
 	def testclients() { }
@@ -25,7 +25,7 @@ class EmailController  {
 		if (params.emailMessage1) { 
 			params.emailMessage=params.emailMessage1
 		}
-		[params:params, current:current]
+		[params:params, current:current, curr:curr]
 	}
 	def loadMessageBox= {
 		def mlt=MailingListTemplates?.get(params.id)
