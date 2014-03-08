@@ -39,11 +39,11 @@
 </div>
 
 		
-	<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'mailFrom', 'error')} ">
+	<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'mailFrom', 'error')} required">
 	<label for="manager">
 		<g:message code="manager.label" default="mailFrom" />
 	</label>
-	<g:textField name="mailFrom"  readonly="readonly" value="${session?.usersemail }"/>
+	<g:textField name="mailFrom"   value="${session?.usersemail }"/>
 	</div>
 	
 	
@@ -61,7 +61,7 @@
 	</label>
 	<g:textField name="recipientCCList" value="${params?.recipientCCList}"/>
 	</div>
-		<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'recipientBCCList', 'error')} ">
+		<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'recipientBCCList', 'error')}  ">
 	<label for="manager">
 		<g:message code="recipientBCCList.label" default="BCC:" />
 	
@@ -69,7 +69,7 @@
 		<g:textField name="recipientBCCList" value="${params?.recipientBCCList}"/>	
 	</div>	
 		
-	<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'subject', 'error')} ">
+	<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'subject', 'error')} required">
 	<label for="manager">
 		<g:message code="manager.label" default="subject" />
 	</label>
@@ -122,7 +122,7 @@
 	
 	
 			<div id="contact-area">
-	<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'emailMessage', 'error')} ">
+	<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'emailMessage', 'error')} required">
 	<label for="manager">
 		<g:message code="emailMessage.label" default="emailMessage" />
 	</label>
@@ -137,7 +137,7 @@ ${params?.emailMessage}
 
 
 		
-<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'dateTime', 'error')} ">
+<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'dateTime', 'error')} required">
 	<label for="manager">
 		<g:message code="dateTime.label" default="dateTime" />
 	</label>

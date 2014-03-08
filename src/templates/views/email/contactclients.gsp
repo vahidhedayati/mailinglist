@@ -59,7 +59,7 @@
 	</div>
 	
 		
-	<div class="fieldcontain ${hasErrors(bean: params, field: 'mailFrom', 'error')} ">
+	<div class="fieldcontain ${hasErrors(bean: params, field: 'mailFrom', 'error')} required">
 	<label for="mailFrom">
 		<g:message code="manager.label" default="mailFrom" />
 		<span class="required-indicator">*</span>
@@ -114,7 +114,7 @@
 	
 
 					<div id="contact-area">
-	<div class="fieldcontain ${hasErrors(bean: params, field: 'subject', 'error')} ">
+	<div class="fieldcontain ${hasErrors(bean: params, field: 'subject', 'error')} required">
 	<label for="subject">
 		<g:message code="manager.label" default="subject" />
 		<span class="required-indicator">*</span>
@@ -175,7 +175,7 @@
 
 
 
-<div class="fieldcontain ${hasErrors(bean: params, field: 'emailMessage', 'error')} ">
+<div class="fieldcontain ${hasErrors(bean: params, field: 'emailMessage', 'error')} required">
 	<label for="manager">
 		<g:message code="emailMessage.label" default="Message" />
 	</label>
@@ -218,7 +218,7 @@ ${params.emailMessage }
 
 
 			
-	<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'dateTime', 'error')} ">
+	<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'dateTime', 'error')} required">
 	<label for="manager">
 		<g:message code="dateTime.label" default="dateTime" />
 	</label>
