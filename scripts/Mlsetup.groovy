@@ -66,28 +66,39 @@ target (Mlsetup: 'Sets up a new maling list project' ) {
 	println "Lets go los los"
 	
 	StringBuilder cad = new StringBuilder()
+	StringBuilder cad1 = new StringBuilder()
 	// Create jobs
 	if (amount) {
-		def appName=Metadata.getCurrent().'app.name' 
-		def jobPath="${basedir}/grails-app/jobs/${appName}"
-		mkdir(dir:"${jobPath}")
+		//def appName=Metadata.getCurrent().'app.name'
+		def jobPath="grails-app/jobs/${pack}"
+		mkdir(dir:"${basedir}/${jobPath}")
 		
 		for (i=0; i < amount; i++) {
 			def jobName="ScheduleEmail${i}Job"
-			println "Creating job ${i} job Name: grails-app/jobs/${appName}/${jobName}.groovy"  
-			def cjob = [ 'pack':appName, 'classname':jobName ]
+			println "Creating job ${i} job Name: ${jobPath}/${jobName}.groovy"
+			def cjob = [ 'pack':pack, 'classname':jobName ]
 			def mtJob = engine.createTemplate(new FileReader("${mailinglistPluginDir}/src/templates/jobs/ScheduleEmailJob.groovy")).make(cjob)
-			new File(basedir, "grails-app/jobs/${appName}/${jobName}.groovy").write(mtJob.toString())
+			new File(basedir, "${jobPath}/${jobName}.groovy").write(mtJob.toString())
 			println "Generating EmailCheckerService Schedule Pool "+jobName
 			cad.append('\t\t\t\t\tif (i=='+i+') {\n')
 			cad.append('\t\t\t\t\t\t'+jobName+'.schedule(scheduledDate, paramsMap)\n')
+			
 			cad.append('\t\t\t\t\t\tsb.append("'+jobName+'")\n')
 			cad.append('\t\t\t\t\t\tbreak\n')
 			cad.append('\t\t\t\t\t}\n')
 			
+			cad1.append('\t\t\t\t\tif (i=='+i+') {\n')
+			cad1.append('\t\t\t\t\t\t'+jobName+'.schedule(scheduledDate, params)\n')
+			cad1.append('\t\t\t\t\t\tsb.append("'+jobName+'")\n')
+			cad1.append('\t\t\t\t\t\tbreak\n')
+			cad1.append('\t\t\t\t\t}\n')
+			
+			
+			
 		}
 	}
-	def checkerConf= [ 'pack':pack ,'amount':amount, 'jobMapping':cad ]
+
+	def checkerConf= [ 'pack':pack ,'amount':amount, 'jobMapping':cad ,'queueMapping':cad1]
 	def qecs = engine.createTemplate(new FileReader("${mailinglistPluginDir}/src/templates/services/QuartzEmailCheckerService.groovy")).make(checkerConf)
 	
 	
@@ -144,88 +155,7 @@ target (Mlsetup: 'Sets up a new maling list project' ) {
 		)
   To your BuildConfig.groovy and refresh dependencies. 
 
-
-Required Config.groovy configurations:
-
-
-	// Optional values to override DB table names for this plugin:
-	//mailinglist.table.schedule='MyScheduler'
-	//mailinglist.table.attachments='something'
-	//mailinglist.table.categories='something'
-	//mailinglist.table.from='something'
-	//mailinglist.table.mailinglist='something'
-	//mailinglist.table.schedule='something'
-	//mailinglist.table.senders='something'
-	//mailinglist.table.templates='something'
-	
-
-	
-	ckeditor {
-		//config = "/js/myckconfig.js"
-			skipAllowedItemsCheck = false
-		defaultFileBrowser = "ofm"
-		upload {
-			//basedir = "/uploads/"
-			
-			baseurl="BASEURL"+'/uploads/'
-			basedir = "EXTERNAL_UPLOAD_PATH"
-				overwrite = false
-				link {
-					browser = true
-					upload = false
-					allowed = []
-					denied = ['html', 'htm', 'php', 'php2', 'php3', 'php4', 'php5',
-							  'phtml', 'pwml', 'inc', 'asp', 'aspx', 'ascx', 'jsp',
-							  'cfm', 'cfc', 'pl', 'bat', 'exe', 'com', 'dll', 'vbs', 'js', 'reg',
-							  'cgi', 'htaccess', 'asis', 'sh', 'shtml', 'shtm', 'phtm']
-				}
-				image {
-					browser = true
-					upload = true
-					allowed = ['jpg', 'gif', 'jpeg', 'png']
-					denied = []
-				}
-				flash {
-					browser = false
-					upload = false
-					allowed = ['swf']
-					denied = []
-				}
-		}
-	}
-	jqueryDateTimePicker {
-		format {
-			java {
-				datetime = "dd/MM/yyyy HH.mm"
-				date = "dd/MM/yyyy"
-			}
-			picker {
-				date = "'dd/mm/yy'"
-				time = "'H.mm'"
-			}
-		}
-	}
-	
-	grails.mime.types = [ html: ['text/html','application/xhtml+xml'],
-		xml: ['text/xml', 'application/xml'],
-		text: 'text-plain',
-		js: 'text/javascript',
-		rss: 'application/rss+xml',
-		atom: 'application/atom+xml',
-		css: 'text/css',
-		csv: 'text/csv',
-		pdf: 'application/pdf',
-		rtf: 'application/rtf',
-		excel: 'application/vnd.ms-excel',
-		ods: 'application/vnd.oasis.opendocument.spreadsheet',
-		all: '*/*',
-		json: ['application/json','text/json'],
-		form: 'application/x-www-form-urlencoded',
-		multipartForm: 'multipart/form-data'
-	  ]
-	
-	
-Its then ready for use."""
+Config.groovy configurations updates required - please refer to documentation."""
 }
 
 def parseArgs() {

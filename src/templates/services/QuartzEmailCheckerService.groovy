@@ -90,7 +90,7 @@ $jobMapping
 				scheduledDate = dateFormat.parse(params.dateTime)
 				println "Scheduled EMAIL set for "+params.dateTime+" ("+scheduledDate+") "
 				if (running==false) {
-$jobMapping
+$queueMapping
 				}
 			}else{
 				sb.append('Invalid schedule date & time given')

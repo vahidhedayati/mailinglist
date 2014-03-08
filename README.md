@@ -59,11 +59,11 @@ Assuming package was labelled as above org.example.com and schedule jobs as 5, i
 	Domains 	under org.example.com
 	Views 		under views/mailingList[a-z] views/email
 
-	Jobs under 	yourAppName/ScheduleEmail0Job.groovy	
-			   	yourAppName/ScheduleEmail1Job.groovy
-			   	yourAppName/ScheduleEmail2Job.groovy
-			   	yourAppName/ScheduleEmail3Job.groovy
-			   	yourAppName/ScheduleEmail4Job.groovy
+	Jobs under 	org.example.com/ScheduleEmail0Job.groovy	
+			   	org.example.com/ScheduleEmail1Job.groovy
+			   	org.example.com/ScheduleEmail2Job.groovy
+			   	org.example.com/ScheduleEmail3Job.groovy
+			   	org.example.com/ScheduleEmail4Job.groovy
 			   	
 	Services 	under org.example.com
 				It will update QuartzEmailCheckerService to only schedule physical jobs ScheduleEmail[0-4]Job  	   	
