@@ -14,8 +14,10 @@ class FromBase implements Serializable {
 	static optionals = [  'addedby' ]
 	
 	static mappings = {
+		addedby defaultValue: ''
 		table Holders.config.mailinglist.table.from ?: 'MailingListFrom'
 	}
+	
 	static constraints = {
 		emailAddress(maxLength:50,email:true,unique:true)
 	}

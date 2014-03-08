@@ -14,6 +14,7 @@ class CategoryBase implements Serializable {
 	static optionals = [  'addedby' ]
 	
     static constraints = {
+		addedby defaultValue: ''
 		name (maxLength: 200, blank: false, unique: true)
     }
 	

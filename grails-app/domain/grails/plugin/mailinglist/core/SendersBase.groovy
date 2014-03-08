@@ -8,14 +8,16 @@ class SendersBase {
 	
 	String addedby
 	String emailAddress
-	
-	static constraints = {
-		emailAddress(maxLength:50,email:true,unique:true)
-	}
+
 	static optionals = [  'addedby' ]
 	
 	static mappings = {
+		addedby defaultValue: ''
 		table Holders.config.mailinglist.table.senders ?: 'MailingListSenders'
+	}
+	
+	static constraints = {
+		emailAddress(maxLength:50,email:true,unique:true)
 	}
 	String toString() {
 		"${emailAddress}"

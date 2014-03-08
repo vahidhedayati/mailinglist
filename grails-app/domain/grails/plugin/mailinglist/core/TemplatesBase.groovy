@@ -8,19 +8,18 @@ class TemplatesBase {
 	String name
 	String addedby
 	String content
-	 
-	static constraints = {
-		name (maxLength: 200, blank: false)
-	}
-	
-	static mapping = {
-		content type: 'text'
-		
-	}
+
+
 	static optionals = [  'addedby' ]
 	
 	static mappings = {
+		addedby defaultValue: ''
+		content type: 'text'
 		table Holders.config.mailinglist.table.templates ?: 'MailingListTemplates'
+	}
+	
+	static constraints = {
+		name (maxLength: 200, blank: false)
 	}
 	
 	String toString() {

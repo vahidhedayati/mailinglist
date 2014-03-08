@@ -12,20 +12,24 @@ class AttachmentsBase  implements Serializable {
 	byte[] attachment
 	String contentType
 	
-	String addedby=''
+	String addedby
 	
 	static belongsTo= [ ScheduleBase]
 	
+	static optionals = [  'name', 'fullname', 'contentType', 'addedby']
+	
 	static mapping = {
 		attachment type: "binary" // or "blob"?
+		addedby defaultValue: ''
+		name defaultValue: ''
+		fullname defaultValue: ''
+		contentType defaultValue: ''
 		table Holders.config.mailinglist.table.attachments ?: 'MailingListAttachments'
 	}
 	
 	static constraints = {
 		attachment(maxSize: 8388608, blank:false, minsize: 1) // 1MB	
 	}
-	
-	static optionals = [  'name', 'fullname', 'contentType']
 	
 	String toString() {	"${fullname}" }
 
