@@ -9,6 +9,9 @@ The queue can easily be controlled via bootstrap so that nothing is ever lost.
 
 WARNING ! - this will copy over controllers/views/domainClasses/services and create Quartz jobs within your project, if this is your first time using this plugin, it would be advised to create a new project and test the plugin, before attempting to install it on main project.
 
+This plugin is still under development and has not been released
+
+
 
 ## Installation:
 Add plugin Dependency :
