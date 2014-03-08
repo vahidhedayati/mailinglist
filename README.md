@@ -51,8 +51,27 @@ Now with that all in place open grails console or from the command line run
 
 	grails mlsetup org.example.com 5
 	
-	Where org.example.com is your package and 5 is the amount of dynamic schedule jobs to generate, thats it ! (besides configuration below)
+	Where org.example.com is your package and 5 is the amount of dynamic schedule jobs to generate, 
 	
+Assuming package was labelled as above org.example.com and schedule jobs as 5, install script will create
+
+	Controllers under org.example.com
+	Domains 	under org.example.com
+	Views 		under views/mailingList[a-z] views/email
+
+	Jobs under 	yourAppName/ScheduleEmail0Job.groovy	
+			   	yourAppName/ScheduleEmail1Job.groovy
+			   	yourAppName/ScheduleEmail2Job.groovy
+			   	yourAppName/ScheduleEmail3Job.groovy
+			   	yourAppName/ScheduleEmail4Job.groovy
+			   	
+	Services 	under org.example.com
+				It will update QuartzEmailCheckerService to only schedule physical jobs ScheduleEmail[0-4]Job  	   	
+
+
+The domains generated in your application extend base domains within plugin, besides this the rest of the controllers etc are pushed to your own application for you to do what you like with it.
+
+
 
 #### Config.groovy changes
 
