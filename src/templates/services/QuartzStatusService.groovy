@@ -26,11 +26,9 @@ class QuartzStatusService {
 		quartzScheduler.jobGroupNames?.each { jobGroup ->
 			quartzScheduler.getJobKeys(jobGroupEquals(jobGroup))?.each { jobKey ->
 				String jobName = jobKey.name
-				quartzScheduler.getTriggersOfJob(jobKey)?.each {trigger ->
-					if (jobName.equals(currentController)) {
+				if (jobName.endsWith(currentController)) {
 						running = true
 						log.info "Scheduled job \$jobName running will try next job"
-					}
 				}
 			}
 		}
@@ -107,7 +105,7 @@ class QuartzStatusService {
 		quartzScheduler.jobGroupNames?.each { jobGroup ->
 			quartzScheduler.getJobKeys(jobGroupEquals(jobGroup))?.each {jobKey ->
 				String jobName = jobKey.name
-				if (jobName.equals(currentController)) {
+				if (jobName.endsWith(currentController)) {
 					List<Trigger> triggers = quartzScheduler.getTriggersOfJob(jobKey)
 					if (triggers) {
 						triggers.each {trigger ->
@@ -144,7 +142,7 @@ class QuartzStatusService {
 		quartzScheduler.jobGroupNames?.each { jobGroup ->
 			quartzScheduler.getJobKeys(jobGroupEquals(jobGroup))?.each {jobKey ->
 				String jobName = jobKey.name
-				if (jobName.equals(currentController)) {
+				if (jobName.endsWith(currentController)) {
 					List<Trigger> triggers = quartzScheduler.getTriggersOfJob(jobKey)
 					if (triggers) {
 						triggers.each { trigger ->
@@ -161,7 +159,6 @@ class QuartzStatusService {
 	}
 
 	private String currentController(String s) {
-		String domclass = s.substring(0,1).toUpperCase() + s.substring(1)
-		grailsApplication.metadata['app.name'] + "." + domclass
+		s.substring(0,1).toUpperCase() + s.substring(1)
 	}
 }

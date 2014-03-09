@@ -17,12 +17,13 @@ class QuartzEmailCheckerService {
 
 	String requeueEmail(params) {
 		StringBuilder sb = new StringBuilder()
+		Boolean isStarted=false
 		${amount}.times { int i ->
 			String cdt = params.dateTime
 			try {
 				Date scheduledDate = parse(cdt)
 				log.info "Scheduled EMAIL set for \$cdt (\$scheduledDate)"
-				if (!isRunning(i)) {
+				if ((!isRunning(i))&&(!isStarted)) {
 					def paramsMap = [
 						dateTime: cdt,
 						recipientCCList: params.recipientCCList,
@@ -43,7 +44,7 @@ $jobMapping
 				}
 			}
 			catch(e) {
-				log.error("ERROR: Cannot parse '\$scheduledDate': \$e.message", e)
+				log.error("ERROR: Cannot parse \$cdt: \$e.message", e)
 				sb.append("Invalid schedule date & time given: \$cdt")
 			}
 		}
@@ -52,17 +53,18 @@ $jobMapping
 
 	String queueEmail(params) {
 		StringBuilder sb = new StringBuilder()
+		Boolean isStarted=false
 		${amount}.times { int i ->
 			String cdt = params.dateTime
 			try {
 				Date scheduledDate = parse(cdt)
 				log.info "Scheduled EMAIL set for \$cdt (\$scheduledDate)"
-				if (!isRunning(i)) {
+				if ((!isRunning(i))&&(!isStarted)) {
 $queueMapping
 				}
 			}
 			catch(e) {
-				log.error("ERROR: Cannot parse '\$scheduledDate': \$e.message", e)
+				log.error("ERROR: Cannot parse \$cdt: \$e.message", e)
 				sb.append("Invalid schedule date & time given: \$cdt")
 			}
 		}

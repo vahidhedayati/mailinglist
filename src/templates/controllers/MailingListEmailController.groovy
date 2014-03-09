@@ -70,7 +70,7 @@ class MailingListEmailController {
 	def scheduleEmail(String mailFrom, String recipientToGroup, String subject, String attachments,
 	                  String mailingListTemplate, String dateTime, String setDate, String setTime,
 	                  String sendType, String addedby, String recipientToList, String emailMessage,
-	                  String recipientCCList, String recipientBCCList) {
+	                  String recipientCCList, String recipientBCCList,String sendtype) {
 
 		if (!recipientToGroup) {
 			if (!recipientToList && !recipientCCList && !recipientBCCList) {

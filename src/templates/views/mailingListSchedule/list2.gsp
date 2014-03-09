@@ -16,7 +16,7 @@
 	
 
 		
-	<g:render template="menu" /> 
+	<g:render template="/mailingList/mainmenu" /> 
 		
 	
             <g:if test="${flash.message}">

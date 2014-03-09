@@ -39,12 +39,14 @@ target(mlsetup: 'Sets up a new mailing list project') {
 			cad.append('\t\t\t\t\t\t').append(jobName).append('.schedule(scheduledDate, paramsMap)\n')
 
 			cad.append('\t\t\t\t\t\tsb.append("').append(jobName).append('")\n')
+			cad.append('\t\t\t\t\t\tisStarted=true\n')
 			cad.append('\t\t\t\t\t\treturn\n')
 			cad.append('\t\t\t\t\t}\n')
 
 			cad1.append('\t\t\t\t\tif (i==').append(i).append(') {\n')
 			cad1.append('\t\t\t\t\t\t').append(jobName).append('.schedule(scheduledDate, params)\n')
 			cad1.append('\t\t\t\t\t\tsb.append("').append(jobName).append('")\n')
+			cad1.append('\t\t\t\t\t\tisStarted=true\n')
 			cad1.append('\t\t\t\t\t\treturn\n')
 			cad1.append('\t\t\t\t\t}\n')
 		}

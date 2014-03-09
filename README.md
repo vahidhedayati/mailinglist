@@ -6,6 +6,13 @@ mailinglist is a Grails plugin which makes use of quartz to dynamically schedule
 You create html email templates with images etc, then define time and date for this to be sent. The job is then added to quartz and set to email at given time.
 The queue can easily be controlled via bootstrap so that nothing is ever lost.
 
+Do you want to email a person at 11:41 pm or maybe a group of people at 2.15am? then look no further.
+
+You can schedule an email to be scheduled and to run on a set date and time. 
+
+Supports HTML emails with inline images as well as attachments has been tested on outlook and result appears to load fine.
+
+
 
 WARNING ! - this will copy over controllers/views/domainClasses/services and create Quartz jobs within your project, if this is your first time using this plugin, it would be advised to create a new project and test the plugin, before attempting to install it on main project.
 

@@ -11,7 +11,7 @@ class $classname {
 
 	def execute(JobExecutionContext context) throws JobExecutionException {
 		try {
-			log.info("Job has been called, sending mail from \$classname")
+			log.info("Job has been called, sending mail from $classname")
 			//Call the sendEmail method in the email service
 			mailingListEmailService.sendEmail(context.mergedJobDataMap)
 		}

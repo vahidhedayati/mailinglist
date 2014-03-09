@@ -10,14 +10,12 @@
 						<g:sortableColumn property="recipientToList" title="${message(code: 'links.recipientToList.label', default: 'To')}" />
 						
 						<g:sortableColumn property="subject" title="${message(code: 'links.subject.label', default: 'subject')}" />
-						<g:sortableColumn property="mailingListTemplate" title="${message(code: 'links.mailingListTemplate.label', default: 'TemplateID')}" />
 						<g:sortableColumn property="emailMessage" title="${message(code: 'links.emailMessage.label', default: 'Message')}" />
 						<g:sortableColumn property="scheduleName" title="${message(code: 'links.scheduleName.label', default: 'scheduleID')}" />
 						
 						<g:sortableColumn property="dateTime" title="${message(code: 'links.dateTime.label', default: 'date/Time')}" />
 						<g:sortableColumn property="sendType" title="${message(code: 'links.sendType.label', default: 'send Type')}" />
-						<g:sortableColumn property="addedby" title="${message(code: 'links.addedby.label', default: 'Who')}" />
-						
+								
 						
 						<g:sortableColumn property="scheduleCancelled" title="${message(code: 'links.scheduleCancelled.label', default: 'Cancelled')}" />
 						<g:sortableColumn property="scheduleComplete" title="${message(code: 'links.scheduleComplete.label', default: 'Completed')}" />
@@ -47,11 +45,11 @@
 					<td>${fieldValue(bean: deployInstance, field: "subject")}</td>
 
 					
-					<td><td><mailinglist:getTemplate mailingListTemplate="${deployInstance.mailingListTemplate }"/></td>
+					
 
 					
 					<td>
-					
+						<mailinglist:getTemplate mailingListTemplate="${deployInstance.mailingListTemplate }"/>
 						<g:createLink controller="MailingListSchedule" action='showmsg' id="${deployInstance.id }"  />						
 		
 					</td>

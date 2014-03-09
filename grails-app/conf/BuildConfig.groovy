@@ -23,7 +23,7 @@ grails.project.dependency.resolution = {
 		compile ':quartz:1.0.1'
 		compile ':quartz-monitor:0.3-RC3'
 		compile ':tiny-mce:3.4.9'
-
+		compile ":remote-pagination:0.4.6"
 		
 		compile ":hibernate:3.6.10.6", {
 			export = false
