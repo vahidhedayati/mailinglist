@@ -48,7 +48,7 @@ Assuming package was labelled as above org.example.com and schedule jobs as 5, i
 
 	Controllers under org.example.com
 	Domains 	under org.example.com
-	Views 		under views/mailingList[a-z] views/email
+	Views 		under views/mailingList[a-z]
 
 	Jobs under 	org.example.com/ScheduleEmail0Job.groovy
 			   	org.example.com/ScheduleEmail1Job.groovy
