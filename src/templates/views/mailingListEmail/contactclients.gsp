@@ -20,7 +20,7 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-				<h1><g:message code="default.contact.label" args="[entityName]" /></h1>
+				<h1><g:message code="default.contactgroup.label" args="[entityName]" default='Define Schedule to Contact Mailing Group' /></h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
@@ -57,7 +57,7 @@
 		<span class="required-indicator">*</span>
 	</label>
 	<g:select id="mailFrom" name="mailFrom" value="${params.mailFrom }"
-          from="${MailingListSenders?.list()}"
+          from="${mlSenders}"
           optionKey="emailAddress" optionValue="emailAddress"
           noSelection="['': 'Please choose From field']"
           required=""
@@ -72,7 +72,7 @@
 		<span class="required-indicator">*</span>
 	</label>	
 	
-	<g:each in="${MailingListCategories?.list()}" var="cat"> 
+	<g:each in="${mlCat}" var="cat"> 
 		<g:if test="${params.recipientToGroup.getClass().isArray()}">
 			
 			
@@ -122,7 +122,7 @@
 		<br/>
 		</label>
 	
-		<g:each in="${MailingListAttachments?.list()}" var="attach"> 
+		<g:each in="${mlAttach}" var="attach"> 
 		<g:if test="${attach.attachment.size() > 0 }">
 		<g:if test="${params.attachments.getClass().isArray()}">
 			
@@ -191,7 +191,7 @@ ${params.emailMessage }
 		<g:message code="mailingListTemplates.label" default="Template" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="mailingListTemplates" name="mailingListTemplate" from="${MailingListTemplates?.list()}" optionKey="id" required="" value="${params.mailingListTemplates}" class="many-to-one"
+	<g:select id="mailingListTemplates" name="mailingListTemplate" from="${mlTemp}" optionKey="id" required="" value="${params.mailingListTemplates}" class="many-to-one"
 		noSelection="['': 'Please choose Template']"
 		required=""
 		onchange="${remoteFunction (

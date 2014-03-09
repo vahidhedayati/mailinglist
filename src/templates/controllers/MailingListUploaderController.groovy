@@ -50,14 +50,14 @@ class MailingListUploaderController {
 							def newEntry = new MailingList(title: '', firstName: '', middleName: '', lastName: '', emailAddress: fname,
 							                               emailDisplayName: title, categories: cid, addedby: session.user)
 							if (!newEntry.save(flush: true)) {
-								output.append("<div class=red>Error saving MailingList record</div> <br/> ")
+								output.append("Error saving MailingList record")
 							}
 							else {
-								output.append("<div class=green>New entry : ").append(fname).append(" added as record :").append(newEntry.id).append("</div><br/>")
+								output.append("New entry : ").append(fname).append(" added as record :").append(newEntry.id).append("")
 							}
 						}
 						else {
-							output.append("<div class=red>Record ").append(fname).append(" already exists ! not adding again !</div><br/>")
+							output.append("Record ").append(fname).append(" already exists ! not adding again !")
 						}
 					}
 					else {
@@ -92,14 +92,14 @@ class MailingListUploaderController {
 							                               emailAddress: email, emailDisplayName: display,
 							                               categories: cid, addedby: session.user)
 							if (!newEntry.save(flush: true)) {
-								output.append("<div class=red>Error saving MailingList record</div> <br/> ")
+								output.append("Error saving MailingList record")
 							}
 							else {
-								output.append("<div class=green>New entry : ").append(title).append(" added as record :").append(newEntry.id).append("</div><br/>")
+								output.append("New entry : ").append(title).append(" added as record :").append(newEntry.id).append("")
 							}
 						}
 						else {
-							output.append("<div class=red>Record ").append(title).append(" already exists ! not adding again !</div><br/>")
+							output.append("Record ").append(title).append(" already exists ! not adding again !")
 						}
 					}
 				}

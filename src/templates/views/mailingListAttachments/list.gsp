@@ -2,11 +2,13 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
+			<link rel="stylesheet" href="${resource(dir: 'css', file: 'mailingList.css')}" type="text/css">
 		<g:set var="entityName" value="${message(code: 'mailingListAttachments.label', default: 'MailingListAttachments')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 	</head>
 	<body>
 		<a href="#list-mailingListAttachments" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default=""/></a>
+		<g:render template="/mailingList/mainmenu" />
 		<div id="nav3" class="nav3" role="navigation">
 			<ul id="nav">
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>

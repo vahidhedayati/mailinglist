@@ -18,11 +18,14 @@ class MailingListEmailController {
 	def testclients() { }
 
 	def contactclients() {
+		
 		if (params.emailMessage1) {
 			params.emailMessage = params.emailMessage1
 		}
 		def curr = new Date()
-		[params: params, current: new SimpleDateFormat(DATE_FORMAT).format(curr), curr: curr]
+		[params: params, mlSenders: MailingListSenders?.list(), mlCat: MailingListCategories.list()
+			 , mlAttach: MailingListAttachments?.list(), mlTemp: MailingListTemplates?.list(),
+			current: new SimpleDateFormat(DATE_FORMAT).format(curr), curr: curr]
 	}
 
 	def loadMessageBox() {

@@ -3,22 +3,14 @@
 <html>
 	<head>
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mailingList.css')}" type="text/css">
-		<g:if test="${!request.xhr }">
-    		<meta name='layout' content="main"/>
-   		 </g:if>
-		<g:set var="entityName" value="${message(code: 'MailingListSchedule.label', default: 'MailingList Schedule')}" />
+		<meta name='layout' content="main"/>
+    	<g:set var="entityName" value="${message(code: 'MailingListSchedule.label', default: 'MailingList Schedule')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 	</head>
 	<body >
-	
-
-		<div id="siteContent">
-		
-		
-	<g:render template="/mailingList/mainmenu" /> 
-		
-	
-            <g:if test="${flash.message}">
+	<div id="siteContent">
+		<g:render template="/mailingList/mainmenu" /> 
+	        <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
             <div id="clock" data-time="${now.time}">
@@ -46,9 +38,9 @@
 			<div class="pagination">                           
  				<util:remotePaginate controller="MailingListSchedule" action="br" params="[max: max, id:inputid, s:s, order:order, pageSizes:pageSizes, sortby:sortby, offset:offset,  envid:envid, viewtype: 'na']" total="${deploymentInfoHistoryInstanceTotal}"
                                   update="siteContent"   max="${params.max}" pageSizes="[10:'10 Per Page', 20: '20 Per Page', 50:'50 Per Page',100:'100 Per Page',250:'250 Per Page',500:'500 Per Page',1000:'1000 Per Page']" /> 
-</div>
+	</div>
 	<export:formats />
         	
-        	</div>
+    </div>
 	</body>
 </html>

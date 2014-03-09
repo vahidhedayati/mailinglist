@@ -8,6 +8,7 @@
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 	</head>
 	<body>
+			<g:render template="/mailingList/mainmenu" />
 		<div class=clearall></div>
 <div id="the_box" role="complementary">
 		
