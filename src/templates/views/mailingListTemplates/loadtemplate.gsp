@@ -37,9 +37,9 @@
 	<g:textField name="name" required="" value="${mailingListTemplatesInstance?.name}"/>
 </div>
 
-<g:render template="/mailingList/addedby"  model="[caller: 'mailingListTemplatesInstance']"/>
-
-
+<div class="fieldcontain ${hasErrors(bean: mailingListTemplatesInstance, field: 'addedby', 'error')} ">
+	<g:hiddenField name="addedby" value="${session.username}"/>
+</div>
 			
 
 <div class="fieldcontain ${hasErrors(bean: params, field: 'content', 'error')} required">

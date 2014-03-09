@@ -24,8 +24,12 @@ grails.project.dependency.resolution = {
 		compile ':quartz-monitor:0.3-RC3'
 		compile ':tiny-mce:3.4.9'
 
+<<<<<<< HEAD
 		
 		compile ":hibernate:3.6.10.6", {
+=======
+		compile ":hibernate:$grailsVersion", {
+>>>>>>> 544363da5849928de70a35ebf8fd0c407454da49
 			export = false
 		}
 

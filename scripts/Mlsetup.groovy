@@ -25,7 +25,11 @@ target(mlsetup: 'Sets up a new mailing list project') {
 	StringBuilder cad1 = new StringBuilder()
 	// Create jobs
 	if (amount) {
+<<<<<<< HEAD
 		String jobPath = "grails-app/jobs/$pack"
+=======
+		String jobPath = "$basedir/grails-app/jobs/$pack"
+>>>>>>> 544363da5849928de70a35ebf8fd0c407454da49
 		mkdir(dir: "$basedir/$jobPath")
 
 		amount.times { int i ->
@@ -45,7 +49,11 @@ target(mlsetup: 'Sets up a new mailing list project') {
 			cad1.append('\t\t\t\t\tif (i==').append(i).append(') {\n')
 			cad1.append('\t\t\t\t\t\t').append(jobName).append('.schedule(scheduledDate, params)\n')
 			cad1.append('\t\t\t\t\t\tsb.append("').append(jobName).append('")\n')
+<<<<<<< HEAD
 			cad1.append('\t\t\t\t\t\treturn\n')
+=======
+			cad1.append('\t\t\t\t\t\tbreak\n')
+>>>>>>> 544363da5849928de70a35ebf8fd0c407454da49
 			cad1.append('\t\t\t\t\t}\n')
 		}
 	}
@@ -55,6 +63,7 @@ target(mlsetup: 'Sets up a new mailing list project') {
 	copy(todir: new File(basedir, 'grails-app/views')) {
 		fileset dir: dir
 	}
+<<<<<<< HEAD
 	
 	File dir1 = new File(mailinglistPluginDir, "src/templates/css")
 	dir1.eachFileRecurse{ f -> if (f.isDirectory()) println "Creating css folder: $f.name"}
@@ -69,6 +78,8 @@ target(mlsetup: 'Sets up a new mailing list project') {
 	}
 	
 	
+=======
+>>>>>>> 544363da5849928de70a35ebf8fd0c407454da49
 
 	StringBuilder imf = new StringBuilder()
 	imf.append('<%@ page import="').append(pack).append('.MailingListCategories" %>\n')
@@ -77,6 +88,7 @@ target(mlsetup: 'Sets up a new mailing list project') {
 	imf.append('<%@ page import="').append(pack).append('.MailingListTemplates" %>\n')
 	imf.append('<%@ page import="').append(pack).append('.MailingList" %>\n')
 	new File(basedir, "grails-app/views/mailingList/_mailingListImport.gsp").write(imf.toString())
+<<<<<<< HEAD
 
 	println "Creating domain classes within your project: grails-app/domain/$packdir"
 	mkdir(dir:"${basedir}/grails-app/domain/$packdir")
@@ -106,18 +118,46 @@ target(mlsetup: 'Sets up a new mailing list project') {
 	def tagConf = [pack: pack]
 	def mltaglib= createTemplate(engine, 'taglib/MailingListTagLib.groovy', tagConf)
 	new File(basedir, "grails-app/taglib/$packdir/MailingListTagLib.groovy").write(mltaglib.toString())
+=======
+>>>>>>> 544363da5849928de70a35ebf8fd0c407454da49
 
+	println "Creating domain classes within your project: grails-app/domain/$packdir"
+	mkdir(dir:"${basedir}/grails-app/domain/$packdir")
+
+	generateDomainClass 'MailingList', packdir, basedir, engine, pack, 'MailingListBase'
+	generateDomainClass 'MailingListCategories', packdir, basedir, engine, pack, 'CategoryBase'
+	generateDomainClass 'MailingListAttachments', packdir, basedir, engine, pack, 'AttachmentsBase'
+	generateDomainClass 'MailingListFrom', packdir, basedir, engine, pack, 'FromBase'
+	generateDomainClass 'MailingListSchedule', packdir, basedir, engine, pack, 'ScheduleBase'
+	generateDomainClass 'MailingListTemplates', packdir, basedir, engine, pack, 'TemplatesBase'
+	generateDomainClass 'MailingListSenders', packdir, basedir, engine, pack, 'SendersBase'
+
+	println "Creating controllers within your project: grails-app/controllers/$packdir"
+	mkdir(dir:"${basedir}/grails-app/controllers/$packdir")
+	new File(mailinglistPluginDir, 'src/templates/controllers').eachFile { File f ->
+		if (f.name.endsWith('.groovy')) {
+			generateController f.name, packdir, basedir, engine, pack
+		}
+	}
 	
+<<<<<<< HEAD
 		
+=======
+>>>>>>> 544363da5849928de70a35ebf8fd0c407454da49
 	println "Creating Services within your project: grails-app/services/$packdir"
 	mkdir(dir:"${basedir}/grails-app/services/$packdir")
 
 	def serviceConf = [pack: pack, amount: amount]
 
+<<<<<<< HEAD
 	
 
 	def EmailService = createTemplate(engine, 'services/MailingListEmailService.groovy', serviceConf)
 	new File(basedir, "grails-app/services/$packdir/MailingListEmailService.groovy").write(EmailService.toString())
+=======
+	def EmailService = createTemplate(engine, 'services/EmailService.groovy', serviceConf)
+	new File(basedir, "grails-app/services/$packdir/EmailService.groovy").write(EmailService.toString())
+>>>>>>> 544363da5849928de70a35ebf8fd0c407454da49
 
 	def qss = createTemplate(engine, 'services/QuartzStatusService.groovy', serviceConf)
 	new File(basedir, "grails-app/services/$packdir/QuartzStatusService.groovy").write(qss.toString())
@@ -130,7 +170,11 @@ target(mlsetup: 'Sets up a new mailing list project') {
 Finished generating classes.
 
 Config.groovy configurations updates required - please refer to documentation."""
+<<<<<<< HEAD
 	
+=======
+	}
+>>>>>>> 544363da5849928de70a35ebf8fd0c407454da49
 }
 
 private parseArgs() {

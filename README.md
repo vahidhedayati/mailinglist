@@ -182,14 +182,22 @@ An example BootStrap call to requeue outstanding or interuppted schedules is to 
 
     class BootStrap {
         ..
+<<<<<<< HEAD
         def mailingListEmailService
+=======
+        def emailService
+>>>>>>> 544363da5849928de70a35ebf8fd0c407454da49
 
         ..
         def getEmails = MailingListSchedule.findAllByScheduleCompleteAndScheduleCancelled(false,false)
         getEmails.each { params ->
             if (params.dateTime && params.emailMessage) {
                 println "RESCHEDULING MAIL QUEUE ${params?.id} --       ${params?.mailFrom}---${params?.recipientToGroup}--${params?.recipientToList}"
+<<<<<<< HEAD
                 mailingListEmailService.rescheduleit(params)
+=======
+                emailService.rescheduleit(params)
+>>>>>>> 544363da5849928de70a35ebf8fd0c407454da49
             }
         }
         ..
