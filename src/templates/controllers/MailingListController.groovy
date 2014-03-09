@@ -4,13 +4,9 @@ import org.springframework.dao.DataIntegrityViolationException
 
 class MailingListController {
 
-	//static allowedMethods = [save: "POST", update: "POST", delete: "POST", ]
-
 	def exportService
 
-	def index() {
-		render template: 'mailingList'
-	}
+	def index() {}
 
 	def search(String mq) {
 		def mailingListInstanceList = MailingList.findAllByEmailAddressLikeOrEmailDisplayNameLike("%" + mq + "%", "%" + mq + "%", [max: 30])

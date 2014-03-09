@@ -9,7 +9,8 @@ class FromBase implements Serializable {
 
 	static mapping = { applicationContext ->
 		addedby defaultValue: ''
-		table applicationContext.grailsApplication.config.mailinglist.table.from ?: 'MailingListFrom'
+		//table applicationContext.grailsApplication.config.mailinglist.table.from ?: 'MailingListFrom'
+		table applicationContext.getBean('grailsApplication').config.mailinglist.table.from ?: 'MailingListFrom'
 	}
 
 	static constraints = {

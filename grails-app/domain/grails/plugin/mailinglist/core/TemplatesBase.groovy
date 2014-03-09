@@ -10,7 +10,8 @@ class TemplatesBase {
 	static mapping = { applicationContext ->
 		addedby defaultValue: ''
 		content type: 'text'
-		table applicationContext.grailsApplication.config.mailinglist.table.templates ?: 'MailingListTemplates'
+		//table applicationContext.grailsApplication.config.mailinglist.table.templates ?: 'MailingListTemplates'
+		table applicationContext.getBean('grailsApplication').config.mailinglist.table.templates ?: 'MailingListTemplates'
 	}
 
 	static constraints = {

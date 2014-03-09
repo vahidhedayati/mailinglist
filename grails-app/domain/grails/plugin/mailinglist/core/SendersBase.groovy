@@ -9,7 +9,8 @@ class SendersBase {
 
 	static mapping = { applicationContext ->
 		addedby defaultValue: ''
-		table applicationContext.grailsApplication.config.mailinglist.table.senders ?: 'MailingListSenders'
+		//table applicationContext.grailsApplication.config.mailinglist.table.senders ?: 'MailingListSenders'
+		table applicationContext.getBean('grailsApplication').config.mailinglist.table.senders ?: 'MailingListSenders'
 	}
 
 	static constraints = {

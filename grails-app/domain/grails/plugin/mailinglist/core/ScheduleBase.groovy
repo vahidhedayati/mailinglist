@@ -44,7 +44,8 @@ class ScheduleBase implements Serializable {
 		scheduleCancelled defaultValue: false
 		scheduleComplete defaultValue: false
 		deploymentComplete defaultValue: false
-		table applicationContext.grailsApplication.config.mailinglist.table.schedule ?: 'MailingListSchedule'
+		//table applicationContext.grailsApplication.config.mailinglist.table.schedule ?: 'MailingListSchedule'
+		table applicationContext.getBean('grailsApplication').config.mailinglist.table.schedule ?: 'MailingListSchedule'
 	}
 
 	static constraints = {
