@@ -1,6 +1,6 @@
 package $pack
 
-class MalingListEmailService {
+class MailingListEmailService {
 
 	def grailsApplication
 	def mailService
