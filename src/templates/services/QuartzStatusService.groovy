@@ -1,75 +1,69 @@
 package $pack
 
-import org.quartz.Scheduler;
-
-import org.quartz.Scheduler
-
 import static org.quartz.impl.matchers.GroupMatcher.jobGroupEquals
+
 import grails.plugins.quartz.QuartzMonitorJobFactory
 
 import org.quartz.Scheduler
 import org.quartz.Trigger
 import org.quartz.impl.matchers.GroupMatcher
+
 class QuartzStatusService {
+
 	Scheduler quartzScheduler
 	def grailsApplication
-	def ret_triggerName
-	def ret_triggerGroup
-	def ret_jobName
+
+	String ret_triggerName
+	String ret_triggerGroup
+	String ret_jobName
+
 	static final Map<String, Trigger> triggers = [:]
-	Boolean getQuartzStatus(String s) {
-	   Boolean running=false
-	   String domclass1= (s.substring(0,1).toUpperCase())
-	   String domclass2=s.substring(1,s.length())
-	   String domclass=domclass1+domclass2
-	   def fullPath=grailsApplication.metadata['app.name']
-	   def currentController=fullPath+"."+domclass
+
+	boolean getQuartzStatus(String s) {
+		boolean running = false
+	   String currentController = currentController(s)
 		def jobsList = []
-		def listJobGroups = quartzScheduler.getJobGroupNames()
-		listJobGroups?.each {jobGroup ->
-			quartzScheduler.getJobKeys(jobGroupEquals(jobGroup))?.each {jobKey ->
-				def jobName = jobKey.name
-				List<Trigger> triggers = quartzScheduler.getTriggersOfJob(jobKey)
-				if (triggers) {
-					triggers.each {trigger ->
-						if (jobName.equals(currentController)) {
-							running=true
-							println "Scheduled job "+jobName+" running will try next job"
-						}	
+		quartzScheduler.jobGroupNames?.each { jobGroup ->
+			quartzScheduler.getJobKeys(jobGroupEquals(jobGroup))?.each { jobKey ->
+				String jobName = jobKey.name
+				quartzScheduler.getTriggersOfJob(jobKey)?.each {trigger ->
+					if (jobName.equals(currentController)) {
+						running = true
+						log.info "Scheduled job \$jobName running will try next job"
 					}
 				}
 			}
 		}
 		return running
 	}
-	
-	def stop = {
+
+	def stop() {
 		def triggerKeys = quartzScheduler.getTriggerKeys(GroupMatcher.triggerGroupEquals(params.triggerGroup))
-		def key = triggerKeys?.find {it.name == params.triggerName}
+		def key = triggerKeys?.find { it.name == params.triggerName }
 		if (key) {
 			def trigger = quartzScheduler.getTrigger(key)
 			if (trigger) {
 				triggers.put(params.jobName, trigger)
 				quartzScheduler.unscheduleJob(key)
-			} else {
-				flash.message = "No trigger could be found for "+key
 			}
-		} else {
-			flash.message = "No trigger key could be found for "+params.triggerGroup+" : "+params.triggerName
+			else {
+				flash.message = "No trigger could be found for \$key"
+			}
+		}
+		else {
+			flash.message = "No trigger key could be found for \$params.triggerGroup : \$params.triggerName"
 		}
 		redirect(action: "list")
 	}
-	
-	
-	def list = {
+
+	def list() {
 		def jobsList = []
-		def listJobGroups = quartzScheduler.getJobGroupNames()
-		listJobGroups?.each {jobGroup ->
+		quartzScheduler.jobGroupNames?.each { jobGroup ->
 			quartzScheduler.getJobKeys(jobGroupEquals(jobGroup))?.each {jobKey ->
-				def jobName = jobKey.name
+				String jobName = jobKey.name
 				List<Trigger> triggers = quartzScheduler.getTriggersOfJob(jobKey)
 				if (triggers) {
-					triggers.each {trigger ->
+					triggers.each { trigger ->
 						def currentJob = quartzController.createJob(jobGroup, jobName, jobsList, trigger.key.name)
 						currentJob.trigger = trigger
 						def state = quartzScheduler.getTriggerState(trigger.key)
@@ -77,7 +71,8 @@ class QuartzStatusService {
 							it == state
 						} ?: "UNKNOWN"
 					}
-				} else {
+				}
+				else {
 					quartzController.createJob(jobGroup, jobName, jobsList)
 				}
 			}
@@ -85,9 +80,8 @@ class QuartzStatusService {
 		[jobs: jobsList, now: new Date(), scheduler: quartzScheduler]
 	}
 
-
-	def stop (params) {
-		StringBuilder sb=new StringBuilder()
+	def stop(params) {
+		StringBuilder sb = new StringBuilder()
 		def triggerKeys = quartzScheduler.getTriggerKeys(GroupMatcher.triggerGroupEquals(params.triggerGroup))
 		def key = triggerKeys?.find {it.name == params.triggerName}
 		if (key) {
@@ -95,34 +89,25 @@ class QuartzStatusService {
 			if (trigger) {
 				triggers.put(params.jobName, trigger)
 				quartzScheduler.unscheduleJob(key)
-			} else {
-				sb.append( "No trigger could be found for "+key)
 			}
-		} else {
-			sb.append( "No trigger key could be found for "+params.triggerGroup+" : "+params.triggerName)
+			else {
+				sb.append("No trigger could be found for ").append(key)
+			}
+		}
+		else {
+			sb.append("No trigger key could be found for ").append(params.triggerGroup).append(" : ").append(params.triggerName)
 		}
 		sb.append('Schedule cancelled from Quartz Schedule List')
 		return sb.toString()
 	}
 
-
-	
 	def getTriggers(String injobName) {
-		def results=""
-		def s=injobName
-		String domclass1= (s.substring(0,1).toUpperCase())
-		String domclass2=s.substring(1,s.length())
-		String domclass=domclass1+domclass2
-		def fullPath=grailsApplication.metadata['app.name']
-		def currentController=fullPath+"."+domclass
-		
-			def jobsList = []
-			def listJobGroups = quartzScheduler.jobGroupNames
-			listJobGroups?.each {jobGroup ->
-				quartzScheduler.getJobKeys(jobGroupEquals(jobGroup))?.each {jobKey ->
-					def jobName = jobKey.name
-					
-					if (jobName.equals(currentController)) {
+	   String currentController = currentController(injobName)
+		def jobsList = []
+		quartzScheduler.jobGroupNames?.each { jobGroup ->
+			quartzScheduler.getJobKeys(jobGroupEquals(jobGroup))?.each {jobKey ->
+				String jobName = jobKey.name
+				if (jobName.equals(currentController)) {
 					List<Trigger> triggers = quartzScheduler.getTriggersOfJob(jobKey)
 					if (triggers) {
 						triggers.each {trigger ->
@@ -133,15 +118,16 @@ class QuartzStatusService {
 								it == state
 							} ?: "UNKNOWN"
 						}
-					}else {
-                    	createJob(jobGroup, jobName, jobsList)
+					}
+					else {
+						createJob(jobGroup, jobName, jobsList)
 					}
 				}
-			}	
+			}
 		}
 		return jobsList
-		
 	}
+
 	private createJob(String jobGroup, String jobName, List jobsList, String triggerName = "") {
 		def currentJob = [group: jobGroup, name: jobName]
 		def map = QuartzMonitorJobFactory.jobRuns[triggerName]
@@ -150,38 +136,32 @@ class QuartzStatusService {
 		return currentJob
 	}
 
-	def find (String injobName) {
+	def find(String injobName) {
 		def jobsList = []
-		def results=""
-		def s=injobName
-		String domclass1= (s.substring(0,1).toUpperCase())
-		String domclass2=s.substring(1,s.length())
-		String domclass=domclass1+domclass2
-		def fullPath=grailsApplication.metadata['app.name']
-		def currentController=fullPath+"."+domclass
-		
-		
-		def listJobGroups = quartzScheduler.getJobGroupNames()
-		listJobGroups?.each {jobGroup ->
+		String results = ""
+	   String currentController = currentController(injobName)
+
+		quartzScheduler.jobGroupNames?.each { jobGroup ->
 			quartzScheduler.getJobKeys(jobGroupEquals(jobGroup))?.each {jobKey ->
-				def jobName = jobKey.name
-				if (jobName.equals(currentController)) { 
+				String jobName = jobKey.name
+				if (jobName.equals(currentController)) {
 					List<Trigger> triggers = quartzScheduler.getTriggersOfJob(jobKey)
 					if (triggers) {
-						triggers.each {trigger ->
-							ret_jobName=jobName
-							def triggerName=trigger.key.name
-							ret_triggerName=triggerName
-							def triggerGroup=trigger.key.group
-							ret_triggerGroup=triggerGroup
-							results= " jobName: "+ret_jobName+" | triggerName: "+triggerName+" | triggerGroup: "+triggerGroup
-							
+						triggers.each { trigger ->
+							ret_jobName = jobName
+							ret_triggerName = trigger.key.name
+							ret_triggerGroup = trigger.key.group
+							results = " jobName: " + ret_jobName + " | triggerName: " + ret_triggerName + " | triggerGroup: " + trigger.key.group
 						}
-					} 
+					}
 				}
 			}
 		}
 		return results
 	}
-   
+
+	private String currentController(String s) {
+		String domclass = s.substring(0,1).toUpperCase() + s.substring(1)
+		grailsApplication.metadata['app.name'] + "." + domclass
+	}
 }

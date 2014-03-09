@@ -64,7 +64,7 @@
 					</g:each>	
 				</g:if>
 				<g:else>
-					<% def mailcat=MailingListCategories?.findById(params.recipientToGroup) %>
+					<% def mailcat=MailingListCategories?.get(params.recipientToGroup) %>
 	 				${mailcat?.name} |
 					<g:hiddenField name="recipientToGroup" value="${params.recipientToGroup}"/>
 				</g:else>
@@ -87,14 +87,14 @@
 			<g:if test="${params.attachments.getClass().isArray()}">
 				<g:each in="${params.attachments }" var="att">
 		 			<g:hiddenField name="attachments" value="${att}"/>
-					<% def attachments=MailingListAttachments.findById(att) %>
+					<% def attachments=MailingListAttachments.get(att) %>
 		 			( ${attachments.fullname}  size : -> ${attachments.attachment.size() } ) |
 				</g:each>	
 			</g:if>
 			<g:else>
 				<g:if test="${params.attachments}">
 			 		<g:hiddenField name="attachments" value="${params.attachments}"/>
-					<% def attachments=MailingListAttachments.findById(params.attachments) %>
+					<% def attachments=MailingListAttachments.get(params.attachments) %>
 		 			( ${attachments.fullname}  size : -> ${attachments.attachment.size() } )
 				</g:if> 
 			</g:else>

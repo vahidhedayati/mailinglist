@@ -1,8 +1,7 @@
 package grails.plugin.mailinglist.core
 
-import grails.util.Holders
+class ScheduleBase implements Serializable {
 
-class ScheduleBase  implements Serializable  {
 	Date dateCreated
 	Date lastUpdated
 	String mailFrom
@@ -19,17 +18,14 @@ class ScheduleBase  implements Serializable  {
 	String sendType=''
 	String addedby=''
 	String scheduleName=''
-	
+
 	static hasMany = [ attachments: AttachmentsBase]
-	
-	Boolean scheduleCancelled=false
-	Boolean scheduleComplete=false
-	Boolean deploymentComplete=false
-	
-	static optionals = [ 'recipientToGroup','recipientToList','recipientBCCList','recipientCCList',
-	'mailingListTemplate','emailMessage','setDate','setTime','sendType','addedby','scheduleName']
-	
-	static mapping = {
+
+	Boolean scheduleCancelled = false
+	Boolean scheduleComplete = false
+	Boolean deploymentComplete = false
+
+	static mapping = { applicationContext ->
 		emailMessage type: 'text'
 		mailFrom defaultValue: ''
 		recipientToGroup defaultValue: ''
@@ -45,11 +41,12 @@ class ScheduleBase  implements Serializable  {
 		sendType defaultValue: ''
 		addedby defaultValue: ''
 		scheduleName defaultValue: ''
-		scheduleCancelled  defaultValue: false
-		scheduleComplete  defaultValue: false
-		deploymentComplete  defaultValue: false
-		table Holders.config.mailinglist.table.schedule ?:  'MailingListSchedule'
+		scheduleCancelled defaultValue: false
+		scheduleComplete defaultValue: false
+		deploymentComplete defaultValue: false
+		table applicationContext.grailsApplication.config.mailinglist.table.schedule ?: 'MailingListSchedule'
 	}
+
 	static constraints = {
 		addedby nullable: true
 		scheduleName nullable: true
@@ -59,9 +56,6 @@ class ScheduleBase  implements Serializable  {
 		recipientToList nullable: true
 		recipientCCList nullable: true
 		recipientBCCList nullable: true
-		mailingListTemplate  nullable: true
-		
-		
+		mailingListTemplate nullable: true
 	}
-	
 }

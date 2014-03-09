@@ -14,12 +14,12 @@ This plugin is still under development and has not been released
 
 
 ## Installation:
-Add plugin Dependency :
+Add plugin Dependency in BuildConfig.groovy :
 
-	compile ":mailinglist:0.1" 
+	compile ":mailinglist:0.1"
 
-Or via grails command line:
 
+<<<<<<< HEAD
 	grails install-plugin mailinglist
 
 
@@ -36,6 +36,26 @@ Or via grails command line:
 	
 
 #### BuildConfig.groovylayout/main.gsp update:  
+||||||| merged common ancestors
+	grails install-plugin mailinglist
+
+
+#### BuildConfig.groovy other plugins required for this plugin to work:
+
+
+##### Required plugins to be installed in target project:	(Under BuildConfig.groovy under Plugins {... )
+
+		compile (":csv:0.3.1", ":quartz:1.0.1" , ":quartz-monitor:0.3-RC3",
+		":ckeditor:3.6.6.1.1" , ":tiny-mce:3.4.9" , ":joda-time:1.4",
+		":jquery-date-time-picker:0.1.1" , ":export:1.5" , ":mail:1.0.4",  
+		":jquery-ui:1.10.3"
+		)
+	
+
+#### BuildConfig.groovylayout/main.gsp update:  
+=======
+#### BuildConfig.groovylayout/main.gsp update:
+>>>>>>> 533d6cd2275689f50e963404306d190764601a43
 
 ##### jquery, jquery-ui libraries:
 your layouts main.gsp: (add jquery-ui and jquery - or add them into ApplicationResources.groovy and ensure you refer to it in your main.gsp or relevant file
@@ -50,23 +70,23 @@ your layouts main.gsp: (add jquery-ui and jquery - or add them into ApplicationR
 Now with that all in place open grails console or from the command line run
 
 	grails mlsetup org.example.com 5
-	
-	Where org.example.com is your package and 5 is the amount of dynamic schedule jobs to generate, 
-	
+
+	Where org.example.com is your package and 5 is the amount of dynamic schedule jobs to generate,
+
 Assuming package was labelled as above org.example.com and schedule jobs as 5, install script will create
 
 	Controllers under org.example.com
 	Domains 	under org.example.com
 	Views 		under views/mailingList[a-z] views/email
 
-	Jobs under 	org.example.com/ScheduleEmail0Job.groovy	
+	Jobs under 	org.example.com/ScheduleEmail0Job.groovy
 			   	org.example.com/ScheduleEmail1Job.groovy
 			   	org.example.com/ScheduleEmail2Job.groovy
 			   	org.example.com/ScheduleEmail3Job.groovy
 			   	org.example.com/ScheduleEmail4Job.groovy
-			   	
+
 	Services 	under org.example.com
-				It will update QuartzEmailCheckerService to only schedule physical jobs ScheduleEmail[0-4]Job  	   	
+				It will update QuartzEmailCheckerService to only schedule physical jobs ScheduleEmail[0-4]Job
 
 
 The domains generated in your application extend base domains within plugin, besides this the rest of the controllers etc are pushed to your own application for you to do what you like with it.
@@ -87,16 +107,16 @@ Required Config.groovy configurations:
 	//mailinglist.table.schedule='something'
 	//mailinglist.table.senders='something'
 	//mailinglist.table.templates='something'
-	
 
-	
+
+
 	ckeditor {
 		//config = "/js/myckconfig.js"
 			skipAllowedItemsCheck = false
 		defaultFileBrowser = "ofm"
 		upload {
 			//basedir = "/uploads/"
-			
+
 			baseurl="${grails.baseURL}"+'/uploads/'
 			basedir = "${externalUploadPath}"
 				overwrite = false
@@ -135,7 +155,7 @@ Required Config.groovy configurations:
 			}
 		}
 	}
-	
+
 	grails.mime.types = [ html: ['text/html','application/xhtml+xml'],
 		xml: ['text/xml', 'application/xml'],
 		text: 'text-plain',
@@ -153,12 +173,12 @@ Required Config.groovy configurations:
 		form: 'application/x-www-form-urlencoded',
 		multipartForm: 'multipart/form-data'
 	  ]
-	
+
 
 
 You will notice 	grails.baseURL externalUploadPath within ckeditor, this was done to externalise image uploads so upon a redployment the images were still available, the approach I took to this was to run values from setenv.sh within tomcat and pass this values in as variables into config.groovy as per below:
-	
-	
+
+
 // configuration for plugin testing - will not be included in the plugin zip
 
 
@@ -194,10 +214,11 @@ Now those values are valid within the ckeditor configuration
 #### Boostrap changes
 
 An example BootStrap call to requeue outstanding or interuppted schedules is to add something like this :
-	
+
 
     class BootStrap {
         ..
+<<<<<<< HEAD
         MailingListEmailController ec=new MailingListEmailController()
 
             ..
@@ -208,11 +229,28 @@ An example BootStrap call to requeue outstanding or interuppted schedules is to 
                     ec.rescheduleit(params)
                     }
             }
+||||||| merged common ancestors
+        EmailController ec=new EmailController()
+
+            ..
+            def getEmails=MailingListSchedule.findAllByScheduleCompleteAndScheduleCancelled(false,false)
+            getEmails.each {  params ->
+                    if ( (params.dateTime) && (params.emailMessage)) {
+                        println "RESCHEDULING MAIL QUEUE  "+params?.id+" --             "+params?.mailFrom+"---"+params?.recipientToGroup+"--"+params?.recipientToList
+                    ec.rescheduleit(params)
+                    }
+            }
+=======
+        def emailService
+>>>>>>> 533d6cd2275689f50e963404306d190764601a43
 
         ..
-
+        def getEmails = MailingListSchedule.findAllByScheduleCompleteAndScheduleCancelled(false,false)
+        getEmails.each { params ->
+            if (params.dateTime && params.emailMessage) {
+                println "RESCHEDULING MAIL QUEUE ${params?.id} --       ${params?.mailFrom}---${params?.recipientToGroup}--${params?.recipientToList}"
+                emailService.rescheduleit(params)
+            }
+        }
+        ..
     }
-
-	
-	
-		

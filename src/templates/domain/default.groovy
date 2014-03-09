@@ -1,8 +1,8 @@
-
 package $pack
 
-class $classname extends grails.plugin.mailinglist.core.$baseclassname {
+import grails.plugin.mailinglist.core.$baseclassname
+
+class $classname extends $baseclassname {
 
 	// Extend $baseclassname with your custom values here
-
 }
