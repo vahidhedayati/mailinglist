@@ -18,7 +18,7 @@ class CategoryBase implements Serializable {
 		sort "name"
 		mailinglist cascade: 'all-delete-orphan'
 		addedby defaultValue: ''
-		table applicationContext.grailsApplication.config.mailinglist.table.categories ?: 'MailingListCategories'
+		table applicationContext?.grailsApplication?.config?.mailinglist.table.categories ?: 'MailingListCategories'
 	}
 
 	String toString() { name }
