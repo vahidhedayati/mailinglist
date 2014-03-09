@@ -36,23 +36,6 @@ Add plugin Dependency in BuildConfig.groovy :
 	
 
 #### BuildConfig.groovylayout/main.gsp update:  
-||||||| merged common ancestors
-	grails install-plugin mailinglist
-
-
-#### BuildConfig.groovy other plugins required for this plugin to work:
-
-
-##### Required plugins to be installed in target project:	(Under BuildConfig.groovy under Plugins {... )
-
-		compile (":csv:0.3.1", ":quartz:1.0.1" , ":quartz-monitor:0.3-RC3",
-		":ckeditor:3.6.6.1.1" , ":tiny-mce:3.4.9" , ":joda-time:1.4",
-		":jquery-date-time-picker:0.1.1" , ":export:1.5" , ":mail:1.0.4",  
-		":jquery-ui:1.10.3"
-		)
-	
-
-#### BuildConfig.groovylayout/main.gsp update:  
 =======
 #### BuildConfig.groovylayout/main.gsp update:
 >>>>>>> 533d6cd2275689f50e963404306d190764601a43
@@ -220,17 +203,6 @@ An example BootStrap call to requeue outstanding or interuppted schedules is to 
         ..
 <<<<<<< HEAD
         MailingListEmailController ec=new MailingListEmailController()
-
-            ..
-            def getEmails=MailingListSchedule.findAllByScheduleCompleteAndScheduleCancelled(false,false)
-            getEmails.each {  params ->
-                    if ( (params.dateTime) && (params.emailMessage)) {
-                        println "RESCHEDULING MAIL QUEUE  "+params?.id+" --             "+params?.mailFrom+"---"+params?.recipientToGroup+"--"+params?.recipientToList
-                    ec.rescheduleit(params)
-                    }
-            }
-||||||| merged common ancestors
-        EmailController ec=new EmailController()
 
             ..
             def getEmails=MailingListSchedule.findAllByScheduleCompleteAndScheduleCancelled(false,false)
