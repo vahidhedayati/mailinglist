@@ -294,7 +294,7 @@ class MailingListEmailService {
 			}
 		}
 
-		if (scheduleid) {
+		if (!scheduleid) {
 			log.info("Could not Updating status of MailingListSchedule: no ID was found for the schedule")
 			return
 		}

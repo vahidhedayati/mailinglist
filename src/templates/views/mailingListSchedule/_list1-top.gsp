@@ -35,7 +35,12 @@
 					<td>${fieldValue(bean: deployInstance, field: "id")}</td>
 					<td>${fieldValue(bean: deployInstance, field: "mailFrom")}</td>
 				
-					<td><mailinglist:getGroup recipientToGroup="${deployInstance.recipientToGroup }"/></td>
+						<td>
+						<mailinglist:loadPopUp id="${deployInstance.recipientToGroup }" 
+						scriptCall="recipientToGroup"
+						controller="MailingListCategories"
+						action="show" 
+						/></td>
 					
 					<td>
 					${fieldValue(bean: deployInstance, field: "recipientToList")} 
@@ -49,8 +54,18 @@
 
 					
 					<td>
-						<mailinglist:getTemplate mailingListTemplate="${deployInstance.mailingListTemplate }"/>
-						<g:createLink controller="MailingListSchedule" action='showmsg' id="${deployInstance.id }"  />						
+					<mailinglist:loadPopUp id="${deployInstance.mailingListTemplate }" 
+						scriptCall="mailingListTemplate"
+						controller="MailingListTemplates"
+						action="show" 
+						/>
+						
+						<mailinglist:loadPopUp id="${deployInstance.id }" 
+						scriptCall="MailingListSchedule"
+						controller="MailingListSchedule"
+						action="showmsg" 
+						/>
+								
 		
 					</td>
 					<td>	
