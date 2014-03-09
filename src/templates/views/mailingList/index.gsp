@@ -5,7 +5,7 @@
 		<meta name="layout" content="main">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mailingList.css')}" type="text/css">
 		<g:set var="entityName" value="${message(code: 'mailingList.label', default: 'MailingList')}" />
-		<title><g:message code="default.index.label" args="[entityName]" /></title>
+		<title><g:message code="default.list.label" args="[entityName]" /></title>
 	</head>
 	<body>
 		<div class=clearall></div>

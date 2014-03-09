@@ -58,13 +58,13 @@ target(mlsetup: 'Sets up a new mailing list project') {
 	
 	File dir1 = new File(mailinglistPluginDir, "src/templates/css")
 	dir1.eachFileRecurse{ f -> if (f.isDirectory()) println "Creating css folder: $f.name"}
-	copy(todir: new File(basedir, 'web-app/')) {
+	copy(todir: new File(basedir, 'web-app/css')) {
 		fileset dir: dir1
 	}
 	
 	File dir2 = new File(mailinglistPluginDir, "src/templates/images")
 	dir2.eachFileRecurse{ f -> if (f.isDirectory()) println "Creating css folder: $f.name"}
-	copy(todir: new File(basedir, 'web-app/')) {
+	copy(todir: new File(basedir, 'web-app/images')) {
 		fileset dir: dir2
 	}
 	
