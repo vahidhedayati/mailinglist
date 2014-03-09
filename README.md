@@ -19,26 +19,7 @@ Add plugin Dependency in BuildConfig.groovy :
 	compile ":mailinglist:0.1"
 
 
-<<<<<<< HEAD
-	grails install-plugin mailinglist
-
-
-#### BuildConfig.groovy other plugins required for this plugin to work:
-
-
-##### Required plugins to be installed in target project:	(Under BuildConfig.groovy under Plugins {... )
-
-		compile (":csv:0.3.1", ":quartz:1.0.1" , ":quartz-monitor:0.3-RC3",
-		":ckeditor:3.6.6.1.1" , ":tiny-mce:3.4.9" , ":joda-time:1.4",
-		":jquery-date-time-picker:0.1.1" , ":export:1.5" , ":mail:1.0.4",  
-		":jquery-ui:1.10.3", ":pretty-time:2.1.3.Final-1.0.1"
-		)
-	
-
 #### BuildConfig.groovylayout/main.gsp update:  
-=======
-#### BuildConfig.groovylayout/main.gsp update:
->>>>>>> 533d6cd2275689f50e963404306d190764601a43
 
 ##### jquery, jquery-ui libraries:
 your layouts main.gsp: (add jquery-ui and jquery - or add them into ApplicationResources.groovy and ensure you refer to it in your main.gsp or relevant file
