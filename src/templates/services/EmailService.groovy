@@ -1,388 +1,318 @@
 package $pack
 
 class EmailService {
-	def mailService
+
 	def grailsApplication
-	
-	def SendHMail(def toconfig,def mycc,def mysubject,def mybody) {
-		def email=''
-		List<String> recipients
-		if (toconfig) {
-			if (toconfig.toString().indexOf('@')>-1) {
-				email=toconfig 
-			}else{	
-				email=grailsApplication.config.mailconfig[toconfig] ?: ''
-				if (email.toString().indexOf(',')>-1) {
-					recipients =email.split(',').collect { it.trim() }
-				}
-			}
-			if (toconfig.toString().indexOf(',')>-1) {
-				recipients=toconfig.split(',').collect { it.trim() }
-			}
-		}
-			
-		def ccuser=''
-		List<String> ccrecipients
-		if (mycc) {
-			if (mycc.toString().indexOf('@')>-1) {
-				ccuser=mycc
-			}else{
-				ccuser=grailsApplication.config.mailconfig[mycc] ?: ''
-				if (ccuser.toString().indexOf(',')>-1) {
-					ccrecipients =ccuser.split(',').collect { it.trim() }
-				}
-			}
-			
-			if (mycc.toString().indexOf(',')>-1) {
-				ccrecipients =mycc.split(',').collect { it.trim() }
-			}
-		}
-			
-		
+	def mailService
+	def quartzEmailCheckerService
+
+	void SendHMail(toconfig, mycc, mysubject, mybody) {
+		doSendMail toconfig, mycc, mysubject, mybody, true
+	}
+
+	void SendMail(toconfig, mycc, mysubject, mybody) {
+		doSendMail toconfig, mycc, mysubject, mybody, false
+	}
+
+	private void doSendMail(toconfig, mycc, mysubject, mybody, boolean html) {
+
+		List<String> recipients = []
+		String email = calculateAddresses(recipients, toconfig)
+
+		List<String> ccrecipients = []
+		String ccuser = calculateAddresses(recipients, mycc)
+
 		try {
 			mailService.sendMail {
-				if (recipients) { 
-					to recipients 
-				}else{
+				if (recipients) {
+					to recipients
+				}
+				else {
 					to email
-				}	
-				
-				if (ccrecipients) { 
+				}
+
+				if (ccrecipients) {
 					cc ccrecipients
-				}else{
-					if(ccuser!='') {cc  ccuser }
+				}
+				else {
+					if (ccuser) {
+						cc ccuser
+					}
 				}
 				subject mysubject
-				if (mybody.indexOf('<html>')>-1) {
-				}else{	
-					mybody="<html><body bgcolor=#CCC>"+mybody+"</body></html>"
-				} 
-				if (mybody !='') {html mybody }
+				if (html) {
+					if (mybody.indexOf('<html>') == -1) {
+						mybody = "<html><body bgcolor=#CCC>" + mybody + "</body></html>"
+					}
+					if (mybody) {
+						html mybody
+					}
+				}
+				else if (mybody) {
+					body mybody
+				}
 			}
-		} catch (Exception e) {
-			log.error "Problem sending email "+e.message, e
+		}
+		catch (e) {
+			log.error "Problem sending email \$e.message", e
 		}
 	}
-	
-	def SendMail(def toconfig,def mycc,def mysubject,def mybody) {
-		def email=''
-		List<String> recipients
-		if (toconfig) {
-			if (toconfig.toString().indexOf('@')>-1) {
-				email=toconfig 
-			}else{	
-				email=grailsApplication.config.mailconfig[toconfig] ?: ''
-				if (email.toString().indexOf(',')>-1) {
-					recipients =email.split(',').collect { it.trim() }
-				}
-			}
-			if (toconfig.toString().indexOf(',')>-1) {
-				recipients =toconfig.split(',').collect { it.trim() }
-			}
-		}
-			
-		def ccuser=''
-		List<String> ccrecipients
-		if (mycc) {
-			if (mycc.toString().indexOf('@')>-1) {
-				ccuser=mycc
-			}else{
-				ccuser=grailsApplication.config.mailconfig[mycc] ?: ''
-				if (ccuser.toString().indexOf(',')>-1) {
-					ccrecipients =ccuser.split(',').collect { it.trim() }
-				}
-			}
-			
-			if (mycc.toString().indexOf(',')>-1) {
-				ccrecipients =mycc.split(',').collect { it.trim() }
-			}
-		}
-		try {
-			mailService.sendMail {
-				if (recipients) { 
-					to recipients 
-				}else{
-					to email
-				}	
-				
-				if (ccrecipients) { 
-					cc ccrecipients
-				}else{
-					if(ccuser!='') {cc  ccuser }
-				}
-				subject mysubject
-				if (mybody !='') {body mybody }
-			}
-		} catch (Exception e) {
-			log.error "Problem sending email "+e.message, e
-		}			
-	}
-	
-	
-	def sendEmail(Map paramsMap){
+
+	def sendEmail(Map paramsMap) {
 		def emailSubject = paramsMap.subject
 		def recipientToList = paramsMap.recipientToList
 		def recipientToList2 = paramsMap.recipientToList2
 		def message = paramsMap.emailMessage
 		def recipientCCList = paramsMap.recipientCCList
 		def recipientBCCList = paramsMap.recipientBCCList
-		def emailFrom  = paramsMap.mailFrom
+		def emailFrom = paramsMap.mailFrom
 		def recipientToGroup = paramsMap.recipientToGroup
-		def template=paramsMap.mailingListTemplate
-		def scheduleid=paramsMap.id
-		if (!scheduleid) { 
-			scheduleid=paramsMap.scheduleid
+		def template = paramsMap.mailingListTemplate
+		def scheduleid = paramsMap.id
+		if (!scheduleid) {
+			scheduleid = paramsMap.scheduleid
 		}
-		println "sendEmail Schedule ID: "+scheduleid+" "
-		def sendtype=paramsMap.sendType
+		log.info "sendEmail Schedule ID: \$scheduleid"
+		String sendtype = paramsMap.sendType
 		if (recipientToGroup) {
 			if (!sendtype) { sendtype='bulk' }
 		}
-		def cidimg,aimage=''
-		def cproject=grailsApplication.metadata['app.name']
-		def baseurl=grailsApplication.config.grails.baseURL
-		//def uploadpath=grailsApplication.config.externalUploadPath	
-		def imgsearch='<img alt="" src="/'+cproject
-		def fulldomain='<img alt="" src="'+baseurl
+		def cidimg
+		String aimage = ''
+		String cproject = grailsApplication.metadata['app.name']
+		String baseurl = grailsApplication.config.grails.baseURL
+		//def uploadpath=grailsApplication.config.externalUploadPath
+		String imgsearch = '<img alt="" src="/' + cproject
+		String fulldomain = '<img alt="" src="' + baseurl
 		def currentMap = [:]
 		def currentMap1 = [:]
-			message.eachLine { line ->
-				if(line.indexOf(imgsearch)>-1) {
-					def aimage1=line.substring(line.indexOf('<img alt="" src="')+17,line.length())
-					aimage=aimage1.substring(0,aimage1.indexOf('"'))
-					def rest=aimage1.substring(aimage1.indexOf('"'),aimage1.length())
-					def imgtag=aimage.substring(aimage.lastIndexOf("/")+1, aimage.length())
-					if (imgtag.indexOf('.')>-1){
-						cidimg=imgtag.substring(0,imgtag.indexOf('.'))
+
+		message.eachLine { line ->
+			if (line.indexOf(imgsearch) > -1) {
+				String aimage1 = line.substring(line.indexOf('<img alt="" src="') + 17)
+				aimage = aimage1.substring(0, aimage1.indexOf('"'))
+				String rest = aimage1.substring(aimage1.indexOf('"'),aimage1.length())
+				String imgtag = aimage.substring(aimage.lastIndexOf("/") + 1)
+				if (imgtag.indexOf('.') > -1) {
+					cidimg = imgtag.substring(0,imgtag.indexOf('.'))
+				}
+				message = message.replace(aimage, "cid:" + cidimg)
+				currentMap[cidimg] = aimage
+			}
+			else if (line.indexOf(fulldomain) > -1) {
+				String aimage1 = line.substring(line.indexOf('<img alt="" src="') + 17)
+				aimage = aimage1.substring(baseurl.length(), aimage1.indexOf('"'))
+				String rest = aimage1.substring(aimage1.indexOf('"'))
+				String imgtag = aimage.substring(aimage.lastIndexOf("/") + 1)
+				if (imgtag.indexOf('.') > -1) {
+					cidimg = imgtag.substring(0, imgtag.indexOf('.'))
+				}
+				message = message.replace(baseurl + aimage, "cid:" + cidimg)
+				currentMap1[cidimg] = aimage
+			}
+		}
+
+		if (sendtype.equals('bulk')) {
+			def primary = []
+			if (recipientToGroup) {
+				if (recipientToGroup.getClass().isArray()) {
+					recipientToGroup.each { rg ->
+						MailingListCat.get(rg)?.mailinglist?.each { currentemail ->
+							if (currentemail) {
+								primary << currentemail
+							}
+						}
 					}
-					def replaceval="cid:"+cidimg
-					message=message.replace(aimage, replaceval )
-					currentMap.put(cidimg,aimage)
-				}else if(line.indexOf(fulldomain)>-1) {
-					def aimage1=line.substring(line.indexOf('<img alt="" src="')+17,line.length())
-					aimage=aimage1.substring(baseurl.length(),aimage1.indexOf('"'))
-					def rest=aimage1.substring(aimage1.indexOf('"'),aimage1.length())
-					def imgtag=aimage.substring(aimage.lastIndexOf("/")+1, aimage.length())
-					if (imgtag.indexOf('.')>-1){
-						cidimg=imgtag.substring(0,imgtag.indexOf('.'))
+				}
+				else {
+					MailingListCat.get(recipientToGroup)?.mailinglist?.each { currentemail ->
+						if (currentemail) {
+							primary << currentemail
+						}
 					}
-					def replaceval="cid:"+cidimg
-					message=message.replace(""+baseurl+""+aimage, replaceval )
-					currentMap1.put(cidimg,aimage)
 				}
 			}
-			if 	(sendtype.equals('bulk')) {
-				def primary=[]
-				if (recipientToGroup) {
-					if (recipientToGroup.class.isArray()) {
-					recipientToGroup.each  { rg ->
-						def rtg=MailingListCat?.findById(rg)
-						rtg?.mailinglist.each { currentemail ->
-							if (currentemail) {
-								primary.add(currentemail)
-							}
-						}	
+			if (primary) {
+				recipientBCCList = primary
+				log.info ("Scheduled Email: Email being sent to Group \$recipientToGroup : \$recipientBCCList")
+			}
+			else {
+				log.info ("Scheduled Email: Email being sent to Person: \$recipientToList")
+			}
+			try {
+				boolean mp = false
+				mailService.sendMail {
+					if (paramsMap.attachments) {
+						multipart true
+						mp = true
 					}
-					}else{
-						def rtg=MailingListCat?.findById(recipientToGroup)
-						rtg?.mailinglist.each { currentemail ->
-							if (currentemail) {
-								primary.add(currentemail)
-							}
+					if (!mp && message.indexOf('<img') > -1) {
+						multipart true
+						mp = true
+					}
+					if (!mp && scheduleid && MailingListSchedule.get(scheduleid).attachments) {
+						multipart true
+						mp = true
+					}
+					if (emailFrom) {from emailFrom }
+					if (emailSubject) {subject emailSubject }
+					if (recipientToList) {to recipientToList }
+					if (!recipientToList && recipientToList2) { to recipientToList2 }
+					if (recipientCCList) { cc recipientCCList}
+					if (recipientBCCList) { bcc recipientBCCList}
+					html message
+					currentMap.each { k, v ->
+						inline k, 'image/jpg', new File(System.properties['catalina.base'], "webapps/\$v")
+					}
+					currentMap1.each { k, v ->
+						inline k, 'image/jpg', new File(System.properties['catalina.base'], v)
+					}
+					if (scheduleid) {
+						MailingListSchedule.get(scheduleid).attachments.each { att ->
+							attachBytes att.fullname, att.contentType, att.attachment
 						}
 					}
 				}
-				if (primary )  { 
-					recipientBCCList = primary
-					log.info ("Scheduled Email: Email being sent to Group "+recipientToGroup+" : "+recipientBCCList)
-				}else{
-					log.info ("Scheduled Email: Email being sent to Person: "+recipientToList)
-				}
-				try{
-					Boolean mp=false
-					mailService.sendMail {
-						if (paramsMap.attachments) {
-								multipart true
-								mp=true
+			}
+			catch (e) {
+				log.error("Exception in sending mail: \$e.message", e)
+			}
+		}
+		else {
+			if (recipientToGroup) {
+				recipientToGroup.each { rg ->
+					for (currentemail in MailingListCat.get(rg)?.mailinglist) {
+						if (!currentemail) {
+							continue
 						}
-						if (mp==false){
-							if(message.indexOf('<img')>-1) {
-								multipart true
-								mp=true
-							}
-						}
-						if (mp==false) {
-							if (scheduleid) {
-								def mlresult=MailingListSchedule.findById(scheduleid)
-								if (mlresult.attachments) {
+
+						recipientToList = currentemail?.emailAddress
+						log.info "Scheduled Email: Email being sent to: \$recipientToList"
+						try {
+							boolean mp = false
+							mailService.sendMail {
+								if (paramsMap.attachments) {
+									multipart true
+									mp = true
+								}
+								if (!mp && message.indexOf('<img') > -1) {
 									multipart true
 									mp=true
 								}
+								if (!mp && scheduleid && MailingListSchedule.get(scheduleid).attachments) {
+									multipart true
+									mp = true
+								}
+								if (emailFrom) {from emailFrom }
+								if (emailSubject) {subject emailSubject }
+								if (recipientToList) {to recipientToList }
+								if (!recipientToList && recipientToList2) {to recipientToList2 }
+								if (recipientCCList) { cc recipientCCList}
+								if (recipientBCCList) { bcc recipientBCCList}
+								html message
+								currentMap.each { k, v ->
+									inline k, 'image/jpg', new File(System.properties['catalina.base'], "webapps/\$v")
+								}
+								currentMap1.each { k, v ->
+									inline k, 'image/jpg', new File(System.properties['catalina.base'], v)
+								}
+								if (scheduleid) {
+									MailingListSchedule.get(scheduleid).attachments.each { att ->
+										attachBytes att.fullname, att.contentType, att.attachment
+									}
+								}
 							}
-						}	
-						if(emailFrom) {from emailFrom }
-						if(emailSubject) {subject emailSubject }
-						if(recipientToList) {to recipientToList }
-						if (!recipientToList) {
-							if(recipientToList2) {to recipientToList2 }
 						}
+						catch (e) {
+							log.error("Exception in sending mail: e.message", e)
+						}
+					}
+				}
+			}
+			else {
+				log.info ("Scheduled Email: Email being sent to: \$recipientToList")
+				try {
+					boolean mp = false
+					mailService.sendMail {
+						if (paramsMap.attachments) {
+							multipart true
+							mp = true
+						}
+						if (!mp && message.indexOf('<img') > -1) {
+							multipart true
+							mp = true
+						}
+						if (!mp && scheduleid && MailingListSchedule.get(scheduleid).attachments) {
+							multipart true
+							mp = true
+						}
+						if (emailFrom) {from emailFrom }
+						if (emailSubject) {subject emailSubject }
+						if (recipientToList) {to recipientToList }
+						if (!recipientToList && recipientToList2) {to recipientToList2 }
 						if (recipientCCList) { cc recipientCCList}
 						if (recipientBCCList) { bcc recipientBCCList}
 						html message
-						if (currentMap) {
-						currentMap.each{ k, v ->
-							inline k, 'image/jpg', new File(System.properties['catalina.base']+"/webapps/"+v)
-						}	
+						currentMap.each { k, v ->
+							inline k, 'image/jpg', new File(System.properties['catalina.base'], "webapps/\$v")
 						}
-						if (currentMap1) {
 						currentMap1.each{ k, v ->
-							inline k, 'image/jpg', new File(System.properties['catalina.base']+""+v)
-						}
+							inline k, 'image/jpg', new File(System.properties['catalina.base'], v)
 						}
 						if (scheduleid) {
-							def mlresult=MailingListSchedule.findById(scheduleid)
-							mlresult.attachments.each  { att ->
-								def attl=att.fullname.toLowerCase()
-								def doctype=att.contentType
-								attachBytes att.fullname, doctype, att.attachment
-							}
-						}	
-					}
-				}catch (Exception mailSenderException){
-					log.error("Exception in sending mail: "+mailSenderException.getMessage())
-				}
-			}else{	
-				if (recipientToGroup) {
-					recipientToGroup.each  { rg ->
-						def rtg=MailingListCat.findById(rg)
-						rtg?.mailinglist.each { currentemail ->
-							if (currentemail) {
-								recipientToList=currentemail?.emailAddress
-								log.info ("Scheduled Email: Email being sent to: "+recipientToList)
-								try{
-									Boolean mp=false
-									mailService.sendMail {
-										if (paramsMap.attachments) {
-											multipart true
-											mp=true
-										}
-										if (mp==false){
-											if(message.indexOf('<img')>-1) {
-												multipart true
-												mp=true
-											}
-										}
-										if (mp==false) {
-											if (scheduleid) {
-												def mlresult=MailingListSchedule.findById(scheduleid)
-												if (mlresult.attachments) {
-													multipart true
-													mp=true
-												}
-											}
-										}	
-										if(emailFrom) {from emailFrom }
-										if(emailSubject) {subject emailSubject }
-										if(recipientToList) {to recipientToList }
-										if (!recipientToList) {
-											if(recipientToList2) {to recipientToList2 }
-										}
-										if (recipientCCList) { cc recipientCCList}
-										if (recipientBCCList) { bcc recipientBCCList}
-										html message
-										if (currentMap) {
-											currentMap.each{ k, v ->
-												inline k, 'image/jpg', new File(System.properties['catalina.base']+"/webapps/"+v)
-
-											}
-										}
-										if (currentMap1) {
-											currentMap1.each{ k, v ->
-												inline k, 'image/jpg', new File(System.properties['catalina.base']+"['catalina.base']"+v)
-											}
-										}
-										if (scheduleid) {
-											def mlresult=MailingListSchedule.findById(scheduleid)
-											mlresult.attachments.each  { att ->
-												def attl=att.fullname.toLowerCase()
-												def doctype=att.contentType
-												attachBytes att.fullname, doctype, att.attachment
-											}	
-										}
-									}
-								}catch (Exception mailSenderException){
-									log.error("Exception in sending mail: "+mailSenderException.getMessage())
-								}
-							}
-						}	
-					}	
-				}else{
-					log.info ("Scheduled Email: Email being sent to: "+recipientToList)
-					try{
-						Boolean mp=false
-						mailService.sendMail {
-							if (paramsMap.attachments) {
-									multipart true
-									mp=true
-							}
-							if (mp==false){
-								if(message.indexOf('<img')>-1) {
-									multipart true
-									mp=true
-								}
-							}
-							if (mp==false) {
-								if (scheduleid) {
-									def mlresult=MailingListSchedule.findById(scheduleid)
-									if (mlresult.attachments) {
-										multipart true
-										mp=true
-									}
-								}
-							}	
-							if(emailFrom) {from emailFrom }
-							if(emailSubject) {subject emailSubject }
-							if(recipientToList) {to recipientToList }
-							if (!recipientToList) {
-								if(recipientToList2) {to recipientToList2 }
-							}
-							if (recipientCCList) { cc recipientCCList}
-							if (recipientBCCList) { bcc recipientBCCList}
-							html message
-							if (currentMap) {
-								currentMap.each{ k, v ->
-									inline k, 'image/jpg', new File(System.properties['catalina.base']+"/webapps"+v)
-								}
-							}
-							if (currentMap1) {
-								currentMap1.each{ k, v ->
-									inline k, 'image/jpg', new File(System.properties['catalina.base']+"['catalina.base']}"+v)
-								}
-							}
-							if (scheduleid) {
-								def mlresult=MailingListSchedule.findById(scheduleid)
-								mlresult.attachments.each  { att ->
-									def attl=att.fullname.toLowerCase()
-									def doctype=att.contentType
-									attachBytes att.fullname, doctype, att.attachment
-								}
+							MailingListSchedule.get(scheduleid).attachments.each { att ->
+								attachBytes att.fullname, att.contentType, att.attachment
 							}
 						}
-					}catch (Exception mailSenderException){
-						log.error("Exception in sending mail: "+mailSenderException.getMessage())
 					}
-				}	
-			}
-			if (scheduleid) {
-				log.info("Updating ScheduleID "+scheduleid+" setting scheduleComplete as true")
-				def foundit=MailingListSchedule.findById(scheduleid)
-				if (foundit) {
-					foundit.scheduleComplete=true
-					foundit.deploymentComplete=true
-					foundit.save(flush:false)
 				}
-			} else{
-				log.info("Could not Updating status of MailingListSchedule: no ID was found for the schedule")
+				catch (e) {
+					log.error "Exception in sending mail: \$e.message"
+				}
 			}
+		}
+
+		if (scheduleid) {
+			log.info("Could not Updating status of MailingListSchedule: no ID was found for the schedule")
+			return
+		}
+
+		log.info("Updating ScheduleID \$scheduleid setting scheduleComplete as true")
+		def foundit = MailingListSchedule.get(scheduleid)
+		if (foundit) {
+			foundit.scheduleComplete = true
+			foundit.deploymentComplete = true
+			foundit.save()
+		}
 	}
-}	
+
+	def rescheduleit(params) {
+		log.info("Schedule [ rescheduleit ]  Email Parameters: \$params")
+		def result = quartzEmailCheckerService.requeueEmail(params)
+		MailingListSchedule.get(params.id)?.each { gg->
+			gg.scheduleName = result
+			gg.save()
+		}
+		return result
+	}
+
+	private String calculateAddresses(List<String> recipients, config) {
+		String address = ''
+		if (config) {
+			if (config.toString().indexOf('@') > -1) {
+				address = config
+			}
+			else {
+				address = grailsApplication.config.mailconfig[config] ?: ''
+				if (address.toString().indexOf(',') > -1) {
+					recipients.addAll(address.split(',').collect { it.trim() })
+				}
+			}
+			if (config.toString().indexOf(',') > -1) {
+				recipients.addAll(config.split(',').collect { it.trim() })
+			}
+		}
+
+		return address
+	}
+}
