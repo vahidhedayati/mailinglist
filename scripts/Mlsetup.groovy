@@ -10,7 +10,7 @@ includeTargets << grailsScript("_GrailsArgParsing")
 
 USAGE = """
     Mlsetup org.example.com 5
-    org.example.com = The package name to install malinglist classes to.
+    org.example.com = The package name to install mailinglist classes to.
 	5 = number of jobs to create for mailinglist 
 """
 
@@ -48,7 +48,7 @@ target (Mlsetup: 'Sets up a new maling list project' ) {
 	
 	
 	//Controllers
-	def EmailController = engine.createTemplate(new FileReader("${mailinglistPluginDir}/src/templates/controllers/EmailController.groovy")).make(controllerConf)
+	def EmailController = engine.createTemplate(new FileReader("${mailinglistPluginDir}/src/templates/controllers/MailingListEmailController.groovy")).make(controllerConf)
 	def MailingListAttachmentsController = engine.createTemplate(new FileReader("${mailinglistPluginDir}/src/templates/controllers/MailingListAttachmentsController.groovy")).make(controllerConf)
 	def MailingListCategoriesController = engine.createTemplate(new FileReader("${mailinglistPluginDir}/src/templates/controllers/MailingListCategoriesController.groovy")).make(controllerConf)
 	def MailingListScheduleController = engine.createTemplate(new FileReader("${mailinglistPluginDir}/src/templates/controllers/MailingListScheduleController.groovy")).make(controllerConf)
@@ -58,8 +58,11 @@ target (Mlsetup: 'Sets up a new maling list project' ) {
 	def MailingListUploaderController = engine.createTemplate(new FileReader("${mailinglistPluginDir}/src/templates/controllers/MailingListUploaderController.groovy")).make(controllerConf)
 	
 	//Services
-	def EmailService = engine.createTemplate(new FileReader("${mailinglistPluginDir}/src/templates/services/EmailService.groovy")).make(controllerConf)
+	def EmailService = engine.createTemplate(new FileReader("${mailinglistPluginDir}/src/templates/services/MailingListEmailService.groovy")).make(controllerConf)
 	def qss = engine.createTemplate(new FileReader("${mailinglistPluginDir}/src/templates/services/QuartzStatusService.groovy")).make(controllerConf)
+	
+	//taglib
+	def mltaglib = engine.createTemplate(new FileReader("${mailinglistPluginDir}/src/templates/taglib/MailingListTagLib.groovy")).make(controllerConf)
 	
 	
 	
@@ -119,6 +122,16 @@ target (Mlsetup: 'Sets up a new maling list project' ) {
 	new File(basedir, "grails-app/views/mailingList/_mailingListImport.gsp").write(imf.toString())
 	
 	
+	//CSS copy
+	cssdir = new File("${mailinglistPluginDir}/src/templates/css")
+	cssdir2 = new File("${basedir}/web-app/")
+	FileUtils.copyDirectoryToDirectory(cssdir,cssdir2)
+	
+	//Images
+	imgdir = new File("${mailinglistPluginDir}/src/templates/images")
+	imgdir2 = new File("${basedir}/web-app/")
+	FileUtils.copyDirectoryToDirectory(imgdir,imgdir2)
+	
 	mkdir(dir:"${basedir}/grails-app/domain/${packdir}")
 	
 	mkdir(dir:"${basedir}/grails-app/controllers/${packdir}")
@@ -132,7 +145,7 @@ target (Mlsetup: 'Sets up a new maling list project' ) {
 	new File(basedir, "grails-app/domain/${packdir}/MailingListSenders.groovy").write(mtSend.toString())
 	
 	println "Creating controllers within your project: grails-app/controllers/${packdir}"
-	new File(basedir, "grails-app/controllers/${packdir}/EmailController.groovy").write(EmailController.toString())
+	new File(basedir, "grails-app/controllers/${packdir}/MailingListEmailController.groovy").write(EmailController.toString())
 	new File(basedir, "grails-app/controllers/${packdir}/MailingListAttachmentsController.groovy").write(MailingListAttachmentsController.toString())
 	new File(basedir, "grails-app/controllers/${packdir}/MailingListCategoriesController.groovy").write(MailingListCategoriesController.toString())
 	new File(basedir, "grails-app/controllers/${packdir}/MailingListController.groovy").write(MailingListController.toString())
@@ -143,10 +156,15 @@ target (Mlsetup: 'Sets up a new maling list project' ) {
 	
 	println "Creating Services within your project: grails-app/services/${packdir}"
 	mkdir(dir:"${basedir}/grails-app/services/${packdir}")
-	new File(basedir, "grails-app/services/${packdir}/EmailService.groovy").write(EmailService.toString())
+	new File(basedir, "grails-app/services/${packdir}/MailingListEmailService.groovy").write(EmailService.toString())
 	new File(basedir, "grails-app/services/${packdir}/QuartzEmailCheckerService.groovy").write(qecs.toString())
 	new File(basedir, "grails-app/services/${packdir}/QuartzStatusService.groovy").write(qss.toString())
 
+	
+	println "Creating Services within your project: grails-app/taglib/${packdir}"
+	mkdir(dir:"${basedir}/grails-app/taglib/${packdir}")
+	new File(basedir, "grails-app/taglib/${packdir}/MailingListTagLib.groovy").write(mltaglib.toString())
+	
 	println """Completed to finalise add :
 	compile (":csv:0.3.1", ":quartz:1.0.1" , ":quartz-monitor:0.3-RC3",
 		":ckeditor:3.6.6.1.1" , ":tiny-mce:3.4.9" , ":joda-time:1.4",

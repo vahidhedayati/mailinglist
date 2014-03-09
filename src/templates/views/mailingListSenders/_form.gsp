@@ -1,9 +1,8 @@
 
 
 
-<div class="fieldcontain ${hasErrors(bean: mailingListSendersInstance, field: 'addedby', 'error')} ">
-	<g:hiddenField name="addedby" value="${session.username}"/>
-</div>
+<g:render template="/mailingList/addedby"  model="[caller: 'mailingListSendersInstance']"/>
+
 
 <div class="fieldcontain ${hasErrors(bean: mailingListSendersInstance, field: 'emailAddress', 'error')} ">
 	<label for="emailAddress">

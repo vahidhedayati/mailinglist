@@ -6,18 +6,8 @@ import org.springframework.dao.DataIntegrityViolationException
 
 class MailingListController {
 	def exportService
-//	def grailsApplication  
-	
-	def addExcept(list) {
-		list << 'index' << 'list' << 'show' << 'emailsearch' << 'display' << 'trySearch1' << 'search'
-	}
-	
-	//static allowedMethods = [save: "POST", update: "POST", delete: "POST", ]
-	
 	
 	def index()  { 
-		
-		render template: 'mailingList'
 		
 	}
 	def search = { 

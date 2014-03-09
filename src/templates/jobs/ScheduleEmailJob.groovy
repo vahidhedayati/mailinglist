@@ -7,7 +7,7 @@ import org.quartz.JobExecutionException
 
 class $classname {
 	
-	def emailService
+	def mailingListEmailService
 	 
 	static triggers = {}
 	
@@ -16,7 +16,7 @@ class $classname {
 			
 			log.info("Job has been called, sending mail from "+$classname);
 			//Call the sendEmail method in the email service
-			emailService.sendEmail(context.mergedJobDataMap)
+			mailingListEmailService.sendEmail(context.mergedJobDataMap)
 			
 		}catch (Throwable e) {
 			throw new JobExecutionException(e.getMessage(), e);

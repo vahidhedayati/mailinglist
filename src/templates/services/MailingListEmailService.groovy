@@ -1,131 +1,17 @@
 package $pack
 
-class EmailService {
+class MailingListEmailService {
 	def mailService
 	def grailsApplication
-	
-	def SendHMail(def toconfig,def mycc,def mysubject,def mybody) {
-		def email=''
-		List<String> recipients
-		if (toconfig) {
-			if (toconfig.toString().indexOf('@')>-1) {
-				email=toconfig 
-			}else{	
-				email=grailsApplication.config.mailconfig[toconfig] ?: ''
-				if (email.toString().indexOf(',')>-1) {
-					recipients =email.split(',').collect { it.trim() }
-				}
-			}
-			if (toconfig.toString().indexOf(',')>-1) {
-				recipients=toconfig.split(',').collect { it.trim() }
-			}
-		}
-			
-		def ccuser=''
-		List<String> ccrecipients
-		if (mycc) {
-			if (mycc.toString().indexOf('@')>-1) {
-				ccuser=mycc
-			}else{
-				ccuser=grailsApplication.config.mailconfig[mycc] ?: ''
-				if (ccuser.toString().indexOf(',')>-1) {
-					ccrecipients =ccuser.split(',').collect { it.trim() }
-				}
-			}
-			
-			if (mycc.toString().indexOf(',')>-1) {
-				ccrecipients =mycc.split(',').collect { it.trim() }
-			}
-		}
-			
-		
-		try {
-			mailService.sendMail {
-				if (recipients) { 
-					to recipients 
-				}else{
-					to email
-				}	
-				
-				if (ccrecipients) { 
-					cc ccrecipients
-				}else{
-					if(ccuser!='') {cc  ccuser }
-				}
-				subject mysubject
-				if (mybody.indexOf('<html>')>-1) {
-				}else{	
-					mybody="<html><body bgcolor=#CCC>"+mybody+"</body></html>"
-				} 
-				if (mybody !='') {html mybody }
-			}
-		} catch (Exception e) {
-			log.error "Problem sending email "+e.message, e
-		}
-	}
-	
-	def SendMail(def toconfig,def mycc,def mysubject,def mybody) {
-		def email=''
-		List<String> recipients
-		if (toconfig) {
-			if (toconfig.toString().indexOf('@')>-1) {
-				email=toconfig 
-			}else{	
-				email=grailsApplication.config.mailconfig[toconfig] ?: ''
-				if (email.toString().indexOf(',')>-1) {
-					recipients =email.split(',').collect { it.trim() }
-				}
-			}
-			if (toconfig.toString().indexOf(',')>-1) {
-				recipients =toconfig.split(',').collect { it.trim() }
-			}
-		}
-			
-		def ccuser=''
-		List<String> ccrecipients
-		if (mycc) {
-			if (mycc.toString().indexOf('@')>-1) {
-				ccuser=mycc
-			}else{
-				ccuser=grailsApplication.config.mailconfig[mycc] ?: ''
-				if (ccuser.toString().indexOf(',')>-1) {
-					ccrecipients =ccuser.split(',').collect { it.trim() }
-				}
-			}
-			
-			if (mycc.toString().indexOf(',')>-1) {
-				ccrecipients =mycc.split(',').collect { it.trim() }
-			}
-		}
-		try {
-			mailService.sendMail {
-				if (recipients) { 
-					to recipients 
-				}else{
-					to email
-				}	
-				
-				if (ccrecipients) { 
-					cc ccrecipients
-				}else{
-					if(ccuser!='') {cc  ccuser }
-				}
-				subject mysubject
-				if (mybody !='') {body mybody }
-			}
-		} catch (Exception e) {
-			log.error "Problem sending email "+e.message, e
-		}			
-	}
 	
 	
 	def sendEmail(Map paramsMap){
 		def emailSubject = paramsMap.subject
-		def recipientToList = paramsMap.recipientToList
-		def recipientToList2 = paramsMap.recipientToList2
+		def recipientTo = paramsMap.recipientToList
+		def recipientTo2 = paramsMap.recipientToList2
 		def message = paramsMap.emailMessage
-		def recipientCCList = paramsMap.recipientCCList
-		def recipientBCCList = paramsMap.recipientBCCList
+		def recipientCC = paramsMap.recipientCCList
+		def recipientBCC = paramsMap.recipientBCCList
 		def emailFrom  = paramsMap.mailFrom
 		def recipientToGroup = paramsMap.recipientToGroup
 		def template=paramsMap.mailingListTemplate
@@ -133,6 +19,27 @@ class EmailService {
 		if (!scheduleid) { 
 			scheduleid=paramsMap.scheduleid
 		}
+		
+		def recipientToList=recipientTo
+		if (recipientTo){
+			recipientToList=returnEmailArrary(recipientTo)
+		}
+		
+		def recipientToList2=recipientTo2
+		if (recipientTo2){
+			recipientToList2=returnEmailArrary(recipientTo2)
+		}
+		
+		def recipientCCList=recipientCC
+		if (recipientCC){
+			recipientCCList=returnEmailArrary(recipientCC)
+		}
+		
+		def recipientBCCList=recipientBCC
+		if (recipientBCC){
+			recipientBCCList=returnEmailArrary(recipientBCC)
+		}
+		
 		println "sendEmail Schedule ID: "+scheduleid+" "
 		def sendtype=paramsMap.sendType
 		if (recipientToGroup) {
@@ -384,5 +291,14 @@ class EmailService {
 			} else{
 				log.info("Could not Updating status of MailingListSchedule: no ID was found for the schedule")
 			}
+	}
+	
+	def returnEmailArrary(String email) {
+		List<String> recipients
+		if (email.toString().indexOf(',')>-1) {
+			recipients =email.split(',').collect { it.trim() }
+			return recipients
+		}
+		return email
 	}
 }	

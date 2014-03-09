@@ -6,19 +6,14 @@
 						<g:sortableColumn property="id" title="${message(code: 'links.id.label', default: 'ID')}" />
 					
 						<g:sortableColumn property="mailFrom" title="${message(code: 'links.mailFrom.label', default: 'From')}" />
-						<g:sortableColumn property="recipientToGroup" title="${message(code: 'links.recipientToGroup.label', default: 'ToGrp ID')}" />
-						<g:sortableColumn property="recipientToList" title="${message(code: 'links.recipientToList.label', default: 'To')}" />
 						
 						<g:sortableColumn property="subject" title="${message(code: 'links.subject.label', default: 'subject')}" />
-						<g:sortableColumn property="mailingListTemplate" title="${message(code: 'links.mailingListTemplate.label', default: 'TemplateID')}" />
 						<g:sortableColumn property="emailMessage" title="${message(code: 'links.emailMessage.label', default: 'Message')}" />
 						<g:sortableColumn property="scheduleName" title="${message(code: 'links.scheduleName.label', default: 'scheduleID')}" />
 						
 						<g:sortableColumn property="dateTime" title="${message(code: 'links.dateTime.label', default: 'date/Time')}" />
 						<g:sortableColumn property="sendType" title="${message(code: 'links.sendType.label', default: 'send Type')}" />
-						<g:sortableColumn property="addedby" title="${message(code: 'links.addedby.label', default: 'Who')}" />
-						
-						
+							
 						<g:sortableColumn property="scheduleCancelled" title="${message(code: 'links.scheduleCancelled.label', default: 'Cancelled')}" />
 						<g:sortableColumn property="scheduleComplete" title="${message(code: 'links.scheduleComplete.label', default: 'Completed')}" />
 						<g:sortableColumn property="dateCreated" title="${message(code: 'links.dateCreated.label', default: 'Created')}" />
@@ -37,21 +32,19 @@
 					<td>${fieldValue(bean: deployInstance, field: "id")}</td>
 					<td>${fieldValue(bean: deployInstance, field: "mailFrom")}</td>
 				
-					<td><mailinglist:getGroup recipientToGroup="${deployInstance.recipientToGroup }"/></td>
-					
-					<td>
+					<td><mailinglist:getGroup recipientToGroup="${deployInstance.recipientToGroup }"/>
 					${fieldValue(bean: deployInstance, field: "recipientToList")} 
 					${fieldValue(bean: deployInstance, field: "recipientBCCList")}
 					${fieldValue(bean: deployInstance, field: "recipientCCList")}
 					</td>
+					
+				
 					<td>${fieldValue(bean: deployInstance, field: "subject")}</td>
 
-					
-					<td><td><mailinglist:getTemplate mailingListTemplate="${deployInstance.mailingListTemplate }"/></td>
-
+			
 					
 					<td>
-					
+					<mailinglist:getTemplate mailingListTemplate="${deployInstance.mailingListTemplate }"/>
 						<g:createLink controller="MailingListSchedule" action='showmsg' id="${deployInstance.id }"  />						
 		
 					</td>
@@ -66,9 +59,7 @@
 					</td>
 
 					<td>${fieldValue(bean: deployInstance, field: "sendType")}</td>
-					<td><button id=boxbtnlink onclick="<g:remoteFunction controller="MailingListSchedule"   action="br"    params="${[id:deployInstance.addedby, sortby:sortby, order:order, s:'u', envid:envid, viewtype:viewtype, offset:offset, max:params.max,pageSizes:pageSizes,divupdate:divupdate ]}" update="${divupdate }"  />">
-					<user:returnRealUser userId="${deployInstance.addedby}"></user:returnRealUser>
-					</button></td>
+					
 				
 					<td>${deployInstance.scheduleCancelled.toString()}</td>
 					<td>${deployInstance.scheduleComplete.toString()}</td>

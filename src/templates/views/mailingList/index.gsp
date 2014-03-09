@@ -3,6 +3,7 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
+		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mailingList.css')}" type="text/css">
 		<g:set var="entityName" value="${message(code: 'mailingList.label', default: 'MailingList')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
 	</head>
@@ -14,8 +15,8 @@
 		<ul><li><div class="internalbtn">		
 		<div id="scheduler-logo"><div class=app-detail><h4>Schedule Email</h4>
 		</div></div>
-				<div class="internalbtn"><g:link controller="email" class="list" action="index"><g:message code="Email a person" args="[entityName]" /></g:link></div>
-				<div class="internalbtn"><g:link controller="email" class="list" action="contactclients"><g:message code="Contact Clients" args="[entityName]" /></g:link></div>
+				<div class="internalbtn"><g:link controller="mailingListEmail" class="list" action="index"><g:message code="Email a person" args="[entityName]" /></g:link></div>
+				<div class="internalbtn"><g:link controller="mailingListEmail" class="list" action="contactclients"><g:message code="Contact Clients" args="[entityName]" /></g:link></div>
 		<div class="internalbtn"><button id=boxbtn onclick="<g:remoteFunction controller="MailingListSchedule"  action="br" update="siteContent"  id=""  params="${[s:'oa',viewtype:'na']}"/>">Incomplete Schedules</button></div>
 	<div class="internalbtn"><button id=boxbtn onclick="<g:remoteFunction controller="MailingListSchedule"  action="br" update="siteContent"  id=""  params="${[s:'od',viewtype:'na']}"/>">Completed Schedules</button></div>
 			

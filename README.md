@@ -31,7 +31,7 @@ Or via grails command line:
 		compile (":csv:0.3.1", ":quartz:1.0.1" , ":quartz-monitor:0.3-RC3",
 		":ckeditor:3.6.6.1.1" , ":tiny-mce:3.4.9" , ":joda-time:1.4",
 		":jquery-date-time-picker:0.1.1" , ":export:1.5" , ":mail:1.0.4",  
-		":jquery-ui:1.10.3"
+		":jquery-ui:1.10.3", ":pretty-time:2.1.3.Final-1.0.1"
 		)
 	
 
@@ -198,7 +198,7 @@ An example BootStrap call to requeue outstanding or interuppted schedules is to 
 
     class BootStrap {
         ..
-        EmailController ec=new EmailController()
+        MailingListEmailController ec=new MailingListEmailController()
 
             ..
             def getEmails=MailingListSchedule.findAllByScheduleCompleteAndScheduleCancelled(false,false)

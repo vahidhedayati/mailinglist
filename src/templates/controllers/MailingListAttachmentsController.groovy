@@ -5,10 +5,6 @@ import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.web.multipart.commons.CommonsMultipartFile
 class MailingListAttachmentsController  {
 
-	
-	def addExcept(list) {
-		list << 'index' << 'list' << 'show'
-	}
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 

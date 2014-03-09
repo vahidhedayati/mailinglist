@@ -4,7 +4,7 @@
 	<head>
 	
 		<meta name="layout" content="main">
-		
+		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mailingList.css')}" type="text/css">
 		<g:set var="entityName" value="${message(code: 'environments.label', default: 'Contact A Person')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 		
@@ -13,11 +13,7 @@
 	</head>
 	<body>
 	
-	<div id="nav3"  class="nav3" role="navigation">
-	<ul id="nav">
-		<li><a class="home" href="${createLink(uri: '/MailingList/index')}">Schedule Announcement</a></li>			
-	</ul>
-	</div>	
+	<g:render template="/mailingList/mainmenu"/>
 
 		<div id="create-mailingList" class="content scaffold-create" role="main">
 			<h1><g:message code="default.create.label" args="[entityName]" /></h1>

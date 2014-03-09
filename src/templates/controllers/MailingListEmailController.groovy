@@ -2,7 +2,7 @@ package $pack
 
 import java.text.SimpleDateFormat
 
-class EmailController  {
+class MailingListEmailController  {
 	
 	def quartzEmailCheckerService
 	

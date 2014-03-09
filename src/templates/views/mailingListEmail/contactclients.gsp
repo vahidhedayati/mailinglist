@@ -4,6 +4,7 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
+		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mailingList.css')}" type="text/css">
 		<g:set var="entityName" value="${message(code: 'ContactClients.label', default: 'Contact Clients')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 		
@@ -11,13 +12,7 @@
 
 	</head>
 	<body>
-	<div id="nav3"  class="nav3" role="navigation">
-	<ul id="nav">
-	
-		<li><a class="home" href="${createLink(uri: '/MailingList/index')}">Schedule Announcement</a></li>		
-
-	</ul>
-	</div>
+	<g:render template="/mailingList/mainmenu"/>
 	<g:hasErrors bean="${mailingListScheduleInstance}">
 			<ul class="errors" role="alert">
 				<g:eachError bean="${mailingListScheduleInstance}" var="error">
@@ -36,11 +31,8 @@
 	<g:form action="confirmcontact" >
 
 			<div id="contact-area">
-<div class="fieldcontain ${hasErrors(bean: params, field: 'addedby', 'error')} ">
-	<g:hiddenField name="addedby" value="${session.username}"/>
-</div>
 
-
+		<g:render template="/mailingList/addedby"  model="[caller: 'params']"/>
 
 	<div class="fieldcontain ${hasErrors(bean: params, field: 'sendType', 'error')} ">
 	<label for="sendType">
@@ -203,7 +195,7 @@ ${params.emailMessage }
 		noSelection="['': 'Please choose Template']"
 		required=""
 		onchange="${remoteFunction (
-		controller: 'Email',
+		controller: 'MailingListEmail',
 		action: 'loadMessageBox',
 		params: "'id=' + this.value",
 		update: 'loadMessageBox'

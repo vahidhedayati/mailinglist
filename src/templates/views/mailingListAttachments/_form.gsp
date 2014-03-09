@@ -8,8 +8,5 @@
 	<input type="file" id="attachment" name="attachment" />
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: mailingListAttachmentsInstance, field: 'addedby', 'error')} ">
-<g:hiddenField name="addedby" value="${session.username}"/>
-</div>
-
+<g:render template="/mailingList/addedby"  model="[caller: 'mailingListAttachmentsInstance']"/>
 
