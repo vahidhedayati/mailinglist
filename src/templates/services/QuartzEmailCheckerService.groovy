@@ -1,102 +1,84 @@
 package $pack
 
-import org.quartz.Scheduler
-
 import static org.quartz.impl.matchers.GroupMatcher.jobGroupEquals
 
 import java.text.SimpleDateFormat
-import java.util.Map;
 
 import org.quartz.Scheduler
 import org.quartz.Trigger
+
 class QuartzEmailCheckerService {
+
 	Scheduler quartzScheduler
 	def grailsApplication
 	def quartzStatusService
+
 	static final Map<String, Trigger> triggers = [:]
 
-	def requeueEmail(params) {
-		StringBuilder sb=new StringBuilder()
-		for (int i=0;i < $amount; i++) {
-			Boolean running=true
-
-			running=quartzStatusService.getQuartzStatus("ScheduleEmail"+i+"Job")
-		
-			def scheduledDate
-			
-			def cdt=params.dateTime
-			def dFormat="dd/MM/yyyy HH.mm"
-			if (cdt.indexOf(':')>-1) {
-				dFormat="dd/MM/yyyy HH:mm"
-			}
-			
-			
-			SimpleDateFormat dateFormat = new SimpleDateFormat(dFormat)
+	String requeueEmail(params) {
+		StringBuilder sb = new StringBuilder()
+		${amount}.times { int i ->
+			String cdt = params.dateTime
 			try {
-				scheduledDate = dateFormat.parse(params.dateTime)
-			}catch(Exception pe) {
-				log.error("ERROR: Cannot parse"+scheduledDate)
+				Date scheduledDate = parse(cdt)
+				log.info "Scheduled EMAIL set for \$cdt (\$scheduledDate)"
+				if (!isRunning(i)) {
+					def paramsMap = [
+						dateTime: cdt,
+						recipientCCList: params.recipientCCList,
+						mailFrom: params.mailFrom,
+						addedby: params.addedby,
+						emailMessage: params.emailMessage,
+						subject: params.subject,
+						recipientBCCList: params.recipientBCCList,
+						recipientToList: params.recipientToList,
+						recipientToGroup: params.recipientToGroup,
+						mailingListTemplate: params.mailingListTemplate,
+						setDate: params.setDate,
+						setTime: params.setTime,
+						sendType: params.sendType,
+						id: params.id,
+						scheduleid: params.id]
+$jobMapping
+				}
 			}
-			
-			if (scheduledDate) {
-				scheduledDate = dateFormat.parse(params.dateTime)
-				println "Scheduled EMAIL set for "+params.dateTime+" ("+scheduledDate+") "
-				def paramsMap = [:]
-				paramsMap.put('dateTime',params.dateTime)
-				paramsMap.put('recipientCCList',params.recipientCCList)
-				paramsMap.put('mailFrom',params.mailFrom)
-				paramsMap.put('addedby',params.addedby)
-				paramsMap.put('emailMessage',params.emailMessage)
-				paramsMap.put('subject',params.subject)
-				paramsMap.put('recipientBCCList',params.recipientBCCList)
-				paramsMap.put('recipientToList',params.recipientToList)
-				paramsMap.put('recipientToGroup',params.recipientToGroup)
-				paramsMap.put('mailingListTemplate',params.mailingListTemplate)
-				paramsMap.put('setDate',params.setDate)
-				paramsMap.put('setTime',params.setTime)
-				paramsMap.put('sendType',params.sendType)
-				paramsMap.put('id',params.id)
-				paramsMap.put('scheduleid',params.id)
-				if (running==false) {
-$jobMapping	
-				}		
-			}else{
-				sb.append('Invalid schedule date & time given')
+			catch(e) {
+				log.error("ERROR: Cannot parse '\$scheduledDate': \$e.message", e)
+				sb.append("Invalid schedule date & time given: \$cdt")
 			}
 		}
 		return sb.toString()
 	}
-	
-	
-	def queueEmail(params) {
-		StringBuilder sb=new StringBuilder()
-		for (int i=0;i < $amount; i++) {
-			Boolean running=true
-			running=quartzStatusService.getQuartzStatus("ScheduleEmail"+i+"Job")
-			def scheduledDate
-			def cdt=params.dateTime
-			def dFormat="dd/MM/yyyy HH.mm"
-			if (cdt.indexOf(':')>-1) {
-				dFormat="dd/MM/yyyy HH:mm"
-			}
-			SimpleDateFormat dateFormat = new SimpleDateFormat(dFormat)
+
+	String queueEmail(params) {
+		StringBuilder sb = new StringBuilder()
+		${amount}.times { int i ->
+			String cdt = params.dateTime
 			try {
-				scheduledDate = dateFormat.parse(params.dateTime)
-			}catch(Exception pe) {
-				log.error("ERROR: Cannot parse"+scheduledDate)
-			}
-			
-			if (scheduledDate) {
-				scheduledDate = dateFormat.parse(params.dateTime)
-				println "Scheduled EMAIL set for "+params.dateTime+" ("+scheduledDate+") "
-				if (running==false) {
+				Date scheduledDate = parse(cdt)
+				log.info "Scheduled EMAIL set for \$cdt (\$scheduledDate)"
+				if (!isRunning(i)) {
 $queueMapping
 				}
-			}else{
-				sb.append('Invalid schedule date & time given')
 			}
-		}	
+			catch(e) {
+				log.error("ERROR: Cannot parse '\$scheduledDate': \$e.message", e)
+				sb.append("Invalid schedule date & time given: \$cdt")
+			}
+		}
 		return sb.toString()
 	}
-	
+
+	private boolean isRunning(int i) {
+		quartzStatusService.getQuartzStatus("ScheduleEmail" + i + "Job")
+	}
+
+	private Date parse(String cdt) {
+		String dFormat = "dd/MM/yyyy HH.mm"
+		if (cdt.indexOf(':') > -1) {
+			dFormat = "dd/MM/yyyy HH:mm"
+		}
+
+		new SimpleDateFormat(dFormat).parse(cdt)
+	}
 }

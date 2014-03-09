@@ -8,6 +8,7 @@
 	<g:textField name="name" required="" value="${mailingListCatInstance?.name}"/>
 </div>
 
+
 <g:render template="/mailingList/addedby"  model="[caller: 'mailingListCatInstance']"/>
 
 <div class="fieldcontain ${hasErrors(bean: mailingListCatInstance, field: 'mailinglist', 'error')} ">

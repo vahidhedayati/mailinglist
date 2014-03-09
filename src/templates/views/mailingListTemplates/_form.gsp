@@ -11,7 +11,6 @@
 	<g:textField name="name" required="" value="${mailingListTemplatesInstance?.name}"/>
 </div>
 
-
 <g:render template="/mailingList/addedby"  model="[caller: 'mailingListTemplatesInstance']"/>
 
 

@@ -5,7 +5,7 @@
 	 <link rel="stylesheet" href="${resource(dir: 'css', file: 'quartz-monitor.css', plugin: 'quartz-monitor')}"/>
         <link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.countdown.css', plugin: 'quartz-monitor')}"/>
         <link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.clock.css', plugin: 'quartz-monitor')}"/>
-	
+		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mailingList.css')}" type="text/css">
 	<g:if test="${!request.xhr }">
     <meta name='layout' content="main"/>
     </g:if>
@@ -16,8 +16,8 @@
 	
 
 		
-
-			<g:render template="/mailingList/mainmenu"/>
+	<g:render template="menu" /> 
+		
 	
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>

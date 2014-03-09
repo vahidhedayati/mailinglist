@@ -30,9 +30,8 @@
 
 	<g:form action="scheduleEmail" >
 			<div id="contact-area">
-<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'addedby', 'error')} ">
-	<g:hiddenField name="addedby" value="${session?.username}"/>
-</div>
+
+<g:render template="/mailingList/addedby"  model="[caller: 'mailingListScheduleInstance']"/>
 
 		
 	<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'mailFrom', 'error')} required">
