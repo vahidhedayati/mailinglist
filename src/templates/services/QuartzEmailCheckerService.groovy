@@ -20,8 +20,10 @@ class QuartzEmailCheckerService {
 		Boolean isStarted=false
 		String cdt = params.dateTime
 		Date scheduledDate = parse(cdt)
+		//int totalRunners=0
 		${amount}.times { int i ->
 			if (((!isRunning(i))&&(!isStarted))&&(scheduledDate)) {
+				//if (isRunning(i)) { totalRunners++ }
 				try {
 					log.info "Scheduled EMAIL set for \$cdt (\$scheduledDate)"
 					sb = new StringBuilder()
@@ -47,7 +49,11 @@ $jobMapping
 					log.error("ERROR: Cannot parse \$cdt: \$e.message", e)
 					sb.append("Schedule_UNAVAILABLE")
 				}
-			}	
+			}
+			//if ((totalRunners==${amount})&&(!isStarted)) {
+			//	sb.append("COULD NOT SCHEDULE SLOTS 0 - ${amount} have been used")
+			//}
+				
 		}
 		return sb.toString()
 	}
@@ -57,8 +63,10 @@ $jobMapping
 		Boolean isStarted=false
 		String cdt = params.dateTime
 		Date scheduledDate = parse(cdt)
+		//int totalRunners=0
 		${amount}.times { int i ->
 			if (((!isRunning(i))&&(!isStarted))&&(scheduledDate)) {
+				//if (isRunning(i)) { totalRunners++ }
 				try {
 					log.info "Scheduled EMAIL set for \$cdt (\$scheduledDate)"
 					sb = new StringBuilder()
@@ -70,7 +78,10 @@ $queueMapping
 					log.error("ERROR: Cannot parse \$cdt: \$e.message", e)
 					sb.append("Schedule_UNAVAILABLE")
 				}
-			}	
+			}
+			//if ((totalRunners==${amount})&&(!isStarted)) {
+			//	sb.append("COULD NOT SCHEDULE SLOTS 0 - ${amount} have been used")
+			//}
 		}
 		return sb.toString()
 	}

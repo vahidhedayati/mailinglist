@@ -120,6 +120,7 @@ class MailingListEmailController {
 		if (!mailingListScheduleInstance.save(flush: true)) {
 			log.info("Error saving ::: ")
 //			mailingListScheduleInstance.errors.allErrors.each{println it}
+			flash.message = message(code: 'Error saving schedule in DB table MailingListSchedule')
 			if (recipientToGroup) {
 				render(view: "contactclients", model: [mailingListScheduleInstance: mailingListScheduleInstance])
 			}
@@ -160,7 +161,7 @@ class MailingListEmailController {
 			redirect(controller:'MailingListSchedule',action:'br')
 			return
 		}
-
+		flash.message = message(code: 'Could not queue job please check quartz queue to ensure schedule slots are free')
 		if (recipientToGroup) {
 			render(view: "contactclients", model: [mailingListScheduleInstance: mailingListScheduleInstance])
 		}
