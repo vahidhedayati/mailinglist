@@ -209,3 +209,176 @@
 	float: right;
 }
 
+
+.tab_opt{
+	margin:0 0 15px 0;
+	border-bottom:1px solid #cfcfcf;
+	text-align:right;
+	padding-right:10px
+}
+
+.tab_opt li{
+	margin:0 5px -1px 0;
+	vertical-align:bottom;
+	display:inline-block;
+}
+
+.tab_opt a{
+	-webkit-border-top-right-radius:5px;
+	-webkit-border-top-left-radius:5px;
+	-moz-border-radius-topright:5px;
+	-moz-border-radius-topleft:5px;
+	border-top-right-radius:5px;
+	border-top-left-radius:5px;
+	border:1px solid #c0c0c0;
+	display:block;
+	background-color:#ececec;
+	padding:0 10px;
+	line-height:24px;
+	color:#333;
+}
+
+.tab_opt a:hover{
+	background-color:#ff0000;
+	color:white
+}
+
+.tab_opt a.active{
+	border-bottom-color:white;
+	background-color:white;
+	line-height:26px;
+	color:black
+}
+
+.tab_opt a.highlight{
+	color:red
+}
+
+.tabBar{
+	margin-top: -27px;
+	margin-bottom:15px;
+	border-bottom:1px solid #ff0079;
+	padding-right:10px;
+	text-align:right
+}
+/*------------------------------------*\
+	NAV
+\*------------------------------------*/
+#nav{
+	list-style:none;
+	font-weight:bold;
+	/* Clear floats */
+	float:left;
+	width: auto;
+	border-radius: 61px 61px 61px 61px;
+	background: linear-gradient(top, #efefef 0%, #444444 100%);  
+	background: -moz-linear-gradient(top, #efefef 0%, #444444 100%); 
+	background: -webkit-linear-gradient(top, #efefef 0%,#444444 100%); 
+	box-shadow: 0px 0px 9px rgba(99,99,99,99);
+	/*z-index:3080;*/
+	padding: 0.3em 0.3em 0.3em 0.3em;
+	margin: 0.6em 0.1em 0 0.5em;
+	/* Bring the nav above everything else--uncomment if needed.
+	position:relative;
+	z-index:5;
+	
+	*/
+}
+#nav li{
+	float:left;
+	margin-right:10px;
+	position:relative;
+	/*z-index:3080;*/
+		border-radius: 61px 61px 61px 61px;
+}
+
+#nav .present { 
+	display:block;
+	padding:5px;
+	color:#fff;
+	background: #800000;
+	text-decoration:none;
+	/*z-index:3080;*/
+	border-radius: 61px 61px 61px 61px;
+}
+	
+#nav a{
+	display:block;
+	padding:5px;
+	color:#fff;
+	background:#333;
+	text-decoration:none;
+	/*z-index:3080;*/
+	border-radius: 61px 61px 61px 61px;
+}
+#nav a:hover #nav .present:hover{
+	color:#fff;
+	background:#6b0c36;
+	text-decoration:underline;
+}
+
+/*--- DROPDOWN ---*/
+#nav ul{
+	background:#fff; /* Adding a background makes the dropdown work properly in IE7+. Make this as close to your page's background as possible (i.e. white page == white background). */
+	background:rgba(255,255,255,0); /* But! Let's make the background fully transparent where we can, we don't actually want to see it if we can help it... */
+	list-style:none;
+	position:absolute;
+	left:-9999px; /* Hide off-screen when not needed (this is more accessible than display:none;) */
+	
+	
+	
+	background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);  
+	background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%); 
+	background: -webkit-linear-gradient(top, #efefef 0%,#bbbbbb 100%); 
+	box-shadow: 0px 0px 9px rgba(0,0,0,1);
+	padding: 0 20px;
+	border-radius: 10px;  
+	list-style: none;
+	
+	display: inline-table;
+	border-radius: 10px 10px 10px 10px;
+	z-index:300;
+		
+}
+#nav ul li{
+	padding-top:1px; /* Introducing a padding between the li and the a give the illusion spaced items */
+	float:none;
+/*z-index:3080;*/
+	border-radius: 10px 10px 10px 10px;
+}
+#nav ul a{
+	white-space:nowrap; /* Stop text wrapping and creating multi-line dropdown items */
+	text-decoration:none;
+/*z-index:3080;*/
+}
+#nav li:hover ul{ /* Display the dropdown on hover */
+	left:0; /* Bring back on-screen when needed */
+/*z-index:3080;*/
+}
+#nav li:hover a{ 
+background:#FFF; 
+	background:rgba(255,255,255,0); 
+	color: #0000FF;
+	text-decoration:none;
+/*z-index:3080;*/
+}
+#nav li:hover ul a{ /* The persistent hover state does however create a global style for links even before they're hovered. Here we undo these effects. */
+	text-decoration:none;
+z-index:3080;
+}
+#nav li:hover ul li a:hover{ /* Here we define the most explicit hover states--what happens when you hover each individual link. */
+	background:#333;
+	z-index: 2951;
+	color: #FF0000;
+	text-decoration:none;
+}
+#nav3 {
+	display: inline-block;
+	/*z-index:3080;*/
+}	
+.nav3 {
+    display: inline-block;
+	width: 100%;
+	/*z-index:3080;*/
+	padding-top: 2em;
+}	

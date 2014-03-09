@@ -2,19 +2,18 @@
 
 <html>
 	<head>
-	 <link rel="stylesheet" href="${resource(dir: 'css', file: 'quartz-monitor.css', plugin: 'quartz-monitor')}"/>
-        <link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.countdown.css', plugin: 'quartz-monitor')}"/>
-        <link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.clock.css', plugin: 'quartz-monitor')}"/>
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mailingList.css')}" type="text/css">
-	<g:if test="${!request.xhr }">
-    <meta name='layout' content="main"/>
-    </g:if>
-		<g:set var="entityName" value="${message(code: 'deploymentApproval.label', default: 'MailingList Schedule')}" />
+		<g:if test="${!request.xhr }">
+    		<meta name='layout' content="main"/>
+   		 </g:if>
+		<g:set var="entityName" value="${message(code: 'MailingListSchedule.label', default: 'MailingList Schedule')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 	</head>
 	<body >
 	
 
+		<div id="siteContent">
+		
 		
 	<g:render template="/mailingList/mainmenu" /> 
 		
@@ -49,15 +48,7 @@
                                   update="siteContent"   max="${params.max}" pageSizes="[10:'10 Per Page', 20: '20 Per Page', 50:'50 Per Page',100:'100 Per Page',250:'250 Per Page',500:'500 Per Page',1000:'1000 Per Page']" /> 
 </div>
 	<export:formats />
-	
-			
-				<g:unless test="${grailsApplication.config.quartz.monitor.showCountdown == false}">
-           		<g:javascript src="jquery.countdown.js" plugin="quartz-monitor"/>
-            	<g:javascript src="jquery.color.js" plugin="quartz-monitor"/>
-       		 </g:unless>
-        	<g:unless test="${grailsApplication.config.quartz.monitor.showTickingClock == false}">
-            	<g:javascript src="jquery.clock.js" plugin="quartz-monitor"/>
-        	</g:unless>
-        	<g:javascript src="quartz-monitor.js" plugin="quartz-monitor"/>
+        	
+        	</div>
 	</body>
 </html>
