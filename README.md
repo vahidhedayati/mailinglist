@@ -78,7 +78,9 @@ Required Config.groovy configurations:
 	//mailinglist.table.schedule='something'
 	//mailinglist.table.senders='something'
 	//mailinglist.table.templates='something'
-
+	
+	// Your date format that matches input of jquery datepicker config 
+	//mailinglist.dtFormat='dd/MM/yyyy HH.mm'
 
 
 	ckeditor {

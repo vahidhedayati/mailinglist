@@ -26,10 +26,12 @@ class QuartzStatusService {
 		quartzScheduler.jobGroupNames?.each { jobGroup ->
 			quartzScheduler.getJobKeys(jobGroupEquals(jobGroup))?.each { jobKey ->
 				String jobName = jobKey.name
-				if (jobName.endsWith(currentController)) {
+				quartzScheduler.getTriggersOfJob(jobKey)?.each {trigger ->
+					if (jobName.endsWith(currentController)) {
 						running = true
 						log.info "Scheduled job \$jobName running will try next job"
-				}
+					}
+				}	
 			}
 		}
 		return running

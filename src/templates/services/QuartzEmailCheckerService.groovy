@@ -18,12 +18,13 @@ class QuartzEmailCheckerService {
 	String requeueEmail(params) {
 		StringBuilder sb = new StringBuilder()
 		Boolean isStarted=false
+		String cdt = params.dateTime
+		Date scheduledDate = parse(cdt)
 		${amount}.times { int i ->
-			String cdt = params.dateTime
-			try {
-				Date scheduledDate = parse(cdt)
-				log.info "Scheduled EMAIL set for \$cdt (\$scheduledDate)"
-				if ((!isRunning(i))&&(!isStarted)) {
+			if (((!isRunning(i))&&(!isStarted))&&(scheduledDate)) {
+				try {
+					log.info "Scheduled EMAIL set for \$cdt (\$scheduledDate)"
+					sb = new StringBuilder()
 					def paramsMap = [
 						dateTime: cdt,
 						recipientCCList: params.recipientCCList,
@@ -42,11 +43,11 @@ class QuartzEmailCheckerService {
 						scheduleid: params.id]
 $jobMapping
 				}
-			}
-			catch(e) {
-				log.error("ERROR: Cannot parse \$cdt: \$e.message", e)
-				sb.append("Invalid schedule date & time given: \$cdt")
-			}
+				catch(e) {
+					log.error("ERROR: Cannot parse \$cdt: \$e.message", e)
+					sb.append("Schedule_UNAVAILABLE")
+				}
+			}	
 		}
 		return sb.toString()
 	}
@@ -54,19 +55,22 @@ $jobMapping
 	String queueEmail(params) {
 		StringBuilder sb = new StringBuilder()
 		Boolean isStarted=false
+		String cdt = params.dateTime
+		Date scheduledDate = parse(cdt)
 		${amount}.times { int i ->
-			String cdt = params.dateTime
-			try {
-				Date scheduledDate = parse(cdt)
-				log.info "Scheduled EMAIL set for \$cdt (\$scheduledDate)"
-				if ((!isRunning(i))&&(!isStarted)) {
+			if (((!isRunning(i))&&(!isStarted))&&(scheduledDate)) {
+				try {
+					log.info "Scheduled EMAIL set for \$cdt (\$scheduledDate)"
+					sb = new StringBuilder()
+				
 $queueMapping
+				
 				}
-			}
-			catch(e) {
-				log.error("ERROR: Cannot parse \$cdt: \$e.message", e)
-				sb.append("Invalid schedule date & time given: \$cdt")
-			}
+				catch(e) {
+					log.error("ERROR: Cannot parse \$cdt: \$e.message", e)
+					sb.append("Schedule_UNAVAILABLE")
+				}
+			}	
 		}
 		return sb.toString()
 	}
@@ -76,11 +80,11 @@ $queueMapping
 	}
 
 	private Date parse(String cdt) {
-		String dFormat = "dd/MM/yyyy HH.mm"
-		if (cdt.indexOf(':') > -1) {
-			dFormat = "dd/MM/yyyy HH:mm"
+		String dFormat=grailsApplication?.config.mailinglist.dtFormat ?: 'dd/MM/yyyy HH.mm'
+		try {
+			new SimpleDateFormat(dFormat).parse(cdt)
+		}catch(Exception pe) {
+			log.error("ERROR: Cannot parse"+cdt)
 		}
-
-		new SimpleDateFormat(dFormat).parse(cdt)
 	}
 }
