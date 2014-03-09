@@ -19,7 +19,7 @@ Add plugin Dependency in BuildConfig.groovy :
 	compile ":mailinglist:0.1"
 
 
-#### BuildConfig.groovylayout/main.gsp update:  
+#### BuildConfig.groovylayout/main.gsp update:
 
 ##### jquery, jquery-ui libraries:
 your layouts main.gsp: (add jquery-ui and jquery - or add them into ApplicationResources.groovy and ensure you refer to it in your main.gsp or relevant file
@@ -181,17 +181,16 @@ An example BootStrap call to requeue outstanding or interuppted schedules is to 
 
 
     class BootStrap {
-    ..
-    def emailService
+        ..
+        def emailService
 
-    ..
-    def getEmails = MailingListSchedule.findAllByScheduleCompleteAndScheduleCancelled(false,false)
-    getEmails.each { params ->
-        if (params.dateTime && params.emailMessage) {
-            println "RESCHEDULING MAIL QUEUE ${params?.id} --     ${params?.mailFrom}---${params?.recipientToGroup}--${params?.recipientToList}"
-            emailService.rescheduleit(params)
+        ..
+        def getEmails = MailingListSchedule.findAllByScheduleCompleteAndScheduleCancelled(false,false)
+        getEmails.each { params ->
+            if (params.dateTime && params.emailMessage) {
+                println "RESCHEDULING MAIL QUEUE ${params?.id} --       ${params?.mailFrom}---${params?.recipientToGroup}--${params?.recipientToList}"
+                emailService.rescheduleit(params)
+            }
         }
+        ..
     }
-    ..
-   }
-
