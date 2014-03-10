@@ -74,10 +74,9 @@ class MailingListAttachmentsController {
 		flash.message = message(code: 'default.created.message', args: [message(code: 'mailingListAttachments.label', default: 'MailingListAttachments'), mailingListAttachmentsInstance.id])
 		if (!params.ajax) {
 			redirect(action: "show", id: mailingListAttachmentsInstance.id)
-			return
-		}
-		redirect(url: request.getHeader('referer'))
-		return
+		}else{
+			redirect(url: request.getHeader('referer'))
+		}	
 	}
 
 	def show(Long id) {

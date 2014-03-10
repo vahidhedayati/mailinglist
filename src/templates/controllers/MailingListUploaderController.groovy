@@ -110,10 +110,10 @@ class MailingListUploaderController {
 		}
 		if (!params.ajax) {
 			[output:output.toString()]
-			return
+		}else{	
+			redirect(url: request.getHeader('referer'))
 		}	
-		redirect(url: request.getHeader('referer'))
-		return
+		
 	}
 
 	def export() {

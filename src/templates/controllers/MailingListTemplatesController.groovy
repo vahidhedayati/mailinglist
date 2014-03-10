@@ -37,10 +37,11 @@ class MailingListTemplatesController {
 		if (!params.ajax){
 			flash.message = message(code: 'default.created.message', args: [message(code: 'mailingListTemplates.label', default: 'MailingListTemplates'), mailingListTemplatesInstance.id])
 			redirect(action: "show", id: mailingListTemplatesInstance.id)
-			return
-		}
-		redirect(url: request.getHeader('referer'))
-		return
+			
+		}else{
+			redirect(url: request.getHeader('referer'))
+		}	
+		
 	}
 
 	def show(Long id) {
