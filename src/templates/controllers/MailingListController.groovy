@@ -5,7 +5,8 @@ import org.springframework.dao.DataIntegrityViolationException
 class MailingListController {
 
 	def exportService
-
+	def grailsApplication
+	
 	def index() {}
 
 	def search(String mq) {
@@ -57,13 +58,13 @@ class MailingListController {
 		params.order = params.order ?: 'desc'
 		params.offset = params.offset ?: '0'
 
-		if (format != "html") {
+		if ((format) &&(format != "html")) {
 			response.contentType = grailsApplication.config.grails.mime.types[format]
 			response.setHeader("Content-disposition", "attachment; filename=MailingList." + params.extension)
-			exportService.export(format, response.outputStream,MailingList.list(), [:], [:])
+			exportService.export(format, response.outputStream,MailingList?.list(), [:], [:])
 		}
 
-		def model = [mailingListInstanceList: MailingList.list(params), mailingListInstanceTotal: MailingList.count()]
+		def model = [mailingListInstanceList: MailingList?.list(params), mailingListInstanceTotal: MailingList?.count()]
 
 		if (request.xhr) {
 			render (template: 'listing', model: model)
