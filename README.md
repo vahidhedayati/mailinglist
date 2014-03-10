@@ -207,7 +207,7 @@ An example BootStrap call to requeue outstanding or interuppted schedules is to 
  
  
     
- #### Pop up Modal boxes within contact clients
+#### Pop up Modal boxes within contact clients
  
  I have ammended the plugin to include bootstrap-min.js & ml-boostrap-combined.min.css, 
   the plugin will write the js file only if does not already exist within your local web-apps/js folder.
@@ -229,7 +229,13 @@ This project at the moment installs nearly everything to your local project whic
 Advice for now if or until method changes is to always backup your existing project before either running the mlsetup to increase pool or running to upgrade upon future releases. 
 If you are not going to make any changes to the plugin code then nothing to worry about update as much as required. 
 
-  
+
+## Finally
+
+A big thank you as always to Burt Beckwith for forking and fixing up a lot of my wild wild west code :). 
+Unfortunately due to issues with merging back the original fork and after a few attempts to fix the issue I decided to rm -rf git repo and upload correct bit which included his changes. 
+Those changes are here: https://github.com/burtbeckwith/mailinglist/
+
    
  
 
