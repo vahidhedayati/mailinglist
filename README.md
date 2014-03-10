@@ -203,3 +203,33 @@ An example BootStrap call to requeue outstanding or interuppted schedules is to 
         }
         ..
     }
+ 
+ 
+    
+ #### Pop up Modal boxes within contact clients
+ 
+ I have ammended the plugin to include bootstrap-min.js & ml-boostrap-combined.min.css, 
+  the plugin will write the js file only if does not already exist within your local web-apps/js folder.
+  The new css is added and referred to within contactclients.gsp where the same js file is also called.
+  This then allows modal popups to work within the standard grails framework. 
+  I ammended the css file from the standard to remove a large chunk from the top so that the default 
+  grails site still worked as per normal. The standed boostrap css shifts the site to the left.
+ 
+New Email is a fully functional updater that just updates div, issues with it poping open again, 
+spent ages on this and going to leave it alone for now.
+The rest of the green buttons on the contact page all add elements and do a redirect back to contact page. 
+The only thing you really loose on this page is the subject since everything else is select or tick.
+
+
+
+#### Future upgrades etc
+
+This project at the moment installs nearly everything to your local project which means you have great power over changes to how things work. This does mean future updates i.e. by running the install script will overwrite everything including changes to anything local to this project made on your local copy.
+Advice for now if or until method changes is to always backup your existing project before either running the mlsetup to increase pool or running to upgrade upon future releases. 
+If you are not going to make any changes to the plugin code then nothing to worry about update as much as required. 
+
+  
+   
+ 
+
+    

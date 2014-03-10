@@ -61,7 +61,10 @@
  	<div class="tbutton">
  	 	<button href="#BuildModalSENDERS" class="btn btn-block btn-success" role="button" data-toggle="modal" title="Configure New Sender">
  		New Sender?</button>
- 		<g:render template="/mailingListModal/modalcreate" model="[title:'Add Senders Email', controller: 'mailingListSenders', callPage: 'form' , divId: 'mailerSenders', id: 'SENDERS' ]" />
+		<div id="mailerSenders1">
+ 			<g:render template="/mailingListModal/modalcreate" model="[title:'Add Senders Email', controller: 'mailingListSenders', callPage: 'form' , divId: 'mailerSenders', id: 'SENDERS' ]" />
+ 		</div>
+ 		
  	</div>
  		
 

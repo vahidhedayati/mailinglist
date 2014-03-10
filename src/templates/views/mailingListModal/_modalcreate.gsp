@@ -1,35 +1,17 @@
-<div class="modal fade" id="BuildModal${id}" role="dialog">
-	<div class="modal-dialog">
-		<div class="modal-content">
-		<g:if test="${flash.message}">
-			<div class="message" role="status">${flash.message}</div>
-		</g:if>
-		
-    		<g:formRemote name="urlParams" class="form-horizontal" url="[controller:controller, action:'save']"
-              update="BuildModal${id}"  onComplete="${controller}CloseModal()"
-              >
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">x</button>
-					<h3>${title }</h3>
-				</div>
-				<div class="modal-body">
-					<div class="form-group">
-						<g:render template="/${controller }/${callPage }"/>
-						 <g:submitToRemote class="myformsubmit" url="[controller:controller, action:'save']" update="BuildModal${id}" onComplete="${controller}CloseModal()" value="Create" />
-					</div>
-				</div>
-				</g:formRemote>
-				
-		</div>
-	</div>
-</div>
-				
+<g:render template="/mailingListModal/modalForm" model="[title:title, controller: controller, callPage: callPage , divId: divId, id: id ]" />
+  				
 <g:javascript>
-	
+<!-- ('#BuildModal{id}').dialog().dialog('close');-->
+ 
 function ${controller}CloseModal() {
-	$('#BuildModal${id}').dialog().dialog('close');
-	$('body').removeClass('modal-open');
-	$('.modal-backdrop').remove();
+ 	var myClone=$('#BuildModal${id}').clone();   
+    $('#BuildModal${id}').dialog().dialog('close');
+  	$(".modal-backdrop").hide();
+  	$('body').removeClass('modal-open');	
+	//var myCloner = myClone.clone();
+  	$('#${divId}1').hide().append(myClone);
+     //$('body').append(myClone);
+        
 	<g:if test="${!disablecheck.equals('true') }">
 		var controller="${controller }";
 		var divId="${divId }";
