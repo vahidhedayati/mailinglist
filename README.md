@@ -19,6 +19,7 @@ WARNING ! - this will copy over controllers/views/domainClasses/services and cre
 This plugin is still under development and has not been released
 
 
+For a walk through guide on how to install this plugin goto : https://github.com/vahidhedayati/ml-test
 
 ## Installation:
 Add plugin Dependency in BuildConfig.groovy :
