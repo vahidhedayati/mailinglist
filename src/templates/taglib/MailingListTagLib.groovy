@@ -1,8 +1,10 @@
 package $pack
 
 class MailingListTagLib {
+	
 	static namespace = "mailinglist"
 	def mailingListEmailService
+	
 	def loadPopUp= {attrs, body ->
 		def cid= attrs.remove('id')?.toString()
 		def scriptCall= attrs.remove('scriptCall')?.toString()
@@ -13,7 +15,6 @@ class MailingListTagLib {
 				String[] tokens = cid.split(",")
 				for(String t : tokens) {
 					t=t.trim()
-					//def mcat=retMcat(controller,t)
 					def mcat=mailingListEmailService?.domainGetter(controller,t,'name','')
 					out << g.render(template:'/mailingList/htmlPopUp', model: [mcat:mcat, t:t, scriptCall:scriptCall, ccontrol: controller, cact: action ])
 				}
@@ -35,15 +36,4 @@ class MailingListTagLib {
 			out << "\${gg}"
 		}
 	}	
-		
-	private String retMcat(def controller,def t){
-		def mcat=''
-		if (controller) {
-			def domainClass = grailsApplication?.getDomainClass(controller)?.clazz
-			if (domainClass) {
-				mcat=domainClass?.get(t)
-			}
-		}
-		return mcat
-	}	   
 }

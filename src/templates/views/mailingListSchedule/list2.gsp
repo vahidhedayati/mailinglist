@@ -2,8 +2,14 @@
 
 <html>
 	<head>
+		<g:if test="${!request.xhr }">
+    		<meta name='layout' content="main"/>
+    	</g:if>
+		<g:else>
+			<meta name='layout' content="mailingListMini"/>
+		</g:else>
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mailingList.css')}" type="text/css">
-		<meta name='layout' content="main"/>
+		
     	<g:set var="entityName" value="${message(code: 'MailingListSchedule.label', default: 'MailingList Schedule')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 	</head>

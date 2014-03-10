@@ -143,7 +143,7 @@ class MailingListEmailService {
 			if (recipientToGroup) {
 				if (recipientToGroup.getClass().isArray()) {
 					recipientToGroup.each { rg ->
-						MailingListCat.get(rg)?.mailinglist?.each { currentemail ->
+						MailingListCategories.get(rg)?.mailinglist?.each { currentemail ->
 							if (currentemail) {
 								primary << currentemail
 							}
@@ -151,7 +151,7 @@ class MailingListEmailService {
 					}
 				}
 				else {
-					MailingListCat.get(recipientToGroup)?.mailinglist?.each { currentemail ->
+					MailingListCategories.get(recipientToGroup)?.mailinglist?.each { currentemail ->
 						if (currentemail) {
 							primary << currentemail
 						}
@@ -208,7 +208,7 @@ class MailingListEmailService {
 		else {
 			if (recipientToGroup) {
 				recipientToGroup.each { rg ->
-					for (currentemail in MailingListCat.get(rg)?.mailinglist) {
+					for (currentemail in MailingListCategories.get(rg)?.mailinglist) {
 						if (!currentemail) {
 							continue
 						}

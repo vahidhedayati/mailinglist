@@ -168,7 +168,7 @@ class MailingListEmailController {
 		def result = quartzEmailCheckerService.queueEmail(params)
 		if (result) {
 			mailingListScheduleInstance.scheduleName = result
-			mailingListScheduleInstance.save()
+			mailingListScheduleInstance.save(flush:true)
 			flash.message = message(code: "Scheduled job name: [\$result] scheduledEmail success.")
 			redirect(controller:'MailingListSchedule',action:'br')
 			return
