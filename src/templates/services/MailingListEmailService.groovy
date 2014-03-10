@@ -14,6 +14,11 @@ class MailingListEmailService {
 		doSendMail toconfig, mycc, mysubject, mybody, false
 	}
 
+	def domainGetter(domain,rvalue,retValue,retValue2) {
+		def criteria =  {  eq ( 'id', rvalue as Long ) }
+		return grailsApplication?.domainClasses?.find { it.clazz.simpleName == currentController(domain) }?.clazz?.createCriteria().list(criteria)
+	}
+	
 	private void doSendMail(toconfig, mycc, mysubject, mybody, boolean html) {
 
 		List<String> recipients = []
@@ -337,7 +342,11 @@ class MailingListEmailService {
 
 		return address
 	}
-
+	
+	private String currentController(String s) {
+		s.substring(0,1).toUpperCase() + s.substring(1)
+	}
+	
 	def returnEmailArrary(String email) {
 		List<String> recipients
 		if (email.toString().indexOf(',')>-1) {

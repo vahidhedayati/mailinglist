@@ -6,7 +6,6 @@
 						<g:sortableColumn property="id" title="${message(code: 'links.id.label', default: 'ID')}" />
 					
 						<g:sortableColumn property="mailFrom" title="${message(code: 'links.mailFrom.label', default: 'From')}" />
-						<g:sortableColumn property="recipientToGroup" title="${message(code: 'links.recipientToGroup.label', default: 'ToGrp ID')}" />
 						<g:sortableColumn property="recipientToList" title="${message(code: 'links.recipientToList.label', default: 'To')}" />
 						
 						<g:sortableColumn property="subject" title="${message(code: 'links.subject.label', default: 'subject')}" />
@@ -40,10 +39,9 @@
 						scriptCall="recipientToGroup"
 						controller="MailingListCategories"
 						action="show" 
-						/></td>
-					
-					<td>
-					${fieldValue(bean: deployInstance, field: "recipientToList")} 
+						/>
+						
+						${fieldValue(bean: deployInstance, field: "recipientToList")} 
 					${fieldValue(bean: deployInstance, field: "recipientBCCList")}
 					${fieldValue(bean: deployInstance, field: "recipientCCList")}
 					</td>
@@ -59,13 +57,6 @@
 						controller="MailingListTemplates"
 						action="show" 
 						/>
-						
-						<mailinglist:loadPopUp id="${deployInstance.id }" 
-						scriptCall="MailingListSchedule"
-						controller="MailingListSchedule"
-						action="showmsg" 
-						/>
-								
 		
 					</td>
 					<td>	
@@ -79,10 +70,7 @@
 					</td>
 
 					<td>${fieldValue(bean: deployInstance, field: "sendType")}</td>
-					<td><button id=boxbtnlink onclick="<g:remoteFunction controller="MailingListSchedule"   action="br"    params="${[id:deployInstance.addedby, sortby:sortby, order:order, s:'u', envid:envid, viewtype:viewtype, offset:offset, max:params.max,pageSizes:pageSizes,divupdate:divupdate ]}" update="${divupdate }"  />">
-					<user:returnRealUser userId="${deployInstance.addedby}"></user:returnRealUser>
-					</button></td>
-				
+					
 					<td>${deployInstance.scheduleCancelled.toString()}</td>
 					<td>${deployInstance.scheduleComplete.toString()}</td>
 					

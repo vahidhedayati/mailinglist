@@ -76,7 +76,7 @@ class MailingListAttachmentsController {
 			redirect(action: "show", id: mailingListAttachmentsInstance.id)
 			return
 		}
-		render "If successful shown below"
+		redirect(url: request.getHeader('referer'))
 		return
 	}
 

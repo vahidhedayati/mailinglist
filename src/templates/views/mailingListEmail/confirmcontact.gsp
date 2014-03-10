@@ -58,14 +58,13 @@
 				</label>	
 				<g:if test="${params.recipientToGroup.getClass().isArray()}">
 					<g:each in="${params.recipientToGroup }" var="rg">
-						<% def mailcat=MailingListCategories?.get(rg) %>
-	 						-| ${mailcat?.name} |-
+					<mailinglist:localDomainGetter domain="MailingListCategories" value="${rg}"	retValue="name"/>
 						<g:hiddenField name="recipientToGroup" value="${rg }"/>
 					</g:each>	
 				</g:if>
 				<g:else>
-					<% def mailcat=MailingListCategories?.get(params.recipientToGroup) %>
-	 				${mailcat?.name} |
+					<mailinglist:localDomainGetter domain="MailingListCategories" value="${params.recipientToGroup }" retValue="name"/>
+					
 					<g:hiddenField name="recipientToGroup" value="${params.recipientToGroup}"/>
 				</g:else>
 			</div>
@@ -87,15 +86,13 @@
 			<g:if test="${params.attachments.getClass().isArray()}">
 				<g:each in="${params.attachments }" var="att">
 		 			<g:hiddenField name="attachments" value="${att}"/>
-					<% def attachments=MailingListAttachments.get(att) %>
-		 			( ${attachments.fullname}  size : -> ${attachments.attachment.size() } ) |
+					<mailinglist:localDomainGetter domain="MailingListAttachments" value="${att}"	retValue="fullname"  />
 				</g:each>	
 			</g:if>
 			<g:else>
 				<g:if test="${params.attachments}">
 			 		<g:hiddenField name="attachments" value="${params.attachments}"/>
-					<% def attachments=MailingListAttachments.get(params.attachments) %>
-		 			( ${attachments.fullname}  size : -> ${attachments.attachment.size() } )
+						<mailinglist:localDomainGetter domain="MailingListAttachments" value="${att}"	retValue="fullname" />
 				</g:if> 
 			</g:else>
 		</div>

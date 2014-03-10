@@ -8,7 +8,7 @@
 				</div>
 				<div class="modal-body">
 					<div class="form-group">
-						<g:render template="/${controller }/${callPage }"  model="[ccontroller: controller, formId:formId]"/>
+						<g:render template="/${controller }/${callPage }"  model="[ccontroller: controller]"/>
 					</div>
 				</div>
 		
@@ -18,28 +18,6 @@
 </div>
 				
 <g:javascript>
-$('#${formId}').submit(function() { 
-    $.ajax({ 
-        data: $(this).serialize(), 
-        type: $(this).attr('method'),
-        url: $(this).attr('action'), 
-        success: function(response) { 
-            $('#${formId}').html(response); 
-            ${controller}CloseModal(); 
-        }
-    });
-    return false; 
-});		
-
-$('#TESTING').submit(function() { 
-     $.post('${createLink(controller:"MailingListUploader", action: "save")}', $('#${formId}').serialize(), function (data, textStatus) {
-           $('#${formId}').html(data); 
-            ${controller}CloseModal();
-    });
-   
-    
-});	
-
 function ${controller}CloseModal() {
 	$('#BuildModal${id}').dialog().dialog('close');
 	$('body').removeClass('modal-open');

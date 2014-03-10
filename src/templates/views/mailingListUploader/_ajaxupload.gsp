@@ -29,5 +29,5 @@ The fields must be in the above format and the first line must be a heading sinc
 	</label>
     <input type="file" name="file">
     </div>
-    <g:submitButton name="upload" value="Upload" onClick="${ccontroller}CloseModal()"/>
+    <g:submitButton name="upload" value="Upload" />
 </g:uploadForm>

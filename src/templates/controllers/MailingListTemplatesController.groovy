@@ -39,10 +39,8 @@ class MailingListTemplatesController {
 			redirect(action: "show", id: mailingListTemplatesInstance.id)
 			return
 		}
-		render "Record has been saved"
+		redirect(url: request.getHeader('referer'))
 		return
-		//redirect(url: request.getHeader('referer'))
-		
 	}
 
 	def show(Long id) {

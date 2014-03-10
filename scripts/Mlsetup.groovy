@@ -109,9 +109,15 @@ target(mlsetup: 'Sets up a new mailing list project') {
 	mkdir(dir:"${basedir}/grails-app/taglib/$packdir")
 	
 	def tagConf = [pack: pack]
+	
 	def mltaglib= createTemplate(engine, 'taglib/MailingListTagLib.groovy', tagConf)
 	new File(basedir, "grails-app/taglib/$packdir/MailingListTagLib.groovy").write(mltaglib.toString())
+	
+	def quartlib= createTemplate(engine, 'taglib/QuartzUtilsTagLib.groovy', tagConf)
+	new File(basedir, "grails-app/taglib/$packdir/QuartzUtilsTagLib.groovy").write(quartlib.toString())
 
+	
+	
 	
 		
 	println "Creating Services within your project: grails-app/services/$packdir"

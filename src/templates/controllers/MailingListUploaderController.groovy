@@ -112,9 +112,8 @@ class MailingListUploaderController {
 			[output:output.toString()]
 			return
 		}	
-		render output.toString()
+		redirect(url: request.getHeader('referer'))
 		return
-		//redirect(url: request.getHeader('referer'))
 	}
 
 	def export() {
