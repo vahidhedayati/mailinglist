@@ -34,8 +34,15 @@ class MailingListTemplatesController {
 			return
 		}
 
-		flash.message = message(code: 'default.created.message', args: [message(code: 'mailingListTemplates.label', default: 'MailingListTemplates'), mailingListTemplatesInstance.id])
-		redirect(action: "show", id: mailingListTemplatesInstance.id)
+		if (!params.ajax){
+			flash.message = message(code: 'default.created.message', args: [message(code: 'mailingListTemplates.label', default: 'MailingListTemplates'), mailingListTemplatesInstance.id])
+			redirect(action: "show", id: mailingListTemplatesInstance.id)
+			return
+		}
+		render "Record has been saved"
+		return
+		//redirect(url: request.getHeader('referer'))
+		
 	}
 
 	def show(Long id) {

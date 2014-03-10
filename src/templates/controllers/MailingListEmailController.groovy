@@ -1,6 +1,7 @@
 package $pack
 
 import java.text.SimpleDateFormat
+import java.util.List;
 
 class MailingListEmailController {
 
@@ -9,25 +10,33 @@ class MailingListEmailController {
 	private static final String DATE_FORMAT = "dd/MM/yyyy HH.mm"
 
 	def quartzEmailCheckerService
-
+	def grailsApplication
+	
 	def index() {
 		def curr = new Date()
-		[current: new SimpleDateFormat(DATE_FORMAT).format(curr), curr: curr]
+		[current: new SimpleDateFormat(DATE_FORMAT).format(curr), curr: curr, mlAttach: domainList('MailingListAttachments')]
 	}
 
 	def testclients() { }
+	
+
 
 	def contactclients() {
-		
 		if (params.emailMessage1) {
 			params.emailMessage = params.emailMessage1
 		}
 		def curr = new Date()
-		[params: params, mlSenders: MailingListSenders?.list(), mlCat: MailingListCategories.list()
-			 , mlAttach: MailingListAttachments?.list(), mlTemp: MailingListTemplates?.list(),
+		[params: params, mlSenders: domainList('MailingListSenders'), mlCat:domainList('MailingListCategories'), 
+			 mlAttach: domainList('MailingListAttachments'), mlTemp:domainList('MailingListTemplates') ,
 			current: new SimpleDateFormat(DATE_FORMAT).format(curr), curr: curr]
 	}
 
+	
+	def getAjaxCall(String ccontroller,String divId) {
+		def myl= domainList(ccontroller)
+		render(template: ccontroller+'Display', model: [mlSenders:myl, mlTemp: myl, mlCat: myl,mlAttach: myl,  divId: divId ])		
+	}
+	
 	def loadMessageBox() {
 		def mlt = MailingListTemplates.get(params.id)
 		render(template: 'message', model: [ content: mlt?.content ])
@@ -172,4 +181,13 @@ class MailingListEmailController {
 			render(view: "index", model: [mailingListScheduleInstance: mailingListScheduleInstance])
 		}
 	}
+					  
+	private List domainList(def ccontroller) {
+		grailsApplication?.domainClasses?.find { it.clazz.simpleName == currentController(ccontroller) }?.clazz?.list()
+	} 
+	
+	private String currentController(String s) {
+		s.substring(0,1).toUpperCase() + s.substring(1)
+	}
+					  
 }

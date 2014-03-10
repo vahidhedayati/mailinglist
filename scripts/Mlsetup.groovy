@@ -52,6 +52,9 @@ target(mlsetup: 'Sets up a new mailing list project') {
 		}
 	}
 
+	copy(file:"$mailinglistPluginDir/src/templates/js/bootstrap.min.js", 
+			tofile: "$basedir/web-app/js/bootstrap.min.js", overwrite: false)
+	
 	File dir = new File(mailinglistPluginDir, "src/templates/views")
 	dir.eachFileRecurse{ f -> if (f.isDirectory()) println "Creating views folder: $f.name"}
 	copy(todir: new File(basedir, 'grails-app/views')) {

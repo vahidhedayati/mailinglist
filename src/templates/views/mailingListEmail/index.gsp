@@ -80,7 +80,7 @@
 		<br/>
 		</label>
 	
-		<g:each in="${MailingListAttachments?.list()}" var="attach"> 
+		<g:each in="${mlAttach}" var="attach"> 
 		<g:if test="${attach?.attachment.size() > 0 }">
 		<g:if test="${params?.attachments.getClass().isArray()}">
 			<g:each in="${params?.attachments }" var="rgg">

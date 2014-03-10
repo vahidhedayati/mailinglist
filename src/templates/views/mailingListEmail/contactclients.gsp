@@ -4,6 +4,10 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
+		
+		<!--  bootstrap-min for modal popup -->
+		<link rel="stylesheet" href="${resource(dir: 'css', file: 'ml-bootstrap-combined.min.css')}" type="text/css">
+		
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mailingList.css')}" type="text/css">
 		<g:set var="entityName" value="${message(code: 'ContactClients.label', default: 'Contact Clients')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
@@ -12,7 +16,10 @@
 
 	</head>
 	<body>
+	
 	<g:render template="/mailingList/mainmenu"/>
+	
+	
 	<g:hasErrors bean="${mailingListScheduleInstance}">
 			<ul class="errors" role="alert">
 				<g:eachError bean="${mailingListScheduleInstance}" var="error">
@@ -26,7 +33,37 @@
 			</g:if>
 				
 
-		
+			<!-- LOAD Bootstrap file required for modal pop up + css above called ml-bootstrap -->
+           	<g:javascript src="bootstrap.min.js" />
+           
+ 			
+ 	
+ 				
+    <div class="tbutton">
+ 	 	<button href="#BuildModalTEMPLATES" class="btn btn-block btn-success" role="button" data-toggle="modal" title="Create New Template">
+ 		Generate Template?</button>
+ 		<g:render template="/mailingListModal/modalbasic" model="[formId:'TemplatesForm', title:'Generate Template',controller: 'mailingListTemplates', callPage: 'formAjax' , divId: 'mailerTemplates', id: 'TEMPLATES']" />
+ 	</div>
+ 	
+ 	
+ 	<div class="tbutton">
+ 		<button href="#BuildModalATTACH" class="btn btn-block btn-success" role="button" data-toggle="modal" title="Upload CSV">
+ 		Upload attachments?</button>
+ 		<g:render template="/mailingListModal/modalbasic" model="[formId:'AttachForm',title:'Attache a file', controller: 'mailingListAttachments', callPage: 'formAjax' , divId: 'mailerAttachments', id: 'ATTACH']" />
+ 	</div>
+ 	
+ 	<div class="tbutton">
+ 		 <button href="#BuildModalUPLOADS" class="btn btn-block btn-success" role="button" data-toggle="modal" title="Upload CSV">
+ 		Upload CSV?</button>
+ 		<g:render template="/mailingListModal/modalbasic" model="[formId:'UploadForm',title:'Upload CSV',controller: 'mailingListUploader', callPage: 'ajaxupload' , divId: 'mailerUploader', id: 'UPLOADS']" />
+ 	</div>
+ 	
+ 	<div class="tbutton">
+ 	 	<button href="#BuildModalSENDERS" class="btn btn-block btn-success" role="button" data-toggle="modal" title="Configure New Sender">
+ 		New Sender?</button>
+ 		<g:render template="/mailingListModal/modalcreate" model="[title:'Add Senders Email', controller: 'mailingListSenders', callPage: 'form' , divId: 'mailerSenders', id: 'SENDERS' ]" />
+ 	</div>
+ 		
 
 	<g:form action="confirmcontact" >
 
@@ -43,28 +80,28 @@
           from="${['bulk':'bulk', 'individual':'individual']}"
           optionKey="key" optionValue="value"
           noSelection="['bulk': 'bulk']"
-          required=""
-          
+          required=""      
            />
            [ Bulk = one email with <b>all users in one line</b> and put it in <b>BCC</b> field, ] <br> 
            [ Individual = will create 1 email per user and send <b>To</b> each user ]
 	</div>
+	</div>
 	
-		
 	<div class="fieldcontain ${hasErrors(bean: params, field: 'mailFrom', 'error')} required">
 	<label for="mailFrom">
 		<g:message code="manager.label" default="mailFrom" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="mailFrom" name="mailFrom" value="${params.mailFrom }"
-          from="${mlSenders}"
-          optionKey="emailAddress" optionValue="emailAddress"
-          noSelection="['': 'Please choose From field']"
-          required=""
-           />
+	
+	<div id="mailerSenders" style="display:inline-block;*display:inline;*zoom:1;">
+		<g:render template="mailingListSendersDisplay" />
 	</div>
 	
+  
 	</div>
+	
+	
+	
 	
 	<div class="fieldcontain ${hasErrors(bean: params, field: 'recipientToGroup', 'error')} ">
 	<label for="recipientToGroup">
@@ -72,40 +109,14 @@
 		<span class="required-indicator">*</span>
 	</label>	
 	
-	<g:each in="${mlCat}" var="cat"> 
-		<g:if test="${params.recipientToGroup.getClass().isArray()}">
-			
-			
-				<g:if test="${params.recipientToGroup.contains(cat.id.toString())}">
 	
-  					<div class="tbutton">|<g:checkBox name="recipientToGroup" value="${cat.id}" checked="true" /> ${cat.name} </div>
-			  	</g:if>
-  				<g:else>
-  					<div class="tbutton">-|<g:checkBox name="recipientToGroup" value="${cat.id}" checked="false" /> ${cat.name} </div>
-			  	
-  				</g:else>	
-  			
-  		</g:if>
-  		<g:else>
-  			<g:if test="${params.recipientToGroup}">
-  				<g:if test="${ params.recipientToGroup.toString().equals(cat.id.toString())}">
-  					<div class="tbutton"><g:checkBox name="recipientToGroup" value="${cat.id}" checked="true" /> ${cat.name} </div>
-			  	</g:if>
-  				<g:else>
-  					<div class="tbutton"><g:checkBox name="recipientToGroup" value="${cat.id}" checked="false" /> ${cat.name} </div>
-			  </g:else>
-			 </g:if>
-			 <g:else>
-				<div class="tbutton"><g:checkBox name="recipientToGroup" value="${cat.id}" checked="false" /> ${cat.name} </div>
-			 </g:else> 
-  		</g:else>		
-  			
-	</g:each>
-	
+	<div id="mailerUploader" style="display:inline-block;*display:inline;*zoom:1;">
+		<g:render template="mailingListUploaderDisplay" />
 	</div>
+  	</div>
 	
 
-					<div id="contact-area">
+	<div id="contact-area">
 	<div class="fieldcontain ${hasErrors(bean: params, field: 'subject', 'error')} required">
 	<label for="subject">
 		<g:message code="manager.label" default="subject" />
@@ -122,40 +133,12 @@
 		<br/>
 		</label>
 	
-		<g:each in="${mlAttach}" var="attach"> 
-		<g:if test="${attach.attachment.size() > 0 }">
-		<g:if test="${params.attachments.getClass().isArray()}">
-			
-				<g:if test="${params.attachments.contains(attach.id.toString())}">
-	
-  					<div class="tbutton"><g:checkBox name="attachments" value="${attach.id}" checked="true" /> ${attach.name} </div>
-			  	</g:if>
-  				<g:else>
-  					<div class="tbutton"><g:checkBox name="attachments" value="${attach.id}" checked="false" /> ${attach.name} </div>
-			  	
-  				</g:else>	
-  			
-  		</g:if>
-  		<g:else>
-  			<g:if test="${params.attachments}">
-  				<g:if test="${ params.attachments.toString().equals(attach.id.toString())}">
-  					<div class="tbutton"><g:checkBox name="attachments" value="${attach.id}" checked="true" /> ${attach.name} </div>
-			  	</g:if>
-  				<g:else>
-  					<div class="tbutton"><g:checkBox name="attachments" value="${attach.id}" checked="false" /> ${attach.name} </div>
-			  </g:else>
-			 </g:if>
-			 <g:else>
-				<div class="tbutton"><g:checkBox name="attachments" value="${attach.id}" checked="false" /> ${attach.name} </div>
-			 </g:else> 
-  		</g:else>		
-		
-  			
-  			
-  		</g:if>
-	</g:each>
-	
-</div>
+
+	<div id="mailerAttachments" style="display:inline-block;*display:inline;*zoom:1;">
+		<g:render template="mailingListAttachmentsDisplay" />
+	</div>
+  	</div>
+
 
 			<div id="contact-area">
 <g:if test="${params.emailMessage }">
@@ -191,17 +174,14 @@ ${params.emailMessage }
 		<g:message code="mailingListTemplates.label" default="Template" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="mailingListTemplates" name="mailingListTemplate" from="${mlTemp}" optionKey="id" required="" value="${params.mailingListTemplates}" class="many-to-one"
-		noSelection="['': 'Please choose Template']"
-		required=""
-		onchange="${remoteFunction (
-		controller: 'MailingListEmail',
-		action: 'loadMessageBox',
-		params: "'id=' + this.value",
-		update: 'loadMessageBox'
-	)}"
-	/>
+	
+	
+	<div id="mailerTemplates" style="display:inline-block;*display:inline;*zoom:1;">
+		<g:render template="mailingListTemplatesDisplay" />
+	</div>
+  		
 </div>
+
 
 
 <div id="loadMessageBox"></div>
@@ -248,4 +228,12 @@ ${params.emailMessage }
 	
 	</div>	
 	</g:form>
+	
+	
+	
+	
+	
+	
 </body></html>
+
+	

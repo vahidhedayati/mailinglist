@@ -108,8 +108,13 @@ class MailingListUploaderController {
 				}
 			}
 		}
-
-		[output:output.toString()]
+		if (!params.ajax) {
+			[output:output.toString()]
+			return
+		}	
+		render output.toString()
+		return
+		//redirect(url: request.getHeader('referer'))
 	}
 
 	def export() {
