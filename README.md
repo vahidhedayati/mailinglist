@@ -213,8 +213,59 @@ An example BootStrap call to requeue outstanding or interuppted schedules is to 
   the plugin will write the js file only if does not already exist within your local web-apps/js folder.
   The new css is added and referred to within contactclients.gsp where the same js file is also called.
   This then allows modal popups to work within the standard grails framework. 
-  I ammended the css file from the standard to remove a large chunk from the top so that the default 
+ Ammended the css file from the standard to remove a large chunk from the top so that the default 
   grails site still worked as per normal. The standed boostrap css shifts the site to the left.
+  
+##### Modal Examples
+
+There are some cool stuff I have attempted with modal updating existing form, so it may come in useful if you need some good examples of 
+how to load up a pop ups that update existing form values without any refreshes.
+
+	views/mailingListEmail/contactclients
+	
+This page has 4 buttons on the top of an existing form that do several different types of calls to modal pop up boxes.
+
+	views/mailingListModal/*
+
+This folder contains some of the inner workins of modal calls from above gsp
+
+New Sender?
+
+This calls on a grails remote form through _modalcreate.gsp which then calls _modalForm.gsp to load up the remoteForm, it itself contains a grails java script that holds on to dynamic labelled CloseModal() function.
+This script closes model loads up existing div that contains the modal form with the actual form that was cloned in contactclients. Finally refreshes the DIV that contains the select form for Senders Email Address and appends new value.
+There are no refreshes on the main page through all of this. The only downside is if user inputs bad email or invalid email it will just close and refresh with no changes.
+
+
+
+Upload CSV?
+
+Ok This now calls on a totally new method since uploading a file does not work too well with javascript serialization or JSON etc.
+So how to get around this was to write a new _modaliframe.gsp which simply loads up the upload form as a url wihin an iframe on the modal segment that would normally load the form
+The actual repsponse is as per normal i.e. if it was outside of modal, so it posts and shows the show page for record, to close this modal two close buttons provided at top and bottom. 
+These call dynamicCloseModal() function which like above actually now close this modal and as above the information produced on first go for producing iframe data is cloned and put back after is cloned.
+As above the actual div containing the list of CSV files (checkboxes is now updated) 
+No refreshes occur during this process
+
+
+UploadAttachments?
+Refer to Upload CSV
+
+
+Upload Template
+This is very similar to New Sender but decided to use a different technique whilst I was playing around, its always good to show alternative methods. This process calls on _modalbasicSelfPost.gsp which is a self posting form.
+
+It calls on mailingListTemplates/_formAjax.gsp which has <g:form name="${formId }" id="1"  which at the very bottom also has another java script to update ckeditor value to what was last in the form.
+When posted it hits $('#${formId}').submit(function() {, this then serliazes form posts back to itself, upon success shows update on the page and then calls on dynamicCloseModal() function below it.
+This like above closes the div, updates the form div that contains templates select box with the new template value.
+Again no refreshes occur. I have just noticed one bug with this which is the new call does not allow edit its ckeditor specifc. Will fix this soon
+
+phew.... thats over.. that all took a long time to put correctly.
+
+		
+
+###### New Email Address?
+
+This little green button calls o 
  
 New Email Address is a fully functional updater that just updates div once it has added record, so no redirect occur on page.
 

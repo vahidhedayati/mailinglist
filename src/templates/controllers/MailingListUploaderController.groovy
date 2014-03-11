@@ -6,6 +6,10 @@ class MailingListUploaderController {
 
 	def index() {}
 
+	def ajaxupload() {
+		render (template:'ajaxupload')	
+	}
+	
 	def upload() {
 		StringBuilder output = new StringBuilder()
 		output.append("upload a CSV - : Category name: ").append(params.catname).append("<br/>")
@@ -108,12 +112,7 @@ class MailingListUploaderController {
 				}
 			}
 		}
-		if (!params.ajax) {
-			[output:output.toString()]
-		}else{	
-			redirect(url: request.getHeader('referer'))
-		}	
-		
+		[output:output.toString()]
 	}
 
 	def export() {

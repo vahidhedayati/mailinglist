@@ -33,15 +33,15 @@ class MailingListTemplatesController {
 			render(view: "create", model: [mailingListTemplatesInstance: mailingListTemplatesInstance])
 			return
 		}
-
+		// Redirect to standard action we only pass params.ajax on a modal call
 		if (!params.ajax){
 			flash.message = message(code: 'default.created.message', args: [message(code: 'mailingListTemplates.label', default: 'MailingListTemplates'), mailingListTemplatesInstance.id])
 			redirect(action: "show", id: mailingListTemplatesInstance.id)
 			
-		}else{
-			redirect(url: request.getHeader('referer'))
-		}	
-		
+		}
+		// We have params.ajax so lets render some text and let jquery handle the rest via javascript
+		//redirect(url: request.getHeader('referer'))
+		render "Record should now be saved"		
 	}
 
 	def show(Long id) {

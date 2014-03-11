@@ -37,25 +37,63 @@
            	<g:javascript src="bootstrap.min.js" />
            
  			
- 	
- 				
+ 	 				
     <div class="tbutton">
- 	 	<button href="#BuildModalTEMPLATES" class="btn btn-block btn-success" role="button" data-toggle="modal" title="Create New Template">
+ 	 	<button href="#BuildModalTEMPLATES" class="btn btn-block btn-success" role="button" data-toggle="modal" onClick="runTemplatesCheck()" title="Create New Template">
  		Generate Template?</button>
- 		<g:render template="/mailingListModal/modalbasic" model="[formId:'TemplatesForm', title:'Generate Template',controller: 'mailingListTemplates', callPage: 'formAjax' , divId: 'mailerTemplates', id: 'TEMPLATES']" />
+ 		
+ 		<g:javascript>
+ 	 		var myClonemailerTemplates
+ 	 		function runTemplatesCheck() {
+ 	 			myClonemailerTemplates=$('#mailerTemplates1').clone();   
+ 	 	 		$('#mailerTemplates1').show();
+ 	 		}
+ 	 	</g:javascript>
+ 	 	<div id="mailerTemplates1">
+ 			<g:render template="/mailingListModal/modalbasicSelfPost" model="[formId:'TemplatesForm', title:'Generate Template',controller: 'mailingListTemplates', callPage: 'formAjax' , divId: 'mailerTemplates', id: 'TEMPLATES']" />
+ 		</div>
  	</div>
  	
  	
  	<div class="tbutton">
- 		<button href="#BuildModalATTACH" class="btn btn-block btn-success" role="button" data-toggle="modal" title="Upload CSV">
+ 		<button href="#BuildModalATTACH" class="btn btn-block btn-success" role="button" data-toggle="modal" onClick="runAttachCheck()" title="Upload CSV">
  		Upload attachments?</button>
- 		<g:render template="/mailingListModal/modalbasic" model="[formId:'AttachForm',title:'Attache a file', controller: 'mailingListAttachments', callPage: 'formAjax' , divId: 'mailerAttachments', id: 'ATTACH']" />
+ 		<!--  Clone the form below before attempting to retrieve it after closing it in _modalcreate.gsp -->
+ 		<g:javascript>
+ 	 		var myClonemailerAttachments
+ 	 		function runCSVCheck() {
+ 	 			myClonemailerAttachments=$('#mailerAttachments1').clone();   
+ 	 		 	$('#mailerAttachments1').show();
+ 	 		}
+ 	 	</g:javascript>
+ 	 	<% def g = new org.codehaus.groovy.grails.plugins.web.taglib.ApplicationTagLib() %>
+ 		<g:set var="myAttachparams" value="[formId:'AttachForm',title:'Attache a file', controller: 'mailingListAttachments', callPage: 'formAjax' , divId: 'mailerAttachments', id: 'ATTACH']" />
+ 		<% def confirmAttachurl= g.createLink(controller: 'mailingListAttachments', action: 'ajaxupload', params:myAttachparams,  absolute: 'true' ) %>
+ 		<div id="mailerAttachments1">
+ 			<g:render template="/mailingListModal/modaliframe" model="[url: confirmAttachurl, formId:'AttachForm',title:'Attache a file', controller: 'mailingListAttachments', callPage: '' , divId: 'mailerAttachments', id: 'ATTACH']" />
+ 		</div>	
  	</div>
  	
  	<div class="tbutton">
- 		 <button href="#BuildModalUPLOADS" class="btn btn-block btn-success" role="button" data-toggle="modal" title="Upload CSV">
+ 		 <button href="#BuildModalUPLOADS" class="btn btn-block btn-success" role="button" data-toggle="modal" onClick="runCSVCheck()" title="Upload CSV">
  		Upload CSV?</button>
- 		<g:render template="/mailingListModal/modalbasic" model="[formId:'UploadForm',title:'Upload CSV',controller: 'mailingListUploader', callPage: 'ajaxupload' , divId: 'mailerUploader', id: 'UPLOADS']" />
+ 		
+ 		<!--  Clone the form below before attempting to retrieve it after closing it in _modalcreate.gsp -->
+ 		<g:javascript>
+ 	 		var myClonemailerUploader
+ 	 		function runCSVCheck() {
+ 	 			myClonemailerUploader=$('#mailerUploader1').clone();   
+ 	 		 	$('#mailerUploader1').show();
+ 	 		}
+ 	 	</g:javascript>
+ 	 
+ 	 	
+ 		<g:set var="myparams" value="[id: 'UPLOADS', divId: 'mailerUploader', formId: 'UploadForm', divId: 'mailerUploader',controller: 'mailingListUploader', callPage: 'ajaxupload']" />
+ 		<% def confirmurl= g.createLink(controller: 'mailingListUploader', action: 'ajaxupload', params:myparams,  absolute: 'true' ) %>
+ 		
+ 		 <div id="mailerUploader1">
+ 		 		<g:render template="/mailingListModal/modaliframe" model="[url: confirmurl, formId:'UploadForm',title:'Upload CSV',controller: 'mailingListCategories', callPage: 'ajaxupload', divId: 'mailerUploader', id: 'UPLOADS']" />
+ 		</div>	
  	</div>
  	
  	<div class="tbutton">
@@ -63,9 +101,9 @@
  	
  	<!--  Clone the form below before attempting to retrieve it after closing it in _modalcreate.gsp -->
  	<g:javascript>
- 	 	var myClone
+ 	 	var myClonemailerSenders
  	 	function runSendersCheck() {
- 	 		myClone=$('#mailerSenders1').clone();   
+ 	 		myClonemailerSenders=$('#mailerSenders1').clone();   
  	 	 	$('#mailerSenders1').show();
  	 	}
  	 </g:javascript>
@@ -75,7 +113,6 @@
  		</div>
  		
  	</div>
- 		
 
 	<g:form action="confirmcontact" >
 
@@ -123,7 +160,7 @@
 	
 	
 	<div id="mailerUploader" style="display:inline-block;*display:inline;*zoom:1;">
-		<g:render template="mailingListUploaderDisplay" />
+		<g:render template="mailingListCategoriesDisplay" />
 	</div>
   	</div>
 	

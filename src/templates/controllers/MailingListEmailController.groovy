@@ -34,7 +34,7 @@ class MailingListEmailController {
 	
 	def getAjaxCall(String ccontroller,String divId) {
 		def myl= domainList(ccontroller)
-		render(template: ccontroller+'Display', model: [mlSenders:myl, mlTemp: myl, mlCat: myl,mlAttach: myl,  divId: divId ])		
+		render(template: ccontroller+'Display', model: [mlSenders:myl, mlTemp: myl, mlCat: myl,mlAttach: myl,  divId: divId ])
 	}
 	
 	def loadMessageBox() {

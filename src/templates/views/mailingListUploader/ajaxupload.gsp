@@ -1,3 +1,17 @@
+<html>
+	<head>
+	
+			<meta name='layout' content="mailingListMini"/>
+		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mailingList.css')}" type="text/css">
+		
+    	<g:set var="entityName" value="${message(code: 'MailingListSchedule.label', default: 'MailingList Schedule')}" />
+		<title><g:message code="default.list.label" args="[entityName]" /></title>
+	</head>
+	<body >
+	
+	
+	
+	
 <p> You can upload two types of CSV files which are your exported outlook contact lists. 
 </p>
 
@@ -14,7 +28,7 @@ The fields must be in the above format and the first line must be a heading sinc
 
 </p>
 
-<g:uploadForm name="${formId }" id="1"  controller="MailingListUploader" action="upload">
+<g:uploadForm  name="${params?.formId }" id="1" id="1" controller="MailingListUploader" action="upload">
 <g:hiddenField name="ajax" value="yes"/>
 <div class="fieldcontain ${hasErrors(bean: params, field: 'catname', 'error')} ">
 	<label for="catname">
@@ -31,3 +45,10 @@ The fields must be in the above format and the first line must be a heading sinc
     </div>
     <g:submitButton name="upload" value="Upload" />
 </g:uploadForm>
+
+			
+
+</body>
+</html>
+
+

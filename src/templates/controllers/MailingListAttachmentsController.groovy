@@ -11,6 +11,7 @@ class MailingListAttachmentsController {
 		redirect(action: "list", params: params)
 	}
 
+	def ajaxupload() {}
 	def download(Long id) {
 
 		def mailingListAttachmentsInstanceList = MailingListAttachments.get(id)
@@ -72,11 +73,8 @@ class MailingListAttachmentsController {
 		}
 
 		flash.message = message(code: 'default.created.message', args: [message(code: 'mailingListAttachments.label', default: 'MailingListAttachments'), mailingListAttachmentsInstance.id])
-		if (!params.ajax) {
-			redirect(action: "show", id: mailingListAttachmentsInstance.id)
-		}else{
-			redirect(url: request.getHeader('referer'))
-		}	
+		redirect(action: "show", id: mailingListAttachmentsInstance.id)
+		
 	}
 
 	def show(Long id) {

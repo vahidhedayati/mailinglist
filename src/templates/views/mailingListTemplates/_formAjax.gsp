@@ -21,17 +21,22 @@
 <div class=tbutton>
 
 
-<ckeditor:editor name="content" height="300px" width="100%">
+<ckeditor:editor name="content" id="myCKEditor" height="200px" width="100%">
 </ckeditor:editor>
 </div>
 </div>
 
 	</fieldset>
 <fieldset class="buttons">
-	<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+	<g:submitButton name="create" onclick="CKupdate()" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
 </fieldset>
 			</g:form>
 
 
+<g:javascript>
+    function CKupdate(){
+     	CKEDITOR.instances.myCKEditor.updateElement();
+	}
+</g:javascript>
 
 
