@@ -229,7 +229,7 @@ This page has 4 buttons on the top of an existing form that do several different
 
 This folder contains some of the inner workins of modal calls from above gsp
 
-New Sender?
+##### New Sender?
 
 This calls on a grails remote form through _modalcreate.gsp which then calls _modalForm.gsp to load up the remoteForm, it itself contains a grails java script that holds on to dynamic labelled CloseModal() function.
 This script closes model loads up existing div that contains the modal form with the actual form that was cloned in contactclients. Finally refreshes the DIV that contains the select form for Senders Email Address and appends new value.
@@ -237,7 +237,7 @@ There are no refreshes on the main page through all of this. The only downside i
 
 
 
-Upload CSV?
+##### Upload CSV?
 
 Ok This now calls on a totally new method since uploading a file does not work too well with javascript serialization or JSON etc.
 So how to get around this was to write a new _modaliframe.gsp which simply loads up the upload form as a url wihin an iframe on the modal segment that would normally load the form
@@ -247,11 +247,13 @@ As above the actual div containing the list of CSV files (checkboxes is now upda
 No refreshes occur during this process
 
 
-UploadAttachments?
+##### UploadAttachments?
+
 Refer to Upload CSV
 
 
-Upload Template
+##### Upload Template?
+
 This is very similar to New Sender but decided to use a different technique whilst I was playing around, its always good to show alternative methods. This process calls on _modalbasicSelfPost.gsp which is a self posting form.
 
 It calls on mailingListTemplates/_formAjax.gsp which has <g:form name="${formId }" id="1"  which at the very bottom also has another java script to update ckeditor value to what was last in the form.
@@ -262,15 +264,6 @@ Again no refreshes occur. I have just noticed one bug with this which is the new
 phew.... thats over.. that all took a long time to put correctly.
 
 		
-
-###### New Email Address?
-
-This little green button calls o 
- 
-New Email Address is a fully functional updater that just updates div once it has added record, so no redirect occur on page.
-
-The rest of the green buttons on the contact page all add elements and do a redirect back to contact page. 
-
 
 
 
