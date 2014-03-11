@@ -59,8 +59,17 @@
  	</div>
  	
  	<div class="tbutton">
- 	 	<button href="#BuildModalSENDERS" class="btn btn-block btn-success" role="button" data-toggle="modal" title="Configure New Sender">
- 		New Sender?</button>
+ 	<button href="#BuildModalSENDERS" class="btn btn-block btn-success" role="button" data-toggle="modal" title="Configure New Sender" onClick="runSendersCheck()">New Sender?</button>
+ 	
+ 	<!--  Clone the form below before attempting to retrieve it after closing it in _modalcreate.gsp -->
+ 	<g:javascript>
+ 	 	var myClone
+ 	 	function runSendersCheck() {
+ 	 		myClone=$('#mailerSenders1').clone();   
+ 	 	 	$('#mailerSenders1').show();
+ 	 	}
+ 	 </g:javascript>
+ 	 
 		<div id="mailerSenders1">
  			<g:render template="/mailingListModal/modalcreate" model="[title:'Add Senders Email', controller: 'mailingListSenders', callPage: 'form' , divId: 'mailerSenders', id: 'SENDERS' ]" />
  		</div>

@@ -216,10 +216,10 @@ An example BootStrap call to requeue outstanding or interuppted schedules is to 
   I ammended the css file from the standard to remove a large chunk from the top so that the default 
   grails site still worked as per normal. The standed boostrap css shifts the site to the left.
  
-New Email is a fully functional updater that just updates div, issues with it poping open again, 
-spent ages on this and going to leave it alone for now.
+New Email Address is a fully functional updater that just updates div once it has added record, so no redirect occur on page.
+
 The rest of the green buttons on the contact page all add elements and do a redirect back to contact page. 
-The only thing you really loose on this page is the subject since everything else is select or tick.
+
 
 
 
