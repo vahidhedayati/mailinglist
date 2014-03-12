@@ -229,9 +229,71 @@ If this plugin is the only purpose of your site, then simply update your url map
 			
 The plugin has a menu which can be found under: http://yoursite:8080/mailinglist/MailingList 			
 
+This is the main menu, the two core options on the top left hand side, Email a person and contact clients.
+
 ![mailinglist menu](https://raw.github.com/vahidhedayati/ml-test/master/documentation/mailinglist-menu.png)
 
-			
+The rest of the menu are the manual methods of reviewing email list, or removing attachments etc.
+
+
+![Email a person](https://raw.github.com/vahidhedayati/ml-test/master/documentation/mailinglist-sendperson.png)
+This is what to expect when emailing a person
+
+![Configure schedule date time](https://raw.github.com/vahidhedayati/ml-test/master/documentation/mailinglist-sendperson1.png)
+The now button defaults to now, other than that choose actual date time you wish to email this person.
+
+
+
+![When submitted](https://raw.github.com/vahidhedayati/ml-test/master/documentation/mailinglist-sent-person.png)
+It will just sit in that queue you can stop the job or force it play now from that same scheduling menu.
+
+
+![Contacting group](https://raw.github.com/vahidhedayati/ml-test/master/documentation/mailinglist-contact-group.png)
+This is the look and feel of contact group, subject is the only thing defined, everything else is clickable or uploadable. At the top are some green buttons, each one will update this form dynamically.
+
+
+![New Template](https://raw.github.com/vahidhedayati/ml-test/master/documentation/mailinglist-contact-group1.png)
+Adding a new template, if you do not have a preset template to use for sending emails then create a new one from the first green button at the top of the page.
+
+![Attach a file](https://raw.github.com/vahidhedayati/ml-test/master/documentation/mailinglist-contact-group2.png)
+This is if you wish to attach files like documents to be sent with email.
+
+![After attaching](https://raw.github.com/vahidhedayati/ml-test/master/documentation/mailinglist-contact-group3.png)
+Attachments run in iframes, so for changes to take effect on main form you need to use the close button on the top of the page. 
+
+
+![Upload Contact Group CSV](https://raw.github.com/vahidhedayati/ml-test/master/documentation/mailinglist-contact-group4.png)
+CSV Uploader which will be your group of users to contact, please note it will always miss out on the first line since on exports usually the first line is the field name
+
+![Add Sender](https://raw.github.com/vahidhedayati/ml-test/master/documentation/mailinglist-contact-group5.png)
+The senders from group emails come from the Senders DB table, so you need to register it once set it should remain for reuse on next use.
+
+![Schedule DateTime of email](https://raw.github.com/vahidhedayati/ml-test/master/documentation/mailinglist-contact-group6.png)
+Set the time you wish to email to this group, you have now selected and ticked everything else including once template was uploaded you clicked the select box to choose it which then popped open your presaved template.
+
+
+![Preview Group Email](https://raw.github.com/vahidhedayati/ml-test/master/documentation/mailinglist-contact-group7.png)
+Since emailing a group of people usually requires more care, there has been a preview screen added to ensure you are happy with what is being done. if so click confirm sending email otherwise click edit to go back,
+
+
+![Schedule menu](https://raw.github.com/vahidhedayati/ml-test/master/documentation/mailinglist-contact-group8.png)
+This now contains our previous job which is set in a few hours plus our new job for now, we will now choose Completed schedules from the drop down to see:
+
+
+![Completed jobs](https://raw.github.com/vahidhedayati/ml-test/master/documentation/mailinglist-contact-group9.png)
+This group email as completed
+
+
+![Mail Log on machine](https://raw.github.com/vahidhedayati/ml-test/master/documentation/mailinglist-contact-group10.png)
+This is my email log confirming it sent an email from set email to the uploaded csv which had 3 gmail emails, it bounced cos my sendmail is not configured and just as well considering the amount of junk I been sending haha
+
+
+
+
+
+
+
+ 
     
 #### Pop up Modal boxes within contact clients
  
