@@ -215,6 +215,23 @@ There is a field passed around through the application and by default it is blan
 Take a look at this, if your existing application has some form of user and current user is being returned via session or another method i.e. params or something then update this page to refer to this value.
 This should fix the issue all around the site, no guarantee haha.
 
+
+#### conf/UrlMappings.groovy & plugin default holding page
+
+If this plugin is the only purpose of your site, then simply update your url mappings to point to the holding page of this plugin:
+
+	"/" {
+			controller = "MailingList"
+			action = "index"
+		 }
+		// Commented out default and put in above
+        //"/"(view:"/index")
+			
+The plugin has a menu which can be found under: http://yoursite:8080/mailinglist/MailingList 			
+
+![mailinglist menu](https://raw.github.com/vahidhedayati/ml-test/master/documentation/mailinglist-menu.png)
+
+			
     
 #### Pop up Modal boxes within contact clients
  
@@ -225,60 +242,11 @@ This should fix the issue all around the site, no guarantee haha.
  Ammended the css file from the standard to remove a large chunk from the top so that the default 
   grails site still worked as per normal. The standed boostrap css shifts the site to the left.
   
-##### Modal Examples
-
-There are some cool stuff I have attempted with modal updating existing form, so it may come in useful if you need some good examples of 
-how to load up a pop ups that update existing form values without any refreshes.
-
-	views/mailingListEmail/contactclients
-	
-This page has 4 buttons on the top of an existing form that do several different types of calls to modal pop up boxes.
-
-	views/mailingListModal/*
-
-This folder contains some of the inner workings of modal calls from above gsp
-
-##### New Sender?
-
-This calls on a grails remote form through _modalcreate.gsp which then calls _modalForm.gsp to load up the remoteForm, it itself contains a grails java script that holds on to dynamic labelled CloseModal() function.
-This script closes model loads up existing div that contains the modal form with the actual form that was cloned in contactclients. Finally refreshes the DIV that contains the select form for Senders Email Address and appends new value.
-
-
-There are no refreshes on the main page through all of this. The only downside is if user inputs bad email or invalid email it will just close and refresh with no changes.
-
-
-
-##### Upload CSV?
-
-Ok This now calls on a totally new method since uploading a file does not work too well with javascript serialization or JSON etc.
-So how to get around this was to write a new _modaliframe.gsp which simply loads up the upload form as a url wihin an iframe on the modal segment that would normally load the form
-The actual response is as per normal i.e. if it was outside of modal, so it posts and shows the show page for record, to close this modal two close buttons provided at top and bottom. 
-These call dynamicCloseModal() function which like above actually now close this modal and as above the information produced on first go for producing iframe data is cloned and put back after is cloned.
-As above the actual div containing the list of CSV files (checkboxes is now updated)
-
- 
-No refreshes occur during this process
-
-
-##### UploadAttachments?
-
-Refer to Upload CSV
-
-
-##### Upload Template?
-
-This is very similar to New Sender but decided to use a different technique whilst I was playing around, its always good to show alternative methods. This process calls on _modalbasicSelfPost.gsp which is a self posting form.
-
-It calls on mailingListTemplates/_formAjax.gsp which has <g:form name="${formId }" id="1"  which at the very bottom also has another java script to update ckeditor value to what was last in the form.
-When posted it hits $('#${formId}').submit(function() {, this then serliazes form posts back to itself, upon success shows update on the page and then calls on dynamicCloseModal() function below it.
-This like above closes the div, updates the form div that contains templates select box with the new template value.
-
-Again no refreshes occur.
-
-Whilst the above process should work on standard form self posts, the above method did not work worked out too well for ckeditor. In short ckeditor loads up an instance and mixing it up in the current modal pop up + cloning turned out to be a real pain. The issue was after closing modal page and recloning object the form turned out to be read only or not editable. To fix this a wrapper call was added to modalBasicSelfPost.gsp to firstly kill off ckeditor or remove its components and then replace the content clone with a http get of the ajaxupload.gsp within templates which simply just loads up a clean copy of the ckeditor modal form. 
-
-phew.... thats over.. that all took a long time to put correctly.
-
+  
+  If you are interested in learning more about how to use modalbox on your own site and get them to update existing forms 
+  then have a read here: https://github.com/vahidhedayati/mailinglist/wiki/ModalBox-insight you may wish to also refer to the gsp pages it speaks of to get more clued up as to what I was rambling on about,
+  
+  
 		
 
 
