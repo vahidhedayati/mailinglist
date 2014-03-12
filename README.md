@@ -275,7 +275,7 @@ This like above closes the div, updates the form div that contains templates sel
 
 Again no refreshes occur.
 
-I have just noticed one bug with this which is the new call does not allow edit its ckeditor specifc. Will fix this soon
+Whilst the above process should work on standard form self posts, the above method did not work worked out too well for ckeditor. In short ckeditor loads up an instance and mixing it up in the current modal pop up + cloning turned out to be a real pain. The issue was after closing modal page and recloning object the form turned out to be read only or not editable. To fix this a wrapper call was added to modalBasicSelfPost.gsp to firstly kill off ckeditor or remove its components and then replace the content clone with a http get of the ajaxupload.gsp within templates which simply just loads up a clean copy of the ckeditor modal form. 
 
 phew.... thats over.. that all took a long time to put correctly.
 

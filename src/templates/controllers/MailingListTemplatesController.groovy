@@ -9,7 +9,9 @@ class MailingListTemplatesController {
 	def index() {
 		redirect(action: "list", params: params)
 	}
-
+	// This is to reload the ckeditor page 
+	def ajaxupload() {}
+	
 	def loadMessageBox() {
 		render(template: 'message', model: [ content: MailingListTemplates.get(params.id)?.content ])
 	}
@@ -41,7 +43,9 @@ class MailingListTemplatesController {
 		}
 		// We have params.ajax so lets render some text and let jquery handle the rest via javascript
 		//redirect(url: request.getHeader('referer'))
-		render "Record should now be saved"		
+		def g=new org.codehaus.groovy.grails.plugins.web.taglib.ApplicationTagLib() 
+		def clink=g.createLink(controller: 'MailingListTemplates', action: 'ajaxupload')
+		render "Record should now be saved. Create another Template: <a href="+clink+">Here</a>"	
 	}
 
 	def show(Long id) {

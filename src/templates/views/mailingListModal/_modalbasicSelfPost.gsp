@@ -15,7 +15,10 @@
 		</div>
 	</div>
 </div>
-				
+
+
+
+
 <g:javascript>
 
 	$('#${formId}').submit(function() {
@@ -24,7 +27,8 @@
         	type: $(this).attr('method'),
         	url: $(this).attr('action'), 
         	success: function(response) { 
-            	$('#${formId}').html(response); 
+            	$('#${formId}').html(response);
+            	
             	${controller}CloseModal(); 
         	}
     	});
@@ -34,9 +38,26 @@
 	function ${controller}CloseModal() {
 		$('#BuildModal${id}').dialog().dialog('close');
   		$(".modal-backdrop").hide();
-  		$('#${divId}1').hide().append(myClone${divId});
-        
-		<g:if test="${!disablecheck.equals('true') }">
+  		
+  		// CKEDITOR specific call - oh what a pain
+    	if(CKEDITOR.instances['myCKEditor']){
+			CKEDITOR.remove(CKEDITOR.instances['myCKEditor']); //Does the same as line below
+			
+			// This does not work due to cloning - returns two boxes
+			//CKEDITOR.replace('myCKEditor');
+			// Instead were going to do a call to the page via controller
+
+			$.get('${createLink(controller:"${controller }", action: "ajaxupload")}',function(data){
+				$('#${divId}1').hide().append(data);
+			});
+			
+   		}
+   		else{
+   			// Do the default action of returning cloned information
+   			$('#${divId}1').hide().append(myClone${divId});
+   		}
+   	
+  		<g:if test="${!disablecheck.equals('true') }">
 			var controller="${controller }";
 			var divId="${divId }";
 			$.get('${createLink(controller:"MailingListEmail", action: "getAjaxCall")}?ccontroller='+controller+'&divId='+divId,function(data){
