@@ -1,4 +1,4 @@
-package $pack
+package grails.plugin.mailinglist.core
 
 class MailingListUploaderController {
 
@@ -14,7 +14,7 @@ class MailingListUploaderController {
 		StringBuilder output = new StringBuilder()
 		output.append("upload a CSV - : Category name: ").append(params.catname).append("<br/>")
 
-		def cid = MailingListCategories.findOrSaveWhere(name: params.catname)
+		def cid = CategoryBase.findOrSaveWhere(name: params.catname)
 		cid.addedby = session.user
 		cid.save(flush:true)
 
@@ -24,7 +24,7 @@ class MailingListUploaderController {
 			i++
 			if (i == 1) {
 				rtype = countSubstring(",", tokens.toString().trim())
-				log.info "CSV Containing <\$rtype> commas: "
+				log.info "CSV Containing <$rtype> commas: "
 				if (rtype == 1) {
 					log.info "2 field CSV file"
 				}
@@ -49,9 +49,9 @@ class MailingListUploaderController {
 						if (!title) { title=''}
 						if (!fname) { fname=''}
 						//def MailingList=MailingListUploaderController.classLoader.loadClass('MailingListUploaderController').newInstance()
-						def findlrh=MailingList.findByEmailAddressAndCategories(email,cid)
+						def findlrh=MailingListBase.findByEmailAddressAndCategories(email,cid)
 						if (!findlrh) {
-							def newEntry = new MailingList(title: '', firstName: '', middleName: '', lastName: '', emailAddress: fname,
+							def newEntry = new MailingListBase(title: '', firstName: '', middleName: '', lastName: '', emailAddress: fname,
 							                               emailDisplayName: title, categories: cid, addedby: session.user)
 							if (!newEntry.save(flush: true)) {
 								output.append("Error saving MailingList record")
@@ -92,7 +92,7 @@ class MailingListUploaderController {
 							lastName == sname && emailAddress == email && emailDisplayName == display
 						}
 						if (!findlrh) {
-							def newEntry = new MailingList(title: title, firstName: fname, middleName: mname, lastName: sname,
+							def newEntry = new MailingListBase(title: title, firstName: fname, middleName: mname, lastName: sname,
 							                               emailAddress: email, emailDisplayName: display,
 							                               categories: cid, addedby: session.user)
 							if (!newEntry.save(flush: true)) {
@@ -116,7 +116,7 @@ class MailingListUploaderController {
 	}
 
 	def export() {
-		MailingListCategories.get(params.id).mailinglist.each { ml ->
+		CategoryBase.get(params.id).mailinglist.each { ml ->
 			def title = ml.title
 			def firstName = ml.firstName
 			def middleName = ml.middleName

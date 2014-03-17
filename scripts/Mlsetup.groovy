@@ -75,7 +75,7 @@ target(mlsetup: 'Sets up a new mailing list project') {
 	
 	
 	
-	
+	/*
 	File dir2 = new File(mailinglistPluginDir, "src/templates/images")
 	dir2.eachFileRecurse{ 
 		f -> if (f.isDirectory()) { 
@@ -89,10 +89,10 @@ target(mlsetup: 'Sets up a new mailing list project') {
 			}
 		}		
 	}
+	*/
 	
 	
-	
-
+/*
 	StringBuilder imf = new StringBuilder()
 	imf.append('<%@ page import="').append(pack).append('.MailingListCategories" %>\n')
 	imf.append('<%@ page import="').append(pack).append('.MailingListAttachments" %>\n')
@@ -100,8 +100,9 @@ target(mlsetup: 'Sets up a new mailing list project') {
 	imf.append('<%@ page import="').append(pack).append('.MailingListTemplates" %>\n')
 	imf.append('<%@ page import="').append(pack).append('.MailingList" %>\n')
 	//new File(basedir, "grails-app/views/mailingList/_mailingListImport.gsp").write(imf.toString())
-	writeToFile("grails-app/views/mailingList/_mailingListImport.gsp", imf.toString())
+	writeToFile("grails-app/views/mailingList/_mailingListImport.gsp", imf.toString())*/
 
+	/*
 	println "Creating domain classes within your project: grails-app/domain/$packdir"
 	//mkdir(dir:"${basedir}/grails-app/domain/$packdir")
 	localmkdir("${basedir}/grails-app/domain/$packdir")
@@ -113,6 +114,8 @@ target(mlsetup: 'Sets up a new mailing list project') {
 	generateDomainClass 'MailingListSchedule', packdir, basedir, engine, pack, 'ScheduleBase'
 	generateDomainClass 'MailingListTemplates', packdir, basedir, engine, pack, 'TemplatesBase'
 	generateDomainClass 'MailingListSenders', packdir, basedir, engine, pack, 'SendersBase'
+	
+	
 
 	println "Creating controllers within your project: grails-app/controllers/$packdir"
 	//mkdir(dir:"${basedir}/grails-app/controllers/$packdir")
@@ -122,14 +125,14 @@ target(mlsetup: 'Sets up a new mailing list project') {
 			generateController f.name, packdir, basedir, engine, pack
 		}
 	}
+	*/
 	
-	
-	
+	/*
 	println "Creating Taglib within your project: grails-app/taglib/$packdir"
 	
 	//mkdir(dir:"${basedir}/grails-app/taglib/$packdir")
 	localmkdir("${basedir}/grails-app/taglib/$packdir")
-	
+	*/
 
 	
 	

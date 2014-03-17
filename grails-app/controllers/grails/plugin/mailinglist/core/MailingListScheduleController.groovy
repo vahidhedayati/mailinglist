@@ -1,4 +1,4 @@
-package $pack
+package grails.plugin.mailinglist.core
 
 import org.quartz.Scheduler
 import org.springframework.dao.DataIntegrityViolationException
@@ -11,7 +11,7 @@ class MailingListScheduleController {
 	Scheduler quartzScheduler
 
 	def showmsg() {
-		def record = MailingListSchedule.get(params.id)
+		def record = ScheduleBase.get(params.id)
 		if (record) {
 			render record.emailMessage
 		}
@@ -34,21 +34,21 @@ class MailingListScheduleController {
 		def paginationParams = [sort: sortby, order: order, offset: offset, max: params.max]
 		switch (s) {
 			case 'u':
-				foundHistory = MailingListSchedule.findAllByAddedby( params.id, paginationParams)
-				total = MailingListSchedule.countByAddedby(params.id)
+				foundHistory = ScheduleBase.findAllByAddedby( params.id, paginationParams)
+				total = ScheduleBase.countByAddedby(params.id)
 				break
 			case 'od':
-				foundHistory = MailingListSchedule.findAllByScheduleComplete(true, paginationParams)
-				total = MailingListSchedule.countByScheduleComplete(true)
+				foundHistory = ScheduleBase.findAllByScheduleComplete(true, paginationParams)
+				total = ScheduleBase.countByScheduleComplete(true)
 				break
 			case 'oc':
-				foundHistory = MailingListSchedule.findAllByScheduleCancelled(true, paginationParams)
-				total = MailingListSchedule.countByScheduleCancelled(true)
+				foundHistory = ScheduleBase.findAllByScheduleCancelled(true, paginationParams)
+				total = ScheduleBase.countByScheduleCancelled(true)
 				break
 			default:
 				s = 'oa'
-				foundHistory = MailingListSchedule.findAllByScheduleCompleteAndScheduleCancelled(false, false, paginationParams)
-				total = MailingListSchedule.countByScheduleComplete(false)
+				foundHistory = ScheduleBase.findAllByScheduleCompleteAndScheduleCancelled(false, false, paginationParams)
+				total = ScheduleBase.countByScheduleComplete(false)
 		}
 		params.template = request.xhr ? "mini-main" : "main"
 		render view: 'list2', model: [now: new Date(), scheduler: quartzScheduler, divupdate: 'siteContent', evid:envid,
@@ -62,7 +62,7 @@ class MailingListScheduleController {
 		StringBuilder sb = new StringBuilder()
 		if (calltype) {
 			if (id) {
-				def cr = MailingListSchedule.get(id)
+				def cr = ScheduleBase.get(id)
 				cr?.each { crec ->
 					if (calltype.equals('cancel')) {
 						sb.append('MailingListSchedule row marked as Cancelled ')
@@ -96,13 +96,13 @@ class MailingListScheduleController {
 
 	def list(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
-		[mailingListScheduleInstanceList: MailingListSchedule.list(params), mailingListScheduleInstanceTotal: MailingListSchedule.count()]
+		[mailingListScheduleInstanceList: ScheduleBase.list(params), mailingListScheduleInstanceTotal: ScheduleBase.count()]
 	}
 
 	def show(Long id) {
-		def mailingListScheduleInstance = MailingListSchedule.get(id)
+		def mailingListScheduleInstance = ScheduleBase.get(id)
 		if (!mailingListScheduleInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'mailingListSchedule.label', default: 'MailingListSchedule'), id])
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'ScheduleBase.label', default: 'MailingListSchedule'), id])
 			redirect(action: "list")
 			return
 		}

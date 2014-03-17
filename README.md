@@ -299,10 +299,47 @@ This is my email log confirming it sent an email from set email to the uploaded 
 
 
 
+#Common Issues:
+After attempting to run 
+
+	mlsetup org.example.com 5
+	
+you must referesh the project and run
+
+	grails refresh-dependencies
+	
+If your in ggts you may still see red asterix you can run:
+
+	grails clean 
+	
+These are the manual command lines goto project right click grails tools, grails command wizard will help you with those or actual command prompt below just drop the grails in front of all of the above.
 
 
+Date Format: Trying to schedule and can not ?
 
- 
+	dd/MM/yyyy HH.mm
+	
+This is the defaults sadly so please review main config and ensure your jquery date time config is set properly to match what is needed:
+
+		
+
+	mailinglist.dtFormat='dd/MM/yyyy HH.mm'
+ 	jqueryDateTimePicker {
+		format {
+			java {
+				datetime = "dd/MM/yyyy HH.mm"
+				date = "dd/MM/yyyy"
+			}
+			picker {
+				date = "'dd/mm/yy'"
+				time = "'H.mm'"
+			}
+		}
+	}
+	
+	
+Ensure all of above tallies up for it all work properly
+
     
 #### Pop up Modal boxes within contact clients
  

@@ -1,4 +1,4 @@
-package $pack
+package grails.plugin.mailinglist.core
 
 import org.springframework.dao.DataIntegrityViolationException
 
@@ -13,27 +13,27 @@ class MailingListSendersController {
 
 	def list(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
-		[mailingListSendersInstanceList: MailingListSenders.list(params), mailingListSendersInstanceTotal: MailingListSenders.count()]
+		[mailingListSendersInstanceList: SendersBase.list(params), mailingListSendersInstanceTotal: SendersBase.count()]
 	}
 
 	def create() {
-		[mailingListSendersInstance: new MailingListSenders(params)]
+		[mailingListSendersInstance: new SendersBase(params)]
 	}
 
 	def save() {
-		def mailingListSendersInstance = new MailingListSenders(params)
+		def mailingListSendersInstance = new SendersBase(params)
 		if (!mailingListSendersInstance.save(flush: true)) {
 			render(view: "create", model: [mailingListSendersInstance: mailingListSendersInstance])
 			return
 		}
-		flash.message = message(code: 'default.created.message', args: [message(code: 'mailingListSenders.label', default: 'MailingListSenders'), mailingListSendersInstance.id])
+		flash.message = message(code: 'default.created.message', args: [message(code: 'SendersBase.label', default: 'MailingListSenders'), mailingListSendersInstance.id])
 		redirect(action: "show", id: mailingListSendersInstance.id)
 	}
 
 	def show(Long id) {
-		def mailingListSendersInstance = MailingListSenders.get(id)
+		def mailingListSendersInstance = SendersBase.get(id)
 		if (!mailingListSendersInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'mailingListSenders.label', default: 'MailingListSenders'), id])
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'SendersBase.label', default: 'MailingListSenders'), id])
 			redirect(action: "list")
 			return
 		}
@@ -41,9 +41,9 @@ class MailingListSendersController {
 	}
 
 	def edit(Long id) {
-		def mailingListSendersInstance = MailingListSenders.get(id)
+		def mailingListSendersInstance = SendersBase.get(id)
 		if (!mailingListSendersInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'mailingListSenders.label', default: 'MailingListSenders'), id])
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'SendersBase.label', default: 'MailingListSenders'), id])
 			redirect(action: "list")
 			return
 		}
@@ -52,9 +52,9 @@ class MailingListSendersController {
 	}
 
 	def update(Long id, Long version) {
-		def mailingListSendersInstance = MailingListSenders.get(id)
+		def mailingListSendersInstance = SendersBase.get(id)
 		if (!mailingListSendersInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'mailingListSenders.label', default: 'MailingListSenders'), id])
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'SendersBase.label', default: 'MailingListSenders'), id])
 			redirect(action: "list")
 			return
 		}
@@ -62,7 +62,7 @@ class MailingListSendersController {
 		if (version != null) {
 			if (mailingListSendersInstance.version > version) {
 				mailingListSendersInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-					[message(code: 'mailingListSenders.label', default: 'MailingListSenders')] as Object[],
+					[message(code: 'SendersBase.label', default: 'MailingListSenders')] as Object[],
 					"Another user has updated this MailingListSenders while you were editing")
 				render(view: "edit", model: [mailingListSendersInstance: mailingListSendersInstance])
 				return
@@ -76,25 +76,25 @@ class MailingListSendersController {
 			return
 		}
 
-		flash.message = message(code: 'default.updated.message', args: [message(code: 'mailingListSenders.label', default: 'MailingListSenders'), mailingListSendersInstance.id])
+		flash.message = message(code: 'default.updated.message', args: [message(code: 'SendersBase.label', default: 'MailingListSenders'), mailingListSendersInstance.id])
 		redirect(action: "show", id: mailingListSendersInstance.id)
 	}
 
 	def delete(Long id) {
-		def mailingListSendersInstance = MailingListSenders.get(id)
+		def mailingListSendersInstance = SendersBase.get(id)
 		if (!mailingListSendersInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'mailingListSenders.label', default: 'MailingListSenders'), id])
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'SendersBase.label', default: 'MailingListSenders'), id])
 			redirect(action: "list")
 			return
 		}
 
 		try {
 			mailingListSendersInstance.delete(flush: true)
-			flash.message = message(code: 'default.deleted.message', args: [message(code: 'mailingListSenders.label', default: 'MailingListSenders'), id])
+			flash.message = message(code: 'default.deleted.message', args: [message(code: 'SendersBase.label', default: 'MailingListSenders'), id])
 			redirect(action: "list")
 		}
 		catch (DataIntegrityViolationException e) {
-			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'mailingListSenders.label', default: 'MailingListSenders'), id])
+			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'SendersBase.label', default: 'MailingListSenders'), id])
 			redirect(action: "show", id: id)
 		}
 	}

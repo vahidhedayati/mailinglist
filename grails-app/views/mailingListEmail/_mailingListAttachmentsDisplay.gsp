@@ -1,5 +1,5 @@
 
-		<g:each in="${mlAttach}" var="attach"> 
+		<g:each in="${mlAttach ?: grails.plugin.mailinglist.core.AttachmentsBase.list() }" var="attach"> 
 			<g:if test="${attach.attachment.size() > 0 }">
 				<g:if test="${params.attachments.getClass().isArray()}">
 					<g:if test="${params.attachments.contains(attach.id.toString())}">

@@ -1,4 +1,4 @@
-package $pack
+package grails.plugin.mailinglist.core
 
 import org.springframework.dao.DataIntegrityViolationException
 
@@ -13,31 +13,31 @@ class MailingListTemplatesController {
 	def ajaxupload() {}
 	
 	def loadMessageBox() {
-		render(template: 'message', model: [ content: MailingListTemplates.get(params.id)?.content ])
+		render(template: 'message', model: [ content: TemplatesBase.get(params.id)?.content ])
 	}
 
 	def list(Integer max) {
 		params.max = Math.min(max ?: 50, 100)
-		[mailingListTemplatesInstanceList: MailingListTemplates.list(params), mailingListTemplatesInstanceTotal: MailingListTemplates.count()]
+		[mailingListTemplatesInstanceList: TemplatesBase.list(params), mailingListTemplatesInstanceTotal: TemplatesBase.count()]
 	}
 
 	def create() {
-		[mailingListTemplatesInstance: new MailingListTemplates(params)]
+		[mailingListTemplatesInstance: new TemplatesBase(params)]
 	}
 
 	def loadtemplate() {
-		[mailingListTemplatesInstance: new MailingListTemplates(params)]
+		[mailingListTemplatesInstance: new TemplatesBase(params)]
 	}
 
 	def save() {
-		def mailingListTemplatesInstance = new MailingListTemplates(params)
+		def mailingListTemplatesInstance = new TemplatesBase(params)
 		if (!mailingListTemplatesInstance.save(flush: true)) {
 			render(view: "create", model: [mailingListTemplatesInstance: mailingListTemplatesInstance])
 			return
 		}
 		// Redirect to standard action we only pass params.ajax on a modal call
 		if (!params.ajax){
-			flash.message = message(code: 'default.created.message', args: [message(code: 'mailingListTemplates.label', default: 'MailingListTemplates'), mailingListTemplatesInstance.id])
+			flash.message = message(code: 'default.created.message', args: [message(code: 'TemplatesBase.label', default: 'MailingListTemplates'), mailingListTemplatesInstance.id])
 			redirect(action: "show", id: mailingListTemplatesInstance.id)
 			
 		}
@@ -49,9 +49,9 @@ class MailingListTemplatesController {
 	}
 
 	def show(Long id) {
-		def mailingListTemplatesInstance = MailingListTemplates.get(id)
+		def mailingListTemplatesInstance = TemplatesBase.get(id)
 		if (!mailingListTemplatesInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'mailingListTemplates.label', default: 'MailingListTemplates'), id])
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'TemplatesBase.label', default: 'MailingListTemplates'), id])
 			redirect(action: "list")
 			return
 		}
@@ -60,9 +60,9 @@ class MailingListTemplatesController {
 	}
 
 	def edit(Long id) {
-		def mailingListTemplatesInstance = MailingListTemplates.get(id)
+		def mailingListTemplatesInstance = TemplatesBase.get(id)
 		if (!mailingListTemplatesInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'mailingListTemplates.label', default: 'MailingListTemplates'), id])
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'TemplatesBase.label', default: 'MailingListTemplates'), id])
 			redirect(action: "list")
 			return
 		}
@@ -71,9 +71,9 @@ class MailingListTemplatesController {
 	}
 
 	def update(Long id, Long version) {
-		def mailingListTemplatesInstance = MailingListTemplates.get(id)
+		def mailingListTemplatesInstance = TemplatesBase.get(id)
 		if (!mailingListTemplatesInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'mailingListTemplates.label', default: 'MailingListTemplates'), id])
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'TemplatesBase.label', default: 'MailingListTemplates'), id])
 			redirect(action: "list")
 			return
 		}
@@ -81,7 +81,7 @@ class MailingListTemplatesController {
 		if (version != null) {
 			if (mailingListTemplatesInstance.version > version) {
 				mailingListTemplatesInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-					[message(code: 'mailingListTemplates.label', default: 'MailingListTemplates')] as Object[],
+					[message(code: 'TemplatesBase.label', default: 'MailingListTemplates')] as Object[],
 					"Another user has updated this MailingListTemplates while you were editing")
 				render(view: "edit", model: [mailingListTemplatesInstance: mailingListTemplatesInstance])
 				return
@@ -95,25 +95,25 @@ class MailingListTemplatesController {
 			return
 		}
 
-		flash.message = message(code: 'default.updated.message', args: [message(code: 'mailingListTemplates.label', default: 'MailingListTemplates'), mailingListTemplatesInstance.id])
+		flash.message = message(code: 'default.updated.message', args: [message(code: 'TemplatesBase.label', default: 'MailingListTemplates'), mailingListTemplatesInstance.id])
 		redirect(action: "show", id: mailingListTemplatesInstance.id)
 	}
 
 	def delete(Long id) {
-		def mailingListTemplatesInstance = MailingListTemplates.get(id)
+		def mailingListTemplatesInstance = TemplatesBase.get(id)
 		if (!mailingListTemplatesInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'mailingListTemplates.label', default: 'MailingListTemplates'), id])
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'TemplatesBase.label', default: 'MailingListTemplates'), id])
 			redirect(action: "list")
 			return
 		}
 
 		try {
 			mailingListTemplatesInstance.delete(flush: true)
-			flash.message = message(code: 'default.deleted.message', args: [message(code: 'mailingListTemplates.label', default: 'MailingListTemplates'), id])
+			flash.message = message(code: 'default.deleted.message', args: [message(code: 'TemplatesBase.label', default: 'MailingListTemplates'), id])
 			redirect(action: "list")
 		}
 		catch (DataIntegrityViolationException e) {
-			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'mailingListTemplates.label', default: 'MailingListTemplates'), id])
+			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'TemplatesBase.label', default: 'MailingListTemplates'), id])
 			redirect(action: "show", id: id)
 		}
 	}

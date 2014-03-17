@@ -143,7 +143,7 @@ class MailingListEmailService {
 			if (recipientToGroup) {
 				if (recipientToGroup.getClass().isArray()) {
 					recipientToGroup.each { rg ->
-						MailingListCategories.get(rg)?.mailinglist?.each { currentemail ->
+						CategoryBase.get(rg)?.mailinglist?.each { currentemail ->
 							if (currentemail) {
 								primary << currentemail
 							}
@@ -151,7 +151,7 @@ class MailingListEmailService {
 					}
 				}
 				else {
-					MailingListCategories.get(recipientToGroup)?.mailinglist?.each { currentemail ->
+					CategoryBase.get(recipientToGroup)?.mailinglist?.each { currentemail ->
 						if (currentemail) {
 							primary << currentemail
 						}
@@ -176,7 +176,7 @@ class MailingListEmailService {
 						multipart true
 						mp = true
 					}
-					if (!mp && scheduleid && MailingListSchedule.get(scheduleid).attachments) {
+					if (!mp && scheduleid && ScheduleBase.get(scheduleid).attachments) {
 						multipart true
 						mp = true
 					}
@@ -195,7 +195,7 @@ class MailingListEmailService {
 						inline k, 'image/jpg', new File(System.properties['catalina.base'], v)
 					}
 					if (scheduleid) {
-						MailingListSchedule.get(scheduleid).attachments.each { att ->
+						ScheduleBase.get(scheduleid).attachments.each { att ->
 							attachBytes att.fullname, att.contentType, att.attachment
 						}
 					}
@@ -208,7 +208,7 @@ class MailingListEmailService {
 		else {
 			if (recipientToGroup) {
 				recipientToGroup.each { rg ->
-					for (currentemail in MailingListCategories.get(rg)?.mailinglist) {
+					for (currentemail in CategoryBase.get(rg)?.mailinglist) {
 						if (!currentemail) {
 							continue
 						}
@@ -226,7 +226,7 @@ class MailingListEmailService {
 									multipart true
 									mp=true
 								}
-								if (!mp && scheduleid && MailingListSchedule.get(scheduleid).attachments) {
+								if (!mp && scheduleid && ScheduleBase.get(scheduleid).attachments) {
 									multipart true
 									mp = true
 								}
@@ -244,7 +244,7 @@ class MailingListEmailService {
 									inline k, 'image/jpg', new File(System.properties['catalina.base'], v)
 								}
 								if (scheduleid) {
-									MailingListSchedule.get(scheduleid).attachments.each { att ->
+									ScheduleBase.get(scheduleid).attachments.each { att ->
 										attachBytes att.fullname, att.contentType, att.attachment
 									}
 								}
@@ -269,7 +269,7 @@ class MailingListEmailService {
 							multipart true
 							mp = true
 						}
-						if (!mp && scheduleid && MailingListSchedule.get(scheduleid).attachments) {
+						if (!mp && scheduleid && ScheduleBase.get(scheduleid).attachments) {
 							multipart true
 							mp = true
 						}
@@ -287,7 +287,7 @@ class MailingListEmailService {
 							inline k, 'image/jpg', new File(System.properties['catalina.base'], v)
 						}
 						if (scheduleid) {
-							MailingListSchedule.get(scheduleid).attachments.each { att ->
+							ScheduleBase.get(scheduleid).attachments.each { att ->
 								attachBytes att.fullname, att.contentType, att.attachment
 							}
 						}
@@ -305,7 +305,7 @@ class MailingListEmailService {
 		}
 
 		log.info("Updating ScheduleID $scheduleid setting scheduleComplete as true")
-		def foundit = MailingListSchedule.get(scheduleid)
+		def foundit = ScheduleBase.get(scheduleid)
 		if (foundit) {
 			foundit.scheduleComplete = true
 			foundit.deploymentComplete = true
@@ -316,7 +316,7 @@ class MailingListEmailService {
 	def rescheduleit(params) {
 		log.info("Schedule [ rescheduleit ]  Email Parameters: $params")
 		def result = quartzEmailCheckerService.requeueEmail(params)
-		MailingListSchedule.get(params.id)?.each { gg->
+		ScheduleBase.get(params.id)?.each { gg->
 			gg.scheduleName = result
 			gg.save()
 		}

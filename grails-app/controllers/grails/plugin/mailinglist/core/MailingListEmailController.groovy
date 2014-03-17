@@ -1,4 +1,4 @@
-package $pack
+package grails.plugin.mailinglist.core
 
 import java.text.SimpleDateFormat
 import java.util.List;
@@ -38,7 +38,7 @@ class MailingListEmailController {
 	}
 	
 	def loadMessageBox() {
-		def mlt = MailingListTemplates.get(params.id)
+		def mlt = TemplatesBase.get(params.id)
 		render(template: 'message', model: [ content: mlt?.content ])
 	}
 
@@ -122,7 +122,7 @@ class MailingListEmailController {
 			return
 		}
 
-		def mailingListScheduleInstance = new MailingListSchedule(
+		def mailingListScheduleInstance = new ScheduleBase(
 			mailFrom:mailFrom, recipientToGroup: recipientToGroup, subject: subject, attachments: attachments,
 			mailingListTemplate: mailingListTemplate, dateTime: dateTime, setDate: setDate, setTime: setTime,
 			emailMessage: emailMessage, recipientToList: recipientToList,recipientCCList: recipientCCList,
@@ -143,7 +143,7 @@ class MailingListEmailController {
 		}
 
 		params.id = mailingListScheduleInstance.id
-		log.info("Schedule Email Parameters: \$params")
+		log.info("Schedule Email Parameters: $params")
 		def d = new Date()
 		if (!params.setDate) {
 			params.setDate = d.format('dd MMM yyyy')
@@ -169,7 +169,7 @@ class MailingListEmailController {
 		if (result) {
 			mailingListScheduleInstance.scheduleName = result
 			mailingListScheduleInstance.save(flush:true)
-			flash.message = message(code: "Scheduled job name: [\$result] scheduledEmail success.")
+			flash.message = message(code: "Scheduled job name: [$result] scheduledEmail success.")
 			redirect(controller:'MailingListSchedule',action:'br')
 			return
 		}

@@ -1,4 +1,4 @@
-package $pack
+package grails.plugin.mailinglist.core
 
 import org.springframework.dao.DataIntegrityViolationException
 
@@ -10,9 +10,9 @@ class MailingListController {
 	def index() {}
 
 	def search(String mq) {
-		def mailingListInstanceList = MailingList.findAllByEmailAddressLikeOrEmailDisplayNameLike("%" + mq + "%", "%" + mq + "%", [max: 30])
+		def mailingListInstanceList = MailingListBase.findAllByEmailAddressLikeOrEmailDisplayNameLike("%" + mq + "%", "%" + mq + "%", [max: 30])
 		if (!mailingListInstanceList) {
-			mailingListInstanceList = MailingList.findAllByFirstNameLikeOrMiddleNameLikeOrLastNameLike("%" + mq + "%", "%" + mq + "%", "%" + mq + "%", [max: 30])
+			mailingListInstanceList = MailingListBase.findAllByFirstNameLikeOrMiddleNameLikeOrLastNameLike("%" + mq + "%", "%" + mq + "%", "%" + mq + "%", [max: 30])
 		}
 		[ mailingListInstanceList: mailingListInstanceList]
 	}
@@ -21,7 +21,7 @@ class MailingListController {
 		def searchResults
 		if (mq) {
 			searchResults = [
-				MailResults: trySearch1 { MailingList.search(mq, [max:10]) },
+				MailResults: trySearch1 { MailingListBase.search(mq, [max:10]) },
 				mq: mq.encodeAsHTML()
 			]
 		}
@@ -33,13 +33,13 @@ class MailingListController {
 			return callable.call()
 		}
 		catch(e) {
-			log.debug "Search Error: \$e.message", e
+			log.debug "Search Error: $e.message", e
 			return []
 		}
 	}
 
 	def display() {
-		def link = MailingList.get(params.id)
+		def link = MailingListBase.get(params.id)
 		if (!link) {
 			response.sendError 404
 			return
@@ -60,11 +60,11 @@ class MailingListController {
 
 		if ((format) &&(format != "html")) {
 			response.contentType = grailsApplication.config.grails.mime.types[format]
-			response.setHeader("Content-disposition", "attachment; filename=MailingList." + params.extension)
-			exportService.export(format, response.outputStream,MailingList?.list(), [:], [:])
+			response.setHeader("Content-disposition", "attachment; filename=MailingListBase." + params.extension)
+			exportService.export(format, response.outputStream,MailingListBase?.list(), [:], [:])
 		}
 
-		def model = [mailingListInstanceList: MailingList?.list(params), mailingListInstanceTotal: MailingList?.count()]
+		def model = [mailingListInstanceList: MailingListBase?.list(params), mailingListInstanceTotal: MailingListBase?.count()]
 
 		if (request.xhr) {
 			render (template: 'listing', model: model)
@@ -75,15 +75,15 @@ class MailingListController {
 	}
 
 	def create() {
-		[mailingListInstance: new MailingList(params)]
+		[mailingListInstance: new MailingListBase(params)]
 	}
 
 	def save(String emailAddress) {
-		def categories = MailingListCat.get(params.mlcategories.id)
-		def found = MailingList.findByEmailAddressAndMlcategories(emailAddress, categories)
-		def mailingListInstance = new MailingList(params)
+		def categories = CategoryBase.get(params.mlcategories.id)
+		def found = MailingListBase.findByEmailAddressAndCategories(emailAddress, categories)
+		def mailingListInstance = new MailingListBase(params)
 		if (found) {
-			flash.message = message(code: "ERROR - Could not add record EMAIL address \$emailAddress already exists in \$categories.name !!")
+			flash.message = message(code: "ERROR - Could not add record EMAIL address $emailAddress already exists in $categories.name !!")
 			render(view: "create", model: [mailingListInstance: mailingListInstance])
 			return
 		}
@@ -93,14 +93,14 @@ class MailingListController {
 			return
 		}
 
-		flash.message = message(code: 'default.created.message', args: [message(code: 'mailingList.label', default: 'MailingList'), mailingListInstance.id])
+		flash.message = message(code: 'default.created.message', args: [message(code: 'MailingListBase.label', default: 'MailingList'), mailingListInstance.id])
 		redirect(action: "show", id: mailingListInstance.id)
 	}
 
 	def show(Long id) {
-		def mailingListInstance = MailingList.get(id)
+		def mailingListInstance = MailingListBase.get(id)
 		if (!mailingListInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'mailingList.label', default: 'MailingList'), id])
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'MailingListBase.label', default: 'MailingList'), id])
 			redirect(action: "list")
 			return
 		}
@@ -108,9 +108,9 @@ class MailingListController {
 	}
 
 	def edit(Long id) {
-		def mailingListInstance = MailingList.get(id)
+		def mailingListInstance = MailingListBase.get(id)
 		if (!mailingListInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'mailingList.label', default: 'MailingList'), id])
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'MailingListBase.label', default: 'MailingList'), id])
 			redirect(action: "list")
 			return
 		}
@@ -118,9 +118,9 @@ class MailingListController {
 	}
 
 	def update(Long id, Long version) {
-		def mailingListInstance = MailingList.get(id)
+		def mailingListInstance = MailingListBase.get(id)
 		if (!mailingListInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'mailingList.label', default: 'MailingList'), id])
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'MailingListBase.label', default: 'MailingList'), id])
 			redirect(action: "list")
 			return
 		}
@@ -128,7 +128,7 @@ class MailingListController {
 		if (version != null) {
 			if (mailingListInstance.version > version) {
 				mailingListInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-					[message(code: 'mailingList.label', default: 'MailingList')] as Object[],
+					[message(code: 'MailingListBase.label', default: 'MailingList')] as Object[],
 					"Another user has updated this MailingList while you were editing")
 				render(view: "edit", model: [mailingListInstance: mailingListInstance])
 				return
@@ -141,24 +141,24 @@ class MailingListController {
 			return
 		}
 
-		flash.message = message(code: 'default.updated.message', args: [message(code: 'mailingList.label', default: 'MailingList'), mailingListInstance.id])
+		flash.message = message(code: 'default.updated.message', args: [message(code: 'MailingListBase.label', default: 'MailingList'), mailingListInstance.id])
 		redirect(action: "show", id: mailingListInstance.id)
 	}
 
 	def delete(Long id) {
-		def mailingListInstance = MailingList.get(id)
+		def mailingListInstance = MailingListBase.get(id)
 		if (!mailingListInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'mailingList.label', default: 'MailingList'), id])
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'MailingListBase.label', default: 'MailingList'), id])
 			redirect(action: "list")
 			return
 		}
 		try {
 			mailingListInstance.delete(flush: true)
-			flash.message = message(code: 'default.deleted.message', args: [message(code: 'mailingList.label', default: 'MailingList'), id])
+			flash.message = message(code: 'default.deleted.message', args: [message(code: 'MailingListBase.label', default: 'MailingList'), id])
 			redirect(action: "list")
 		}
 		catch (DataIntegrityViolationException e) {
-			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'mailingList.label', default: 'MailingList'), id])
+			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'MailingListBase.label', default: 'MailingList'), id])
 			redirect(action: "show", id: id)
 		}
 	}

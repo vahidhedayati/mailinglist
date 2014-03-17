@@ -1,5 +1,5 @@
 
-	<g:each in="${mlCat}" var="cat"> 
+	<g:each in="${mlCat ?: grails.plugin.mailinglist.core.CategoryBase.list()}" var="cat"> 
 		<g:if test="${params.recipientToGroup.getClass().isArray()}">
 			
 			
