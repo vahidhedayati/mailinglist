@@ -1,4 +1,3 @@
-import grails.util.Metadata
 import groovy.text.SimpleTemplateEngine
 
 includeTargets << grailsScript("_GrailsArgParsing")
@@ -9,6 +8,7 @@ USAGE = """
 	5 = number of jobs to create for mailinglist
 """
 
+overwriteAll = false
 target(mlsetup: 'Sets up a new mailing list project') {
 
 	def (pack,amount) = parseArgs()
@@ -26,14 +26,18 @@ target(mlsetup: 'Sets up a new mailing list project') {
 	// Create jobs
 	if (amount) {
 		String jobPath = "grails-app/jobs/$pack"
-		mkdir(dir: "$basedir/$jobPath")
-
+		//mkdir(dir: "$basedir/$jobPath")
+		localmkdir("$basedir/$jobPath")
+		
 		amount.times { int i ->
 			String jobName="ScheduleEmail${i}Job"
 			println "Creating job ${i} job Name: $jobPath/${jobName}.groovy"
 			def cjob = [ pack: pack, classname:jobName ]
 			def mtJob = createTemplate(engine, 'jobs/ScheduleEmailJob.groovy', cjob)
-			new File(basedir, "$jobPath/${jobName}.groovy").write(mtJob.toString())
+			
+			//new File(basedir, "$jobPath/${jobName}.groovy").write(mtJob.toString())
+			writeToFile("$jobPath/${jobName}.groovy", mtJob.toString())
+			
 			println "Generating EmailCheckerService Schedule Pool $jobName"
 			cad.append('\t\t\t\t\tif (i == ').append(i).append(') {\n')
 			cad.append('\t\t\t\t\t\t').append(jobName).append('.schedule(scheduledDate, paramsMap)\n')
@@ -51,27 +55,41 @@ target(mlsetup: 'Sets up a new mailing list project') {
 			cad1.append('\t\t\t\t\t}\n')
 		}
 	}
-
-	copy(file:"$mailinglistPluginDir/src/templates/js/bootstrap.min.js", 
-			tofile: "$basedir/web-app/js/bootstrap.min.js", overwrite: false)
+	
+	/*copy(file:"$mailinglistPluginDir/src/templates/js/bootstrap.min.js", 
+			tofile: "$basedir/web-app/js/bootstrap.min.js", overwrite: false)*/
 	
 	File dir = new File(mailinglistPluginDir, "src/templates/views")
-	dir.eachFileRecurse{ f -> if (f.isDirectory()) println "Creating views folder: $f.name"}
-	copy(todir: new File(basedir, 'grails-app/views')) {
-		fileset dir: dir
-	}
+	dir.eachFileRecurse{ 
+		f -> if (f.isDirectory()) {
+			if (!okToWrite("${basedir}/grails-app/views/$f.name")) {
+				return
+			}	
+			println "Creating views folder: $f.name"
+			dir = new File(mailinglistPluginDir, "src/templates/views/$f.name")
+			copy(todir: new File(basedir, 'grails-app/views/'+f.name)) {
+				fileset dir: dir
+			}
+		} 
+	 }
 	
-	File dir1 = new File(mailinglistPluginDir, "src/templates/css")
-	dir1.eachFileRecurse{ f -> if (f.isDirectory()) println "Creating css folder: $f.name"}
-	copy(todir: new File(basedir, 'web-app/css')) {
-		fileset dir: dir1
-	}
+	
+	
 	
 	File dir2 = new File(mailinglistPluginDir, "src/templates/images")
-	dir2.eachFileRecurse{ f -> if (f.isDirectory()) println "Creating css folder: $f.name"}
-	copy(todir: new File(basedir, 'web-app/images')) {
-		fileset dir: dir2
+	dir2.eachFileRecurse{ 
+		f -> if (f.isDirectory()) { 
+			if (!okToWrite("${basedir}/web-app/images/$f.name")) {
+				return
+			}
+			println "Creating css folder: $f.name"
+			dir2 = new File(mailinglistPluginDir, "src/templates/images/$f.name")
+			copy(todir: new File(basedir, 'web-app/images'+f.name)) {
+				fileset dir: dir2
+			}
+		}		
 	}
+	
 	
 	
 
@@ -81,11 +99,13 @@ target(mlsetup: 'Sets up a new mailing list project') {
 	imf.append('<%@ page import="').append(pack).append('.MailingListSenders" %>\n')
 	imf.append('<%@ page import="').append(pack).append('.MailingListTemplates" %>\n')
 	imf.append('<%@ page import="').append(pack).append('.MailingList" %>\n')
-	new File(basedir, "grails-app/views/mailingList/_mailingListImport.gsp").write(imf.toString())
+	//new File(basedir, "grails-app/views/mailingList/_mailingListImport.gsp").write(imf.toString())
+	writeToFile("grails-app/views/mailingList/_mailingListImport.gsp", imf.toString())
 
 	println "Creating domain classes within your project: grails-app/domain/$packdir"
-	mkdir(dir:"${basedir}/grails-app/domain/$packdir")
-
+	//mkdir(dir:"${basedir}/grails-app/domain/$packdir")
+	localmkdir("${basedir}/grails-app/domain/$packdir")
+	
 	generateDomainClass 'MailingList', packdir, basedir, engine, pack, 'MailingListBase'
 	generateDomainClass 'MailingListCategories', packdir, basedir, engine, pack, 'CategoryBase'
 	generateDomainClass 'MailingListAttachments', packdir, basedir, engine, pack, 'AttachmentsBase'
@@ -95,7 +115,8 @@ target(mlsetup: 'Sets up a new mailing list project') {
 	generateDomainClass 'MailingListSenders', packdir, basedir, engine, pack, 'SendersBase'
 
 	println "Creating controllers within your project: grails-app/controllers/$packdir"
-	mkdir(dir:"${basedir}/grails-app/controllers/$packdir")
+	//mkdir(dir:"${basedir}/grails-app/controllers/$packdir")
+	localmkdir("${basedir}/grails-app/controllers/$packdir")
 	new File(mailinglistPluginDir, 'src/templates/controllers').eachFile { File f ->
 		if (f.name.endsWith('.groovy')) {
 			generateController f.name, packdir, basedir, engine, pack
@@ -106,36 +127,22 @@ target(mlsetup: 'Sets up a new mailing list project') {
 	
 	println "Creating Taglib within your project: grails-app/taglib/$packdir"
 	
-	mkdir(dir:"${basedir}/grails-app/taglib/$packdir")
+	//mkdir(dir:"${basedir}/grails-app/taglib/$packdir")
+	localmkdir("${basedir}/grails-app/taglib/$packdir")
 	
-	def tagConf = [pack: pack]
-	
-	def mltaglib= createTemplate(engine, 'taglib/MailingListTagLib.groovy', tagConf)
-	new File(basedir, "grails-app/taglib/$packdir/MailingListTagLib.groovy").write(mltaglib.toString())
-	
-	def quartlib= createTemplate(engine, 'taglib/QuartzUtilsTagLib.groovy', tagConf)
-	new File(basedir, "grails-app/taglib/$packdir/QuartzUtilsTagLib.groovy").write(quartlib.toString())
 
-	
 	
 	
 		
 	println "Creating Services within your project: grails-app/services/$packdir"
-	mkdir(dir:"${basedir}/grails-app/services/$packdir")
-
-	def serviceConf = [pack: pack, amount: amount]
-
+	//mkdir(dir:"${basedir}/grails-app/services/$packdir")
+	localmkdir("${basedir}/grails-app/services/$packdir")
 	
-
-	def EmailService = createTemplate(engine, 'services/MailingListEmailService.groovy', serviceConf)
-	new File(basedir, "grails-app/services/$packdir/MailingListEmailService.groovy").write(EmailService.toString())
-
-	def qss = createTemplate(engine, 'services/QuartzStatusService.groovy', serviceConf)
-	new File(basedir, "grails-app/services/$packdir/QuartzStatusService.groovy").write(qss.toString())
-
+	
 	def checkerConf = [pack: pack, amount: amount, jobMapping: cad, queueMapping: cad1]
 	def qecs = createTemplate(engine, 'services/QuartzEmailCheckerService.groovy', checkerConf)
-	new File(basedir, "grails-app/services/$packdir/QuartzEmailCheckerService.groovy").write(qecs.toString())
+	//new File(basedir, "grails-app/services/$packdir/QuartzEmailCheckerService.groovy").write(qecs.toString())
+	writeToFile("grails-app/services/$packdir/QuartzEmailCheckerService.groovy",qecs.toString())
 
 	println """\
 Finished generating classes.
@@ -159,6 +166,44 @@ private void usage() {
 	exit(1)
 }
 
+
+okToWrite = { String dest ->
+	def file = new File(dest)
+	if (overwriteAll || !file.exists()) {
+		return true
+	}
+	
+	String propertyName = "file.overwrite.$file.name"
+	ant.input(addProperty: propertyName, message: "$dest exists, ok to overwrite?",  validargs: 'y,n,a', defaultvalue: 'y')
+	
+	if (ant.antProject.properties."$propertyName" == 'n') {
+		return false
+	}
+	
+	if (ant.antProject.properties."$propertyName" == 'a') {
+		overwriteAll = true
+	}
+	true
+}	
+
+localmkdir = { String dir ->
+	if (!okToWrite(dir)) {
+		return
+	}
+	def folders = new File(dir)
+	folders.mkdirs()
+}
+
+
+writeToFile= { String file, String content ->
+	if (!okToWrite(file)) {
+		return
+	}
+	new File(basedir, "$file").write(content.toString())
+}
+
+
+	
 private createTemplate(SimpleTemplateEngine engine, relativePath, binding) {
 	engine.createTemplate(new FileReader("$mailinglistPluginDir/src/templates/$relativePath")).make(binding)
 }
