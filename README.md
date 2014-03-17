@@ -30,13 +30,22 @@ Add plugin Dependency in BuildConfig.groovy :
 #### BuildConfig.groovylayout/main.gsp update:
 
 ##### jquery, jquery-ui libraries:
-your layouts main.gsp: (add jquery-ui and jquery - or add them into ApplicationResources.groovy and ensure you refer to it in your main.gsp or relevant file
+your layouts main.gsp: (add jquery-ui and jquery  - or add them into ApplicationResources.groovy and ensure you refer to it in your main.gsp or relevant file
 
 	<g:javascript library="jquery-ui"/>
 	<g:javascript library="jquery"/>
 	…
 	<g:layoutHead/>
+	<mailinglist:loadbootstrap/>
+	</head>
 
+
+You will also notice <mailinglist:loadbootstrap/> this loads up bootstrap to make modalbox work - if you already have bootstrap then change this to 
+
+	<mailinglist:loadplugincss/>
+	
+
+	
 
 
 Now with that all in place open grails console or from the command line run
