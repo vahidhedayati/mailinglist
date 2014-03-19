@@ -1,5 +1,8 @@
-
-<g:render template="/mailingList/mailingListImport"/>
+<%@ page import="grails.plugin.mailinglist.core.CategoryBase" %>
+<%@ page import="grails.plugin.mailinglist.core.SendersBase" %>
+<%@ page import="grails.plugin.mailinglist.core.ScheduleBase" %>
+<%@ page import="grails.plugin.mailinglist.core.TemplatesBase" %>
+<%@ page import="grails.plugin.mailinglist.core.MailingListBase" %>
 <div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'addedby', 'error')} ">
 	<label for="addedby">
 		<g:message code="mailingListSchedule.addedby.label" default="Addedby" />

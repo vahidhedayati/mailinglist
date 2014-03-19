@@ -1,4 +1,4 @@
-mailinglist 0.1
+mailinglist 0.2
 =======================
 
 
@@ -24,7 +24,7 @@ For a walk through guide on how to install this plugin goto : https://github.com
 ## Installation:
 Add plugin Dependency in BuildConfig.groovy :
 
-	compile ":mailinglist:0.1"
+	compile ":mailinglist:0.2"
 
 
 #### BuildConfig.groovylayout/main.gsp update:
@@ -71,6 +71,19 @@ Assuming package was labelled as above org.example.com and schedule jobs as 5, i
 
 
 The domains generated in your application extend base domains within plugin, besides this the rest of the controllers etc are pushed to your own application for you to do what you like with it.
+
+
+## Version changes
+
+0.2 moved most back into actual plugin - bug with existing used schedule causing synchronise issues :
+[quartzScheduler_Worker-2] ERROR events.PatchedDefaultFlushEventListener  - Could not synchronize database state with session
+Message: Row was updated or deleted by another transaction (or unsaved-value mapping was incorrect): [grails.plugin.mailinglist.core.ScheduleBase#3]
+   Line | Method
+->>  16 | execute in org.foo.com.ScheduleEmail0Job
+
+
+0.1 release - nearly everything written to clients project
+
 
 
 
@@ -354,17 +367,11 @@ Ensure all of above tallies up for it all work properly
   If you are interested in learning more about how to use modalbox on your own site and get them to update existing forms 
   then have a read here: https://github.com/vahidhedayati/mailinglist/wiki/ModalBox-insight you may wish to also refer to the gsp pages it speaks of to get more clued up as to what I was rambling on about,
   
+  Also take a look at  https://github.com/vahidhedayati/modaldynamix (now a plugin based on this concept)
+  
+  
   
 		
-
-
-
-#### Future upgrades etc
-
-This project at the moment installs nearly everything to your local project which means you have great power over changes to how things work. This does mean future updates i.e. by running the install script will overwrite everything including changes to anything local to this project made on your local copy.
-Advice for now if or until method changes is to always backup your existing project before either running the mlsetup to increase pool or running to upgrade upon future releases. 
-If you are not going to make any changes to the plugin code then nothing to worry about update as much as required. 
-
 
 ## Finally
 

@@ -102,7 +102,7 @@ target(mlsetup: 'Sets up a new mailing list project') {
 	//new File(basedir, "grails-app/views/mailingList/_mailingListImport.gsp").write(imf.toString())
 	writeToFile("grails-app/views/mailingList/_mailingListImport.gsp", imf.toString())*/
 
-	/*
+	
 	println "Creating domain classes within your project: grails-app/domain/$packdir"
 	//mkdir(dir:"${basedir}/grails-app/domain/$packdir")
 	localmkdir("${basedir}/grails-app/domain/$packdir")
@@ -110,13 +110,13 @@ target(mlsetup: 'Sets up a new mailing list project') {
 	generateDomainClass 'MailingList', packdir, basedir, engine, pack, 'MailingListBase'
 	generateDomainClass 'MailingListCategories', packdir, basedir, engine, pack, 'CategoryBase'
 	generateDomainClass 'MailingListAttachments', packdir, basedir, engine, pack, 'AttachmentsBase'
-	generateDomainClass 'MailingListFrom', packdir, basedir, engine, pack, 'FromBase'
+	//generateDomainClass 'MailingListFrom', packdir, basedir, engine, pack, 'FromBase'
 	generateDomainClass 'MailingListSchedule', packdir, basedir, engine, pack, 'ScheduleBase'
 	generateDomainClass 'MailingListTemplates', packdir, basedir, engine, pack, 'TemplatesBase'
 	generateDomainClass 'MailingListSenders', packdir, basedir, engine, pack, 'SendersBase'
 	
 	
-
+/*
 	println "Creating controllers within your project: grails-app/controllers/$packdir"
 	//mkdir(dir:"${basedir}/grails-app/controllers/$packdir")
 	localmkdir("${basedir}/grails-app/controllers/$packdir")

@@ -1,5 +1,8 @@
-<g:render template="/mailingList/mailingListImport"/>
-
+<%@ page import="grails.plugin.mailinglist.core.CategoryBase" %>
+<%@ page import="grails.plugin.mailinglist.core.SendersBase" %>
+<%@ page import="grails.plugin.mailinglist.core.ScheduleBase" %>
+<%@ page import="grails.plugin.mailinglist.core.TemplatesBase" %>
+<%@ page import="grails.plugin.mailinglist.core.MailingListBase" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -33,8 +36,6 @@
 			</g:if>
 				
 
-			<!-- LOAD Bootstrap file required for modal pop up + css above called ml-bootstrap -->
-           	<g:javascript src="bootstrap.min.js" />
            
  			
  	 				
@@ -53,6 +54,8 @@
  			<g:render template="/mailingListModal/modalbasicSelfPost" model="[formId:'TemplatesForm', title:'Generate Template',controller: 'mailingListTemplates', callPage: 'formAjax' , divId: 'mailerTemplates', id: 'TEMPLATES']" />
  		</div>
  	</div>
+ 	
+ 	
  	
  	
  	<div class="tbutton">

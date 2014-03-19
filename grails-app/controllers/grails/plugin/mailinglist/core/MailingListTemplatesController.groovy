@@ -41,8 +41,6 @@ class MailingListTemplatesController {
 			redirect(action: "show", id: mailingListTemplatesInstance.id)
 			
 		}
-		// We have params.ajax so lets render some text and let jquery handle the rest via javascript
-		//redirect(url: request.getHeader('referer'))
 		def g=new org.codehaus.groovy.grails.plugins.web.taglib.ApplicationTagLib() 
 		def clink=g.createLink(controller: 'MailingListTemplates', action: 'ajaxupload')
 		render "Record should now be saved. Create another Template: <a href="+clink+">Here</a>"	
