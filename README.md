@@ -74,9 +74,10 @@ The domains generated in your application extend base domains within plugin, bes
 
 
 ## Version changes
-0.3 Missing images, alerts left in java scripts tut tut, contactclients gsp page had lots of bugs now fixed, scheduling looks a lot healthier.
-0.2 moved most back into actual plugin - bug with existing used schedule issues whilst attempting to schedule something for now whilst others queued.
-0.1 release - nearly everything written to clients project
+
+	0.3 Missing images, alerts left in java scripts tut tut, contactclients gsp page had lots of bugs now fixed, scheduling looks a lot healthier.
+	0.2 moved most back into actual plugin - bug with existing used schedule issues whilst attempting to schedule something for now whilst others queued.
+	0.1 release - nearly everything written to clients project
 
 
 
