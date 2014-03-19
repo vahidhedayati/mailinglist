@@ -23,180 +23,176 @@ For a walk through guide on how to install this plugin goto : https://github.com
 
 ## Installation:
 Add plugin Dependency in BuildConfig.groovy :
-
-	compile ":mailinglist:0.3"
-
+```groovy
+compile ":mailinglist:0.3"
+```
 
 #### BuildConfig.groovylayout/main.gsp update:
 
 ##### jquery, jquery-ui libraries:
 your layouts main.gsp: (add jquery-ui and jquery  - or add them into ApplicationResources.groovy and ensure you refer to it in your main.gsp or relevant file
-
-	<g:javascript library="jquery-ui"/>
-	<g:javascript library="jquery"/>
-	…
-	<g:layoutHead/>
-	<mailinglist:loadbootstrap/>
-	</head>
-
+```gsp
+<g:javascript library="jquery-ui"/>
+<g:javascript library="jquery"/>
+…
+<g:layoutHead/>
+<mailinglist:loadbootstrap/>
+</head>
+```
 
 You will also notice <mailinglist:loadbootstrap/> this loads up bootstrap to make modalbox work - if you already have bootstrap then change this to 
-
-	<mailinglist:loadplugincss/>
-	
-
-	
+```gsp
+<mailinglist:loadplugincss/>
+```	
 
 
 Now with that all in place open grails console or from the command line run
+```
+grails mlsetup org.example.com 5
+```
 
-	grails mlsetup org.example.com 5
-
-	Where org.example.com is your package and 5 is the amount of dynamic schedule jobs to generate,
+Where org.example.com is your package and 5 is the amount of dynamic schedule jobs to generate,
 
 Assuming package was labelled as above org.example.com and schedule jobs as 5, install script will create
+```
+Controllers under org.example.com
+Domains 	under org.example.com
+Views 		under views/mailingList[a-z]
 
-	Controllers under org.example.com
-	Domains 	under org.example.com
-	Views 		under views/mailingList[a-z]
+Jobs under 	org.example.com/ScheduleEmail0Job.groovy
+		   	org.example.com/ScheduleEmail1Job.groovy
+		   	org.example.com/ScheduleEmail2Job.groovy
+		   	org.example.com/ScheduleEmail3Job.groovy
+		   	org.example.com/ScheduleEmail4Job.groovy
 
-	Jobs under 	org.example.com/ScheduleEmail0Job.groovy
-			   	org.example.com/ScheduleEmail1Job.groovy
-			   	org.example.com/ScheduleEmail2Job.groovy
-			   	org.example.com/ScheduleEmail3Job.groovy
-			   	org.example.com/ScheduleEmail4Job.groovy
-
-	Services 	under org.example.com
-				It will update QuartzEmailCheckerService to only schedule physical jobs ScheduleEmail[0-4]Job
-
+Services 	under org.example.com
+			It will update QuartzEmailCheckerService to only schedule physical jobs ScheduleEmail[0-4]Job
+```
 
 The domains generated in your application extend base domains within plugin, besides this the rest of the controllers etc are pushed to your own application for you to do what you like with it.
 
 
 ## Version changes
 
-	0.3 Missing images, alerts left in java scripts tut tut, contactclients gsp page had lots of bugs now fixed, scheduling looks a lot healthier.
-	0.2 moved most back into actual plugin - bug with existing used schedule issues whilst attempting to schedule something for now whilst others queued.
-	0.1 release - nearly everything written to clients project
-
-
+0.3 Missing images, alerts left in java scripts tut tut, contactclients gsp page had lots of bugs now fixed, scheduling looks a lot healthier.
+0.2 moved most back into actual plugin - bug with existing used schedule issues whilst attempting to schedule something for now whilst others queued.
+0.1 release - nearly everything written to clients project
 
 
 #### Config.groovy changes
 
-Required Config.groovy configurations:
-
-
-	// Optional values to override DB table names for this plugin:
-	//mailinglist.table.schedule='MyScheduler'
-	//mailinglist.table.attachments='something'
-	//mailinglist.table.categories='something'
-	//mailinglist.table.from='something'
-	//mailinglist.table.mailinglist='something'
-	//mailinglist.table.schedule='something'
-	//mailinglist.table.senders='something'
-	//mailinglist.table.templates='something'
+Required `Config.groovy` configurations:
+```groovy
+// Optional values to override DB table names for this plugin:
+//mailinglist.table.schedule='MyScheduler'
+//mailinglist.table.attachments='something'
+//mailinglist.table.categories='something'
+//mailinglist.table.from='something'
+//mailinglist.table.mailinglist='something'
+//mailinglist.table.schedule='something'
+//mailinglist.table.senders='something'
+//mailinglist.table.templates='something'
 	
-	// Your date format that matches input of jquery datepicker config 
-	//mailinglist.dtFormat='dd/MM/yyyy HH.mm'
+// Your date format that matches input of jquery datepicker config 
+//mailinglist.dtFormat='dd/MM/yyyy HH.mm'
 
 
-	ckeditor {
-		//config = "/js/myckconfig.js"
-			skipAllowedItemsCheck = false
-		defaultFileBrowser = "ofm"
-		upload {
-			//basedir = "/uploads/"
-
-			baseurl="${grails.baseURL}"+'/uploads/'
-			basedir = "${externalUploadPath}"
-				overwrite = false
-				link {
-					browser = true
-					upload = false
-					allowed = []
-					denied = ['html', 'htm', 'php', 'php2', 'php3', 'php4', 'php5',
+ckeditor {
+	//config = "/js/myckconfig.js"
+		skipAllowedItemsCheck = false
+	defaultFileBrowser = "ofm"
+	upload {
+		//basedir = "/uploads/"
+		baseurl="${grails.baseURL}"+'/uploads/'
+		basedir = "${externalUploadPath}"
+			overwrite = false
+			link {
+				browser = true
+				upload = false
+				allowed = []
+				denied = ['html', 'htm', 'php', 'php2', 'php3', 'php4', 'php5',
 							  'phtml', 'pwml', 'inc', 'asp', 'aspx', 'ascx', 'jsp',
-							  'cfm', 'cfc', 'pl', 'bat', 'exe', 'com', 'dll', 'vbs', 'js', 'reg',
-							  'cgi', 'htaccess', 'asis', 'sh', 'shtml', 'shtm', 'phtm']
-				}
-				image {
-					browser = true
-					upload = true
-					allowed = ['jpg', 'gif', 'jpeg', 'png']
-					denied = []
-				}
-				flash {
-					browser = false
-					upload = false
-					allowed = ['swf']
-					denied = []
-				}
+						  'cfm', 'cfc', 'pl', 'bat', 'exe', 'com', 'dll', 'vbs', 'js', 'reg',
+						  'cgi', 'htaccess', 'asis', 'sh', 'shtml', 'shtm', 'phtm']
+			}
+			image {
+				browser = true
+				upload = true
+				allowed = ['jpg', 'gif', 'jpeg', 'png']
+				denied = []
+			}
+			flash {
+				browser = false
+				upload = false
+				allowed = ['swf']
+				denied = []
+			}
+	}
+}
+jqueryDateTimePicker {
+	format {
+		java {
+			datetime = "dd/MM/yyyy HH.mm"
+			date = "dd/MM/yyyy"
+		}
+		picker {
+			date = "'dd/mm/yy'"
+			time = "'H.mm'"
 		}
 	}
-	jqueryDateTimePicker {
-		format {
-			java {
-				datetime = "dd/MM/yyyy HH.mm"
-				date = "dd/MM/yyyy"
-			}
-			picker {
-				date = "'dd/mm/yy'"
-				time = "'H.mm'"
-			}
-		}
-	}
+}
 
-	grails.mime.types = [ html: ['text/html','application/xhtml+xml'],
-		xml: ['text/xml', 'application/xml'],
-		text: 'text-plain',
-		js: 'text/javascript',
-		rss: 'application/rss+xml',
-		atom: 'application/atom+xml',
-		css: 'text/css',
-		csv: 'text/csv',
-		pdf: 'application/pdf',
-		rtf: 'application/rtf',
-		excel: 'application/vnd.ms-excel',
-		ods: 'application/vnd.oasis.opendocument.spreadsheet',
-		all: '*/*',
-		json: ['application/json','text/json'],
-		form: 'application/x-www-form-urlencoded',
-		multipartForm: 'multipart/form-data'
-	  ]
+grails.mime.types = [ html: ['text/html','application/xhtml+xml'],
+	xml: ['text/xml', 'application/xml'],
+	text: 'text-plain',
+	js: 'text/javascript',
+	rss: 'application/rss+xml',
+	atom: 'application/atom+xml',
+	css: 'text/css',
+	csv: 'text/csv',
+	pdf: 'application/pdf',
+	rtf: 'application/rtf',
+	excel: 'application/vnd.ms-excel',
+	ods: 'application/vnd.oasis.opendocument.spreadsheet',
+	all: '*/*',
+	json: ['application/json','text/json'],
+	form: 'application/x-www-form-urlencoded',
+	multipartForm: 'multipart/form-data'
+  ]
+```
 
 
-
-You will notice 	grails.baseURL externalUploadPath within ckeditor, this was done to externalise image uploads so upon a redployment the images were still available, the approach I took to this was to run values from setenv.sh within tomcat and pass this values in as variables into config.groovy as per below:
+You will notice `grails.baseURL` externalUploadPath within ckeditor, this was done to externalise image uploads so upon a redployment the images were still available, the approach I took to this was to run values from setenv.sh within tomcat and pass this values in as variables into `Config.groovy` as per below:
 
 
 // configuration for plugin testing - will not be included in the plugin zip
 
 
 // In my tomcat setenv.sh
-
-	//UPLOADLOC="$CATALINA_HOME/uploads"
-	//JAVA_OPTS="$JAVA_OPTS -DUPLOADLOC=$UPLOADLOC"
-	//HOSTNAME=$(hostname)
-	//JAVA_OPTS="$JAVA_OPTS -DSERVERURL=$HOSTNAME"
-
+```sh
+//UPLOADLOC="$CATALINA_HOME/uploads"
+//JAVA_OPTS="$JAVA_OPTS -DUPLOADLOC=$UPLOADLOC"
+//HOSTNAME=$(hostname)
+//JAVA_OPTS="$JAVA_OPTS -DSERVERURL=$HOSTNAME"
+```
 
 Produces running tomcat with the following values:
+```
+// -DUPLOADLOC=/opt/tomcat7/tc1/uploads
+// -DSERVERURL=my.server.com
+```
 
-	// -DUPLOADLOC=/opt/tomcat7/tc1/uploads
-	// -DSERVERURL=my.server.com
-
-
-In my Config.groovy at the top I have this
-
-	if (System.getProperty('UPLOADLOC')) {
-		externalUploadPath=System.getProperty('UPLOADLOC')+File.separator
-	}
-	if (System.getProperty('SERVERURL')) {
-		grails.baseURL='http://'+System.getProperty('SERVERURL')
-	}else{
-		grails.baseURL='http://localhost'
-	}
+In my `Config.groovy` at the top I have this
+```groovy
+if (System.getProperty('UPLOADLOC')) {
+	externalUploadPath=System.getProperty('UPLOADLOC')+File.separator
+}
+if (System.getProperty('SERVERURL')) {
+	grails.baseURL='http://'+System.getProperty('SERVERURL')
+} else{
+	grails.baseURL='http://localhost'
+}
+```
 
 Now those values are valid within the ckeditor configuration
 
@@ -205,30 +201,27 @@ Now those values are valid within the ckeditor configuration
 #### Boostrap changes
 
 An example BootStrap call to requeue outstanding or interuppted schedules is to add something like this :
+```groovy
+class BootStrap {
+	..
+	def mailingListEmailService
 
-
-    class BootStrap {
+	..
+	def getEmails = MailingListSchedule.findAllByScheduleCompleteAndScheduleCancelled(false,false)
+	getEmails.each { params ->
+		if (params.dateTime && params.emailMessage) {
+			println "RESCHEDULING MAIL QUEUE ${params?.id} --       ${params?.mailFrom}---${params?.recipientToGroup}--${params?.recipientToList}"
+			mailingListEmailService.rescheduleit(params)
+		}
+	}
         ..
-        def mailingListEmailService
-
-        ..
-        def getEmails = MailingListSchedule.findAllByScheduleCompleteAndScheduleCancelled(false,false)
-        getEmails.each { params ->
-            if (params.dateTime && params.emailMessage) {
-                println "RESCHEDULING MAIL QUEUE ${params?.id} --       ${params?.mailFrom}---${params?.recipientToGroup}--${params?.recipientToList}"
-                mailingListEmailService.rescheduleit(params)
-            }
-        }
-        ..
-    }
- 
+}
+``` 
  
 #### addedby within forms
 
-There is a field passed around through the application and by default it is blank, this is due to a file called 
+There is a field passed around through the application and by default it is blank, this is due to a file called `views/mailingList/_addedby.gsp`
 
-	views/mailingList/_addedby.gsp
-	
 Take a look at this, if your existing application has some form of user and current user is being returned via session or another method i.e. params or something then update this page to refer to this value.
 This should fix the issue all around the site, no guarantee haha.
 
@@ -236,15 +229,16 @@ This should fix the issue all around the site, no guarantee haha.
 #### conf/UrlMappings.groovy & plugin default holding page
 
 If this plugin is the only purpose of your site, then simply update your url mappings to point to the holding page of this plugin:
-
-	"/" {
-			controller = "MailingList"
-			action = "index"
-		 }
-		// Commented out default and put in above
-        //"/"(view:"/index")
+```groovy
+"/" {
+	controller = "MailingList"
+	action = "index"
+}
+// Commented out default and put in above
+//"/"(view:"/index")
+```
 			
-The plugin has a menu which can be found under: http://yoursite:8080/mailinglist/MailingList 			
+The plugin has a menu which can be found under: `http://yoursite:8080/mailinglist/MailingList`	
 
 This is the main menu, the two core options on the top left hand side, Email a person and contact clients.
 
@@ -309,42 +303,43 @@ This is my email log confirming it sent an email from set email to the uploaded 
 
 #Common Issues:
 After attempting to run 
-
-	mlsetup org.example.com 5
-	
+```
+mlsetup org.example.com 5
+```
 you must referesh the project and run
+```
+grails refresh-dependencies
+```
 
-	grails refresh-dependencies
-	
 If your in ggts you may still see red asterix you can run:
+```
+grails clean 
+```
 
-	grails clean 
-	
 These are the manual command lines goto project right click grails tools, grails command wizard will help you with those or actual command prompt below just drop the grails in front of all of the above.
 
 
 Date Format: Trying to schedule and can not ?
+```
+dd/MM/yyyy HH.mm
+```
 
-	dd/MM/yyyy HH.mm
-	
 This is the defaults sadly so please review main config and ensure your jquery date time config is set properly to match what is needed:
-
-		
-
-	mailinglist.dtFormat='dd/MM/yyyy HH.mm'
- 	jqueryDateTimePicker {
-		format {
-			java {
-				datetime = "dd/MM/yyyy HH.mm"
-				date = "dd/MM/yyyy"
-			}
-			picker {
-				date = "'dd/mm/yy'"
-				time = "'H.mm'"
-			}
+```groovy
+mailinglist.dtFormat='dd/MM/yyyy HH.mm'
+jqueryDateTimePicker {
+	format {
+		java {
+			datetime = "dd/MM/yyyy HH.mm"
+			date = "dd/MM/yyyy"
+		}
+		picker {
+			date = "'dd/mm/yy'"
+			time = "'H.mm'"
 		}
 	}
-	
+}
+```	
 	
 Ensure all of above tallies up for it all work properly
 
@@ -365,9 +360,6 @@ Ensure all of above tallies up for it all work properly
   Also take a look at  https://github.com/vahidhedayati/modaldynamix (now a plugin based on this concept)
   
   
-  
-		
-
 ## Finally
 
 A big thank you as always to Burt Beckwith for forking and fixing up a lot of my wild wild west code :). 
