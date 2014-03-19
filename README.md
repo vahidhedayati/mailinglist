@@ -1,4 +1,4 @@
-mailinglist 0.2
+mailinglist 0.3
 =======================
 
 
@@ -24,7 +24,7 @@ For a walk through guide on how to install this plugin goto : https://github.com
 ## Installation:
 Add plugin Dependency in BuildConfig.groovy :
 
-	compile ":mailinglist:0.2"
+	compile ":mailinglist:0.3"
 
 
 #### BuildConfig.groovylayout/main.gsp update:
@@ -74,14 +74,8 @@ The domains generated in your application extend base domains within plugin, bes
 
 
 ## Version changes
-
-0.2 moved most back into actual plugin - bug with existing used schedule causing synchronise issues :
-[quartzScheduler_Worker-2] ERROR events.PatchedDefaultFlushEventListener  - Could not synchronize database state with session
-Message: Row was updated or deleted by another transaction (or unsaved-value mapping was incorrect): [grails.plugin.mailinglist.core.ScheduleBase#3]
-   Line | Method
-->>  16 | execute in org.foo.com.ScheduleEmail0Job
-
-
+0.3 Missing images, alerts left in java scripts tut tut, contactclients gsp page had lots of bugs now fixed, scheduling looks a lot healthier.
+0.2 moved most back into actual plugin - bug with existing used schedule issues whilst attempting to schedule something for now whilst others queued.
 0.1 release - nearly everything written to clients project
 
 

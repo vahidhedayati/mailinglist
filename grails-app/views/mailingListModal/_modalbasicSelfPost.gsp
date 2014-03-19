@@ -1,4 +1,5 @@
-<div class="modal fade" id="BuildModal${id}" role="dialog">
+
+<div class="modal fade" id="BuildModal${id}" tabindex='-1' role='dialog' aria-labelledby="${divId }" aria-hidden='true'>
 	<div class="modal-dialog">
 		<div class="modal-content">
     			<div class="modal-header">

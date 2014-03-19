@@ -1,5 +1,8 @@
 package grails.plugin.mailinglist.core
 
+import grails.transaction.Transactional
+
+@Transactional
 class MailingListEmailService {
 
 	def grailsApplication
@@ -176,7 +179,7 @@ class MailingListEmailService {
 						multipart true
 						mp = true
 					}
-					if (!mp && scheduleid && ScheduleBase.get(scheduleid).attachments) {
+					if (!mp && scheduleid && ScheduleBase?.get(scheduleid)?.attachments) {
 						multipart true
 						mp = true
 					}
@@ -195,7 +198,7 @@ class MailingListEmailService {
 						inline k, 'image/jpg', new File(System.properties['catalina.base'], v)
 					}
 					if (scheduleid) {
-						ScheduleBase.get(scheduleid).attachments.each { att ->
+						ScheduleBase?.get(scheduleid)?.attachments?.each { att ->
 							attachBytes att.fullname, att.contentType, att.attachment
 						}
 					}
@@ -208,7 +211,7 @@ class MailingListEmailService {
 		else {
 			if (recipientToGroup) {
 				recipientToGroup.each { rg ->
-					for (currentemail in CategoryBase.get(rg)?.mailinglist) {
+					for (currentemail in CategoryBase?.get(rg)?.mailinglist) {
 						if (!currentemail) {
 							continue
 						}
@@ -226,7 +229,7 @@ class MailingListEmailService {
 									multipart true
 									mp=true
 								}
-								if (!mp && scheduleid && ScheduleBase.get(scheduleid).attachments) {
+								if (!mp && scheduleid && ScheduleBase?.get(scheduleid)?.attachments) {
 									multipart true
 									mp = true
 								}
@@ -244,7 +247,7 @@ class MailingListEmailService {
 									inline k, 'image/jpg', new File(System.properties['catalina.base'], v)
 								}
 								if (scheduleid) {
-									ScheduleBase.get(scheduleid).attachments.each { att ->
+									ScheduleBase?.get(scheduleid)?.attachments?.each { att ->
 										attachBytes att.fullname, att.contentType, att.attachment
 									}
 								}
@@ -269,7 +272,7 @@ class MailingListEmailService {
 							multipart true
 							mp = true
 						}
-						if (!mp && scheduleid && ScheduleBase.get(scheduleid).attachments) {
+						if (!mp && scheduleid && ScheduleBase?.get(scheduleid)?.attachments) {
 							multipart true
 							mp = true
 						}
@@ -287,7 +290,7 @@ class MailingListEmailService {
 							inline k, 'image/jpg', new File(System.properties['catalina.base'], v)
 						}
 						if (scheduleid) {
-							ScheduleBase.get(scheduleid).attachments.each { att ->
+							ScheduleBase?.get(scheduleid)?.attachments?.each { att ->
 								attachBytes att.fullname, att.contentType, att.attachment
 							}
 						}
@@ -305,11 +308,13 @@ class MailingListEmailService {
 		}
 
 		log.info("Updating ScheduleID $scheduleid setting scheduleComplete as true")
-		def foundit = ScheduleBase.get(scheduleid)
+		ScheduleBase foundit = ScheduleBase.get(scheduleid)
+		//ScheduleBase foundit= ScheduleBase.findById(scheduleid, [lock: true])
 		if (foundit) {
 			foundit.scheduleComplete = true
 			foundit.deploymentComplete = true
-			foundit.save()
+			foundit.merge()
+			foundit.save(flush:true)
 		}
 	}
 

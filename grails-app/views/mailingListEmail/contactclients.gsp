@@ -7,21 +7,18 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		
-		<!--  bootstrap-min for modal popup -->
-		<link rel="stylesheet" href="${resource(dir: 'css', file: 'ml-bootstrap-combined.min.css')}" type="text/css">
-		
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mailingList.css')}" type="text/css">
 		<g:set var="entityName" value="${message(code: 'ContactClients.label', default: 'Contact Clients')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 		
-<ckeditor:resources/>
+		<ckeditor:resources/>
 
 	</head>
 	<body>
 	
 	<g:render template="/mailingList/mainmenu"/>
 	
+	<div class="clearall"></div>
 	
 	<g:hasErrors bean="${mailingListScheduleInstance}">
 			<ul class="errors" role="alert">
@@ -44,17 +41,17 @@
  		Generate Template?</button>
  		
  		<g:javascript>
- 	 		var myClonemailerTemplates
+ 	 		//var myClonemailerTemplates
  	 		function runTemplatesCheck() {
- 	 			myClonemailerTemplates=$('#mailerTemplates1').clone();   
+ 	 			//myClonemailerTemplates=$('#mailerTemplates1').clone();   
  	 	 		$('#mailerTemplates1').show();
  	 		}
  	 	</g:javascript>
- 	 	<div id="mailerTemplates1">
+ 	 
+		<div id="mailerTemplates1" style="display:none;">
  			<g:render template="/mailingListModal/modalbasicSelfPost" model="[formId:'TemplatesForm', title:'Generate Template',controller: 'mailingListTemplates', callPage: 'formAjax' , divId: 'mailerTemplates', id: 'TEMPLATES']" />
  		</div>
  	</div>
- 	
  	
  	
  	
@@ -64,15 +61,18 @@
  		<!--  Clone the form below before attempting to retrieve it after closing it in _modalcreate.gsp -->
  		<g:javascript>
  	 		var myClonemailerAttachments
- 	 		function runCSVCheck() {
- 	 			myClonemailerAttachments=$('#mailerAttachments1').clone();   
+ 	 		function runAttachCheck() {
+ 	 			myClonemailerAttachments=$('#mailerAttachments0').clone();   
  	 		 	$('#mailerAttachments1').show();
  	 		}
  	 	</g:javascript>
  	 	<% def g = new org.codehaus.groovy.grails.plugins.web.taglib.ApplicationTagLib() %>
  		<g:set var="myAttachparams" value="[formId:'AttachForm',title:'Attache a file', controller: 'mailingListAttachments', callPage: 'formAjax' , divId: 'mailerAttachments', id: 'ATTACH']" />
  		<% def confirmAttachurl= g.createLink(controller: 'mailingListAttachments', action: 'ajaxupload', params:myAttachparams,  absolute: 'true' ) %>
- 		<div id="mailerAttachments1">
+ 		<div id="mailerAttachments0" >
+ 			<g:render template="/mailingListModal/modaliframe" model="[url: confirmAttachurl, formId:'AttachForm',title:'Attache a file', controller: 'mailingListAttachments', callPage: '' , divId: 'mailerAttachments', id: 'ATTACH']" />
+ 		</div>	
+ 		<div id="mailerAttachments1" style="display:none;">
  			<g:render template="/mailingListModal/modaliframe" model="[url: confirmAttachurl, formId:'AttachForm',title:'Attache a file', controller: 'mailingListAttachments', callPage: '' , divId: 'mailerAttachments', id: 'ATTACH']" />
  		</div>	
  	</div>
@@ -85,7 +85,7 @@
  		<g:javascript>
  	 		var myClonemailerUploader
  	 		function runCSVCheck() {
- 	 			myClonemailerUploader=$('#mailerUploader1').clone();   
+ 	 			myClonemailerUploader=$('#mailerUploader0').clone();   
  	 		 	$('#mailerUploader1').show();
  	 		}
  	 	</g:javascript>
@@ -93,8 +93,10 @@
  	 	
  		<g:set var="myparams" value="[id: 'UPLOADS', divId: 'mailerUploader', formId: 'UploadForm', divId: 'mailerUploader',controller: 'mailingListUploader', callPage: 'ajaxupload']" />
  		<% def confirmurl= g.createLink(controller: 'mailingListUploader', action: 'ajaxupload', params:myparams,  absolute: 'true' ) %>
- 		
- 		 <div id="mailerUploader1">
+ 			 <div id="mailerUploader0" >
+ 		 		<g:render template="/mailingListModal/modaliframe" model="[url: confirmurl, formId:'UploadForm',title:'Upload CSV',controller: 'mailingListCategories', callPage: 'ajaxupload', divId: 'mailerUploader', id: 'UPLOADS']" />
+ 		</div>	
+ 		 <div id="mailerUploader1" style="display:none;">
  		 		<g:render template="/mailingListModal/modaliframe" model="[url: confirmurl, formId:'UploadForm',title:'Upload CSV',controller: 'mailingListCategories', callPage: 'ajaxupload', divId: 'mailerUploader', id: 'UPLOADS']" />
  		</div>	
  	</div>
@@ -116,6 +118,7 @@
  		</div>
  		
  	</div>
+ 	
 
 	<g:form action="confirmcontact" >
 
@@ -194,49 +197,32 @@
 
 			<div id="contact-area">
 <g:if test="${params.emailMessage }">
-
-		<g:if test="${params.mailingListTemplate}">
-			<g:hiddenField name="mailingListTemplate" value="${params.mailingListTemplate }"/>
-		</g:if>
-
-
-
-
-<div class="fieldcontain ${hasErrors(bean: params, field: 'emailMessage', 'error')} required">
+	<g:if test="${params.mailingListTemplate}">
+		<g:hiddenField name="mailingListTemplate" value="${params.mailingListTemplate }"/>
+	</g:if>
+	<div class="fieldcontain ${hasErrors(bean: params, field: 'emailMessage', 'error')} required">
 	<label for="manager">
 		<g:message code="emailMessage.label" default="Message" />
 	</label>
-
-			
-<ckeditor:resources/>
-<div id=formmsg>
-<ckeditor:editor 
-name="emailMessage" height="300px" width="140%">
-${params.emailMessage }
-</ckeditor:editor>
-</div>
-	
-</div>
-
+	<ckeditor:resources/>
+		<div id=formmsg>
+			<ckeditor:editor name="emailMessage" height="300px" width="140%">
+				${params.emailMessage }
+			</ckeditor:editor>
+			</div>
+		</div>
 </g:if>
 <g:else>
-
-<div class="fieldcontain ${hasErrors(bean: params, field: 'mailingListScheduleInstance', 'error')} required">
+	<div class="fieldcontain ${hasErrors(bean: params, field: 'mailingListScheduleInstance', 'error')} required">
 	<label for="mailingListTemplates">
 		<g:message code="mailingListTemplates.label" default="Template" />
 		<span class="required-indicator">*</span>
 	</label>
-	
-	
 	<div id="mailerTemplates" style="display:inline-block;*display:inline;*zoom:1;">
 		<g:render template="mailingListTemplatesDisplay" />
 	</div>
-  		
-</div>
-
-
-
-<div id="loadMessageBox"></div>
+	</div>
+	<div id="loadMessageBox"></div>
 </g:else>
    
 
@@ -280,7 +266,6 @@ ${params.emailMessage }
 	
 	</div>	
 	</g:form>
-	
 	
 	
 	

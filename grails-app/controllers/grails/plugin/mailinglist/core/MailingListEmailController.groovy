@@ -1,8 +1,9 @@
 package grails.plugin.mailinglist.core
 
-import java.text.SimpleDateFormat
-import java.util.List;
+import grails.transaction.Transactional
 
+import java.text.SimpleDateFormat
+@Transactional
 class MailingListEmailController {
 
 	static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
@@ -128,19 +129,18 @@ class MailingListEmailController {
 			emailMessage: emailMessage, recipientToList: recipientToList,recipientCCList: recipientCCList,
 			recipientBCCList: recipientBCCList,  addedby: addedby, sendType: sendtype, scheduleCancelled: false,
 			scheduleComplete: false,scheduleName:'', deploymentComplete: false)
-
-		if (!mailingListScheduleInstance.save(flush: true)) {
-			log.info("Error saving ::: ")
-//			mailingListScheduleInstance.errors.allErrors.each{println it}
-			flash.message = message(code: 'Error saving schedule in DB table MailingListSchedule')
-			if (recipientToGroup) {
-				render(view: "contactclients", model: [mailingListScheduleInstance: mailingListScheduleInstance])
+			if (!mailingListScheduleInstance.save(flush:true)) {
+				log.info("Error saving ::: ")
+				//mailingListScheduleInstance.errors.allErrors.each{println it}
+				flash.message = message(code: 'Error saving schedule in DB table MailingListSchedule')
+				if (recipientToGroup) {
+					render(view: "contactclients", model: [mailingListScheduleInstance: mailingListScheduleInstance])
+				}
+				else{
+					render(view: "index", model: [mailingListScheduleInstance: mailingListScheduleInstance])
+				}
+				return
 			}
-			else{
-				render(view: "index", model: [mailingListScheduleInstance: mailingListScheduleInstance])
-			}
-			return
-		}
 
 		params.id = mailingListScheduleInstance.id
 		log.info("Schedule Email Parameters: $params")
@@ -167,8 +167,19 @@ class MailingListEmailController {
 		}
 		def result = quartzEmailCheckerService.queueEmail(params)
 		if (result) {
-			mailingListScheduleInstance.scheduleName = result
-			mailingListScheduleInstance.save()
+			ScheduleBase sb= ScheduleBase.findById(mailingListScheduleInstance.id, [lock: true])
+			if (sb) {
+				sb.scheduleName = result
+				sb.merge()
+				if (!sb.save(flush: true)) {
+					log.info("Error saving ScheduleName to ScheduleBase ::: ")
+				}else{
+					println "scheduleName set to "+result+" for "+mailingListScheduleInstance.id
+				}
+			}	
+			//mailingListScheduleInstance.scheduleName = result
+			//mailingListScheduleInstance.merge()
+			//mailingListScheduleInstance.save(flush:true)
 			flash.message = message(code: "Scheduled job name: [$result] scheduledEmail success.")
 			redirect(controller:'MailingListSchedule',action:'br')
 			return

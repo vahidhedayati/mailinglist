@@ -1,4 +1,4 @@
-<div class="modal fade" id="BuildModal${id}" role="dialog">
+<div class="modal fade" id="BuildModal${id}" tabindex='-1' role='dialog' aria-labelledby="${divId }" aria-hidden='true'>
 	<div class="modal-dialog">
 		<div class="modal-content">
 		<g:if test="${flash.message}">
@@ -22,14 +22,3 @@
 	</div>
 	</div>
 </div>
-		
-<script>
-$(document).ready(function() {
- $('a').on('click', function(e) {
-	 alert(e);
-		e.preventDefault();
-		var url = $(this).attr('href');
-		$(".modal-body").html('<iframe width="100%" height="100%" frameborder="0" scrolling="no" allowtransparency="false" src="'+url+'"></iframe>');
-  });
-});
-</script>

@@ -5,7 +5,6 @@ function ${controller}CloseModal() {
 	$('#BuildModal${id}').dialog().dialog('close');
   	$(".modal-backdrop").hide();
   	$('#${divId}1').hide().append(myClone${divId});
-        
 	<g:if test="${!disablecheck.equals('true') }">
 		var controller="${controller }";
 		var divId="${divId }";
