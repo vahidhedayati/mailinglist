@@ -11,7 +11,7 @@ class MailingListAttachmentsController {
 		redirect(action: "list", params: params)
 	}
 
-	def ajaxupload() {}
+	
 	def download(Long id) {
 
 		def mailingListAttachmentsInstanceList = AttachmentsBase.get(id)

@@ -25,7 +25,7 @@ grails.project.dependency.resolution = {
 		compile ':tiny-mce:3.4.9'
 		compile ":remote-pagination:0.4.6"
 		compile ":pretty-time:2.1.3.Final-1.0.1"
-		//compile ":modaldynamix:0.1"
+		compile ":modaldynamix:0.2"
 		
 		compile ":hibernate:3.6.10.6", {
 			export = false
@@ -36,3 +36,4 @@ grails.project.dependency.resolution = {
 		}
 	}
 }
+//grails.plugin.location.'modaldynamix' = "../modaldynamix"

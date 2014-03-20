@@ -37,60 +37,87 @@
  			
  	 				
     <div class="tbutton">
-    	<g:genModalButton
-    		id="ModalDynamixSELFPOST"
-    		divId="mailerTemplates1"
-    		title="Create New Template"
-    		value="Generate New Template"
-		/>
+ 	 	<button href="#BuildModalTEMPLATES" class="btn btn-block btn-success" role="button" data-toggle="modal" onClick="runTemplatesCheck()" title="Create New Template">
+ 		Generate Template?</button>
+ 		
+ 		<g:javascript>
+ 	 		//var myClonemailerTemplates
+ 	 		function runTemplatesCheck() {
+ 	 			//myClonemailerTemplates=$('#mailerTemplates1').clone();   
+ 	 	 		$('#mailerTemplates1').show();
+ 	 		}
+ 	 	</g:javascript>
+ 	 
 		<div id="mailerTemplates1" style="display:none;">
- 			<g:render template="/mailingListTemplates/mailerTemplatesForm" />
+ 			<g:render template="/mailingListModal/modalbasicSelfPost" model="[formId:'TemplatesForm', title:'Generate Template',controller: 'mailingListTemplates', callPage: 'formAjax' , divId: 'mailerTemplates', id: 'TEMPLATES']" />
  		</div>
  	</div>
- 	
  	
  	
  	
  	<div class="tbutton">
-    	<g:genModalButton
-    		id="ModalDynamixIFRAMEATTACH"
-    		divId="mailerAttachments1"
-    		title="New Attachment?"
-    		value="New Attachment"
-		/>
-		<div id="mailerAttachments1" style="display:none;">
- 			<g:render template="/mailingListAttachments/mailerAttachmentsForm" />
- 		</div>
+ 		<button href="#BuildModalATTACH" class="btn btn-block btn-success" role="button" data-toggle="modal" onClick="runAttachCheck()" title="Upload CSV">
+ 		Upload attachments?</button>
+ 		<!--  Clone the form below before attempting to retrieve it after closing it in _modalcreate.gsp -->
+ 		<g:javascript>
+ 	 		var myClonemailerAttachments
+ 	 		function runAttachCheck() {
+ 	 			myClonemailerAttachments=$('#mailerAttachments0').clone();   
+ 	 		 	$('#mailerAttachments1').show();
+ 	 		}
+ 	 	</g:javascript>
+ 	 	<% def g = new org.codehaus.groovy.grails.plugins.web.taglib.ApplicationTagLib() %>
+ 		<g:set var="myAttachparams" value="[formId:'AttachForm',title:'Attache a file', controller: 'mailingListAttachments', callPage: 'formAjax' , divId: 'mailerAttachments', id: 'ATTACH']" />
+ 		<% def confirmAttachurl= g.createLink(controller: 'mailingListAttachments', action: 'ajaxupload', params:myAttachparams,  absolute: 'true' ) %>
+ 		<div id="mailerAttachments0" >
+ 			<g:render template="/mailingListModal/modaliframe" model="[url: confirmAttachurl, formId:'AttachForm',title:'Attache a file', controller: 'mailingListAttachments', callPage: '' , divId: 'mailerAttachments', id: 'ATTACH']" />
+ 		</div>	
+ 		<div id="mailerAttachments1" style="display:none;">
+ 			<g:render template="/mailingListModal/modaliframe" model="[url: confirmAttachurl, formId:'AttachForm',title:'Attache a file', controller: 'mailingListAttachments', callPage: '' , divId: 'mailerAttachments', id: 'ATTACH']" />
+ 		</div>	
  	</div>
  	
+ 	<div class="tbutton">
+ 		 <button href="#BuildModalUPLOADS" class="btn btn-block btn-success" role="button" data-toggle="modal" onClick="runCSVCheck()" title="Upload CSV">
+ 		Upload CSV?</button>
+ 		
+ 		<!--  Clone the form below before attempting to retrieve it after closing it in _modalcreate.gsp -->
+ 		<g:javascript>
+ 	 		var myClonemailerUploader
+ 	 		function runCSVCheck() {
+ 	 			myClonemailerUploader=$('#mailerUploader0').clone();   
+ 	 		 	$('#mailerUploader1').show();
+ 	 		}
+ 	 	</g:javascript>
+ 	 
+ 	 	
+ 		<g:set var="myparams" value="[id: 'UPLOADS', divId: 'mailerUploader', formId: 'UploadForm', divId: 'mailerUploader',controller: 'mailingListUploader', callPage: 'ajaxupload']" />
+ 		<% def confirmurl= g.createLink(controller: 'mailingListUploader', action: 'ajaxupload', params:myparams,  absolute: 'true' ) %>
+ 			 <div id="mailerUploader0" >
+ 		 		<g:render template="/mailingListModal/modaliframe" model="[url: confirmurl, formId:'UploadForm',title:'Upload CSV',controller: 'mailingListCategories', callPage: 'ajaxupload', divId: 'mailerUploader', id: 'UPLOADS']" />
+ 		</div>	
+ 		 <div id="mailerUploader1" style="display:none;">
+ 		 		<g:render template="/mailingListModal/modaliframe" model="[url: confirmurl, formId:'UploadForm',title:'Upload CSV',controller: 'mailingListCategories', callPage: 'ajaxupload', divId: 'mailerUploader', id: 'UPLOADS']" />
+ 		</div>	
+ 	</div>
  	
+ 	<div class="tbutton">
+ 	<button href="#BuildModalSENDERS" class="btn btn-block btn-success" role="button" data-toggle="modal" title="Configure New Sender" onClick="runSendersCheck()">New Sender?</button>
  	
-	<div class="tbutton">
-   	<g:genModalButton
-   		id="ModalDynamixIFRAMEUPLOADS"
-   		divId="mailerUploader1"
-   		title="Upload CSV Mail To Group?"
-   		value="Upload CSV"
-	/>
-	<div id="mailerUploader1" style="display:none;">
-			<g:render template="/mailingListUploader/mailerUploaderForm" />
-	</div>
-	</div>
-	
-	
-	
-	<div class="tbutton">
-   	<g:genModalButton
-   		id="ModalDynamixRemoteFORM"
-   		divId="mailerSenders1"
-   		title="New Email From field"
-   		value="New Sender"
-	/>
-	<div id="mailerSenders1" style="display:none;">
-		<g:render template="/mailingListSenders/mailerSendersForm" />
-	</div>
-	</div> 	
-	
+ 	<!--  Clone the form below before attempting to retrieve it after closing it in _modalcreate.gsp -->
+ 	<g:javascript>
+ 	 	var myClonemailerSenders
+ 	 	function runSendersCheck() {
+ 	 		myClonemailerSenders=$('#mailerSenders1').clone();   
+ 	 	 	$('#mailerSenders1').show();
+ 	 	}
+ 	 </g:javascript>
+ 	 
+		<div id="mailerSenders1">
+ 			<g:render template="/mailingListModal/modalcreate" model="[title:'Add Senders Email', controller: 'mailingListSenders', callPage: 'form' , divId: 'mailerSenders', id: 'SENDERS' ]" />
+ 		</div>
+ 		
+ 	</div>
  	
 
 	<g:form action="confirmcontact" >
@@ -122,7 +149,7 @@
 	</label>
 	
 	<div id="mailerSenders" style="display:inline-block;*display:inline;*zoom:1;">
-	<g:render template="/mailingListSenders/mailerSendersDisplay" />
+		<g:render template="mailingListSendersDisplay" />
 	</div>
 	
   
@@ -139,11 +166,8 @@
 	
 	
 	<div id="mailerUploader" style="display:inline-block;*display:inline;*zoom:1;">
-
-			<g:render template="/mailingListUploader/mailerUploaderDisplay" />
+		<g:render template="mailingListCategoriesDisplay" />
 	</div>
-	
-
   	</div>
 	
 
@@ -166,7 +190,7 @@
 	
 
 	<div id="mailerAttachments" style="display:inline-block;*display:inline;*zoom:1;">
-		<g:render template="/mailingListAttachments/mailerAttachmentsDisplay" />
+		<g:render template="mailingListAttachmentsDisplay" />
 	</div>
   	</div>
 
@@ -195,7 +219,7 @@
 		<span class="required-indicator">*</span>
 	</label>
 	<div id="mailerTemplates" style="display:inline-block;*display:inline;*zoom:1;">
-			<g:render template="/mailingListTemplates/mailerTemplatesDisplay" />
+		<g:render template="mailingListTemplatesDisplay" />
 	</div>
 	</div>
 	<div id="loadMessageBox"></div>

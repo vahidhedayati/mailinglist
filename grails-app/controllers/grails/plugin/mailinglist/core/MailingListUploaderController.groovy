@@ -5,10 +5,6 @@ class MailingListUploaderController {
 	static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
 	def index() {}
-
-	def ajaxupload() {
-		render (template:'ajaxupload')	
-	}
 	
 	def upload() {
 		StringBuilder output = new StringBuilder()

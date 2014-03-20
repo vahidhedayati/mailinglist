@@ -1,5 +1,5 @@
 
-<g:form name="${formId }" id="1"  controller="MailingListTemplates" action="save" onload="CKStart()">
+<g:form name="${attrs.formId }" id="1"  controller="MailingListTemplates" action="save" onload="CKStart()">
 <fieldset class="form">
 	<g:hiddenField name="ajax" value="yes"/>
 	<div class="fieldcontain ${hasErrors(bean: mailingListTemplatesInstance, field: 'name', 'error')} required">

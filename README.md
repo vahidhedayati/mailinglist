@@ -1,4 +1,4 @@
-mailinglist 0.3
+mailinglist 0.4
 =======================
 
 
@@ -24,7 +24,7 @@ For a walk through guide on how to install this plugin goto : https://github.com
 ## Installation:
 Add plugin Dependency in BuildConfig.groovy :
 ```groovy
-compile ":mailinglist:0.3"
+compile ":mailinglist:0.4"
 ```
 
 #### BuildConfig.groovylayout/main.gsp update:
@@ -55,9 +55,8 @@ Where org.example.com is your package and 5 is the amount of dynamic schedule jo
 
 Assuming package was labelled as above org.example.com and schedule jobs as 5, install script will create
 ```
-Controllers under org.example.com
-Domains 	under org.example.com
-Views 		under views/mailingList[a-z]
+
+Views 		under views/mailingList/_addedby.gsp
 
 Jobs under 	org.example.com/ScheduleEmail0Job.groovy
 		   	org.example.com/ScheduleEmail1Job.groovy
@@ -73,7 +72,7 @@ The domains generated in your application extend base domains within plugin, bes
 
 
 ## Version changes
-
+0.4 moved out all of the manual modalbox calls and called modaldynamix plugin 
 0.3 Missing images, alerts left in java scripts tut tut, contactclients gsp page had lots of bugs now fixed, scheduling looks a lot healthier.
 0.2 moved most back into actual plugin - bug with existing used schedule issues whilst attempting to schedule something for now whilst others queued.
 0.1 release - nearly everything written to clients project
@@ -342,22 +341,11 @@ jqueryDateTimePicker {
 ```	
 	
 Ensure all of above tallies up for it all work properly
-
     
 #### Pop up Modal boxes within contact clients
  
- I have ammended the plugin to include bootstrap-min.js & ml-boostrap-combined.min.css, 
-  the plugin will write the js file only if does not already exist within your local web-apps/js folder.
-  The new css is added and referred to within contactclients.gsp where the same js file is also called.
-  This then allows modal popups to work within the standard grails framework. 
- Ammended the css file from the standard to remove a large chunk from the top so that the default 
-  grails site still worked as per normal. The standed boostrap css shifts the site to the left.
-  
-  
-  If you are interested in learning more about how to use modalbox on your own site and get them to update existing forms 
-  then have a read here: https://github.com/vahidhedayati/mailinglist/wiki/ModalBox-insight you may wish to also refer to the gsp pages it speaks of to get more clued up as to what I was rambling on about,
-  
-  Also take a look at  https://github.com/vahidhedayati/modaldynamix (now a plugin based on this concept)
+ Take a look at  https://github.com/vahidhedayati/modaldynamix follow the guide then refer to pages within this plugin to get a better idea on how to use it all together.
+ 
   
   
 ## Finally

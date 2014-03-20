@@ -1,5 +1,5 @@
 
-<g:form action="save"  name="${formId }" id="1"  controller="mailingListAttachments" enctype="multipart/form-data">
+<g:form action="save"  name="${params.formId }" id="1"  controller="mailingListAttachments" enctype="multipart/form-data">
 <g:hiddenField name="ajax" value="yes"/>
 	<fieldset class="form">
 		<g:render template="/mailingListAttachments/form"/>
