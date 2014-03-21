@@ -79,7 +79,7 @@ class MailingListController {
 	}
 
 	def save(String emailAddress) {
-		def categories = CategoryBase.get(params.mlcategories.id)
+		def categories = CategoryBase.get(params.categories.id)
 		def found = MailingListBase.findByEmailAddressAndCategories(emailAddress, categories)
 		def mailingListInstance = new MailingListBase(params)
 		if (found) {
