@@ -1,4 +1,4 @@
-mailinglist 0.6
+mailinglist 0.7
 =======================
 
 
@@ -18,7 +18,7 @@ For a walk through guide on how to install this plugin goto : https://github.com
 ## Installation:
 Add plugin Dependency in BuildConfig.groovy :
 ```groovy
-compile ":mailinglist:0.6"
+compile ":mailinglist:0.7"
 ```
 
 #### BuildConfig.groovylayout/main.gsp update:
