@@ -26,8 +26,8 @@ compile ":mailinglist:0.6"
 ##### jquery, jquery-ui libraries:
 your layouts main.gsp: (add jquery-ui and jquery  - or add them into ApplicationResources.groovy and ensure you refer to it in your main.gsp or relevant file
 ```gsp
-<g:javascript library="jquery-ui"/>
 <g:javascript library="jquery"/>
+<g:javascript library="jquery-ui"/>
 …
 <g:layoutHead/>
 <mailinglist:loadbootstrap/>
@@ -38,6 +38,8 @@ You will also notice <mailinglist:loadbootstrap/> this loads up bootstrap to mak
 ```gsp
 <mailinglist:loadplugincss/>
 ```	
+I have found using this method of calling bootstrap within one of my projects to have caused a problem when looking at source it was loading before jquery, 
+so by moving this block further below end head tag resolved the issue.
 
 
 Now with that all in place open grails console or from the command line run
@@ -66,6 +68,7 @@ The domains generated in your application extend base domains within plugin, bes
 
 
 ## Version changes
+0.7 updates to default db table names, readme updates, correct ckeditor call for in index.gsp, giving upload feature for images 
 0.6 minor fix MailingList controller save wrong parameter for categories
 0.5 minor fix gsp listing wrong domainClass in mailingList/_form.gsp
 0.4 moved out all of the manual modalbox calls and called modaldynamix plugin 
@@ -78,15 +81,19 @@ The domains generated in your application extend base domains within plugin, bes
 
 Required `Config.groovy` configurations:
 ```groovy
-// Optional values to override DB table names for this plugin:
-//mailinglist.table.schedule='MyScheduler'
-//mailinglist.table.attachments='something'
-//mailinglist.table.categories='something'
-//mailinglist.table.from='something'
-//mailinglist.table.mailinglist='something'
-//mailinglist.table.schedule='something'
-//mailinglist.table.senders='something'
-//mailinglist.table.templates='something'
+/*
+ * Optional values to override DB table names for this plugin:
+ * mailinglist.table.attachments='mailing_list_attachments'
+ * mailinglist.table.categories='categories'
+ * mailinglist.table.mailinglist='mailing_list'
+ * mailinglist.table.schedule='mailing_list_schedule'
+ * mailinglist.table.senders='mailing_list_senders'
+ * mailinglist.table.templates='mailing_list_templates'
+ *
+ * These are all the local tables created that in turn extend domainClasses from this plugin.
+ * Check out your domainClass folder under the package you provided after you run the mlsetup command.
+ */
+ 
 	
 // Your date format that matches input of jquery datepicker config 
 //mailinglist.dtFormat='dd/MM/yyyy HH.mm'
@@ -94,12 +101,15 @@ Required `Config.groovy` configurations:
 
 ckeditor {
 	//config = "/js/myckconfig.js"
-		skipAllowedItemsCheck = false
+	skipAllowedItemsCheck = false
 	defaultFileBrowser = "ofm"
 	upload {
-		//basedir = "/uploads/"
+	
+		// basedir = "/uploads/"
+		
 		baseurl="${grails.baseURL}"+'/uploads/'
 		basedir = "${externalUploadPath}"
+		
 			overwrite = false
 			link {
 				browser = true
@@ -124,6 +134,7 @@ ckeditor {
 			}
 	}
 }
+
 jqueryDateTimePicker {
 	format {
 		java {

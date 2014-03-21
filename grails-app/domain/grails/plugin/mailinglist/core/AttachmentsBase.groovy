@@ -20,7 +20,7 @@ class AttachmentsBase implements Serializable {
 		fullname defaultValue: ''
 		contentType defaultValue: ''
 		//table applicationContext.grailsApplication.config.mailinglist.table.attachments ?: 'MailingListAttachments'
-		table applicationContext.getBean('grailsApplication').config.mailinglist.table.attachments ?: 'MailingListAttachments'
+		table applicationContext.getBean('grailsApplication').config.mailinglist.table.attachments ?: 'mailing_list_attachments'
 	}
 
 	static constraints = {

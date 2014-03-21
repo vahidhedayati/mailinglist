@@ -127,12 +127,10 @@
 	</label>
 	
 
-<textarea class="ckeditor" cols="40" id="cktexty" 
-name="emailMessage" rows="10">
-${params?.emailMessage}
-</textarea> 
-</div>
 
+<ckeditor:editor name="emailMessage" height="300px" width="100%">
+${params?.emailMessage}
+</ckeditor:editor>
 
 
 		

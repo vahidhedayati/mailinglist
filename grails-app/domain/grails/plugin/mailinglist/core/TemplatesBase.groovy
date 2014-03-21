@@ -11,7 +11,7 @@ class TemplatesBase {
 		addedby defaultValue: ''
 		content type: 'text'
 		//table applicationContext.grailsApplication.config.mailinglist.table.templates ?: 'MailingListTemplates'
-		table applicationContext.getBean('grailsApplication').config.mailinglist.table.templates ?: 'MailingListTemplates'
+		table applicationContext.getBean('grailsApplication').config.mailinglist.table.templates ?: 'mailing_list_templates'
 	}
 
 	static constraints = {
