@@ -13,12 +13,6 @@ You can schedule an email to be scheduled and to run on a set date and time.
 Supports HTML emails with inline images as well as attachments has been tested on outlook and result appears to load fine.
 
 
-
-WARNING ! - this will copy over controllers/views/domainClasses/services and create Quartz jobs within your project, if this is your first time using this plugin, it would be advised to create a new project and test the plugin, before attempting to install it on main project.
-
-This plugin is still under development and has not been released
-
-
 For a walk through guide on how to install this plugin goto : https://github.com/vahidhedayati/ml-test
 
 ## Installation:
