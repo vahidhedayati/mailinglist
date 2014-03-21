@@ -68,6 +68,6 @@
 		<g:message code="mailingList.categories.label" default="categories" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="categories" name="categories.id" from="${MailingListCategories?.list()}" optionKey="id" required="" value="${mailingListInstance?.categories?.id}" class="many-to-one"/>
+	<g:select id="categories" name="categories.id" from="${CategoryBase?.list()}" optionKey="id" required="" value="${mailingListInstance?.categories?.id}" class="many-to-one"/>
 </div>
 
