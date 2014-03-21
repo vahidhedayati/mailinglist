@@ -330,7 +330,12 @@ Date Format: Trying to schedule and can not ?
 dd/MM/yyyy HH.mm
 ```
 
-This is the defaults sadly so please review main config and ensure your jquery date time config is set properly to match what is needed:
+You may see this :
+```
+Could not queue job please check quartz queue to ensure schedule slots are free
+```
+If you look at the console logs you will see it could not parse and it shows a date and time, look closely at the time you will find it has a : seperating the hour and mins.
+I know I should have set this as the default right :) This is the defaults sadly so please review main config and ensure your jquery date time config is set properly to match what is needed:
 ```groovy
 mailinglist.dtFormat='dd/MM/yyyy HH.mm'
 jqueryDateTimePicker {
