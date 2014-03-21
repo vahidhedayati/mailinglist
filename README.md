@@ -350,7 +350,13 @@ jqueryDateTimePicker {
 		}
 	}
 }
-```	
+```
+
+This is in the main config above, but worth a remention, so if you want to set a different input type for date time, 
+then define this value in your config to match aboves config to get around the standard config which is a dot seperating hours and minutes.
+```groovy
+mailinglist.dtFormat='dd/MM/yyyy HH.mm'	
+```
 	
 Ensure all of above tallies up for it all work properly
     
