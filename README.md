@@ -1,4 +1,4 @@
-mailinglist 0.4
+mailinglist 0.5
 =======================
 
 
@@ -24,7 +24,7 @@ For a walk through guide on how to install this plugin goto : https://github.com
 ## Installation:
 Add plugin Dependency in BuildConfig.groovy :
 ```groovy
-compile ":mailinglist:0.4"
+compile ":mailinglist:0.5"
 ```
 
 #### BuildConfig.groovylayout/main.gsp update:
@@ -72,6 +72,7 @@ The domains generated in your application extend base domains within plugin, bes
 
 
 ## Version changes
+0.5 minor fix gsp listing wrong domainClass in mailingList/_form.gsp
 0.4 moved out all of the manual modalbox calls and called modaldynamix plugin 
 0.3 Missing images, alerts left in java scripts tut tut, contactclients gsp page had lots of bugs now fixed, scheduling looks a lot healthier.
 0.2 moved most back into actual plugin - bug with existing used schedule issues whilst attempting to schedule something for now whilst others queued.
