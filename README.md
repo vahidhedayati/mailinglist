@@ -208,20 +208,21 @@ Now those values are valid within the ckeditor configuration
 
 An example BootStrap call to requeue outstanding or interuppted schedules is to add something like this :
 ```groovy
-class BootStrap {
-	..
-	def mailingListEmailService
+import grails.plugin.mailinglist.core.ScheduleBase
 
-	..
-	def getEmails = MailingListSchedule.findAllByScheduleCompleteAndScheduleCancelled(false,false)
-	getEmails.each { params ->
-		if (params.dateTime && params.emailMessage) {
-			println "RESCHEDULING MAIL QUEUE ${params?.id} --       ${params?.mailFrom}---${params?.recipientToGroup}--${params?.recipientToList}"
-			mailingListEmailService.rescheduleit(params)
+class BootStrap {
+	def mailingListEmailService
+    def init = { servletContext ->
+		def getEmails = ScheduleBase.findAllByScheduleCompleteAndScheduleCancelled(false,false)
+		getEmails.each { params ->
+			if (params.dateTime && params.emailMessage) {
+				println "RESCHEDULING MAIL QUEUE ${params?.id} --       ${params?.mailFrom}---${params?.recipientToGroup}--${params?.recipientToList}"
+				mailingListEmailService.rescheduleit(params)
+			}
 		}
 	}
-        ..
 }
+
 ``` 
  
 #### addedby within forms
