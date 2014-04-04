@@ -19,9 +19,9 @@ class MailingListEmailService {
 
 	def domainGetter(domain,rvalue,retValue,retValue2) {
 		def criteria =  {  eq ( 'id', rvalue as Long ) }
-		return grailsApplication?.domainClasses?.find { it.clazz.simpleName == currentController(domain) }?.clazz?.createCriteria().list(criteria)
+		return  grailsApplication?.domainClasses?.find { it.clazz.simpleName == currentController(domain) }?.clazz?.createCriteria().list(criteria)
 	}
-	
+
 	private void doSendMail(toconfig, mycc, mysubject, mybody, boolean html) {
 
 		List<String> recipients = []

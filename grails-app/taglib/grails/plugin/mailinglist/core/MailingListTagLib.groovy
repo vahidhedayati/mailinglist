@@ -43,18 +43,20 @@ class MailingListTagLib {
 		def cid= attrs.remove('id')?.toString()
 		def scriptCall= attrs.remove('scriptCall')?.toString()
 		def controller= attrs.remove('controller')?.toString()
+		def retValue= attrs.remove('retValue')?.toString()
 		def action= attrs.remove('action')?.toString()
+		if (!retValue) { retValue='' }
 		if (cid&&scriptCall&&action) {
 			if (cid.indexOf(',')>-1) {
 				String[] tokens = cid.split(",")
 				for(String t : tokens) {
 					t=t.trim()
-					def mcat=mailingListEmailService?.domainGetter(controller,t,'name','')
+					def mcat=mailingListEmailService?.domainGetter(controller,t,'name',retValue)
 					out << g.render(template:'/mailingList/htmlPopUp', model: [mcat:mcat, t:t, scriptCall:scriptCall, ccontrol: controller, cact: action ])
 				}
 			}else{
 				String t=cid
-				def mcat=mailingListEmailService?.domainGetter(controller,t,'name','')
+				def mcat=mailingListEmailService?.domainGetter(controller,t,'name',retValue)
 				out << g.render(template:'/mailingList/htmlPopUp', model: [mcat:mcat, t:t, scriptCall:scriptCall, ccontrol: controller, cact: action ])
 			}	
 		}

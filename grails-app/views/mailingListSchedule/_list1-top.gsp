@@ -37,7 +37,8 @@
 						<td>
 						<mailinglist:loadPopUp id="${deployInstance.recipientToGroup }" 
 						scriptCall="recipientToGroup"
-						controller="MailingListCategories"
+						controller="CategoryBase"
+						retValue="name"
 						action="show" 
 						/>
 						
@@ -54,7 +55,8 @@
 					<td>
 					<mailinglist:loadPopUp id="${deployInstance.mailingListTemplate }" 
 						scriptCall="mailingListTemplate"
-						controller="MailingListTemplates"
+						controller="TemplatesBase"
+						retValue="name"
 						action="show" 
 						/>
 		

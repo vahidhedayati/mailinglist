@@ -68,6 +68,8 @@ The domains generated in your application extend base domains within plugin, bes
 
 
 ## Version changes
+```
+0.8 minor changes to _list1-top.gsp - called correct controller to display more information on scheduled jobs
 0.7 updates to default db table names, readme updates, correct ckeditor call for in index.gsp, giving upload feature for images 
 0.6 minor fix MailingList controller save wrong parameter for categories
 0.5 minor fix gsp listing wrong domainClass in mailingList/_form.gsp
@@ -75,6 +77,7 @@ The domains generated in your application extend base domains within plugin, bes
 0.3 Missing images, alerts left in java scripts tut tut, contactclients gsp page had lots of bugs now fixed, scheduling looks a lot healthier.
 0.2 moved most back into actual plugin - bug with existing used schedule issues whilst attempting to schedule something for now whilst others queued.
 0.1 release - nearly everything written to clients project
+```
 
 
 #### Config.groovy changes
