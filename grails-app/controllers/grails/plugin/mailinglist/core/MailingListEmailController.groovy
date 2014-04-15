@@ -80,11 +80,10 @@ class MailingListEmailController {
 		[params:params]
 	}
 
-	def scheduleEmail(String mailFrom, def recipientToGroup, String subject, def attachments,
+	def scheduleEmail(String mailFrom, String recipientToGroup, String subject, String attachments,
 	                  String mailingListTemplate, String dateTime, String setDate, String setTime,
 	                  String sendType, String addedby, String recipientToList, String emailMessage,
 	                  String recipientCCList, String recipientBCCList,String sendtype) {
-					  
 		if (!recipientToGroup) {
 			if (!recipientToList && !recipientCCList && !recipientBCCList) {
 				flash.message = message(code: 'Forgot to define either To or BCC or CC field, no one to contact !')
@@ -92,7 +91,7 @@ class MailingListEmailController {
 				return
 			}
 		}
-
+		
 		if (!setTime) { setTime=''}
 		if (!setDate) { setDate=''}
 		if (!recipientToGroup) { recipientToGroup=''}
@@ -122,9 +121,9 @@ class MailingListEmailController {
 			}
 			return
 		}
-
+		// 0.10 to get around recipientToGroup and attachments appearing as Ljava.lang.String;@5792bb81 params added to both
 		def mailingListScheduleInstance = new ScheduleBase(
-			mailFrom:mailFrom, recipientToGroup: recipientToGroup, subject: subject, attachments: attachments,
+			mailFrom:mailFrom, recipientToGroup: params.recipientToGroup, subject: subject, attachments: params.attachments,
 			mailingListTemplate: mailingListTemplate, dateTime: dateTime, setDate: setDate, setTime: setTime,
 			emailMessage: emailMessage, recipientToList: recipientToList,recipientCCList: recipientCCList,
 			recipientBCCList: recipientBCCList,  addedby: addedby, sendType: sendtype, scheduleCancelled: false,

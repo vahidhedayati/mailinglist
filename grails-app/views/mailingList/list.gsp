@@ -30,26 +30,29 @@
 			</div>
 		
 		<div class="clearall"></div>
+		
+		
 		<div id="emailSearch" class="emailSearch">
 		</div>
 		<div id="searchResults"></div>
 		<div id="returnPanel">
 		</div>
-
+<div id="mailingListContent">
+		
 				<g:render template="listing" model="[params:params, mailingListInstanceList: mailingListInstanceList]"></g:render>
 	
 		</div>
 
-			
+			</div>
 					<div class="pagination">                           
  <util:remotePaginate controller="MailingList" action="list" params="[max: max,  pageSizes:pageSizes, sortby:sortby, offset:offset,  envid:envid, viewtype: 'na']" total="${mailingListInstanceTotal}"
-                                   update="siteContent"   max="${params.max}" pageSizes="[10:'10 Per Page', 20: '20 Per Page', 50:'50 Per Page',100:'100 Per Page',250:'250 Per Page',500:'500 Per Page',1000:'1000 Per Page']" /> 
+                                   update="mailingListContent"   max="${params.max}" pageSizes="[10:'10 Per Page', 20: '20 Per Page', 50:'50 Per Page',100:'100 Per Page',250:'250 Per Page',500:'500 Per Page',1000:'1000 Per Page']" /> 
 </div>
 
 		
 			<export:formats />
 		
-		
+	
 
 	</body>
 </html>

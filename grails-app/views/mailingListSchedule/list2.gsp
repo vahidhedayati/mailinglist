@@ -18,7 +18,7 @@
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 	</head>
 	<body >
-	<div id="siteContent">
+	<div id="MailingListScheduleContent">
 		<g:render template="/mailingList/mainmenu" /> 
 	        <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
@@ -47,7 +47,7 @@
    			<g:render template="list1-top" model="[id:inputid, sortby:sortby, order:order, s:s, envid:envid, viewtype:viewtype, pageSizes:pageSizes, offset:offset, max:params.max, divupdate:divupdate,approvers:approvers]"></g:render>
 			<div class="pagination">                           
  				<util:remotePaginate controller="MailingListSchedule" action="br" params="[max: max, id:inputid, s:s, order:order, pageSizes:pageSizes, sortby:sortby, offset:offset,  envid:envid, viewtype: 'na']" total="${deploymentInfoHistoryInstanceTotal}"
-                                  update="siteContent"   max="${params.max}" pageSizes="[10:'10 Per Page', 20: '20 Per Page', 50:'50 Per Page',100:'100 Per Page',250:'250 Per Page',500:'500 Per Page',1000:'1000 Per Page']" /> 
+                                  update="MailingListScheduleContent"   max="${params.max}" pageSizes="[10:'10 Per Page', 20: '20 Per Page', 50:'50 Per Page',100:'100 Per Page',250:'250 Per Page',500:'500 Per Page',1000:'1000 Per Page']" /> 
 	</div>
 	<export:formats />
         	
