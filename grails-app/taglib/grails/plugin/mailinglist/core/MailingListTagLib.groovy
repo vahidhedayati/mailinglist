@@ -43,6 +43,7 @@ class MailingListTagLib {
 		def cid= attrs.remove('id')?.toString()
 		def scriptCall= attrs.remove('scriptCall')?.toString()
 		def controller= attrs.remove('controller')?.toString()
+		def retController= attrs.remove('retController')?.toString()
 		def retValue= attrs.remove('retValue')?.toString()
 		def action= attrs.remove('action')?.toString()
 		if (!retValue) { retValue='' }
@@ -51,24 +52,24 @@ class MailingListTagLib {
 				String[] tokens = cid.split(",")
 				for(String t : tokens) {
 					t=t.trim()
-					def mcat=mailingListEmailService?.domainGetter(controller,t,'name',retValue)
-					out << g.render(template:'/mailingList/htmlPopUp', model: [mcat:mcat, t:t, scriptCall:scriptCall, ccontrol: controller, cact: action ])
+					def mcat=mailingListEmailService?.domainGetter(controller,t)
+					out << g.render(template:'/mailingList/htmlPopUp', model: [mcat:mcat, t:t, scriptCall:scriptCall, ccontrol: retController, cact: action ])
 				}
 			}else{
 				String t=cid
-				def mcat=mailingListEmailService?.domainGetter(controller,t,'name',retValue)
-				out << g.render(template:'/mailingList/htmlPopUp', model: [mcat:mcat, t:t, scriptCall:scriptCall, ccontrol: controller, cact: action ])
+				def mcat=mailingListEmailService?.domainGetter(controller,t)
+				out << g.render(template:'/mailingList/htmlPopUp', model: [mcat:mcat, t:t, scriptCall:scriptCall, ccontrol: retController, cact: action ])
 			}	
 		}
 	} 
 	
 	def localDomainGetter = { attrs, body ->
 		def domain= attrs.remove('domain')?.toString()
-		def rvalue= attrs.remove('rvalue')?.toString()
+		def value= attrs.remove('value')?.toString()
 		def retValue= attrs.remove('retValue')?.toString()
 		def retValue2= attrs.remove('retValue2')?.toString()
-		if (domain&&rvalue&&retValue) {
-			def gg=mailingListEmailService?.domainGetter(domain,rvalue,retValue,retValue2)
+		if (domain&&value) {
+			def gg=mailingListEmailService?.domainGetter(domain,value)
 			out << "${gg}"
 		}
 	}	

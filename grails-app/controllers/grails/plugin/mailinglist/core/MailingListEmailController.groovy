@@ -80,11 +80,11 @@ class MailingListEmailController {
 		[params:params]
 	}
 
-	def scheduleEmail(String mailFrom, String recipientToGroup, String subject, String attachments,
+	def scheduleEmail(String mailFrom, def recipientToGroup, String subject, def attachments,
 	                  String mailingListTemplate, String dateTime, String setDate, String setTime,
 	                  String sendType, String addedby, String recipientToList, String emailMessage,
 	                  String recipientCCList, String recipientBCCList,String sendtype) {
-
+					  
 		if (!recipientToGroup) {
 			if (!recipientToList && !recipientCCList && !recipientBCCList) {
 				flash.message = message(code: 'Forgot to define either To or BCC or CC field, no one to contact !')

@@ -59,4 +59,5 @@ class ScheduleBase implements Serializable {
 		recipientBCCList nullable: true
 		mailingListTemplate nullable: true
 	}
+	String toString() { id }
 }

@@ -35,9 +35,10 @@
 					<td>${fieldValue(bean: deployInstance, field: "mailFrom")}</td>
 				
 						<td>
-						<mailinglist:loadPopUp id="${deployInstance.recipientToGroup }" 
+						<mailinglist:loadPopUp id="${deployInstance?.recipientToGroup }" 
 						scriptCall="recipientToGroup"
 						controller="CategoryBase"
+						retController="MailingListCategories"
 						retValue="name"
 						action="show" 
 						/>
@@ -53,14 +54,32 @@
 
 					
 					<td>
-					<mailinglist:loadPopUp id="${deployInstance.mailingListTemplate }" 
+					<mailinglist:loadPopUp id="${deployInstance?.mailingListTemplate }" 
 						scriptCall="mailingListTemplate"
 						controller="TemplatesBase"
+						retController="MailingListTemplates"
 						retValue="name"
 						action="show" 
 						/>
 		
 					</td>
+					
+					<td>
+					
+						
+						<mailinglist:loadPopUp id="${deployInstance?.id }" 
+						scriptCall="MailingListSchedule"
+						controller="ScheduleBase"
+						retController="MailingListSchedule"
+						retValue="id"
+						action="showmsg" 
+						/>
+						
+						
+		
+					</td>
+					
+					
 					<td>	
 						<g:if test="${deployInstance.scheduleName}">
 							<quartzutils:find jobName="${deployInstance.scheduleName}" />

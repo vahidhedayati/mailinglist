@@ -99,7 +99,7 @@
 				<li class="fieldcontain">
 					<span id="categories-label" class="property-label"><g:message code="mailingList.categories.label" default="categories" /></span>
 					
-						<span class="property-value" aria-labelledby="categories-label"><g:link controller="mailingListCat" action="show" id="${mailingListInstance?.categories?.id}">${mailingListInstance?.categories?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="categories-label"><g:link controller="mailingListCategories" action="show" id="${mailingListInstance?.categories?.id}">${mailingListInstance?.categories?.encodeAsHTML()}</g:link></span>
 					
 				</li>
 				</g:if>

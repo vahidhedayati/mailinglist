@@ -2,6 +2,6 @@
 <g:javascript>
 	function ${scriptCall}${t}(t) {
 		var link = "${g.createLink(controller: ''+ccontrol+'', action: ''+cact+'')}?id=" + t;
-		window.open(link, '', 'width=600,height=400');
+		window.open(link, '', 'width=800,height=600');
 	}
 </g:javascript>

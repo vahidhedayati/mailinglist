@@ -83,42 +83,13 @@
 		<g:message code="mailingListSchedule.attachments.label" default="Attachments" />
 		<br/>
 		</label>
-	
-		<g:each in="${mlAttach}" var="attach"> 
-		<g:if test="${attach?.attachment.size() > 0 }">
-		<g:if test="${params?.attachments.getClass().isArray()}">
-			<g:each in="${params?.attachments }" var="rgg">
-				<g:if test="${rgg.toString().equals(attach.id.toString())}">
-	
-  					<div class="tbutton"><g:checkBox name="attachments" value="${attach.id}" checked="true" /> ${attach.name} </div>
-			  	</g:if>
-  				<g:else>
-  					<div class="tbutton"><g:checkBox name="attachments" value="${attach.id}" checked="false" /> ${attach.name} </div>
-			  	
-  				</g:else>	
-  			</g:each>
-  		</g:if>
-  		<g:else>
-  			<g:if test="${params.attachments}">
-  				<g:if test="${ params.attachments.toString().equals(attach.id.toString())}">
-  					<div class="tbutton"><g:checkBox name="attachments" value="${attach.id}" checked="true" /> ${attach.name} </div>
-			  	</g:if>
-  				<g:else>
-  					<div class="tbutton"><g:checkBox name="attachments" value="${attach.id}" checked="false" /> ${attach.name} </div>
-			  </g:else>
-			 </g:if>
-			 <g:else>
-				<div class="tbutton"><g:checkBox name="attachments" value="${attach.id}" checked="false" /> ${attach.name} </div>
-			 </g:else> 
-  		</g:else>		
-		
-  			
-  			
-  		</g:if>
-	</g:each>
-	
+		<div id="mailerAttachments" style="display:inline-block;*display:inline;*zoom:1;">
+		<g:render template="/mailingListAttachments/mailerAttachmentsDisplay" />
+	</div>
 </div>
 	
+	
+
 	
 			<div id="contact-area">
 	<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'emailMessage', 'error')} required">
