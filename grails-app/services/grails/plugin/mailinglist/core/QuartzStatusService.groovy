@@ -12,13 +12,7 @@ class QuartzStatusService {
 
 	Scheduler quartzScheduler
 	def grailsApplication
-
-	String ret_triggerName
-	String ret_triggerGroup
-	String ret_jobName
-
 	static final Map<String, Trigger> triggers = [:]
-
 	boolean getQuartzStatus(String s) {
 		boolean running = false
 	   String currentController = currentController(s)
@@ -137,10 +131,10 @@ class QuartzStatusService {
 	}
 
 	def find(String injobName) {
+		def resultset = [:]
 		def jobsList = []
 		String results = ""
-	   String currentController = currentController(injobName)
-
+		String currentController = currentController(injobName)
 		quartzScheduler.jobGroupNames?.each { jobGroup ->
 			quartzScheduler.getJobKeys(jobGroupEquals(jobGroup))?.each {jobKey ->
 				String jobName = jobKey.name
@@ -148,16 +142,15 @@ class QuartzStatusService {
 					List<Trigger> triggers = quartzScheduler.getTriggersOfJob(jobKey)
 					if (triggers) {
 						triggers.each { trigger ->
-							ret_jobName = jobName
-							ret_triggerName = trigger.key.name
-							ret_triggerGroup = trigger.key.group
-							results = " jobName: " + ret_jobName + " | triggerName: " + ret_triggerName + " | triggerGroup: " + trigger.key.group
+							resultset.put('jobName', jobName)
+							resultset.put('triggerName', trigger.key.name)
+							resultset.put('triggerGroup', trigger.key.group)
 						}
 					}
 				}
 			}
 		}
-		return results
+		return resultset
 	}
 
 	private String currentController(String s) {

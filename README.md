@@ -1,4 +1,4 @@
-mailinglist 0.7
+mailinglist 0.11
 =======================
 
 
@@ -18,7 +18,7 @@ For a walk through guide on how to install this plugin goto : https://github.com
 ## Installation:
 Add plugin Dependency in BuildConfig.groovy :
 ```groovy
-compile ":mailinglist:0.7"
+compile ":mailinglist:0.11"
 ```
 
 #### BuildConfig.groovylayout/main.gsp update:
@@ -69,6 +69,7 @@ The domains generated in your application extend base domains within plugin, bes
 
 ## Version changes
 ```
+0.11 Removal of non thread safe calls within QuartsStatusService ret_triggerName ret_triggerGroup ret_jobName, now returned as  map and parsed as params back in modSchedule
 0.10 more tidying up fixes to minor broken calls
 0.9 tidyup to taglib/service and gsps 
 0.8 minor changes to _list1-top.gsp - called correct controller to display more information on scheduled jobs

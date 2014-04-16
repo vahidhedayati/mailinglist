@@ -51,7 +51,7 @@
 		<g:message code="mailingListTemplates.label" default="Template" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="mailingListTemplates" name="mailingListTemplate" from="${MailingListTemplates?.list()}" optionKey="id" required="" value="${params.mailingListTemplates}" class="many-to-one"
+	<g:select id="mailingListTemplates" name="mailingListTemplate" from="${grails.plugin.mailinglist.core.TemplatesBase.list()}" optionKey="id" required="" value="${params.mailingListTemplates}" class="many-to-one"
 		noSelection="['': 'Please choose Template']"
 		required=""
 		onchange="${remoteFunction (

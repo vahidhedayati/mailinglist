@@ -78,9 +78,10 @@ class MailingListScheduleController {
 
 			if (jobName) {
 				def ag = quartzStatusService.find(jobName)
-				params.triggerName = quartzStatusService.ret_triggerName
-				params.triggerGroup = quartzStatusService.ret_triggerGroup
-				params.jobName = quartzStatusService.ret_jobName
+				int index = 0
+				ag.each { k, v ->
+					params."${k}"=v
+				}
 				if (params.triggerName && params.triggerGroup) {
 					sb.append(' | ').append(quartzStatusService.stop(params))
 				}
