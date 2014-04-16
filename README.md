@@ -372,7 +372,30 @@ Ensure all of above tallies up for it all work properly
  Take a look at  https://github.com/vahidhedayati/modaldynamix follow the guide then refer to pages within this plugin to get a better idea on how to use it all together.
  
   
-  
+
+### Issues:
+Whilst using this plugin I found when creating ckeditor pages and uploading images, the images folder / icon appeared to be disabled, further inspection of this issue turned out to be:
+
+http://jira.grails.org/browse/GPCKEDITOR-40?jql=project%20%3D%20GPCKEDITOR%20AND%20status%20%3D%20Open%20ORDER%20BY%20priority%20DESC
+
+Actually it was the first issue the :
+```
+uploadRestrictions: &#39;jpg&#39;,&#39;gif&#39;,&#39;jpeg&#39;,&#39;png&#39;
+```
+
+I changed
+```
+skipAllowedItemsCheck = true
+```
+and commented out :
+```
+//allowed = ['jpg', 'gif', 'jpeg', 'png']
+
+//denied = []
+```
+This fixed the issue and everything appeared to be working again 
+
+
 ## Finally
 
 A big thank you as always to Burt Beckwith for forking and fixing up a lot of my wild wild west code :). 
