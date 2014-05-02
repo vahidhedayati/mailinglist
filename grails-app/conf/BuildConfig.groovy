@@ -13,7 +13,7 @@ grails.project.dependency.resolution = {
 	}
 
 	plugins {
-		compile ':ckeditor:3.6.6.1.1'
+		compile ':ckeditor:4.4.0.0-SNAPSHOT'
 		compile ':csv:0.3.1'
 		compile ':export:1.5'
 		compile ':joda-time:1.4'

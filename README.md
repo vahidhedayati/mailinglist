@@ -1,4 +1,4 @@
-mailinglist 0.11
+mailinglist 0.12
 =======================
 
 
@@ -18,7 +18,7 @@ For a walk through guide on how to install this plugin goto : https://github.com
 ## Installation:
 Add plugin Dependency in BuildConfig.groovy :
 ```groovy
-compile ":mailinglist:0.11"
+compile ":mailinglist:0.12"
 ```
 
 #### BuildConfig.groovylayout/main.gsp update:
@@ -69,6 +69,7 @@ The domains generated in your application extend base domains within plugin, bes
 
 ## Version changes
 ```
+0.12 Changed ckeditor to 4.4.0.0-SNAPSHOT http://jira.grails.org/browse/GPCKEDITOR-40
 0.11 Removal of non thread safe calls within QuartsStatusService ret_triggerName ret_triggerGroup ret_jobName, now returned as  map and parsed as params back in modSchedule
 0.10 more tidying up fixes to minor broken calls
 0.9 tidyup to taglib/service and gsps 
@@ -373,33 +374,13 @@ Ensure all of above tallies up for it all work properly
  
   
 
-### Issues:
-Whilst using this plugin I found when creating ckeditor pages and uploading images, the images folder / icon appeared to be disabled, further inspection of this issue turned out to be:
 
-http://jira.grails.org/browse/GPCKEDITOR-40?jql=project%20%3D%20GPCKEDITOR%20AND%20status%20%3D%20Open%20ORDER%20BY%20priority%20DESC
-
-Actually it was the first issue the :
-```
-uploadRestrictions: &#39;jpg&#39;,&#39;gif&#39;,&#39;jpeg&#39;,&#39;png&#39;
-```
-
-I changed
-```
-skipAllowedItemsCheck = true
-```
-and commented out :
-```
-//allowed = ['jpg', 'gif', 'jpeg', 'png']
-
-//denied = []
-```
-This fixed the issue and everything appeared to be working again 
 
 
 ## Finally
 
-A big thank you as always to Burt Beckwith for forking and fixing up a lot of my wild wild west code :). 
-Unfortunately due to issues with merging back the original fork and after a few attempts to fix the issue I decided to rm -rf git repo and upload correct bit which included his changes. 
+A big thank you as always to Burt Beckwith for cleaning up the code:
+Unfortunately due to issues with merging repo was cleaned up, original code cna be found here:
 Those changes are here: https://github.com/burtbeckwith/mailinglist/
 
    
