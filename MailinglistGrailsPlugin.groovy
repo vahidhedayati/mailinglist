@@ -1,5 +1,7 @@
+
+
 class MailinglistGrailsPlugin {
-	def version = "0.12"
+	def version = "0.13"
 	def grailsVersion = "2.0 > *"
 	def title = "Mailing List Plugin"
 	def description = 'Schedule emails to a mailing group or to a person using dynamic quartz scheduling. Schedules stored within DB and upon application restart incomplete or future schedules are re-added to quartz queue.'
@@ -9,5 +11,5 @@ class MailinglistGrailsPlugin {
 	def authorEmail = "badvad@gmail.com"
 	def issueManagement = [system: 'GITHUB', url: 'https://github.com/vahidhedayati/mailinglist/issues']
 	def scm = [url: 'https://github.com/vahidhedayati/mailinglist']
-
+	
 }

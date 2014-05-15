@@ -1,4 +1,4 @@
-mailinglist 0.12
+mailinglist 0.13
 =======================
 
 
@@ -18,7 +18,7 @@ For a walk through guide on how to install this plugin goto : https://github.com
 ## Installation:
 Add plugin Dependency in BuildConfig.groovy :
 ```groovy
-compile ":mailinglist:0.12"
+compile ":mailinglist:0.13"
 ```
 
 #### BuildConfig.groovylayout/main.gsp update:
@@ -69,6 +69,7 @@ The domains generated in your application extend base domains within plugin, bes
 
 ## Version changes
 ```
+0.13 issue with list - export feature was not working - format was not being passed - format now set to extension params
 0.12 Changed ckeditor to 4.4.0.0-SNAPSHOT http://jira.grails.org/browse/GPCKEDITOR-40
 0.11 Removal of non thread safe calls within QuartsStatusService ret_triggerName ret_triggerGroup ret_jobName, now returned as  map and parsed as params back in modSchedule
 0.10 more tidying up fixes to minor broken calls
