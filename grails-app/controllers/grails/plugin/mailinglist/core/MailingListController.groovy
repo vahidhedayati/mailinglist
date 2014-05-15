@@ -55,17 +55,46 @@ class MailingListController {
 		}
 	}
 
-	def list() {
+	def list(Integer max, String s) {
+		
 		String format=params.extension ?: 'html'
-		params.max = Math.min(params.int('max') ?: 50, 10000)
+		params.max = Math.min(params.int('max') ?: 50, 100)
 		params.order = params.order ?: 'desc'
-		params.offset = params.offset ?: '0'
+		//params.offset = params.offset ?: '0'
+		def foundRec
+		int total = 0
+		String pageSizes = params.pageSizes ?: '10'
+		String order = params.order ?: "desc"
+		String sortby = params.sortby ?: "lastUpdated"
+		int offset = (params.offset ?: '0') as int
+		def inputid = params.id
+		def fields = ["\$changedProperties","addedby","categories","dateCreated","emailAddress","emailDisplayName","firstName","id","instanceGormInstanceApi","instanceGormValidationApi","lastName","lastUpdated","middleName","staticGormStaticApi","title"
+		]
+		def labels = ["\$changedProperties":"ignore",	"addedby": "addedby","categories":"categories","dateCreated":"dateCreated","emailAddress":"emailAddress","emailDisplayName":"emailDisplayName","firstName":"firstName","id":"id","instanceGormInstanceApi":"instanceGormInstanceApi","instanceGormValidationApi":"instanceGormValidationApi","lastName":"lastName","lastUpdated":"lastUpdated","middleName":"middleName","staticGormStaticApi":"staticGormStaticApi","title":"title" ]
+		
+		String max1 = ""
+		def paginationParams = [sort: sortby, order: order, offset: offset, max: params?.max]
+		def allcat=CategoryBase.list()
+		switch (s) {
+		case 'c':
+			def categories = CategoryBase.get(params.id)
+			if (categories) {
+			foundRec = MailingListBase.findAllByCategories( categories, paginationParams)
+			total = MailingListBase.countByCategories(categories)
+			}
+			break
+		default:
+			s = ''
+			foundRec = MailingListBase.list(paginationParams)
+			total = MailingListBase.count()
+		}
+		
 		if ((format) &&(format != "html")) {
 			response.contentType = grailsApplication.config.grails.mime.types[format]
 			response.setHeader("Content-disposition", "attachment; filename=MailingListBase." + params.extension)
-			exportService.export(format, response.outputStream,MailingListBase?.list(), [:], [:])
+			exportService.export(format, response.outputStream,foundRec, fields, labels, [:], [:])
 		}
-		def model = [mailingListInstanceList: MailingListBase?.list(params), mailingListInstanceTotal: MailingListBase?.count()]
+		def model = [mailingListInstanceList: foundRec, mailingListInstanceTotal: total, divupdate: 'mailingListContent', pageSizes: pageSizes, offset: offset,inputid: inputid, s: s, order: order, sortby:sortby, action: 'list', allcat:allcat, max:max]
 		if (request.xhr) {
 			render (template: 'listing', model: model)
 		}

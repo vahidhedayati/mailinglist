@@ -26,6 +26,7 @@ class MailingListBase implements Serializable {
 		emailDisplayName defaultValue: ''
 		//table applicationContext.grailsApplication.config.mailinglist.table.mailinglist ?: 'MailingList'
 		table applicationContext.getBean('grailsApplication').config.mailinglist.table.mailinglist ?: 'mailing_list'
+		categories ignoreNotFound : true
 	}
 
 	static constraints = {

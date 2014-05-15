@@ -46,10 +46,12 @@
 		Current Action : ${s }<br/>
    			<g:render template="list1-top" model="[id:inputid, sortby:sortby, order:order, s:s, envid:envid, viewtype:viewtype, pageSizes:pageSizes, offset:offset, max:params.max, divupdate:divupdate,approvers:approvers]"></g:render>
 			<div class="pagination">                           
- 				<util:remotePaginate controller="MailingListSchedule" action="br" params="[max: max, id:inputid, s:s, order:order, pageSizes:pageSizes, sortby:sortby, offset:offset,  envid:envid, viewtype: 'na']" total="${deploymentInfoHistoryInstanceTotal}"
+ 				<util:remotePaginate controller="MailingListSchedule" action="br" params="[max: max, id:inputid, s:s, order:order, pageSizes:pageSizes, sortby:sortby, offset:offset, viewtype: 'na']" total="${deploymentInfoHistoryInstanceTotal}"
                                   update="MailingListScheduleContent"   max="${params.max}" pageSizes="[10:'10 Per Page', 20: '20 Per Page', 50:'50 Per Page',100:'100 Per Page',250:'250 Per Page',500:'500 Per Page',1000:'1000 Per Page']" /> 
 	</div>
-	<export:formats />
+		
+			<export:formats />
+		
         	
     </div>
 	</body>

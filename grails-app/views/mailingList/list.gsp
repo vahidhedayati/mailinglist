@@ -1,5 +1,4 @@
 
-<!DOCTYPE html>
 <html>
 
 	<head>
@@ -33,27 +32,25 @@
 		
 		<div class="clearall"></div>
 		
-		
+			<ul class="tab_opt">
+  				<li><g:select   class="top_form1"  name="sortby" from="${['lastUpdated', 'firstName','lastName','dateCreated','categories','emailDisplayName','emailAddress','addedby']}"   value="${sortby}" onchange="${remoteFunction(action:'list', params:'\'id='+inputid+'\'+\'&envid='+envid+'\'+\'&sortby=\' + escape(this.value) +\'&s='+s+'\'+\'&pageSizes='+pageSizes+'\'+\'&max='+params?.max+'\'+\'&offset='+offset+'\'+\'&order='+order+'\'+\'&viewtype=na\'',update : divupdate)}"/> </li>	
+				<li><g:select   class="top_form1" name="order" from="${['asc', 'desc']}"  value="${order}" onchange="${remoteFunction(action:'list', params:'\'id='+inputid+'\'+\'&order=\' + escape(this.value) +\'&s='+s+'\'+\'&pageSizes='+pageSizes+'\'+\'&max='+params?.max+'\'+\'&envid='+envid+'\'+\'&offset='+offset+'\'+\'&sortby='+sortby+'\'+\'&viewtype=na\'',update : divupdate)}"/></li>
+				<li><g:select   class="top_form1" name="s" from="${allcat}"  optionKey="id" optionValue="name" value="${s}" onchange="${remoteFunction(action:'list', params:'\'id=\' + escape(this.value) +\'&s=c&order='+order+'\'+\'&pageSizes='+pageSizes+'\'+\'&max='+params?.max+'\'+\'&envid='+envid+'\'+\'&offset='+offset+'\'+\'&sortby='+sortby+'\'+\'&viewtype=na\'',update : divupdate)}"/></li>
+			</ul>
+			
 		<div id="emailSearch" class="emailSearch">
 		</div>
 		<div id="searchResults"></div>
 		<div id="returnPanel">
 		</div>
+		
 <div id="mailingListContent">
 		
-				<g:render template="listing" model="[params:params, mailingListInstanceList: mailingListInstanceList]"></g:render>
-	
-		</div>
-
-			</div>
-					<div class="pagination">                           
- <util:remotePaginate controller="MailingList" action="list" params="[max: max,  pageSizes:pageSizes, sortby:sortby, offset:offset,  envid:envid, viewtype: 'na']" total="${mailingListInstanceTotal}"
-                                   update="mailingListContent"   max="${params.max}" pageSizes="[10:'10 Per Page', 20: '20 Per Page', 50:'50 Per Page',100:'100 Per Page',250:'250 Per Page',500:'500 Per Page',1000:'1000 Per Page']" /> 
+			<g:render template="listing" model="[params:params, mailingListInstanceList: mailingListInstanceList]"></g:render>
 </div>
 
-		
-			<export:formats />
-		
+</div>
+
 	
 
 	</body>
