@@ -11,7 +11,7 @@ import org.quartz.impl.matchers.GroupMatcher
 class QuartzStatusService {
 
 	Scheduler quartzScheduler
-	def grailsApplication
+	//def grailsApplication
 	static final Map<String, Trigger> triggers = [:]
 	boolean getQuartzStatus(String s) {
 		boolean running = false

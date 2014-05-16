@@ -65,8 +65,19 @@
 			<div class="internalbtn"><g:link controller="MailingList" class="list" action="list"><g:message code="List Emails" args="[entityName]" /></g:link></div>
 		</div></li></ul>
 
-	
-</div>
+		
+		
+		<div id="sentResults" class="the_box">
+		<g:if test="${scheduleCompleted}">
+		<div id="returnPanel" class="resultsPane">
+			<h2>Sent Email Results</h2>
+			<g:render template="/mailingList/scheduleCompleted" model="[sc:scheduleCompleted, total: total]"></g:render>
+
+		</div>		
+		</g:if>
+		
+		</div>
+		</div>
 </body>
 </html>
 	

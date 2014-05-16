@@ -21,6 +21,9 @@
 	
 	</ul>
 	</div>
+	<g:if test="${warnResend }">
+	<div class="errors"><h3>${warnResend }</h3></div>
+	</g:if>
 	<g:hasErrors bean="${mailingListScheduleInstance}">
 			<ul class="errors" role="alert">
 				<g:eachError bean="${mailingListScheduleInstance}" var="error">

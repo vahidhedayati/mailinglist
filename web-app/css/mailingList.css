@@ -382,7 +382,22 @@ z-index:3080;
 	/*z-index:3080;*/
 	padding-top: 2em;
 }	
-
+.mail-id {
+	display: block;
+	background:#FEE; 
+}
+.mail-from {
+	display: block;
+	background:#EEE;
+}
+.mail-subject {
+	display: block;
+	background:#EEE;
+}
+.mail-completed{
+	display: block;
+	background:#FEE; 
+}
 .tbutton {
 	border: 1px solid rgba(0,0,0,0.2);
 	box-sizing: content-box !important;

@@ -9,36 +9,21 @@ class MailingListController {
 	def exportService
 	def grailsApplication
 	
-	def index() {}
+	def index() {
+		def paginationParams = [sort: 'lastUpdated', order: 'DESC', offset: 0, max: 5]
+		def found = ScheduleBase.findAllByScheduleComplete(true, paginationParams)
+		def total = ScheduleBase.countByScheduleComplete(true)
+		[scheduleCompleted:found, total:total]
+	}
 
 	def search(String mq) {
-		def mailingListInstanceList = MailingListBase.findAllByEmailAddressLikeOrEmailDisplayNameLike("%" + mq + "%", "%" + mq + "%", [max: 30])
+		def mailingListInstanceList = MailingListBase?.findAllByEmailAddressLikeOrEmailDisplayNameLike("%" + mq + "%", "%" + mq + "%", [max: 30])
 		if (!mailingListInstanceList) {
-			mailingListInstanceList = MailingListBase.findAllByFirstNameLikeOrMiddleNameLikeOrLastNameLike("%" + mq + "%", "%" + mq + "%", "%" + mq + "%", [max: 30])
+			mailingListInstanceList = MailingListBase?.findAllByFirstNameLikeOrMiddleNameLikeOrLastNameLike("%" + mq + "%", "%" + mq + "%", "%" + mq + "%", [max: 30])
 		}
 		[ mailingListInstanceList: mailingListInstanceList]
 	}
 
-	def emailsearch(String mq) {
-		def searchResults
-		if (mq) {
-			searchResults = [
-				MailResults: trySearch1 { MailingListBase.search(mq, [max:10]) },
-				mq: mq.encodeAsHTML()
-			]
-		}
-		render (template: "/mailResults", model: [ searchResults:searchResults ])
-	}
-
-	private trySearch1(Closure callable) {
-		try {
-			return callable.call()
-		}
-		catch(e) {
-			log.debug "Search Error: $e.message", e
-			return []
-		}
-	}
 
 	def display() {
 		def link = MailingListBase.get(params.id)

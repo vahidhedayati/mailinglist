@@ -12,12 +12,12 @@
 	<tbody>
 	<g:each in="${mailingListInstanceList}" status="i" var="mailingListInstance">
 		<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-			<td><g:link action="show" id="${mailingListInstance.id}">${fieldValue(bean: mailingListInstance, field: "emailAddress")}</g:link></td>
-			<td>${fieldValue(bean: mailingListInstance, field: "emailDisplayName")}</td>
-			<td>${mailingListInstance?.categories.name}</td>
-			<td>${fieldValue(bean: mailingListInstance, field: "firstName")}</td>
-			<td>${fieldValue(bean: mailingListInstance, field: "lastName")}</td>
-			<td><prettytime:display date="${mailingListInstance.dateCreated}" /></td>
+			<td><g:link action="show" id="${mailingListInstance?.id}">${mailingListInstance?.emailAddress}</g:link></td>
+			<td>${mailingListInstance?.emailDisplayName}</td>
+			<td>${mailingListInstance?.categories?.name}</td>
+			<td>${mailingListInstance?.firstName}</td>
+			<td>${mailingListInstance?.lastName}</td>
+			<td><prettytime:display date="${mailingListInstance?.dateCreated}" /></td>
 		
 		</tr>
 	</g:each>

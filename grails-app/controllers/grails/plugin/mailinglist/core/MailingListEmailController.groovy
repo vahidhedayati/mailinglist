@@ -1,6 +1,7 @@
 package grails.plugin.mailinglist.core
 
 import grails.transaction.Transactional
+import groovy.time.TimeCategory
 
 import java.text.SimpleDateFormat
 @Transactional
@@ -47,6 +48,48 @@ class MailingListEmailController {
 
 		boolean ok = true
 
+		String warnDuplicate=grailsApplication.config.mailinglist.warn.duplicate ?: 'N'
+		def period=grailsApplication.config.mailinglist.warn.period
+		def today= new Date()
+		def goback
+		def foundrecord
+		use(TimeCategory) {
+			if ((warnDuplicate.equals('Y')) && period) {
+				if (period.indexOf('H')>-1) {
+					def length=period.substring(0,period.indexOf('H'))
+					length=length as int
+					goback=length.hours.ago
+				}else if (period.indexOf('M')>-1) {
+					def length=period.substring(0,period.indexOf('M'))
+					length=length as int
+					goback=length.minutes.ago
+				} else if (period.indexOf('D')>-1) {
+					def length=period.substring(0,period.indexOf('D'))
+					length=length as int
+					goback=length.days.ago
+				}else if (period.indexOf('m')>-1) {
+					def length=period.substring(0,period.indexOf('m'))
+					length=length as int
+					goback=length.months.ago
+				}else if (period.indexOf('y')>-1) {
+					def length=period.substring(0,period.indexOf('y'))
+					length=length as int
+					goback=length.years.ago
+				}
+
+				if (goback) {
+					foundrecord=ScheduleBase.findByDateCreatedGreaterThanEqualsAndRecipientToGroup(goback, params.recipientToGroup)
+				}
+			}
+
+
+		}
+		def warnResend
+		if (foundrecord) {
+			warnResend="""Warning you have sent an email out to this recipientGroup on ${foundrecord.dateTime} with the following subject: ${foundrecord.subject}, click send to Proceed!"""
+		}
+		
+		
 		if (!params.dateTime) {
 			flash.message = 'Please define dateTime for email schedule'
 			ok = false
@@ -77,7 +120,7 @@ class MailingListEmailController {
 			return
 		}
 
-		[params:params]
+		[params:params, warnResend:warnResend]
 	}
 
 	def scheduleEmail(String mailFrom, String recipientToGroup, String subject, String attachments,

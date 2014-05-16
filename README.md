@@ -1,4 +1,4 @@
-mailinglist 0.14
+mailinglist 0.15
 =======================
 
 
@@ -18,7 +18,7 @@ For a walk through guide on how to install this plugin goto : https://github.com
 ## Installation:
 Add plugin Dependency in BuildConfig.groovy :
 ```groovy
-compile ":mailinglist:0.14"
+compile ":mailinglist:0.15"
 ```
 
 #### BuildConfig.groovylayout/main.gsp update:
@@ -69,6 +69,7 @@ The domains generated in your application extend base domains within plugin, bes
 
 ## Version changes
 ```
+0.15 mailinglist.warn.duplicate and mailinglist.warn.period added, issue with search mailingList fixed. Duplicate email warnings to same contactGroup  set to show on preview screen
 0.14 fixed pagination / export features on mailinglist page.
 0.13 issue with list - export feature was not working - format was not being passed - format now set to extension params
 0.12 Changed ckeditor to 4.4.0.0-SNAPSHOT http://jira.grails.org/browse/GPCKEDITOR-40
@@ -98,7 +99,10 @@ Required `Config.groovy` configurations:
  * mailinglist.table.schedule='mailing_list_schedule'
  * mailinglist.table.senders='mailing_list_senders'
  * mailinglist.table.templates='mailing_list_templates'
- *
+ * These options define if there should be a warning to confirm an email was sent to same group within defined period
+ * mailinglist.warn.duplicate='Y'
+ * --- Periods are:  | H for Hours | D for days | M for minutes | m for months | y for years | 
+ * mailinglist.warn.period='2H'
  * These are all the local tables created that in turn extend domainClasses from this plugin.
  * Check out your domainClass folder under the package you provided after you run the mlsetup command.
  */
