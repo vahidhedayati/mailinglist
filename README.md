@@ -69,6 +69,7 @@ The domains generated in your application extend base domains within plugin, bes
 
 ## Version changes
 ```
+0.16 latest ckeditor added
 0.15 mailinglist.warn.duplicate and mailinglist.warn.period added, issue with search mailingList fixed. Duplicate email warnings to same contactGroup  set to show on preview screen
 0.14 fixed pagination / export features on mailinglist page.
 0.13 issue with list - export feature was not working - format was not being passed - format now set to extension params
