@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta name="layout" content="main">
-			<link rel="stylesheet" href="${resource(dir: 'css', file: 'mailingList.css')}" type="text/css">
+		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mailingList.css')}" type="text/css">
 		<g:set var="entityName" value="${message(code: 'mailingListAttachments.label', default: 'MailingListAttachments')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
 	</head>
@@ -16,7 +15,6 @@
 				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
-
 		<div id="create-mailingListAttachments" class="content scaffold-create" role="main">
 			<h1><g:message code="default.create.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
@@ -29,23 +27,18 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			
-			<h3>Files are uploaded directly to DB and presented in binary format, once uploaded the screen will redirect to list where the size will be shown.</h3>
-			
-		
-				<g:form action="save"  enctype="multipart/form-data">
-				<fieldset class="form">
-					<g:render template="form"/>
-				</fieldset>
-				<fieldset class="buttons">
-					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-				</fieldset>
-			</g:form>
-			
 			<h3>
-				Supported Mime Types: (All file formats)
+			<g:message code="default.files.uploaded.message.types.label" default="Files are uploaded directly to DB and presented in binary format, once uploaded the screen will redirect to list where the size will be shown."/>
 			</h3>
+			<g:form action="save"  enctype="multipart/form-data">
+			<fieldset class="form">
+				<g:render template="form"/>
+			</fieldset>
+			<fieldset class="buttons">
+				<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+			</fieldset>
+			</g:form>
+			<h3><g:message code="default.suported.mime.types.label" default="Supported Mime Types: (All file formats)"/></h3>
 		</div>
-
 	</body>
 </html>

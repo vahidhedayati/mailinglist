@@ -19,7 +19,6 @@
 				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
-
 		<div id="create-mailingListTemplates" class="content scaffold-create" role="main">
 			<h1><g:message code="default.create.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
@@ -34,48 +33,39 @@
 			</g:hasErrors>
 			<g:form action="save" >
 			<div class="fieldcontain ${hasErrors(bean: mailingListTemplatesInstance, field: 'name', 'error')} required">
-	<label for="name">
-		<g:message code="mailingListTemplates.name.label" default="Name" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:textField name="name" required="" value="${mailingListTemplatesInstance?.name}"/>
-</div>
+			<label for="name">
+				<g:message code="mailingListTemplates.name.label" default="Name" />
+				<span class="required-indicator">*</span>
+			</label>
+			<g:textField name="name" required="" value="${mailingListTemplatesInstance?.name}"/>
+			</div>
 
-<g:render template="/mailingList/addedby"  model="[caller: 'mailingListTemplatesInstance']"/>
+			<g:render template="/mailingList/addedby"  model="[caller: 'mailingListTemplatesInstance']"/>
 
+			<div class="fieldcontain ${hasErrors(bean: params, field: 'content', 'error')} required">
+			<label for="content">
+				<g:message code="mailingListTemplates.label" default="Template" />
+				<span class="required-indicator">*</span>
+			</label>
+			<g:select id="mailingListTemplates" name="mailingListTemplate" 
+			from="${grails.plugin.mailinglist.core.TemplatesBase.list()}" 
+			optionKey="id" required="" value="${params.mailingListTemplates}" class="many-to-one"
+			noSelection="['': 'Please choose Template']"
+			required=""
+			onchange="${remoteFunction (
+			controller: 'MailingListTemplates',
+			action: 'loadMessageBox',
+			params: "'id=' + this.value",
+			update: 'loadMessageBox'
+			)}"
+			/>
+			</div>
 
-			
-
-<div class="fieldcontain ${hasErrors(bean: params, field: 'content', 'error')} required">
-	<label for="content">
-		<g:message code="mailingListTemplates.label" default="Template" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select id="mailingListTemplates" name="mailingListTemplate" from="${grails.plugin.mailinglist.core.TemplatesBase.list()}" optionKey="id" required="" value="${params.mailingListTemplates}" class="many-to-one"
-		noSelection="['': 'Please choose Template']"
-		required=""
-		onchange="${remoteFunction (
-		controller: 'MailingListTemplates',
-		action: 'loadMessageBox',
-		params: "'id=' + this.value",
-		update: 'loadMessageBox'
-	)}"
-	/>
-</div>
-
-<div id="loadMessageBox"></div>
-
-				
-				
-					
-					
-					
-
-				<fieldset class="buttons">
-					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-				</fieldset>
-			</g:form>
-		</div>
-
-	</body>
+			<div id="loadMessageBox"></div>
+			<fieldset class="buttons">
+				<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+			</fieldset>
+		</g:form>
+	</div>
+</body>
 </html>

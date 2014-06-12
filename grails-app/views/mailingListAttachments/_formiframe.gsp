@@ -9,4 +9,4 @@
 	</fieldset>
 </g:form>
 			
-<h3>Supported Mime Types: (All file formats)</h3>
+<h3><g:message code="default.suported.mime.types.label" default="Supported Mime Types: (All file formats)"/></h3>

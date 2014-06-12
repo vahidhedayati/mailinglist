@@ -23,16 +23,12 @@
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			<ol class="property-list mailingListAttachments">
-			
 				<g:if test="${mailingListAttachmentsInstance?.name}">
 				<li class="fieldcontain">
 					<span id="name-label" class="property-label"><g:message code="mailingListAttachments.name.label" default="Name" /></span>
-					
-						<span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${mailingListAttachmentsInstance}" field="name"/></span>
-					
+					<span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${mailingListAttachmentsInstance}" field="name"/></span>
 				</li>
 				</g:if>
-			
 				<g:if test="${mailingListAttachmentsInstance?.attachment}">
 				<li class="fieldcontain">
 					<span id="attachment-label" class="property-label"><g:message code="mailingListAttachments.attachment.label" default="Attachment size" /></span>
@@ -42,61 +38,46 @@
 				</li>
 				</g:if>
 				<g:else>
-					<div class="red">WARNING 0 BYTE OR NO ATTACHED FILE</div>
+					<div class="red"><g:message code="default.file.nocontent.label" default="WARNING 0 BYTE OR NO ATTACHED FILE"/>
+					</div>
 				</g:else>
 				<g:if test="${mailingListAttachmentsInstance?.addedby}">
 				<li class="fieldcontain">
 					<span id="addedby-label" class="property-label"><g:message code="mailingListAttachments.addedby.label" default="Addedby" /></span>
-					
-						<span class="property-value" aria-labelledby="addedby-label"><g:fieldValue bean="${mailingListAttachmentsInstance}" field="addedby"/></span>
-					
+					<span class="property-value" aria-labelledby="addedby-label"><g:fieldValue bean="${mailingListAttachmentsInstance}" field="addedby"/></span>
 				</li>
 				</g:if>
-			
 				<g:if test="${mailingListAttachmentsInstance?.dateCreated}">
 				<li class="fieldcontain">
 					<span id="dateCreated-label" class="property-label"><g:message code="mailingListAttachments.dateCreated.label" default="Date Created" /></span>
-					
-						<span class="property-value" aria-labelledby="dateCreated-label"><g:formatDate date="${mailingListAttachmentsInstance?.dateCreated}" /></span>
-					
+					<span class="property-value" aria-labelledby="dateCreated-label"><g:formatDate date="${mailingListAttachmentsInstance?.dateCreated}" /></span>
 				</li>
 				</g:if>
-			
 				<g:if test="${mailingListAttachmentsInstance?.fullname}">
 				<li class="fieldcontain">
 					<span id="fullname-label" class="property-label"><g:message code="mailingListAttachments.fullname.label" default="Fullname" /></span>
-					
-						<span class="property-value" aria-labelledby="fullname-label"><g:fieldValue bean="${mailingListAttachmentsInstance}" field="fullname"/></span>
-					
+					<span class="property-value" aria-labelledby="fullname-label"><g:fieldValue bean="${mailingListAttachmentsInstance}" field="fullname"/></span>
 				</li>
 				</g:if>
-			
-			
-					<g:if test="${mailingListAttachmentsInstance?.contentType}">
+				<g:if test="${mailingListAttachmentsInstance?.contentType}">
 				<li class="fieldcontain">
 					<span id="contentType-label" class="property-label"><g:message code="mailingListAttachments.contentType.label" default="contentType" /></span>
-					
-						<span class="property-value" aria-labelledby="contentType-label"><g:fieldValue bean="${mailingListAttachmentsInstance}" field="contentType"/></span>
-					
+					<span class="property-value" aria-labelledby="contentType-label"><g:fieldValue bean="${mailingListAttachmentsInstance}" field="contentType"/></span>
 				</li>
 				</g:if>
 				<g:if test="${mailingListAttachmentsInstance?.lastUpdated}">
 				<li class="fieldcontain">
 					<span id="lastUpdated-label" class="property-label"><g:message code="mailingListAttachments.lastUpdated.label" default="Last Updated" /></span>
-					
-						<span class="property-value" aria-labelledby="lastUpdated-label"><g:formatDate date="${mailingListAttachmentsInstance?.lastUpdated}" /></span>
-					
+					<span class="property-value" aria-labelledby="lastUpdated-label"><g:formatDate date="${mailingListAttachmentsInstance?.lastUpdated}" /></span>
 				</li>
 				</g:if>
-			
 			</ol>
 			<g:form>
 				<fieldset class="buttons">
 					<g:hiddenField name="id" value="${mailingListAttachmentsInstance?.id}" />
-						<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 				</fieldset>
 			</g:form>
 		</div>
-
 	</body>
 </html>

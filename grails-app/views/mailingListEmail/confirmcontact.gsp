@@ -10,56 +10,47 @@
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mailingList.css')}" type="text/css">
 		<g:set var="entityName" value="${message(code: 'ContactClients.label', default: 'Contact Clients')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
-		
-<ckeditor:resources/>
-
+		<ckeditor:resources/>
 	</head>
 	<body>
 	<div  class="nav" role="navigation">
 	<ul>
 		<li><a class="home" href="${createLink(uri: '/MailingList/index')}">Schedule Announcement</a></li>			
-	
 	</ul>
 	</div>
 	<g:if test="${warnResend }">
 	<div class="errors"><h3>${warnResend }</h3></div>
 	</g:if>
 	<g:hasErrors bean="${mailingListScheduleInstance}">
-			<ul class="errors" role="alert">
-				<g:eachError bean="${mailingListScheduleInstance}" var="error">
+		<ul class="errors" role="alert">
+			<g:eachError bean="${mailingListScheduleInstance}" var="error">
 				<li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
-				</g:eachError>
-			</ul>
-			</g:hasErrors>
-			
-			<h1><g:message code="default.confirmcontact.label" args="[entityName]" default='Confirm email before sending' /></h1>
-			<g:if test="${flash.message}">
+			</g:eachError>
+		</ul>
+	</g:hasErrors>
+	
+		<h1><g:message code="default.confirmcontact.label" args="[entityName]" default='Confirm email before sending' /></h1>
+		<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
-			</g:if>	
-				
-
+		</g:if>	
 		<g:render template="goback"/>
-		
 		<g:form action="scheduleEmail" >
-		
 		<div id="contact-area">
-		
-		
-			<div class="fieldcontain ${hasErrors(bean: params, field: 'sendType', 'error')} ">
+		<div class="fieldcontain ${hasErrors(bean: params, field: 'sendType', 'error')} ">
 				<label for="sendType">
 					<g:message code="manager.label" default="sendType" />
 				</label>
 				<g:hiddenField name="sendType" value="${params.sendType }"/>${params.sendType }
-			</div>
+		</div>
 			
-			<div class="fieldcontain ${hasErrors(bean: params, field: 'mailFrom', 'error')} ">
+		<div class="fieldcontain ${hasErrors(bean: params, field: 'mailFrom', 'error')} ">
 				<label for="mailFrom">
 					<g:message code="manager.label" default="mailFrom" />	
 				</label>
 				<g:hiddenField name="mailFrom" value="${params.mailFrom }"/>${params.mailFrom }
-			</div>
+		</div>
 			
-			<div class="fieldcontain ${hasErrors(bean: params, field: 'recipientToGroup', 'error')} ">
+		<div class="fieldcontain ${hasErrors(bean: params, field: 'recipientToGroup', 'error')} ">
 				<label for="recipientToGroup">
 					<g:message code="recipientToGroup.label" default="To:" />
 				</label>	
@@ -75,9 +66,7 @@
 					
 				</g:else>
 			
-			</div>
-		
-
+		</div>
 		<g:hiddenField name="addedby" value="${params.addedby }"/>
 		<div class="fieldcontain ${hasErrors(bean: params, field: 'subject', 'error')} ">
 			<label for="subject">
@@ -106,7 +95,7 @@
 		</div>
 	
 		<g:if test="${params.mailingListTemplate}">
-			<g:hiddenField name="mailingListTemplate" value="${params.mailingListTemplate }"/>
+				<g:hiddenField name="mailingListTemplate" value="${params.mailingListTemplate }"/>
 		</g:if>
 
 		<div class="fieldcontain ${hasErrors(bean: params, field: 'mailingListScheduleInstance', 'error')} required">
@@ -131,7 +120,8 @@
 			</label>
 			<g:hiddenField name="setDate" value="${params.setDate }"/>
 			${params.setDate}
-		</div>	
+		</div>
+			
 		<div class="fieldcontain ${hasErrors(bean: params, field: 'setTime', 'error')} ">
 			<label for="setTime">
 				<g:message code="setTime.label" default="Issue/Resolve Time:" />
@@ -140,6 +130,7 @@
 			<g:hiddenField name="setTime" value="${params.setTime_hour}:${ params.setTime_minute}"/>
 			${params.setTime_hour}:${ params.setTime_minute}
 		</div>
+		
 		<div class="fieldcontain ${hasErrors(bean: params, field: 'send', 'error')} ">
 			<label for="Trigger">
 				<g:message code="dateTime.label" default="Trigger" />
@@ -148,8 +139,5 @@
 		</div>
 			
 	</g:form>
-	
-	
-				<g:render template="goback"/>
-		
+	<g:render template="goback"/>
 	</body></html>

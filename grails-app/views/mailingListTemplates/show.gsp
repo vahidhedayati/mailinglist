@@ -28,48 +28,37 @@
 				<g:if test="${mailingListTemplatesInstance?.name}">
 				<li class="fieldcontain">
 					<span id="name-label" class="property-label"><g:message code="mailingListTemplates.name.label" default="Name" /></span>
-					
-						<span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${mailingListTemplatesInstance}" field="name"/></span>
-					
+					<span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${mailingListTemplatesInstance}" field="name"/></span>
 				</li>
 				</g:if>
 			
 				<g:if test="${mailingListTemplatesInstance?.addedby}">
 				<li class="fieldcontain">
 					<span id="addedby-label" class="property-label"><g:message code="mailingListTemplates.addedby.label" default="Addedby" /></span>
-					
-						<span class="property-value" aria-labelledby="addedby-label"><g:fieldValue bean="${mailingListTemplatesInstance}" field="addedby"/></span>
-					
+					<span class="property-value" aria-labelledby="addedby-label"><g:fieldValue bean="${mailingListTemplatesInstance}" field="addedby"/></span>
 				</li>
 				</g:if>
 			
 				<g:if test="${mailingListTemplatesInstance?.content}">
 				<li class="fieldcontain">
 					<span id="content-label" class="property-label"><g:message code="mailingListTemplates.content.label" default="Content" /></span>
-					
-						<span class="property-value" aria-labelledby="content-label"><g:fieldValue bean="${mailingListTemplatesInstance}" field="content"/></span>
-					
+					<span class="property-value" aria-labelledby="content-label"><g:fieldValue bean="${mailingListTemplatesInstance}" field="content"/></span>
 				</li>
 				</g:if>
 			
 				<g:if test="${mailingListTemplatesInstance?.dateCreated}">
 				<li class="fieldcontain">
 					<span id="dateCreated-label" class="property-label"><g:message code="mailingListTemplates.dateCreated.label" default="Date Created" /></span>
-					
-						<span class="property-value" aria-labelledby="dateCreated-label"><g:formatDate date="${mailingListTemplatesInstance?.dateCreated}" /></span>
-					
+					<span class="property-value" aria-labelledby="dateCreated-label"><g:formatDate date="${mailingListTemplatesInstance?.dateCreated}" /></span>
 				</li>
 				</g:if>
 			
 				<g:if test="${mailingListTemplatesInstance?.lastUpdated}">
 				<li class="fieldcontain">
 					<span id="lastUpdated-label" class="property-label"><g:message code="mailingListTemplates.lastUpdated.label" default="Last Updated" /></span>
-					
-						<span class="property-value" aria-labelledby="lastUpdated-label"><g:formatDate date="${mailingListTemplatesInstance?.lastUpdated}" /></span>
-					
+					<span class="property-value" aria-labelledby="lastUpdated-label"><g:formatDate date="${mailingListTemplatesInstance?.lastUpdated}" /></span>
 				</li>
 				</g:if>
-			
 			</ol>
 			<g:form>
 				<fieldset class="buttons">
@@ -79,6 +68,5 @@
 				</fieldset>
 			</g:form>
 		</div>
-
 	</body>
 </html>

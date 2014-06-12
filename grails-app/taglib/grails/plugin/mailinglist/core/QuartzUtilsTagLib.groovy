@@ -26,12 +26,9 @@ class QuartzUtilsTagLib {
 				def deployit= g.createLink(uri:'/quartz/resume?jobName='+fullPath+"."+jobName+'&jobGroup=GRAILS_JOBS')
 				def isrc=g.resource(dir: "images", file: "resume.png")
 				out << """<a  href="${deployit}"><img src="${isrc}" data-tooltip="resume job schedule"/></a>"""
-							
 			}
 		}	
-	
 	} 
-	
 	
 	def jobRunningTime =  { attrs, body ->
 		def jobName = attrs.remove('jobName')?.toString()
@@ -51,5 +48,4 @@ class QuartzUtilsTagLib {
 			out << "<td></td>"
 		}
 	}
-		
 }

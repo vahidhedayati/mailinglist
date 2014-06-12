@@ -1,4 +1,4 @@
-	<g:select id="mailingListTemplates" name="mailingListTemplate" from="${returnResult  ?: grails.plugin.mailinglist.core.TemplatesBase.list()}" optionKey="id" required="" value="${params.mailingListTemplates}" class="many-to-one"
+<g:select id="mailingListTemplates" name="mailingListTemplate" from="${returnResult  ?: grails.plugin.mailinglist.core.TemplatesBase.list()}" optionKey="id" required="" value="${params.mailingListTemplates}" class="many-to-one"
 		noSelection="['': 'Please choose Template']"
 		required=""
 		onchange="${remoteFunction (
@@ -7,4 +7,4 @@
 		params: "'id=' + this.value",
 		update: 'loadMessageBox'
 	)}"
-	/>
+/>

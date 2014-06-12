@@ -9,7 +9,8 @@ class MailingListScheduleController {
 
 	def quartzStatusService
 	Scheduler quartzScheduler
-
+	def exportService
+	def grailsApplication
 	def showmsg() {
 		def record = ScheduleBase.get(params.id)
 		if (record) {
@@ -97,6 +98,13 @@ class MailingListScheduleController {
 
 	def list(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
+		String format=params.extension ?: 'html'
+		if ((format) &&(format != "html")) {
+			response.contentType = grailsApplication.config.grails.mime.types[format]
+			response.setHeader("Content-disposition", "attachment; filename=ScheduleBase." + params.extension)
+			exportService.export(format, response.outputStream,ScheduleBase?.list(), [:], [:])
+		}
+		
 		[mailingListScheduleInstanceList: ScheduleBase.list(params), mailingListScheduleInstanceTotal: ScheduleBase.count()]
 	}
 

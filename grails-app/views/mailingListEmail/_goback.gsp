@@ -1,4 +1,3 @@
-
 <g:form action="contactclients" >
 	<div id="contact-area">
 	<g:hiddenField name="sendType" value="${params.sendType }"/>

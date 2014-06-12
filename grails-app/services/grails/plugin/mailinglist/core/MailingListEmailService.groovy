@@ -8,7 +8,8 @@ class MailingListEmailService {
 	def grailsApplication
 	def mailService
 	def quartzEmailCheckerService
-
+	def messageSource 
+	
 	void SendHMail(toconfig, mycc, mysubject, mybody) {
 		doSendMail toconfig, mycc, mysubject, mybody, true
 	}
@@ -32,13 +33,10 @@ class MailingListEmailService {
 	}
 
 	private void doSendMail(toconfig, mycc, mysubject, mybody, boolean html) {
-
 		List<String> recipients = []
 		String email = calculateAddresses(recipients, toconfig)
-
 		List<String> ccrecipients = []
 		String ccuser = calculateAddresses(recipients, mycc)
-
 		try {
 			mailService.sendMail {
 				if (recipients) {
@@ -71,7 +69,7 @@ class MailingListEmailService {
 			}
 		}
 		catch (e) {
-			log.error "Problem sending email $e.message", e
+			log.error "Problem sending email ${e.message}", e
 		}
 	}
 
@@ -110,7 +108,7 @@ class MailingListEmailService {
 		if (!scheduleid) {
 			scheduleid = paramsMap.scheduleid
 		}
-		log.info "sendEmail Schedule ID: $scheduleid"
+		log.info "sendEmail Schedule ID: ${scheduleid}"
 		String sendtype = paramsMap.sendType
 		if (recipientToGroup) {
 			if (!sendtype) { sendtype='bulk' }
@@ -198,7 +196,6 @@ class MailingListEmailService {
 					if (!recipientToList && recipientToList2) { to recipientToList2 }
 					if (recipientCCList) { cc recipientCCList}
 					if (recipientBCCList) { bcc recipientBCCList}
-					
 					html message
 					currentMap.each { k, v ->
 						inline k, 'image/jpg', new File(System.properties['catalina.base'], "webapps/$v")
@@ -224,7 +221,6 @@ class MailingListEmailService {
 						if (!currentemail) {
 							continue
 						}
-
 						recipientToList = currentemail?.emailAddress
 						log.info "Scheduled Email: Email being sent to: $recipientToList"
 						try {
@@ -312,7 +308,7 @@ class MailingListEmailService {
 		}
 
 		if (!scheduleid) {
-			log.info("Could not Updating status of MailingListSchedule: no ID was found for the schedule")
+			log.info "Could not Updating status of MailingListSchedule: no ID was found for the schedule"
 			return
 		}
 
@@ -353,7 +349,6 @@ class MailingListEmailService {
 				recipients.addAll(config.split(',').collect { it.trim() })
 			}
 		}
-
 		return address
 	}
 	

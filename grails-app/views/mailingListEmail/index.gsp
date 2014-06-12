@@ -6,19 +6,14 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	
 		<meta name="layout" content="main">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mailingList.css')}" type="text/css">
 		<g:set var="entityName" value="${message(code: 'emailaperson.label', default: 'Contact A Person')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
-		
-<ckeditor:resources/>
-
+		<ckeditor:resources/>
 	</head>
 	<body>
-	
-	<g:render template="/mailingList/mainmenu"/>
-
+		<g:render template="/mailingList/mainmenu"/>
 		<div id="create-mailingList" class="content scaffold-create" role="main">
 			<h1><g:message code="default.contactperson.label" args="[entityName]" default='Define Schedule to Email a Person' /></h1>
 			<g:if test="${flash.message}">
@@ -32,53 +27,48 @@
 			</ul>
 			</g:hasErrors>
 
-	<g:form action="scheduleEmail" >
-			<div id="contact-area">
+		<g:form action="scheduleEmail" >
+		<div id="contact-area">
 
-<g:render template="/mailingList/addedby"  model="[caller: 'mailingListScheduleInstance']"/>
-
-		
-	<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'mailFrom', 'error')} required">
-	<label for="manager">
-		<g:message code="manager.label" default="mailFrom" />
-	</label>
-	<g:textField name="mailFrom"   value="${params?.mailFrom }"/>
-	</div>
+			<g:render template="/mailingList/addedby"  model="[caller: 'mailingListScheduleInstance']"/>
+			<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'mailFrom', 'error')} required">
+			<label for="manager">
+				<g:message code="manager.label" default="mailFrom" />
+			</label>
+			<g:textField name="mailFrom"   value="${params?.mailFrom }"/>
+			</div>
 	
 	
-	<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'recipientToList', 'error')} ">
-	<label for="manager">
-		<g:message code="recipientToList.label" default="To:" />
-	</label>
+			<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'recipientToList', 'error')} ">
+			<label for="manager">
+				<g:message code="recipientToList.label" default="To:" />
+			</label>
 			<g:textField name="recipientToList" value="${params?.recipientToList}"/>
-	</div>
+			</div>
 	
-	<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'recipientCCList', 'error')} ">
-	<label for="manager">
-		<g:message code="recipientCCList.label" default="CC:" />
-				
-	</label>
-	<g:textField name="recipientCCList" value="${params?.recipientCCList}"/>
-	</div>
-		<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'recipientBCCList', 'error')}  ">
-	<label for="manager">
-		<g:message code="recipientBCCList.label" default="BCC:" />
+			<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'recipientCCList', 'error')} ">
+			<label for="manager">
+				<g:message code="recipientCCList.label" default="CC:" />
+			</label>
+			<g:textField name="recipientCCList" value="${params?.recipientCCList}"/>
+			</div>
 	
-	</label>
-		<g:textField name="recipientBCCList" value="${params?.recipientBCCList}"/>	
-	</div>	
+			<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'recipientBCCList', 'error')}  ">
+			<label for="manager">
+				<g:message code="recipientBCCList.label" default="BCC:" />
+			</label>
+			<g:textField name="recipientBCCList" value="${params?.recipientBCCList}"/>	
+			</div>	
 		
-	<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'subject', 'error')} required">
-	<label for="manager">
-		<g:message code="manager.label" default="subject" />
-	</label>
-	<g:textField name="subject" value="${params?.subject}" size="50"/>
-	</div>
+			<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'subject', 'error')} required">
+			<label for="manager">
+				<g:message code="manager.label" default="subject" />
+			</label>
+			<g:textField name="subject" value="${params?.subject}" size="50"/>
+			</div>
+		</div>
 	
-	
-	</div>
-	
-<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'attachments', 'error')} ">
+	<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'attachments', 'error')} ">
 	<label for="attachments">
 		<g:message code="mailingListSchedule.attachments.label" default="Attachments" />
 		<br/>
@@ -86,26 +76,22 @@
 		<div id="mailerAttachments" style="display:inline-block;*display:inline;*zoom:1;">
 		<g:render template="/mailingListAttachments/mailerAttachmentsDisplay" />
 	</div>
-</div>
+	</div>
 	
-	
-
-	
-			<div id="contact-area">
+	<div id="contact-area">
 	<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'emailMessage', 'error')} required">
 	<label for="manager">
 		<g:message code="emailMessage.label" default="emailMessage" />
 	</label>
+	<ckeditor:editor name="emailMessage" height="300px" width="100%">
+	${params?.emailMessage}
+	</ckeditor:editor>
+	</div>
 	
-
-
-<ckeditor:editor name="emailMessage" height="300px" width="100%">
-${params?.emailMessage}
-</ckeditor:editor>
-
-
-		
-<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'dateTime', 'error')} required">
+	
+	
+	
+	<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'dateTime', 'error')} required">
 	<label for="manager">
 		<g:message code="dateTime.label" default="dateTime" />
 	</label>
@@ -113,12 +99,10 @@ ${params?.emailMessage}
 	</div>
 
 	<fieldset class="buttons">
-					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-				</fieldset>
+		<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+	</fieldset>
 				
-		</div>		
-			</g:form>
-			</div>
-	
-
+	</div>		
+	</g:form>
+</div>
 </body></html>

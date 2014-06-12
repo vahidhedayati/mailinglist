@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 	<head>
@@ -17,23 +16,18 @@
 			</g:if>
 
 <div class="heading">
-Define category name, browse and Upload A CSV file 
+<g:message code="default.category.name.upload.label" default="Define category name, browse and Upload A CSV file"/>
 </div>			
-
-<p> You can upload two types of CSV files which are your exported outlook contact lists. 
-</p>
-
-<p><b>1> 2 field CSV file</b><br/>
-<b>E-mail Display Name,E-mail Address</b><br>
-The fields must be in the above format and the first line must be a heading since it ignores the first line of the csv file
+<p><g:message code="default.upload.methods.label" default="You can upload two types of CSV files which are your exported outlook contact lists."/></p>
+<p><b><g:message code="default.two.field.csv.label" default="1: 2 field CSV file"/></b><br/>
+<b><g:message code="default.two.field.csv.fields.label" default="E-mail Display Name,E-mail Address"/></b><br>
+<g:message code="default.two.field.csv.fields.details.label" default="The fields must be in the above format and the first line must be a heading since it ignores the first line of the CSV file"/>
 </p>
 <br/><br/>
-
-<p><b>2> 7 field CSV file</b><br/>
-<b>"Title","First Name","Middle Name","Last Name","Categories","E-mail Address","E-mail Display Name" </b><br>
-
-The fields must be in the above format and the first line must be a heading since it ignores the first line of the csv file
-
+<p><b><g:message code="default.seven.field.csv.label" default="2: 7 field CSV file"/></b><br/>
+<b><g:message code="default.seven.field.csv.fields.label" default="'Title','First Name','Middle Name','Last Name','Categories','E-mail Address','E-mail Display Name'"/>
+</b><br>
+<g:message code="default.seven.field.csv.fields.details.label" default="The fields must be in the above format and the first line must be a heading since it ignores the first line of the csv file"/>
 </p>
 
 <g:uploadForm action="upload">
@@ -43,7 +37,6 @@ The fields must be in the above format and the first line must be a heading sinc
 	</label>
 	<input type="text" name="catname">
 	</div>
-	
 	<div class="fieldcontain ${hasErrors(bean: params, field: 'file', 'error')} ">
 	<label for="file">
 		<g:message code="manager.label" default="Choose File" />
@@ -53,8 +46,5 @@ The fields must be in the above format and the first line must be a heading sinc
     <g:submitButton name="upload" value="Upload"/>
 </g:uploadForm>
 </div>
-
-
- 
 </body>
 </html>

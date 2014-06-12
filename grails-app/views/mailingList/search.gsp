@@ -18,7 +18,6 @@
 			<td>${mailingListInstance?.firstName}</td>
 			<td>${mailingListInstance?.lastName}</td>
 			<td><prettytime:display date="${mailingListInstance?.dateCreated}" /></td>
-		
 		</tr>
 	</g:each>
 	</tbody>

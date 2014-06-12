@@ -1,4 +1,3 @@
-
 <head>
 <ckeditor:resources/>
 </head>
@@ -13,17 +12,13 @@
 
 <g:render template="/mailingList/addedby"  model="[caller: 'mailingListTemplatesInstance']"/>
 
-
 <div class="fieldcontain ${hasErrors(bean: mailingListTemplatesInstance, field: 'content', 'error')} ">
 	<label for="content">
 		<g:message code="mailingListTemplates.content.label" default="Content" />	
 	</label>
-	
-<div class=tbutton>
-
-<ckeditor:editor 
-name="content" height="300px" width="100%">
-${mailingListTemplatesInstance?.content}
-</ckeditor:editor>
-</div>
+	<div class=tbutton>
+	<ckeditor:editor name="content" height="300px" width="100%">
+		${mailingListTemplatesInstance?.content}
+	</ckeditor:editor>
+	</div>
 </div>

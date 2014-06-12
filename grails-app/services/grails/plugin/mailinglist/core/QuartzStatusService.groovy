@@ -23,7 +23,7 @@ class QuartzStatusService {
 				quartzScheduler.getTriggersOfJob(jobKey)?.each { trigger ->
 					if (jobName.endsWith(currentController)) {
 						running = true
-						log.info "Scheduled job $jobName running will try next job"
+						log.info "Scheduled job $jobName running will try next job"	
 					}
 				}	
 			}
@@ -42,10 +42,12 @@ class QuartzStatusService {
 			}
 			else {
 				flash.message = "No trigger could be found for $key"
+				//flash.message = "${message(code: 'default.no.trigger.label', default: 'No trigger could be found for $key', args: [message(code: 'ignore.key.label', default: '$key')])}"
 			}
 		}
 		else {
 			flash.message = "No trigger key could be found for $params.triggerGroup : $params.triggerName"
+			//flash.message = "${message(code: 'default.no.trigger.key.label', default: 'No trigger key could be found for $params.triggerGroup : $params.triggerName', args: [message(code: 'ignore.triggerGroup.label', default: '$params.triggerGroup'),message(code: 'ignore.triggerName.label', default: '$params.triggerName')])}"
 		}
 		redirect(action: "list")
 	}
@@ -67,7 +69,7 @@ class QuartzStatusService {
 					}
 				}
 				else {
-					quartzController.createJob(jobGroup, jobName, jobsList)
+					createJob(jobGroup, jobName, jobsList)
 				}
 			}
 		}
@@ -86,12 +88,15 @@ class QuartzStatusService {
 			}
 			else {
 				sb.append("No trigger could be found for ").append(key)
+				//sb.append("${message(code: 'default.no.trigger.for.label', default: 'No trigger could be found for')} ").append(key)
 			}
 		}
 		else {
 			sb.append("No trigger key could be found for ").append(params.triggerGroup).append(" : ").append(params.triggerName)
+			//sb.append("${message(code: 'default.no.trigger.key.for.label', default: 'No trigger key could be found for')} ").append(params.triggerGroup).append(" : ").append(params.triggerName)
 		}
 		sb.append('Schedule cancelled from Quartz Schedule List')
+		//sb.append("${message(code: 'default.schedule.cancelled.label', default: 'Schedule cancelled from Quartz Schedule List')} ")
 		return sb.toString()
 	}
 

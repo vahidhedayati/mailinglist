@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 	<head>
@@ -25,29 +24,19 @@
 			<table>
 				<thead>
 					<tr>
-					
 						<g:sortableColumn property="addedby" title="${message(code: 'mailingListSenders.addedby.label', default: 'Addedby')}" />
-					
 						<g:sortableColumn property="emailAddress" title="${message(code: 'mailingListSenders.emailAddress.label', default: 'Email Address')}" />
-					
 						<g:sortableColumn property="dateCreated" title="${message(code: 'mailingListSenders.dateCreated.label', default: 'Date Created')}" />
-					
 						<g:sortableColumn property="lastUpdated" title="${message(code: 'mailingListSenders.lastUpdated.label', default: 'Last Updated')}" />
-					
 					</tr>
 				</thead>
 				<tbody>
 				<g:each in="${mailingListSendersInstanceList}" status="i" var="mailingListSendersInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
 						<td><g:link action="show" id="${mailingListSendersInstance.id}">${fieldValue(bean: mailingListSendersInstance, field: "addedby")}</g:link></td>
-					
 						<td>${fieldValue(bean: mailingListSendersInstance, field: "emailAddress")}</td>
-					
 						<td><g:formatDate date="${mailingListSendersInstance.dateCreated}" /></td>
-					
 						<td><g:formatDate date="${mailingListSendersInstance.lastUpdated}" /></td>
-					
 					</tr>
 				</g:each>
 				</tbody>
@@ -56,6 +45,5 @@
 				<g:paginate total="${mailingListSendersInstanceTotal}" />
 			</div>
 		</div>
-
 	</body>
 </html>

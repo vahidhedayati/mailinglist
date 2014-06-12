@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 	<head>
@@ -28,39 +27,30 @@
 				<g:if test="${mailingListSendersInstance?.addedby}">
 				<li class="fieldcontain">
 					<span id="addedby-label" class="property-label"><g:message code="mailingListSenders.addedby.label" default="Addedby" /></span>
-					
-						<span class="property-value" aria-labelledby="addedby-label"><g:fieldValue bean="${mailingListSendersInstance}" field="addedby"/></span>
-					
+					<span class="property-value" aria-labelledby="addedby-label"><g:fieldValue bean="${mailingListSendersInstance}" field="addedby"/></span>
 				</li>
 				</g:if>
 			
 				<g:if test="${mailingListSendersInstance?.emailAddress}">
 				<li class="fieldcontain">
 					<span id="emailAddress-label" class="property-label"><g:message code="mailingListSenders.emailAddress.label" default="Email Address" /></span>
-					
-						<span class="property-value" aria-labelledby="emailAddress-label"><g:fieldValue bean="${mailingListSendersInstance}" field="emailAddress"/></span>
-					
+					<span class="property-value" aria-labelledby="emailAddress-label"><g:fieldValue bean="${mailingListSendersInstance}" field="emailAddress"/></span>
 				</li>
 				</g:if>
 			
 				<g:if test="${mailingListSendersInstance?.dateCreated}">
 				<li class="fieldcontain">
 					<span id="dateCreated-label" class="property-label"><g:message code="mailingListSenders.dateCreated.label" default="Date Created" /></span>
-					
-						<span class="property-value" aria-labelledby="dateCreated-label"><g:formatDate date="${mailingListSendersInstance?.dateCreated}" /></span>
-					
+					<span class="property-value" aria-labelledby="dateCreated-label"><g:formatDate date="${mailingListSendersInstance?.dateCreated}" /></span>
 				</li>
 				</g:if>
 			
 				<g:if test="${mailingListSendersInstance?.lastUpdated}">
 				<li class="fieldcontain">
 					<span id="lastUpdated-label" class="property-label"><g:message code="mailingListSenders.lastUpdated.label" default="Last Updated" /></span>
-					
-						<span class="property-value" aria-labelledby="lastUpdated-label"><g:formatDate date="${mailingListSendersInstance?.lastUpdated}" /></span>
-					
+					<span class="property-value" aria-labelledby="lastUpdated-label"><g:formatDate date="${mailingListSendersInstance?.lastUpdated}" /></span>
 				</li>
 				</g:if>
-			
 			</ol>
 			<g:form>
 				<fieldset class="buttons">
@@ -70,6 +60,5 @@
 				</fieldset>
 			</g:form>
 		</div>
-
 	</body>
 </html>

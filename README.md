@@ -1,4 +1,4 @@
-mailinglist 0.15
+mailinglist 0.17
 =======================
 
 
@@ -18,7 +18,7 @@ For a walk through guide on how to install this plugin goto : https://github.com
 ## Installation:
 Add plugin Dependency in BuildConfig.groovy :
 ```groovy
-compile ":mailinglist:0.15"
+compile ":mailinglist:0.17"
 ```
 
 #### BuildConfig.groovylayout/main.gsp update:
@@ -69,6 +69,7 @@ The domains generated in your application extend base domains within plugin, bes
 
 ## Version changes
 ```
+0.17 Tidy up of mailSent view on main menu, added i18n support to most of the calls.
 0.16 latest ckeditor added
 0.15 mailinglist.warn.duplicate and mailinglist.warn.period added, issue with search mailingList fixed. Duplicate email warnings to same contactGroup  set to show on preview screen
 0.14 fixed pagination / export features on mailinglist page.

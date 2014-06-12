@@ -3,7 +3,8 @@ package grails.plugin.mailinglist.core
 import org.springframework.dao.DataIntegrityViolationException
 
 class MailingListTemplatesController {
-
+	def exportService
+	def grailsApplication
 	static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
 	def index() {
@@ -18,6 +19,13 @@ class MailingListTemplatesController {
 
 	def list(Integer max) {
 		params.max = Math.min(max ?: 50, 100)
+		String format=params.extension ?: 'html'
+		if ((format) &&(format != "html")) {
+			response.contentType = grailsApplication.config.grails.mime.types[format]
+			response.setHeader("Content-disposition", "attachment; filename=TemplatesBase." + params.extension)
+			exportService.export(format, response.outputStream,TemplatesBase?.list(), [:], [:])
+		}
+		
 		[mailingListTemplatesInstanceList: TemplatesBase.list(params), mailingListTemplatesInstanceTotal: TemplatesBase.count()]
 	}
 
