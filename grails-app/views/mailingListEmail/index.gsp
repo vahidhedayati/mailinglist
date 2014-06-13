@@ -83,9 +83,11 @@
 	<label for="manager">
 		<g:message code="emailMessage.label" default="emailMessage" />
 	</label>
+	<div id=formmsg>
 	<ckeditor:editor name="emailMessage" height="300px" width="100%">
 	${params?.emailMessage}
 	</ckeditor:editor>
+	</div>
 	</div>
 	
 	
@@ -97,10 +99,12 @@
 	</label>
 	<jqueryPicker:time name="dateTime" value="${curr }" />
 	</div>
-
-	<fieldset class="buttons">
-		<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-	</fieldset>
+	<div class="fieldcontain ${hasErrors(bean: params, field: 'send', 'error')} ">
+		<label for="Trigger">
+			<g:message code="dateTime.label" default="Trigger" />
+		</label>
+		<g:submitButton name="Send Email" id="loginbtn" class="loginbtn" value="${message(code: 'default.button.SendEmail.label', default: 'Send')}" />
+	</div>
 				
 	</div>		
 	</g:form>

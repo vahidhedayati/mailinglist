@@ -1,7 +1,7 @@
 package $pack
 
 import static org.quartz.impl.matchers.GroupMatcher.jobGroupEquals
-
+import org.springframework.context.i18n.LocaleContextHolder as LCH
 import java.text.SimpleDateFormat
 
 import org.quartz.Scheduler
@@ -12,7 +12,7 @@ class QuartzEmailCheckerService {
 	Scheduler quartzScheduler
 	def grailsApplication
 	def quartzStatusService
-
+	def messageSource
 	static final Map<String, Trigger> triggers = [:]
 
 	String requeueEmail(params) {
@@ -25,7 +25,8 @@ class QuartzEmailCheckerService {
 			if (((!isRunning(i))&&(!isStarted))&&(scheduledDate)) {
 				//if (isRunning(i)) { totalRunners++ }
 				try {
-					log.info "Scheduled EMAIL set for \$cdt (\$scheduledDate)"
+					//log.info "Scheduled EMAIL set for \$cdt (\$scheduledDate)"
+					log.info messageSource.getMessage('default.schedule.set.label', ["\${cdt}","\${scheduledDate}"].toArray(), "Scheduled EMAIL set for \$cdt (\$scheduledDate)", LCH.getLocale())
 					sb = new StringBuilder()
 					def paramsMap = [
 						dateTime: cdt,
@@ -46,8 +47,11 @@ class QuartzEmailCheckerService {
 $jobMapping
 				}
 				catch(e) {
-					log.error("ERROR: Cannot parse \$cdt: \$e.message", e)
-					sb.append("Schedule_UNAVAILABLE")
+					//log.error("ERROR: Cannot parse \$cdt: \$e.message", e)
+					//sb.append("Schedule_UNAVAILABLE")
+					log.error messageSource.getMessage('default.error.parse.dateTime.format.label', ["\${cdt}","\${e.message}"].toArray(), "ERROR: Cannot parse \$cdt: \$e.message", LCH.getLocale()), e
+					def msg=messageSource.getMessage('default.no.schedule.label',null, "Schedule_UNAVAILABLE",LCH.getLocale())
+					sb.append(msg)
 				}
 			}
 			//if ((totalRunners==${amount})&&(!isStarted)) {
@@ -68,15 +72,19 @@ $jobMapping
 			if (((!isRunning(i))&&(!isStarted))&&(scheduledDate)) {
 				//if (isRunning(i)) { totalRunners++ }
 				try {
-					log.info "Scheduled EMAIL set for \$cdt (\$scheduledDate)"
+					//log.info "Scheduled EMAIL set for \$cdt (\$scheduledDate)"
+					log.info messageSource.getMessage('default.schedule.set.label', ["\${cdt}","\${scheduledDate}"].toArray(), "Scheduled EMAIL set for \$cdt (\$scheduledDate)", LCH.getLocale())
 					sb = new StringBuilder()
 				
 $queueMapping
 				
 				}
 				catch(e) {
-					log.error("ERROR: Cannot parse \$cdt: \$e.message", e)
-					sb.append("Schedule_UNAVAILABLE")
+					//log.error("ERROR: Cannot parse \$cdt: \$e.message", e)
+					//sb.append("Schedule_UNAVAILABLE")
+					log.error messageSource.getMessage('default.error.parse.dateTime.format.label', ["\${cdt}","\${e.message}"].toArray(), "ERROR: Cannot parse \$cdt: \$e.message", LCH.getLocale()), e
+					def msg=messageSource.getMessage('default.no.schedule.label',null, "Schedule_UNAVAILABLE",LCH.getLocale())
+					sb.append(msg)
 				}
 			}
 			//if ((totalRunners==${amount})&&(!isStarted)) {
@@ -95,7 +103,8 @@ $queueMapping
 		try {
 			new SimpleDateFormat(dFormat).parse(cdt)
 		}catch(Exception pe) {
-			log.error("ERROR: Cannot parse"+cdt)
+			//log.error("ERROR: Cannot parse"+cdt)
+			log.error messageSource.getMessage('default.error.parse.dateTime.format.label', ["\${cdt}","\${pe.message}"].toArray(), "ERROR: Cannot parse \$cdt: \$pe.message", LCH.getLocale()), pe
 		}
 	}
 }

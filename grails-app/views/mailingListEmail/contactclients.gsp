@@ -189,7 +189,7 @@
 		<label for="Trigger">
 			<g:message code="dateTime.label" default="Trigger" />
 		</label>
-		<g:submitButton name="Send Email" id="loginbtn" class="loginbtn" value="${message(code: 'default.button.SendEmail.label', default: 'Preview')}" />
+		<g:submitButton name="Send Email" id="loginbtn" class="loginbtn" value="${message(code: 'default.button.preview.label', default: 'Preview')}" />
 	</div>
 	
 	</div>	

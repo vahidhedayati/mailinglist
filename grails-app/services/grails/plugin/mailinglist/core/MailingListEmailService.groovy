@@ -1,15 +1,15 @@
 package grails.plugin.mailinglist.core
 
 import grails.transaction.Transactional
-
+import org.springframework.context.i18n.LocaleContextHolder as LCH
 @Transactional
 class MailingListEmailService {
 
 	def grailsApplication
 	def mailService
+	def messageSource
 	def quartzEmailCheckerService
-	def messageSource 
-	
+
 	void SendHMail(toconfig, mycc, mysubject, mybody) {
 		doSendMail toconfig, mycc, mysubject, mybody, true
 	}
@@ -69,7 +69,7 @@ class MailingListEmailService {
 			}
 		}
 		catch (e) {
-			log.error "Problem sending email ${e.message}", e
+			log.error messageSource.getMessage('default.issue.sending.email.label', ["${e.message}"].toArray(), "Problem sending email ${e.message}", LCH.getLocale()),e
 		}
 	}
 
@@ -108,7 +108,7 @@ class MailingListEmailService {
 		if (!scheduleid) {
 			scheduleid = paramsMap.scheduleid
 		}
-		log.info "sendEmail Schedule ID: ${scheduleid}"
+		log.info messageSource.getMessage('default.sending.schedule.label', ["${scheduleid}"].toArray(), "sendEmail Schedule ID: ${scheduleid}", LCH.getLocale())
 		String sendtype = paramsMap.sendType
 		if (recipientToGroup) {
 			if (!sendtype) { sendtype='bulk' }
@@ -170,10 +170,10 @@ class MailingListEmailService {
 			}
 			if (primary) {
 				recipientBCCList = primary
-				log.info ("Scheduled Email: Email being sent to Group $recipientToGroup : $recipientBCCList")
+				log.info messageSource.getMessage('default.sending.schedule.to.group.label', ["${recipientToGroup}","${recipientBCCList}"].toArray(), "Scheduled Email: Email being sent to Group ${recipientToGroup} : ${recipientBCCList}", LCH.getLocale())
 			}
 			else {
-				log.info ("Scheduled Email: Email being sent to Person: $recipientToList")
+				log.info messageSource.getMessage('default.sending.schedule.to.person.label', ["${recipientToList}"].toArray(), "Scheduled Email: Email being sent to Person: ${recipientToList}", LCH.getLocale())
 			}
 			try {
 				boolean mp = false
@@ -211,7 +211,7 @@ class MailingListEmailService {
 				}
 			}
 			catch (e) {
-				log.error("Exception in sending mail: $e.message", e)
+				log.error messageSource.getMessage('default.issue.sending.email.label', ["${e.message}"].toArray(), "Problem sending email ${e.message}", LCH.getLocale()),e
 			}
 		}
 		else {
@@ -222,7 +222,7 @@ class MailingListEmailService {
 							continue
 						}
 						recipientToList = currentemail?.emailAddress
-						log.info "Scheduled Email: Email being sent to: $recipientToList"
+						log.info messageSource.getMessage('default.sending.schedule.to.person.label', ["${recipientToList}"].toArray(), "Scheduled Email: Email being sent to Person: ${recipientToList}", LCH.getLocale())
 						try {
 							boolean mp = false
 							mailService.sendMail {
@@ -259,13 +259,13 @@ class MailingListEmailService {
 							}
 						}
 						catch (e) {
-							log.error("Exception in sending mail: e.message", e)
+							log.error messageSource.getMessage('default.issue.sending.email.label', ["${e.message}"].toArray(), "Problem sending email ${e.message}", LCH.getLocale()),e
 						}
 					}
 				}
 			}
 			else {
-				log.info ("Scheduled Email: Email being sent to: $recipientToList")
+				log.info messageSource.getMessage('default.sending.schedule.to.person.label', ["${recipientToList}"].toArray(), "Scheduled Email: Email being sent to Person: ${recipientToList}", LCH.getLocale())
 				try {
 					boolean mp = false
 					mailService.sendMail {
@@ -302,17 +302,16 @@ class MailingListEmailService {
 					}
 				}
 				catch (e) {
-					log.error "Exception in sending mail: $e.message"
+					log.error messageSource.getMessage('default.issue.sending.email.label', ["${e.message}"].toArray(), "Problem sending email ${e.message}", LCH.getLocale()),e
 				}
 			}
 		}
 
 		if (!scheduleid) {
-			log.info "Could not Updating status of MailingListSchedule: no ID was found for the schedule"
+			log.info messageSource.getMessage('default.error.saving.schedule.id.label', null, "Could not Updating status of MailingListSchedule: no ID was found for the schedule", LCH.getLocale())
 			return
 		}
-
-		log.info("Updating ScheduleID $scheduleid setting scheduleComplete as true")
+		log.info messageSource.getMessage('default.saved.schedule.id.label', ["${scheduleid}"].toArray(), "Updating ScheduleID ${scheduleid} setting scheduleComplete as true", LCH.getLocale())
 		ScheduleBase foundit = ScheduleBase.get(scheduleid)
 		//ScheduleBase foundit= ScheduleBase.findById(scheduleid, [lock: true])
 		if (foundit) {
@@ -324,7 +323,7 @@ class MailingListEmailService {
 	}
 
 	def rescheduleit(params) {
-		log.info("Schedule [ rescheduleit ]  Email Parameters: $params")
+		log.info messageSource.getMessage('default.schedule.rescheduled.label', ["${params}"].toArray(), "Schedule [ rescheduleit ]  Email Parameters: ${params}", LCH.getLocale())
 		def result = quartzEmailCheckerService.requeueEmail(params)
 		ScheduleBase.get(params.id)?.each { gg->
 			gg.scheduleName = result

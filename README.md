@@ -1,4 +1,4 @@
-mailinglist 0.17
+mailinglist 0.18
 =======================
 
 
@@ -18,7 +18,7 @@ For a walk through guide on how to install this plugin goto : https://github.com
 ## Installation:
 Add plugin Dependency in BuildConfig.groovy :
 ```groovy
-compile ":mailinglist:0.17"
+compile ":mailinglist:0.18"
 ```
 
 #### BuildConfig.groovylayout/main.gsp update:
@@ -64,11 +64,17 @@ Services 	under org.example.com
 			It will update QuartzEmailCheckerService to only schedule physical jobs ScheduleEmail[0-4]Job
 ```
 
+
 The domains generated in your application extend base domains within plugin, besides this the rest of the controllers etc are pushed to your own application for you to do what you like with it.
 
 
+#### i18n support
+
+From 1.17 you can configure your i18n/messages_{locale}.properties to include translations for terms used within this plugin, to get the latest running terms for translation please refer to the [wiki](https://github.com/vahidhedayati/mailinglist/wiki/i18n-terms---support)
+
 ## Version changes
 ```
+0.18 i18n support added to services - further tidy up of contact a person page.
 0.17 Tidy up of mailSent view on main menu, added i18n support to most of the calls.
 0.16 latest ckeditor added
 0.15 mailinglist.warn.duplicate and mailinglist.warn.period added, issue with search mailingList fixed. Duplicate email warnings to same contactGroup  set to show on preview screen

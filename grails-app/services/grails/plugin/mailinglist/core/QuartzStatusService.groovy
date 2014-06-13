@@ -1,17 +1,17 @@
 package grails.plugin.mailinglist.core
 
 import static org.quartz.impl.matchers.GroupMatcher.jobGroupEquals
-
 import grails.plugins.quartz.QuartzMonitorJobFactory
 
 import org.quartz.Scheduler
 import org.quartz.Trigger
 import org.quartz.impl.matchers.GroupMatcher
+import org.springframework.context.i18n.LocaleContextHolder as LCH
+import org.codehaus.groovy.grails.web.util.WebUtils
 
 class QuartzStatusService {
-
 	Scheduler quartzScheduler
-	//def grailsApplication
+	def messageSource
 	static final Map<String, Trigger> triggers = [:]
 	boolean getQuartzStatus(String s) {
 		boolean running = false
@@ -23,7 +23,7 @@ class QuartzStatusService {
 				quartzScheduler.getTriggersOfJob(jobKey)?.each { trigger ->
 					if (jobName.endsWith(currentController)) {
 						running = true
-						log.info "Scheduled job $jobName running will try next job"	
+						log.info messageSource.getMessage('default.schedule.booked.label', ["${jobName}"].toArray(), "Scheduled job ${jobName} running will try next job", LCH.getLocale())
 					}
 				}	
 			}
@@ -32,6 +32,10 @@ class QuartzStatusService {
 	}
 
 	def stop() {
+		def webUtils = WebUtils.retrieveGrailsWebRequest()
+		def currentrequest=webUtils.getCurrentRequest()
+		//def currentresponse=webUtils.getCurrentResponse()
+		//def currentcontext=webUtils.getServletContext()
 		def triggerKeys = quartzScheduler.getTriggerKeys(GroupMatcher.triggerGroupEquals(params.triggerGroup))
 		def key = triggerKeys?.find { it.name == params.triggerName }
 		if (key) {
@@ -41,13 +45,13 @@ class QuartzStatusService {
 				quartzScheduler.unscheduleJob(key)
 			}
 			else {
-				flash.message = "No trigger could be found for $key"
-				//flash.message = "${message(code: 'default.no.trigger.label', default: 'No trigger could be found for $key', args: [message(code: 'ignore.key.label', default: '$key')])}"
+				//flash.message = "No trigger could be found for $key"
+				flash.message=messageSource.getMessage('default.no.trigger.found.label', ["${key}"].toArray(), "No trigger could be found for ${key}", currentrequest.getLocale())
 			}
 		}
 		else {
-			flash.message = "No trigger key could be found for $params.triggerGroup : $params.triggerName"
-			//flash.message = "${message(code: 'default.no.trigger.key.label', default: 'No trigger key could be found for $params.triggerGroup : $params.triggerName', args: [message(code: 'ignore.triggerGroup.label', default: '$params.triggerGroup'),message(code: 'ignore.triggerName.label', default: '$params.triggerName')])}"
+			//flash.message = "No trigger key could be found for $params.triggerGroup : $params.triggerName"
+			flash.message=messageSource.getMessage('default.no.trigger.found.label', ["${params.triggerGroup}", "${params.triggerName}"].toArray(), "No trigger key could be found for ${params.triggerGroup} : ${params.triggerName}", currentrequest.getLocale())
 		}
 		redirect(action: "list")
 	}
@@ -77,6 +81,8 @@ class QuartzStatusService {
 	}
 
 	def stop(params) {
+		def webUtils = WebUtils.retrieveGrailsWebRequest()
+		def currentrequest=webUtils.getCurrentRequest()
 		StringBuilder sb = new StringBuilder()
 		def triggerKeys = quartzScheduler.getTriggerKeys(GroupMatcher.triggerGroupEquals(params.triggerGroup))
 		def key = triggerKeys?.find {it.name == params.triggerName}
@@ -87,16 +93,19 @@ class QuartzStatusService {
 				quartzScheduler.unscheduleJob(key)
 			}
 			else {
-				sb.append("No trigger could be found for ").append(key)
-				//sb.append("${message(code: 'default.no.trigger.for.label', default: 'No trigger could be found for')} ").append(key)
+				//sb.append("No trigger could be found for ").append(key)
+				def msg=messageSource.getMessage('default.no.trigger.for.label', null, "No trigger could be found for ", currentrequest.getLocale())
+				sb.append(msg).append(key)
 			}
 		}
 		else {
-			sb.append("No trigger key could be found for ").append(params.triggerGroup).append(" : ").append(params.triggerName)
-			//sb.append("${message(code: 'default.no.trigger.key.for.label', default: 'No trigger key could be found for')} ").append(params.triggerGroup).append(" : ").append(params.triggerName)
+			//sb.append("No trigger key could be found for ").append(params.triggerGroup).append(" : ").append(params.triggerName)
+			def msg=messageSource.getMessage('default.no.trigger.for.label', null, "No trigger could be found for ", currentrequest.getLocale())
+			sb.append(msg).append(params.triggerGroup).append(" : ").append(params.triggerName)
 		}
-		sb.append('Schedule cancelled from Quartz Schedule List')
-		//sb.append("${message(code: 'default.schedule.cancelled.label', default: 'Schedule cancelled from Quartz Schedule List')} ")
+		//sb.append('Schedule cancelled from Quartz Schedule List')
+		def msg=messageSource.getMessage('default.schedule.cancelled.label', null, "Schedule cancelled from Quartz Schedule List' ", currentrequest.getLocale())
+		sb.append(msg)
 		return sb.toString()
 	}
 
