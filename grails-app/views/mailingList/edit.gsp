@@ -7,15 +7,14 @@
 		<title><g:message code="default.edit.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<a href="#edit-mailingList" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default=""/></a>
-		<div id="nav3" class="nav3" role="navigation">
-			<ul id="nav">
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-					</ul>
-		</div>
-
+	<div class="envtabs  navbar">
+		<g:render template="/mainmenu"  />
+		 <ul class="nav-pills pull-right">
+				<li class="btn btn-default"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+				<li class="btn btn-default"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
+		</ul>
+	</div>	
+		
 		<div id="edit-mailingList" class="content scaffold-edit" role="main">
 			<h1><g:message code="default.edit.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">

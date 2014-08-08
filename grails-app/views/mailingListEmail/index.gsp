@@ -13,7 +13,10 @@
 		<ckeditor:resources/>
 	</head>
 	<body>
-		<g:render template="/mailingList/mainmenu"/>
+	<div class="envtabs  navbar">
+		<g:render template="/mainmenu"  />
+		 
+	</div>	
 		<div id="create-mailingList" class="content scaffold-create" role="main">
 			<h1><g:message code="default.contactperson.label" args="[entityName]" default='Define Schedule to Email a Person' /></h1>
 			<g:if test="${flash.message}">

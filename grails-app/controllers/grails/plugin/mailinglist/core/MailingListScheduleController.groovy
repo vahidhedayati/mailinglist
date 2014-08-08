@@ -46,6 +46,10 @@ class MailingListScheduleController {
 				foundHistory = ScheduleBase.findAllByScheduleCancelled(true, paginationParams)
 				total = ScheduleBase.countByScheduleCancelled(true)
 				break
+			case 'all':
+				foundHistory = ScheduleBase.findAll()
+				total = ScheduleBase.count()
+				break			
 			default:
 				s = 'oa'
 				foundHistory = ScheduleBase.findAllByScheduleCompleteAndScheduleCancelled(false, false, paginationParams)

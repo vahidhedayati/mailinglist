@@ -7,8 +7,10 @@
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<a href="#create-mailingListTemplates" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default=""/></a>
-		<g:render template="/mailingList/mainmenu" />
+			<div class="envtabs  navbar">
+		<g:render template="/mainmenu"  />
+		
+	</div>	
 		<div id="create-mailingListTemplates" class="content scaffold-create" role="main">
 			<h1><g:message code="default.create.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">

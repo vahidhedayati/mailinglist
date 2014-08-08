@@ -19,7 +19,11 @@
 	</head>
 	<body >
 	<div id="MailingListScheduleContent">
-		<g:render template="/mailingList/mainmenu" /> 
+	
+		<div class="envtabs  navbar">
+		<g:render template="/mainmenu" /> 
+		</div>
+		<div class="clear:both;"></div>	
 	        <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
@@ -38,7 +42,7 @@
   				<li><g:select   class="top_form1"  name="sortby" from="${['lastUpdated', 'mailFrom','recipientToGroup','recipientToList','recipientBCCList','recipientCCList','subject','mailingListTemplate','dateTime','setDate','setTime','addedby']}"   value="${sortby}" onchange="${remoteFunction(action:'br', params:'\'id='+inputid+'\'+\'&envid='+envid+'\'+\'&sortby=\' + escape(this.value) +\'&s='+s+'\'+\'&pageSizes='+pageSizes+'\'+\'&max='+params.max+'\'+\'&offset='+offset+'\'+\'&order='+order+'\'+\'&viewtype=na\'',update : 'siteContent')}"/> </li>
 				
 				<li><g:select   class="top_form1" name="order" from="${['asc', 'desc']}"  value="${order}" onchange="${remoteFunction(action:'br', params:'\'id='+inputid+'\'+\'&order=\' + escape(this.value) +\'&s='+s+'\'+\'&pageSizes='+pageSizes+'\'+\'&max='+params.max+'\'+\'&envid='+envid+'\'+\'&offset='+offset+'\'+\'&sortby='+sortby+'\'+\'&viewtype=na\'',update : 'siteContent')}"/></li>
-				<li><g:select   class="top_form1" name="s" from="${['oa':'Outstanding Schedule', 'od': 'Schedule Completed', 'oc': 'Schedule Cancelled']}"  optionKey="key" optionValue="value" value="${s}" onchange="${remoteFunction(action:'br', params:'\'id='+inputid+'\'+\'&s=\' + escape(this.value) +\'&order='+order+'\'+\'&pageSizes='+pageSizes+'\'+\'&max='+params.max+'\'+\'&envid='+envid+'\'+\'&offset='+offset+'\'+\'&sortby='+sortby+'\'+\'&viewtype=na\'',update : 'siteContent')}"/></li>
+				<li><g:select   class="top_form1" name="s" from="${['all': 'All Schedules', 'oa':'Outstanding Schedule', 'od': 'Schedule Completed', 'oc': 'Schedule Cancelled']}"  optionKey="key" optionValue="value" value="${s}" onchange="${remoteFunction(action:'br', params:'\'id='+inputid+'\'+\'&s=\' + escape(this.value) +\'&order='+order+'\'+\'&pageSizes='+pageSizes+'\'+\'&max='+params.max+'\'+\'&envid='+envid+'\'+\'&offset='+offset+'\'+\'&sortby='+sortby+'\'+\'&viewtype=na\'',update : 'siteContent')}"/></li>
 			</ul>
 		</div>
 		<div class=clearall></div>

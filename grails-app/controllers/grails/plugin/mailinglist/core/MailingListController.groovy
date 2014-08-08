@@ -43,7 +43,7 @@ class MailingListController {
 	def list(Integer max, String s) {
 		
 		String format=params.extension ?: 'html'
-		params.max = Math.min(params.int('max') ?: 50, 100)
+		params.max = Math.min(params.int('max') ?: 50, 1000)
 		params.order = params.order ?: 'desc'
 		//params.offset = params.offset ?: '0'
 		def foundRec
@@ -79,7 +79,7 @@ class MailingListController {
 			response.setHeader("Content-disposition", "attachment; filename=MailingListBase." + params.extension)
 			exportService.export(format, response.outputStream,foundRec, fields, labels, [:], [:])
 		}
-		def model = [mailingListInstanceList: foundRec, mailingListInstanceTotal: total, divupdate: 'mailingListContent', pageSizes: pageSizes, offset: offset,inputid: inputid, s: s, order: order, sortby:sortby, action: 'list', allcat:allcat, max:max]
+		def model = [mailingListInstanceList: foundRec, mailingListInstanceTotal: total, divupdate: 'mailingListContent', pageSizes: pageSizes, offset: offset,inputid: inputid, s: s, order: order, sortby:sortby, action: 'list', allcat:allcat, max:max, params:params]
 		if (request.xhr) {
 			render (template: 'listing', model: model)
 		}

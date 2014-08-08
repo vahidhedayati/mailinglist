@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 	<head>
@@ -8,15 +7,13 @@
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<a href="#show-mailingListTemplates" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default=""/></a>
-		<g:render template="/mailingList/mainmenu" />
-		<div id="nav3" class="nav3" role="navigation">
-			<ul id="nav">
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>		
-			</ul>
-		</div>
+			<div class="envtabs  navbar">
+		<g:render template="/mainmenu"  />
+		 <ul class="nav-pills pull-right">
+				<li class="btn btn-default"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+				<li class="btn btn-default"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
+		</ul>
+	</div>	
 
 		<div id="show-mailingListTemplates" class="content scaffold-show" role="main">
 			<h1><g:message code="default.show.label" args="[entityName]" /></h1>
@@ -42,7 +39,11 @@
 				<g:if test="${mailingListTemplatesInstance?.content}">
 				<li class="fieldcontain">
 					<span id="content-label" class="property-label"><g:message code="mailingListTemplates.content.label" default="Content" /></span>
-					<span class="property-value" aria-labelledby="content-label"><g:fieldValue bean="${mailingListTemplatesInstance}" field="content"/></span>
+					<span class="property-value" aria-labelledby="content-label">
+					
+					${mailingListTemplatesInstance?.content.encodeAsRaw() }
+					
+					</span>
 				</li>
 				</g:if>
 			

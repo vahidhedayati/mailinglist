@@ -7,15 +7,14 @@
 		<title><g:message code="default.admin.menu.label" args="[entityName]" default="Welcome to ${entityName}" /></title>
 	</head>
 	<body>
-		<g:render template="/mailingList/mainmenu" />
+		<g:render template="/mainmenu" />
 		<div class=clearall></div>
-		<div id="the_box" role="complementary">
+		<div id="the_box1" role="complementary">
 			<ul><li><div class="internalbtn">		
 			<div id="scheduler-logo"><div class=app-detail><h4><g:message code="default.schedule.title.label" default="Schedule Email"/></h4></div></div>
-			<div class="internalbtn"><g:link controller="mailingListEmail" class="list" action="index"><g:message code="default.email.person.label" default="Email a person" /></g:link></div>
-			<div class="internalbtn"><g:link controller="mailingListEmail" class="list" action="contactclients"><g:message code="default.email.group.label" default="Contact Clients"  /></g:link></div>
-			<div class="internalbtn"><g:link controller="MailingListSchedule" class="list" action="br" params="${[s:'oa',viewtype:'na']}"><g:message code="default.incomplete.label" default="Incomplete" args="[entityName]" /></g:link></div>
-			<div class="internalbtn"><g:link controller="MailingListSchedule" class="list" action="br" params="${[s:'od',viewtype:'na']}"><g:message code="default.completed.label" default="Completed" args="[entityName]" /></g:link></div>
+			<div class="internalbtn"><g:link controller="mailingListEmail" class="list" action="index"><g:message code="default.email.person.label" default="Contact Person" /></g:link></div>
+			<div class="internalbtn"><g:link controller="mailingListEmail" class="list" action="contactclients"><g:message code="default.email.group.label" default="Contact Group"  /></g:link></div>
+			<div class="internalbtn"><g:link controller="MailingListSchedule" class="list" action="br" params="${[s:'oa',viewtype:'na']}"><g:message code="default.schedule.label" default="Schedule Logs" args="[entityName]" /></g:link></div>
 			<div id="templates-logo"><div class=app-detail><h4><g:message code="default.templates.title.label" default="Templates"/></h4></div></div>
 			<div class="internalbtn"><g:link controller="MailingListTemplates" class="create" action="create"><g:message code="default.create.template.label" default="Create Email Template" /></g:link></div>
 			<div class="internalbtn"><g:link controller="MailingListTemplates" class="create" action="loadtemplate"><g:message  code="default.create.from.existing.template.label" default="Create From existing Template" /></g:link></div>
@@ -27,7 +26,7 @@
 			</div></li></ul>
 		</div>
 				
-		<div id="the_box" role="complementary">
+		<div id="the_box1" role="complementary">
 		<ul><li><div class="internalbtn">		
 		<div id="mailinglistcat-logo"><div class=app-detail><h4><g:message code="default.categories.title.label" default="Categories (Binds to Email Address)"/></h4></div></div>
 			<div class="internalbtn"><g:link controller="MailingListCategories" class="create" action="create"><g:message code="default.create.category.label" default="Create Category" /></g:link></div>
@@ -45,7 +44,7 @@
 			<div class="internalbtn"><g:link controller="MailingList" class="list" action="list"><g:message code="default.list.email.label" default="List Emails"/></g:link></div>
 		</div></li></ul>
 		
-		<div id="sentResults" class="the_box">
+		<div id="the_box1" class="the_box" role="complementary">
 		<g:if test="${scheduleCompleted}">
 		<div id="returnPanel" class="resultsPane">
 			<g:render template="/mailingList/scheduleCompleted" model="[sc:scheduleCompleted, total: total]"></g:render>

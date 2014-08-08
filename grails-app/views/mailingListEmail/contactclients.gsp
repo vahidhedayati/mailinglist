@@ -13,8 +13,10 @@
 		<ckeditor:resources/>
 	</head>
 	<body>
-	<g:render template="/mailingList/mainmenu"/>
-	<div class="clearall"></div>
+	<div class="envtabs  navbar">
+		<g:render template="/mainmenu"  />
+		 
+	</div>	
 	<g:hasErrors bean="${mailingListScheduleInstance}">
 		<ul class="errors" role="alert">
 			<g:eachError bean="${mailingListScheduleInstance}" var="error">

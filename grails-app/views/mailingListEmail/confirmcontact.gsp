@@ -13,11 +13,10 @@
 		<ckeditor:resources/>
 	</head>
 	<body>
-	<div  class="nav" role="navigation">
-	<ul>
-		<li><a class="home" href="${createLink(uri: '/MailingList/index')}">Schedule Announcement</a></li>			
-	</ul>
-	</div>
+	<div class="envtabs  navbar">
+		<g:render template="/mainmenu"  />
+		 
+	</div>	
 	<g:if test="${warnResend }">
 	<div class="errors"><h3>${warnResend }</h3></div>
 	</g:if>
@@ -33,7 +32,7 @@
 		<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 		</g:if>	
-		<g:render template="goback"/>
+
 		<g:form action="scheduleEmail" >
 		<div id="contact-area">
 		<div class="fieldcontain ${hasErrors(bean: params, field: 'sendType', 'error')} ">
@@ -131,13 +130,16 @@
 			${params.setTime_hour}:${ params.setTime_minute}
 		</div>
 		
-		<div class="fieldcontain ${hasErrors(bean: params, field: 'send', 'error')} ">
-			<label for="Trigger">
-				<g:message code="dateTime.label" default="Trigger" />
-			</label>
-			<g:submitButton name="Confirmed Send it now" id="loginbtn" class="loginbtn" value="${message(code: 'default.button.SendEmail.label', default: 'Confirmed Send Email')}" />
-		</div>
+		
+			<div class="btn btn-block">
+			 <button class="btn btn-success btn-lg"  onclick="javascript:window.history.back();">Back</button>
 			
+			<g:submitButton name="Confirmed Send it now"   class="btn btn-danger btn-lg" value="${message(code: 'default.button.SendEmail.label', default: 'Send Email')}" />
+			</div>
+		
+
+
 	</g:form>
-	<g:render template="goback"/>
+	
+	
 	</body></html>
