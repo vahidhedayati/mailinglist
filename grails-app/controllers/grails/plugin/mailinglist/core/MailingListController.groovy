@@ -43,7 +43,7 @@ class MailingListController {
 	def list(Integer max, String s) {
 		
 		String format=params.extension ?: 'html'
-		params.max = Math.min(params.int('max') ?: 50, 1000)
+		params.max = Math.min(params.int('max') ?: 50, 100000)
 		params.order = params.order ?: 'desc'
 		//params.offset = params.offset ?: '0'
 		def foundRec

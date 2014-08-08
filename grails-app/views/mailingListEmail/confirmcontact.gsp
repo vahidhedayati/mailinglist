@@ -130,16 +130,17 @@
 			${params.setTime_hour}:${ params.setTime_minute}
 		</div>
 		
-		
-			<div class="btn btn-block">
-			 <button class="btn btn-success btn-lg"  onclick="javascript:window.history.back();">Back</button>
-			
-			<g:submitButton name="Confirmed Send it now"   class="btn btn-danger btn-lg" value="${message(code: 'default.button.SendEmail.label', default: 'Send Email')}" />
-			</div>
-		
+		<div class="fieldcontain ${hasErrors(bean: params, field: 'send', 'error')} ">
+			<label for="Trigger">
+				<g:message code="dateTime.label" default="Trigger" />
+			</label>
+			<g:submitButton name="Confirmed Send it now"  class="btn btn-success btn-lg" value="${message(code: 'default.button.SendEmail.label', default: 'Send Email')}" />
+		</div>
 
 
 	</g:form>
+	
+<g:render template="goback"/>
 	
 	
 	</body></html>

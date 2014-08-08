@@ -24,7 +24,7 @@
 					<tr>
 						<g:sortableColumn property="name" title="${message(code: 'mailingListTemplates.name.label', default: 'Name')}" />
 						<g:sortableColumn property="addedby" title="${message(code: 'mailingListTemplates.addedby.label', default: 'Addedby')}" />
-						<g:sortableColumn property="content" title="${message(code: 'mailingListTemplates.content.label', default: 'Content')}" />
+
 						<g:sortableColumn property="dateCreated" title="${message(code: 'mailingListTemplates.dateCreated.label', default: 'Date Created')}" />
 						<g:sortableColumn property="lastUpdated" title="${message(code: 'mailingListTemplates.lastUpdated.label', default: 'Last Updated')}" />
 					</tr>
@@ -46,7 +46,6 @@
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 						<td><g:link action="show" id="${mailingListTemplatesInstance.id}">${fieldValue(bean: mailingListTemplatesInstance, field: "name")}</g:link></td>
 						<td>${fieldValue(bean: mailingListTemplatesInstance, field: "addedby")}</td>
-						<td>${mailingListTemplatesInstance?.content.encodeAsRaw() }</td>
 						
 						<td><g:formatDate date="${mailingListTemplatesInstance.dateCreated}" /></td>
 						<td><g:formatDate date="${mailingListTemplatesInstance.lastUpdated}" /></td>

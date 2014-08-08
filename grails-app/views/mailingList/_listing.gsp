@@ -46,6 +46,6 @@
 </div>
 		
 	<div class="pagination">                           
- 		<util:remotePaginate controller="MailingList" action="list" params="[max: params?.max,  pageSizes:pageSizes, sortby:sortby, offset:offset]" total="${mailingListInstanceTotal}" update="${divupdate}"   max="${params?.max}" pageSizes="[10:'10 Per Page', 20: '20 Per Page', 50:'50 Per Page',100:'100 Per Page',250:'250 Per Page',500:'500 Per Page',1000:'1000 Per Page']" /> 
+ 		<util:remotePaginate controller="MailingList" action="list" params="[max: params?.max,  pageSizes:pageSizes, sortby:sortby, offset:offset]" total="${mailingListInstanceTotal}" update="${divupdate}"   max="${params?.max}" pageSizes="[10:'10 Per Page', 20: '20 Per Page', 50:'50 Per Page',100:'100 Per Page',250:'250 Per Page',500:'500 Per Page',1000:'1000 Per Page', 5000:'5000 Per Page', 10000:'10000 Per Page', 100000:'100000 Per Page']" /> 
 
 	</div>
