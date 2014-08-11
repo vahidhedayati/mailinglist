@@ -2,6 +2,7 @@
 	<thead>
 		<tr>
 			<g:sortableColumn property="id" title="${message(code: 'links.id.label', default: 'ID')}" />
+			<g:sortableColumn property="mailFrom" title="${message(code: 'links.sender.label', default: 'Sender')}" />
 			<g:sortableColumn property="mailFrom" title="${message(code: 'links.mailFrom.label', default: 'From')}" />
 			<g:sortableColumn property="recipientToList" title="${message(code: 'links.recipientToList.label', default: 'To')}" />
 			<g:sortableColumn property="subject" title="${message(code: 'links.subject.label', default: 'subject')}" />
@@ -20,6 +21,7 @@
 	<g:each in="${deploymentInfoHistoryInstanceList}" status="i" var="deployInstance">
 		<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 		<td>${fieldValue(bean: deployInstance, field: "id")}</td>
+		<td>${fieldValue(bean: deployInstance, field: "addedby")}</td>
 		<td>${fieldValue(bean: deployInstance, field: "mailFrom")}</td>
 			<td>
 			<mailinglist:loadPopUp id="${deployInstance?.recipientToGroup }" 
@@ -51,8 +53,7 @@
 			retValue="id"
 			action="showmsg" 
 			/>
-		</td>
-		<td>	
+		
 			<g:if test="${deployInstance.scheduleName}">
 				<quartzutils:find jobName="${deployInstance.scheduleName}" />
 			</g:if>
@@ -63,13 +64,19 @@
 		<td>${fieldValue(bean: deployInstance, field: "sendType")}</td>
 		<td>${deployInstance.scheduleCancelled.toString()}</td>
 		<td>${deployInstance.scheduleComplete.toString()}</td>
+		
+		
 		<td><button id=boxbtn><prettytime:display date="${deployInstance.dateCreated}" /></button></td>
+		
+		
+		
 		<g:if test="${deployInstance.scheduleName}">
                      <quartzutils:jobRunningTime jobName="${deployInstance.scheduleName}" />
                  </g:if>
                  <g:else>
 			<td></td>
 		</g:else>
+
 		<td>
 		<g:if test="${deployInstance.scheduleCancelled.toString().equals('false') && deployInstance.scheduleComplete.toString().equals('false')  }">
 		<g:link controller="MailingListSchedule"  action="modSchedule" id="${deployInstance.id}" params="${[calltype:'cancel', jobName:deployInstance.scheduleName ]}" >

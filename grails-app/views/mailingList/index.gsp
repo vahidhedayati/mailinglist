@@ -2,7 +2,6 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mailingList.css')}" type="text/css">
 		<g:set var="entityName" value="${message(code: 'mailingList.label', default: 'MailingList')}" />
 		<title><g:message code="default.admin.menu.label" args="[entityName]" default="Welcome to ${entityName}" /></title>
 	</head>

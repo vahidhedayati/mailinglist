@@ -78,6 +78,7 @@
 
 #the_box {
 	z-index: 0;
+	padding-right: 5px;
 }
 
 #the_box ul {

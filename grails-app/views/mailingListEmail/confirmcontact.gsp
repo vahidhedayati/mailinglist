@@ -7,7 +7,6 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mailingList.css')}" type="text/css">
 		<g:set var="entityName" value="${message(code: 'ContactClients.label', default: 'Contact Clients')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 		<ckeditor:resources/>
@@ -130,17 +129,14 @@
 			${params.setTime_hour}:${ params.setTime_minute}
 		</div>
 		
-		<div class="fieldcontain ${hasErrors(bean: params, field: 'send', 'error')} ">
-			<label for="Trigger">
-				<g:message code="dateTime.label" default="Trigger" />
-			</label>
-			<g:submitButton name="Confirmed Send it now"  class="btn btn-success btn-lg" value="${message(code: 'default.button.SendEmail.label', default: 'Send Email')}" />
-		</div>
+	<div class="whitefont">
+			<g:submitButton name="Confirmed Send it now"  class="btn btn-danger btn-lg  nav-pills pull-right" value="${message(code: 'default.button.SendEmail.label', default: 'Send Email')}" />
+	</div>
 
 
 	</g:form>
 	
+	<div class="whitefont" style="position: absolute; margin-top: -40px; margin-left: 100px;" >
 <g:render template="goback"/>
-	
-	
+	</div>
 	</body></html>

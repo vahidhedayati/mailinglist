@@ -25,6 +25,6 @@
 	<g:hiddenField name="emailMessage1" value="${params.emailMessage}"/>
 	
 
-	<g:submitButton name="EDIT MESSAGE"  class="btn btn-success btn-lg" value="${message(code: 'default.button.EDIT.label', default: 'EDIT EMAIL')}" />
+	<g:submitButton name="EDIT MESSAGE"  class="btn btn-success btn-lg  nav-pills pull-left"  value="${message(code: 'default.button.EDIT.label', default: 'EDIT EMAIL')}" />
 	</div>
 </g:form>

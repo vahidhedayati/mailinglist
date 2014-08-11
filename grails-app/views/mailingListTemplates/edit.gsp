@@ -2,7 +2,6 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mailingList.css')}" type="text/css">
 		<g:set var="entityName" value="${message(code: 'mailingListTemplates.label', default: 'MailingListTemplates')}" />
 		<title><g:message code="default.edit.label" args="[entityName]" /></title>
 	</head>
