@@ -279,6 +279,8 @@
 	display: block;
 	background:#FEE; 
 }
+
+
 .tbutton {
 	border: 1px solid rgba(0,0,0,0.2);
 	box-sizing: content-box !important;
@@ -313,4 +315,24 @@
 	-moz-box-shadow: 0 0 3px rgba(255,255,255,0.25) inset, 0 0 1px rgba(255,255,255,0.2), 0 10px 10px rgba(255,255,255,0.08) inset;
 	-webkit-box-shadow: 0 0 3px rgba(255,255,255,0.25) inset, 0 0 1px rgba(255,255,255,0.2), 0 10x 10px rgba(255,255,255,0.08) inset;
 	box-shadow: 0 0 3px rgba(255,255,255,0.25) inset, 0 0 1px rgba(255,255,255,0.2), 0 10px 10px rgba(255,255,255,0.08) inset;
+}
+
+.inline {
+		display: inline-block;
+    *zoom: 1;
+    *display: inline;
+}
+#attachements ul {
+    border:1px solid Black;
+    width:200px;
+    height:200px;
+    display:inline-block;
+    vertical-align:top
+}
+#attachements li {
+    background-color:Azure;
+    border-bottom:1px dotted Gray
+}
+#attachements li.selected {
+    background-color:GoldenRod
 }

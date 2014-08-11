@@ -177,17 +177,17 @@
 			<attribute name="org.grails.ide.eclipse.core.SOURCE_FOLDER" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path=".link_to_grails_plugins/modaldynamix-0.3/grails-app/controllers">
+	<classpathentry kind="src" path=".link_to_grails_plugins/modaldynamix-0.4/grails-app/controllers">
 		<attributes>
 			<attribute name="org.grails.ide.eclipse.core.SOURCE_FOLDER" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path=".link_to_grails_plugins/modaldynamix-0.3/grails-app/taglib">
+	<classpathentry kind="src" path=".link_to_grails_plugins/modaldynamix-0.4/grails-app/taglib">
 		<attributes>
 			<attribute name="org.grails.ide.eclipse.core.SOURCE_FOLDER" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path=".link_to_grails_plugins/modaldynamix-0.3/grails-app/views">
+	<classpathentry kind="src" path=".link_to_grails_plugins/modaldynamix-0.4/grails-app/views">
 		<attributes>
 			<attribute name="org.grails.ide.eclipse.core.SOURCE_FOLDER" value="true"/>
 		</attributes>

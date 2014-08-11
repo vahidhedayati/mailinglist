@@ -193,8 +193,19 @@
 		<g:submitButton name="Send Email" id="loginbtn" class="loginbtn" value="${message(code: 'default.button.preview.label', default: 'Preview')}" />
 	</div>
 	
+	
 	</div>	
 	</g:form>
+	
+	<g:javascript>
+	   $('form').submit(function() {  
+     $('#select2 option').each(function(i) {  
+      $(this).attr("selected", "selected");  
+     });  
+    });  
+    
+    </g:javascript>
+    
 </body></html>
 
 	

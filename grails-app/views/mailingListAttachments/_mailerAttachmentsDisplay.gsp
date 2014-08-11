@@ -1,25 +1,24 @@
-		<g:each in="${returnResult ?: grails.plugin.mailinglist.core.AttachmentsBase.list() }" var="attach"> 
-			<g:if test="${attach.attachment.size() > 0 }">
-				<g:if test="${params.attachments.getClass().isArray()}">
-					<g:if test="${params.attachments.contains(attach.id.toString())}">
-						<div class="tbutton"><g:checkBox name="attachments" value="${attach.id}" checked="true" />${attach.name}</div>
-			  		</g:if>
-  					<g:else>
-  						<div class="tbutton"><g:checkBox name="attachments" value="${attach.id}" checked="false" />${attach.name}</div>
-  					</g:else>	
-  				</g:if>
-  				<g:else>
-  					<g:if test="${params.attachments}">
-  						<g:if test="${ params.attachments.toString().equals(attach.id.toString())}">
-  							<div class="tbutton"><g:checkBox name="attachments" value="${attach.id}" checked="true" />${attach.name}</div>
-			  			</g:if>
-  						<g:else>
-  							<div class="tbutton"><g:checkBox name="attachments" value="${attach.id}" checked="false" />${attach.name}</div>
-			  			</g:else>
-			 		</g:if>
-			 	<g:else>
-					<div class="tbutton"><g:checkBox name="attachments" value="${attach.id}" checked="false" />${attach.name}</div>
-			 	</g:else> 
-  			</g:else>		
-  		</g:if>
-	</g:each>
+		<div class="inline">
+			<g:select name="select1" id="select1" from="${returnResult ?: grails.plugin.mailinglist.core.AttachmentsBase.list()}" multiple="multiple" optionKey="id" optionValue="name" size="5"  class="many-to-many"/>
+	 <br>
+			<a href="#" id="add">add &gt;&gt;</a>
+		  
+		</div>
+		
+		<div class="inline">
+			<select  name="attachments" multiple id="select2"></select>
+		<br>
+		 	<a href="#" id="remove">&lt;&lt; remove</a>  
+		 	
+		</div>
+		
+<g:javascript>
+    $().ready(function() {  
+     $('#add').click(function() {  
+      return !$('#select1 option:selected').remove().appendTo('#select2');  
+     });  
+     $('#remove').click(function() {  
+      return !$('#select2 option:selected').remove().appendTo('#select1');  
+     });  
+    });  	
+</g:javascript>
