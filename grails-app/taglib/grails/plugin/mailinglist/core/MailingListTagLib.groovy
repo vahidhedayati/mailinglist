@@ -27,12 +27,6 @@ class MailingListTagLib {
 	 */
 
 	def loadbootstrap= {
-		/*def gver=grailsApplication.metadata['app.grails.version']
-		double verify=getGrailsVersion(gver)
-		def gfolder="resources"
-		if (verify >= 2.4 ) {
-			gfolder="assets"
-		}*/
 		def gfolder=returnAppVersion()
 		out << g.render(contextPath: pluginContextPath,template: 'loadbootstrap' , model:[gfolder:gfolder])
 	}
@@ -47,12 +41,6 @@ class MailingListTagLib {
 	 * </head>
 	 */
 	def loadplugincss= {
-		/*def gver=grailsApplication.metadata['app.grails.version']
-		double verify=getGrailsVersion(gver)
-		def gfolder="resources"
-		if (verify >= 2.4 ) {
-			gfolder="assets"
-		}*/
 		def gfolder=returnAppVersion()
 		out << g.render(contextPath: pluginContextPath,template: 'loadplugincss', model:[gfolder:gfolder])
 	}
