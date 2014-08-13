@@ -10,7 +10,12 @@
     		<meta name='layout' content="main"/>
     	</g:if>
 		<g:else>
-			<meta name='layout' content="mailingListMini"/>
+			<g:if test="${mailinglist.verifyAppVersion().equals('resources')}">
+				<meta name='layout' content="mailingListMini"/>
+			</g:if>	
+			<g:else>
+				<meta name='layout' content="mailingListMiniAssets"/>
+			</g:else>
 		</g:else>
 
 		

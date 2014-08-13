@@ -1,11 +1,16 @@
 package grails.plugin.mailinglist.core
 
 class MailingListTagLib {
-	
+
 	static namespace = "mailinglist"
 	def mailingListEmailService
+	def grailsApplication
+
 	
-	
+	def verifyAppVersion={attrs, body ->
+		def gfolder=returnAppVersion()
+		out << gfolder
+	}
 	/*
 	 * This loads in customised bootstrap.css and default bootstrap.js
 	 * If your site already has these then no need to run, otherwise:
@@ -20,12 +25,19 @@ class MailingListTagLib {
 	 *
 	 * <mailinglist:loadbootrap/>
 	 */
-	 
+
 	def loadbootstrap= {
-		out << g.render(contextPath: pluginContextPath,template: 'loadbootstrap')
+		/*def gver=grailsApplication.metadata['app.grails.version']
+		double verify=getGrailsVersion(gver)
+		def gfolder="resources"
+		if (verify >= 2.4 ) {
+			gfolder="assets"
+		}*/
+		def gfolder=returnAppVersion()
+		out << g.render(contextPath: pluginContextPath,template: 'loadbootstrap' , model:[gfolder:gfolder])
 	}
-	
-	
+
+
 	/*
 	 * This loads in customised css for this plugin
 	 * If your site already has been bootstrapped then use this
@@ -35,10 +47,17 @@ class MailingListTagLib {
 	 * </head>
 	 */
 	def loadplugincss= {
-		out << g.render(contextPath: pluginContextPath,template: 'loadplugincss')
+		/*def gver=grailsApplication.metadata['app.grails.version']
+		double verify=getGrailsVersion(gver)
+		def gfolder="resources"
+		if (verify >= 2.4 ) {
+			gfolder="assets"
+		}*/
+		def gfolder=returnAppVersion()
+		out << g.render(contextPath: pluginContextPath,template: 'loadplugincss', model:[gfolder:gfolder])
 	}
-	
-	
+
+
 	def loadPopUp= {attrs, body ->
 		def cid= attrs.remove('id')?.toString()
 		def scriptCall= attrs.remove('scriptCall')?.toString()
@@ -59,10 +78,10 @@ class MailingListTagLib {
 				String t=cid
 				def mcat=mailingListEmailService?.domainGetter(controller,t)
 				out << g.render(template:'/mailingList/htmlPopUp', model: [mcat:mcat, t:t, scriptCall:scriptCall, ccontrol: retController, cact: action ])
-			}	
+			}
 		}
-	} 
-	
+	}
+
 	def localDomainGetter = { attrs, body ->
 		def domain= attrs.remove('domain')?.toString()
 		def value= attrs.remove('value')?.toString()
@@ -72,5 +91,23 @@ class MailingListTagLib {
 			def gg=mailingListEmailService?.domainGetter(domain,value)
 			out << "${gg}"
 		}
-	}	
+	}
+
+	private String returnAppVersion() {
+		def gver=grailsApplication.metadata['app.grails.version']
+		double verify=getGrailsVersion(gver)
+		def gfolder="resources"
+		if (verify >= 2.4 ) {
+			gfolder="assets"
+		}
+		return gfolder
+	}
+	// Returns users grails version
+	private getGrailsVersion(String appVersion) {
+		if (appVersion && appVersion.indexOf('.')>-1) {
+			int lastPos=appVersion.indexOf(".", appVersion.indexOf(".") + 1)
+			double verify=appVersion.substring(0,lastPos) as double
+		}
+	}
+
 }
