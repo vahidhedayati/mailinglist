@@ -1,4 +1,4 @@
-mailinglist 0.18
+mailinglist 0.19
 =======================
 
 
@@ -18,8 +18,19 @@ For a walk through guide on how to install this plugin goto : https://github.com
 ## Installation:
 Add plugin Dependency in BuildConfig.groovy :
 ```groovy
-compile ":mailinglist:0.18"
+compile ":mailinglist:0.19"
 ```
+
+### Getting it working under 2.4+ assets based sites:
+##### This is not working as yet due to BuildConfig hibernate within plugin
+The only thing that needed changing was my hibernate version provided by default 2.4 application:
+```
+runtime ":hibernate4:4.3.5.4"
+```
+
+Please refer to [example site:](https://github.com/vahidhedayati/testmlist)
+
+
 
 #### BuildConfig.groovylayout/main.gsp update:
 

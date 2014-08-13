@@ -34,9 +34,9 @@ grails.project.dependency.resolution = {
 		compile ":remote-pagination:0.4.6"
 		compile ":pretty-time:2.1.3.Final-1.0.1"
 		compile ":modaldynamix:0.5"
-		//runtime ":hibernate4:4.3.5.3" // or ":hibernate:3.6.10.15"
-		//compile ":hibernate:3.6.10.6", {
+
 		compile ":hibernate:3.6.10.6", {
+		//compile ":hibernate4:4.3.5.4", {
 			export = false
 		}
 
