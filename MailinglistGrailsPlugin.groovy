@@ -1,5 +1,3 @@
-
-
 class MailinglistGrailsPlugin {
 	def version = "0.19"
 	def grailsVersion = "2.0 > *"
