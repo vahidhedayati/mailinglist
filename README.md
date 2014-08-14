@@ -1,4 +1,4 @@
-mailinglist 0.20
+mailinglist 0.21
 =======================
 
 
@@ -18,8 +18,22 @@ For a walk through guide on how to install this plugin goto : https://github.com
 ## Installation for grails 2.4+ assets based sites:
 Add plugin Dependency in BuildConfig.groovy :
 ```groovy
-compile ":mailinglist:0.20"
+compile ":mailinglist:0.21"
 ```
+
+In the latest app I had to also enable fixes for export plugin, unsure why it did not pull it from within plugin...
+```
+repositories {
+......
+	mavenRepo "http://repo.grails.org/grails/core"
+    }
+
+    dependencies {
+.....
+		compile 'commons-beanutils:commons-beanutils:1.8.3'
+    }
+```
+
 
 ## Installation for grails < 2.4 based resources sites 2.X -> 2.3.X
 Add plugin Dependency in BuildConfig.groovy :

@@ -3,4 +3,5 @@
 </g:if>
 <g:else>
 	<asset:stylesheet href="mailingList.css" />
+  	<asset:javascript src="jquery-ui.min.js"/>
 </g:else>
