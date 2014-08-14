@@ -1,4 +1,4 @@
-mailinglist 0.19
+mailinglist 0.20
 =======================
 
 
@@ -15,11 +15,18 @@ Supports HTML emails with inline images as well as attachments has been tested o
 
 For a walk through guide on how to install this plugin goto : https://github.com/vahidhedayati/ml-test
 
-## Installation:
+## Installation for grails 2.4+ assets based sites:
+Add plugin Dependency in BuildConfig.groovy :
+```groovy
+compile ":mailinglist:0.20"
+```
+
+## Installation for grails < 2.4 based resources sites 2.X -> 2.3.X
 Add plugin Dependency in BuildConfig.groovy :
 ```groovy
 compile ":mailinglist:0.19"
 ```
+
 
 ### Getting it working under 2.4+ assets based sites:
 ##### This is not working as yet due to BuildConfig hibernate within plugin

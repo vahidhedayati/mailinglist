@@ -35,8 +35,11 @@ grails.project.dependency.resolution = {
 		compile ":pretty-time:2.1.3.Final-1.0.1"
 		compile ":modaldynamix:0.5"
 
-		compile ":hibernate:3.6.10.6", {
-		//compile ":hibernate4:4.3.5.4", {
+		// Grails 2.3 resources sites
+		//compile ":hibernate:3.6.10.6", { export = false }
+
+		// Assets based 2.4+ sites
+		compile ":hibernate4:4.3.5.4", {
 			export = false
 		}
 
