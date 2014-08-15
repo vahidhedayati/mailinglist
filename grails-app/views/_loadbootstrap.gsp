@@ -7,9 +7,11 @@ to stop meddling with existing body/p tags from default grails or any other site
 </g:if>
 <g:else>
 	<asset:stylesheet href="ml-bootstrap-combined.min.css" />
-	<asset:stylesheet href="mailingList.css" />
 	<asset:javascript src="bootstrap.min.js"/>
-	<asset:javascript src="jquery-ui.min.js"/>
-	<asset:javascript src="jquery-ui-timepicker-addon.js"/>
+	<asset:stylesheet href="mailingList.css" />
+	<asset:stylesheet href="jquery-ui-timepicker-addon.css" />
+	<asset:stylesheet href="jquery-ui.css" />
+  	<asset:javascript src="jquery-ui.min.js"/>
+  	<asset:javascript src="jquery-ui-timepicker-addon.js"/>
 </g:else>
 
