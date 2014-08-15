@@ -28,73 +28,70 @@
 		<div class="message" role="status">${flash.message}</div>
 	</g:if>
 	
-		<div style="clear:both;"></div>
 		
-		
-<div class="center">
- 	 		
- 	 
- 	 				
-    <div  class="btn">
-    	<g:genModalButton
-    		id="ModalDynamixSELFPOST"
-    		divId="mailerTemplates1"
-    		title="Create New Template"
-    		value="Generate New Template"
-    		style='btn btn-primary'
-		/>
-		<div id="mailerTemplates1" style="display:none;">
-	
- 			<g:render template="/mailingListTemplates/mailerTemplatesForm" />
- 		</div>
- 	</div>
+<div class="center"> 				
+
+
  	
-
-	<div  class="btn">
-   	<g:genModalButton
-   		id="ModalDynamixIFRAMEUPLOADS"
-   		divId="mailerUploader1"
-   		title="Upload CSV Mail To Group?"
-   		value="Upload CSV"
-   		style='btn btn-danger'
-	/>
-		<div id="mailerUploader1" style="display:none;">
+     <div  class="btn">
+     <g:genModalButton
+   	id="ModalDynamixSELFPOST"
+   	divId="mailerTemplates1"
+   	title="Create New Template"
+   	value="New Template"
+   	style='btn btn-primary'
+     />
+      <div id="mailerTemplates1" style="display:none;">
+	<g:render template="/mailingListTemplates/mailerTemplatesForm" />
+      </div>
+     </div>
 	
-			<g:render template="/mailingListUploader/mailerUploaderForm" />
-		</div>
-	</div>
 	
-	<div  class="btn">
+	
+    <div  class="btn">
+     <g:genModalButton
+   	id="ModalDynamixIFRAMEUPLOADS"
+   	divId="mailerUploader1"
+   	title="Upload CSV Mail To Group?"
+   	value="Upload CSV"
+   	style='btn btn-danger'
+     />
+      <div id="mailerUploader1" style="display:none;">
+	<g:render template="/mailingListUploader/mailerUploaderForm" />
+      </div>
+     </div>
+	
+      <div  class="btn">
     	<g:genModalButton
-    		id="ModalDynamixIFRAMEATTACH"
-    		divId="mailerAttachments1"
-    		title="New Attachment?"
-    		value="New Attachment"
-    		style='btn btn-warning'
-		/>
-	  <div id="mailerAttachments1" style="display:none;">
-	  
- 		<g:render template="/mailingListAttachments/mailerAttachmentsForm" />
-	  </div>
- 	</div>
+	  id="ModalDynamixIFRAMEATTACH"
+	  divId="mailerAttachments1"
+	  title="New Attachment?"
+	  value="New Attachment"
+	  style='btn btn-warning'
+	/>
+      <div id="mailerAttachments1" style="display:none;">
+	<g:render template="/mailingListAttachments/mailerAttachmentsForm" />
+      </div>
+    </div>
 
 	
-	<div class="btn">
+    <div class="btn">
    	<g:genModalButton
-   		id="ModalDynamixRemoteFORM"
-   		divId="mailerSenders1"
-   		title="New Email From field"
-   		value="New Sender"
-   		style='btn btn-success'
+   	id="ModalDynamixRemoteFORM"
+   	divId="mailerSenders1"
+   	title="New Email From field"
+   	value="New Sender"
+   	style='btn btn-success'
 	/>
-		<div id="mailerSenders1" style="display:none;">
-		
-			<g:render template="/mailingListSenders/mailerSendersForm" />
-		</div>
-	</div> 	
+	<div id="mailerSenders1" style="display:none;">
+	  <g:render template="/mailingListSenders/mailerSendersForm" />
+	</div>
+    </div> 	
 	
 </div>
+
 <div style="clear:both;"></div>
+
 	<g:form action="confirmcontact" >
 	
 	<div id="contact-area">

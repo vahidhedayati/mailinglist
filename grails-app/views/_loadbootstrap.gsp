@@ -10,6 +10,6 @@ to stop meddling with existing body/p tags from default grails or any other site
 	<asset:stylesheet href="mailingList.css" />
 	<asset:javascript src="bootstrap.min.js"/>
 	<asset:javascript src="jquery-ui.min.js"/>
-
+	<asset:javascript src="jquery-ui-timepicker-addon.js"/>
 </g:else>
 

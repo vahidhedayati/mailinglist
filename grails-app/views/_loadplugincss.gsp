@@ -4,4 +4,5 @@
 <g:else>
 	<asset:stylesheet href="mailingList.css" />
   	<asset:javascript src="jquery-ui.min.js"/>
+  	<asset:javascript src="jquery-ui-timepicker-addon.js"/>
 </g:else>

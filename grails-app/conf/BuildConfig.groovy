@@ -25,7 +25,7 @@ grails.project.dependency.resolution = {
 		compile ':export:1.6'
 		compile ':joda-time:1.5'
 		
-		compile ':jquery-date-time-picker:0.1.1'
+		compile ":jquery-date-time-picker:0.2.0"
 		compile ':jquery-ui:1.10.3'
 		compile ':mail:1.0.7'
 		compile ':quartz:1.0.2'

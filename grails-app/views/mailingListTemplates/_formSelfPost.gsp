@@ -1,3 +1,5 @@
+
+
 <g:form name="${attrs.formId }" id="1"  controller="MailingListTemplates" action="save" onload="CKStart()">
 <fieldset class="form">
 	<g:hiddenField name="ajax" value="yes"/>
@@ -9,25 +11,32 @@
 	<g:textField name="name" required="" value="${mailingListTemplatesInstance?.name}"/>
 	</div>
 	<g:render template="/mailingList/addedby"  model="[caller: 'mailingListTemplatesInstance']"/>
-	<div class="fieldcontain ${hasErrors(bean: mailingListTemplatesInstance, field: 'content', 'error')} ">
-	<label for="content">
-		<g:message code="mailingListTemplates.content.label" default="Content" />	
-	</label>
-	<div class="tbutton" id="mailerTemplates2">
-		<ckeditor:editor name="content" id="myCKEditor" height="200px" width="100%">
+	
+	
+	
+	<div id="resizable" style="overflow: hidden; max-height:240px;">
+		<ckeditor:editor name="content" id="myCKEditor" height="200px" width="100%" >
 		</ckeditor:editor>
-	</div>
-	</div>
-	</fieldset>
+      </div>
+
+	
 	<fieldset class="buttons">
 		<g:submitButton name="create" onclick="CKupdate()" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
 	</fieldset>
 </g:form>
 <g:javascript>	
-    function CKupdate(){
-     	CKEDITOR.instances.myCKEditor.updateElement();
-     	
-	}
+
+function CKStart(){
+  var editor = CKEDITOR.replace( 'myCKEditor', {
+	autoGrow_onStartup: false,
+        resize_enabled: false,
+	height: '200px'
+        
+    });
+}
+ function CKupdate(){
+  CKEDITOR.instances.myCKEditor.updateElement();
+ }
 </g:javascript>
 
 
