@@ -21,13 +21,9 @@
 <b>E-mail Display Name,E-mail Address</b><br>
 The fields must be in the above format and the first line must be a heading since it ignores the first line of the csv file
 </p>
-<br/><br/>
-
 <p><b>2> 7 field CSV file</b><br/>
-<b>"Title","First Name","Middle Name","Last Name","Categories","E-mail Address","E-mail Display Name" </b><br>
-
+<b>"Title","First Name","Middle Name","Last Name","Categories","E-mail Address","E-mail Display Name" </b>
 The fields must be in the above format and the first line must be a heading since it ignores the first line of the csv file
-
 </p>
 
 <g:uploadForm  name="${params?.formId }" id="1" id="1" controller="MailingListUploader" action="upload">

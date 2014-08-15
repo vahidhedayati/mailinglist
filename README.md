@@ -1,4 +1,4 @@
-mailinglist 0.22
+mailinglist 0.23
 =======================
 
 
@@ -18,7 +18,7 @@ For a walk through guide on how to install this plugin goto : https://github.com
 ## Installation for grails 2.4+ assets based sites:
 Add plugin Dependency in BuildConfig.groovy :
 ```groovy
-compile ":mailinglist:0.22"
+compile ":mailinglist:0.23"
 ```
 
 In the latest app I had to also enable fixes for export plugin, unsure why it did not pull it from within plugin...
@@ -106,7 +106,7 @@ From 1.17 you can configure your i18n/messages_{locale}.properties to include tr
 
 ## Version changes
 ```
-
+0.23 Latest modaldynamix plugin version used - modalboxes resized according to requirement - colour added to modalbox button callers.
 0.22 Excess css entries removed from MailingList.css - causing larger buttons and unnessary spacing issues.
 0.21 Missing jquery-ui js file manually inserted in for assets based sites.
 0.20 Release of assets version - identical to 0.19 but hibernate bumped to match assets based sites.
