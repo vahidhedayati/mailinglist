@@ -1,6 +1,5 @@
-mailinglist 0.23
+mailinglist 0.24
 =======================
-
 
 mailinglist is a Grails plugin which makes use of quartz to dynamically schedule either group or specific email address contact.
 You create html email templates with images etc, then define time and date for this to be sent. The job is then added to quartz and set to email at given time.
@@ -18,33 +17,9 @@ For a walk through guide on how to install this plugin goto : https://github.com
 ## Installation for grails 2.4+ assets based sites:
 Add plugin Dependency in BuildConfig.groovy :
 ```groovy
-compile ":mailinglist:0.23"
+compile ":mailinglist:0.24"
 ```
-
-In the latest app I had to also enable fixes for export plugin, unsure why it did not pull it from within plugin...
-```
-repositories {
-......
-	mavenRepo "http://repo.grails.org/grails/core"
-    }
-
-    dependencies {
-.....
-		compile 'commons-beanutils:commons-beanutils:1.8.3'
-    }
-```
-
-
-## Installation for grails < 2.4 based resources sites 2.X -> 2.3.X 
-Add plugin Dependency in BuildConfig.groovy :
-```groovy
-compile ":mailinglist:0.19"
-```
-
-
-### Getting it working under 2.4.0 assets based sites:
-##### This is not working as yet due to BuildConfig hibernate within plugin
-The only thing that needed changing was my hibernate version provided by default 2.4 application:
+Under 2.4.0 you may need to review hibernate version and update to:
 ```
 runtime ":hibernate4:4.3.5.4"
 ```
@@ -52,17 +27,48 @@ runtime ":hibernate4:4.3.5.4"
 Please refer to [example site:](https://github.com/vahidhedayati/testmlist)
 
 
+## Installation for grails < 2.4 based resources sites 2.X -> 2.3.X
+Under Resources based application you can still use the latest code base, but you need to exclude hibernate. Something like this:
+```
+compile (":maillinglist:0.24") { excludes 'hibernate' }
+```
 
-#### BuildConfig.groovylayout/main.gsp update:
+If you wish you could also use the very last build under compatible hibernate version built under resources:
+Add plugin Dependency in BuildConfig.groovy :
+```groovy
+compile ":mailinglist:0.19"
+```
+
+## Since 0.23 you also require:
+In the latest app I had to also enable fixes for export plugin, unsure why it did not pull it from within plugin...
+
+Under BuildConfig.groovy:
+
+```
+	repositories {
+		......
+		mavenRepo "http://repo.grails.org/grails/core"
+    	}
+
+    	dependencies {
+		.....
+		compile 'commons-beanutils:commons-beanutils:1.8.3'
+    	}
+```
+The two extra lines one to repositories and one to dependencies.
+
+
+## Resources based sites : (Grails pre 2.4 )  grails-app/layouts/main.gsp update:
 
 ##### jquery, jquery-ui libraries:
 your layouts main.gsp: (add jquery-ui and jquery  - or add them into ApplicationResources.groovy and ensure you refer to it in your main.gsp or relevant file
 ```gsp
-<g:javascript library="jquery"/>
-<g:javascript library="jquery-ui"/>
-…
-<g:layoutHead/>
-<mailinglist:loadbootstrap/>
+	<g:javascript library="jquery"/>
+	<g:javascript library="jquery-ui"/>
+	…
+	…
+	<g:layoutHead/>
+	<mailinglist:loadbootstrap/>
 </head>
 ```
 
@@ -73,6 +79,19 @@ You will also notice <mailinglist:loadbootstrap/> this loads up bootstrap to mak
 I have found using this method of calling bootstrap within one of my projects to have caused a problem when looking at source it was loading before jquery, 
 so by moving this block further below end head tag resolved the issue.
 
+## Assets based sites : (Grails 2.4+ ) grails-app/layouts/main.gsp update:
+A default site just add the mailingList line below application.js to grails-app/layouts/main.gsp
+```
+	<asset:stylesheet src="application.css"/>
+        <asset:javascript src="application.js"/>
+        <mailinglist:loadbootstrap/>
+```
+Or if you already have bootstrap initialised :
+```
+	<mailinglist:loadplugincss/>
+```
+
+replace the loadboostrap to loadplugincss
 
 Now with that all in place open grails console or from the command line run
 ```
@@ -106,6 +125,7 @@ From 1.17 you can configure your i18n/messages_{locale}.properties to include tr
 
 ## Version changes
 ```
+0.24 Fixed datetime issue under assets based sites.
 0.23 Latest modaldynamix plugin version used - modalboxes resized according to requirement - colour added to modalbox button callers.
 0.22 Excess css entries removed from MailingList.css - causing larger buttons and unnessary spacing issues.
 0.21 Missing jquery-ui js file manually inserted in for assets based sites.

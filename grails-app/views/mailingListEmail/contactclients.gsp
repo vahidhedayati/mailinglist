@@ -184,7 +184,12 @@
 		<label for="manager">
 			<g:message code="dateTime.label" default="dateTime" />
 		</label>
-		<jqueryPicker:time name="dateTime" value="${curr }" />
+		<g:if test="${mailinglist.verifyAppVersion().equals('resources')}">
+			<jqueryPicker:time name="dateTime" value="${curr }" />
+		</g:if>
+		<g:else>
+			<input type="text" name="dateTime" id="dateTime" value="${current}" />
+		</g:else>
 	</div>
 		
 	<div class="fieldcontain ${hasErrors(bean: params, field: 'setDate', 'error')} ">
@@ -192,7 +197,12 @@
 			<g:message code="setDate.label" default="Issue/Resolve Date:" />
 			<span class="required-indicator">*</span>
 		</label>
-		<jqueryPicker:date name="setDate" value="${params.setDate }" />
+		<g:if test="${mailinglist.verifyAppVersion().equals('resources')}">
+			 <jqueryPicker:date name="setDate" value="${params.setDate }" />
+                </g:if>
+                <g:else>
+			<input type="text" name="setDate" id="setDate" value="${params.setDate}" />
+		</g:else>
 	</div>	
 		
 	<div class="fieldcontain ${hasErrors(bean: params, field: 'setTime', 'error')} ">
@@ -215,14 +225,25 @@
 	</g:form>
 	
 	<g:javascript>
-	   $('form').submit(function() {  
-     $('#select2 option').each(function(i) {  
-      $(this).attr("selected", "selected");  
-     });  
-    });  
-    
+
+	<g:if test="${mailinglist.verifyAppVersion().equals('assets')}">
+  	$().ready(function() {  
+		$('#dateTime').datetimepicker({
+			controlType: 'slider',
+			timeFormat: 'HH.mm',
+			dateFormat: "dd/mm/yy"
+	});
+		$('#setDate').datepicker({dateFormat: "dd/mm/yy"});
+	
+	});
+	</g:if>
+
+   	$('form').submit(function() {  
+     		$('#select2 option').each(function(i) {  
+      			$(this).attr("selected", "selected");  
+     		});  
+    	});  
     </g:javascript>
-    
 </body></html>
 
 	

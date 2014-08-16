@@ -10,9 +10,9 @@
   	modalTemplate='/modaldynamix/modalSelfPostForm'
   	domain="grails.plugin.mailinglist.core.TemplatesBase"
 	calctype="*"         
-            height="0.7"         
+            height="0.5"         
             width="0.6"         
-            bodyheight="0.7"    
+            bodyheight="0.5"    
             bodywidth='98%'     
             overflow="hidden"   
             position="absolute"    

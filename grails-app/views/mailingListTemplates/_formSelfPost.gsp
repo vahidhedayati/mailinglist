@@ -14,8 +14,8 @@
 	
 	
 	
-	<div id="resizable" style="overflow: hidden; max-height:240px;">
-		<ckeditor:editor name="content" id="myCKEditor" height="200px" width="100%" >
+	<div id="resizable" style="overflow: hidden; max-height:25em;">
+		<ckeditor:editor name="content" id="myCKEditor" height="25em" width="100%" >
 		</ckeditor:editor>
       </div>
 
@@ -30,7 +30,7 @@ function CKStart(){
   var editor = CKEDITOR.replace( 'myCKEditor', {
 	autoGrow_onStartup: false,
         resize_enabled: false,
-	height: '200px'
+	height: '25em'
         
     });
 }
