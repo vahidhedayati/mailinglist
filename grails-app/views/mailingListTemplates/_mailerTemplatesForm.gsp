@@ -9,16 +9,15 @@
   	modalTemplatePage="/mailingListTemplates/formSelfPost"
   	modalTemplate='/modaldynamix/modalSelfPostForm'
   	domain="grails.plugin.mailinglist.core.TemplatesBase"
-	calctype="*"         
-            height="0.5"         
-            width="0.6"         
-            bodyheight="0.5"    
+ height="40em"         
+            width="50em"         
+            bodyheight="40em"    
             bodywidth='98%'     
             overflow="hidden"   
-            position="absolute"    
+            position="fixed"    
             top="0"    
             margintop='10em' 
-            marginright='0' 
+            marginright='auto' 
             left='auto'        
             right='auto'       
             iframescrolling='auto' 
@@ -28,4 +27,5 @@
             iframeheight='100%'  
             iframemargin='0'     
             iframepadding='0'    
+
   />

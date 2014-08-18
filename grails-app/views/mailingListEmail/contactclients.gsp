@@ -28,12 +28,7 @@
 		<div class="message" role="status">${flash.message}</div>
 	</g:if>
 	
-		
-<div class="center"> 				
-
-
- 	
-     <div  class="btn">
+			
      <g:genModalButton
    	id="ModalDynamixSELFPOST"
    	divId="mailerTemplates1"
@@ -41,14 +36,8 @@
    	value="New Template"
    	style='btn btn-primary'
      />
-      <div id="mailerTemplates1" style="display:none;">
-	<g:render template="/mailingListTemplates/mailerTemplatesForm" />
-      </div>
-     </div>
+   
 	
-	
-	
-    <div  class="btn">
      <g:genModalButton
    	id="ModalDynamixIFRAMEUPLOADS"
    	divId="mailerUploader1"
@@ -56,26 +45,14 @@
    	value="Upload CSV"
    	style='btn btn-danger'
      />
-      <div id="mailerUploader1" style="display:none;">
-	<g:render template="/mailingListUploader/mailerUploaderForm" />
-      </div>
-     </div>
-	
-      <div  class="btn">
-    	<g:genModalButton
+      <g:genModalButton
 	  id="ModalDynamixIFRAMEATTACH"
 	  divId="mailerAttachments1"
 	  title="New Attachment?"
 	  value="New Attachment"
 	  style='btn btn-warning'
 	/>
-      <div id="mailerAttachments1" style="display:none;">
-	<g:render template="/mailingListAttachments/mailerAttachmentsForm" />
-      </div>
-    </div>
-
 	
-    <div class="btn">
    	<g:genModalButton
    	id="ModalDynamixRemoteFORM"
    	divId="mailerSenders1"
@@ -83,12 +60,24 @@
    	value="New Sender"
    	style='btn btn-success'
 	/>
-	<div id="mailerSenders1" style="display:none;">
-	  <g:render template="/mailingListSenders/mailerSendersForm" />
-	</div>
-    </div> 	
 	
-</div>
+<div style="clear:both;"></div>
+
+		
+      <div id="mailerTemplates1" style="display:none;">
+	<g:render template="/mailingListTemplates/mailerTemplatesForm" />
+      </div>
+      <div id="mailerUploader1" style="display:none;">
+	<g:render template="/mailingListUploader/mailerUploaderForm" />
+      </div>
+    	
+      <div id="mailerAttachments1" style="display:none;">
+	<g:render template="/mailingListAttachments/mailerAttachmentsForm" />
+      </div>
+      <div id="mailerSenders1" style="display:none;">
+	  <g:render template="/mailingListSenders/mailerSendersForm" />
+      </div>
+
 
 <div style="clear:both;"></div>
 

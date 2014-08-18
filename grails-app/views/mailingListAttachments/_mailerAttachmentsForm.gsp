@@ -11,10 +11,10 @@
     submitValue="Upload Attachment"
     modalTemplate='/modaldynamix/modaliframe'
   	domain="grails.plugin.mailinglist.core.AttachmentsBase"
-	calctype="*"         
-            height="0.4"         
-            width="0.6"         
-            bodyheight="0.4"    
+  	
+  	  height="25em"         
+            width="30em"         
+            bodyheight="25em"    
             bodywidth='98%'     
             overflow="hidden"   
             position="fixed"    
@@ -30,4 +30,5 @@
             iframeheight='100%'  
             iframemargin='0'     
             iframepadding='0'    
+	
   />

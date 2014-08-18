@@ -11,10 +11,9 @@
     submitValue="Create new Sender"
     modalTemplate='/modaldynamix/modalRemoteForm'
   	domain="grails.plugin.mailinglist.core.SendersBase"
-	calctype="*"         
-            height="0.2"         
-            width="0.6"         
-            bodyheight="0.4"    
+            height="15em"         
+            width="30em"         
+            bodyheight="15em"     
             bodywidth='98%'     
             overflow="hidden"   
             position="fixed"    

@@ -1,4 +1,4 @@
-mailinglist 0.24
+mailinglist 0.25
 =======================
 
 mailinglist is a Grails plugin which makes use of quartz to dynamically schedule either group or specific email address contact.
@@ -17,7 +17,7 @@ For a walk through guide on how to install this plugin goto : https://github.com
 ## Installation for grails 2.4+ assets based sites:
 Add plugin Dependency in BuildConfig.groovy :
 ```groovy
-compile ":mailinglist:0.24"
+compile ":mailinglist:0.25"
 ```
 Under 2.4.0 you may need to review hibernate version and update to:
 ```
@@ -30,7 +30,7 @@ Please refer to [example site:](https://github.com/vahidhedayati/testmlist)
 ## Installation for grails < 2.4 based resources sites 2.X -> 2.3.X
 Under Resources based application you can still use the latest code base, but you need to exclude hibernate. Something like this:
 ```
-compile (":maillinglist:0.24") { excludes 'hibernate' }
+compile (":maillinglist:0.25") { excludes 'hibernate' }
 ```
 
 If you wish you could also use the very last build under compatible hibernate version built under resources:
@@ -125,6 +125,7 @@ From 1.17 you can configure your i18n/messages_{locale}.properties to include tr
 
 ## Version changes
 ```
+0.25 latest modaldynamix called - pop up boxes loading correctly according to screen size
 0.24 Fixed datetime issue under assets based sites.
 0.23 Latest modaldynamix plugin version used - modalboxes resized according to requirement - colour added to modalbox button callers.
 0.22 Excess css entries removed from MailingList.css - causing larger buttons and unnessary spacing issues.

@@ -1323,3 +1323,14 @@ p.notFound{
     margin-right: auto;
     width: 70%;
 }
+
+
+#select1  {
+	min-width: 14em;
+	min-height: 10em;
+}
+
+#select2  {
+	min-width: 14em;
+	min-height: 10em;
+}

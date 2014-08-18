@@ -19,11 +19,10 @@
     modalTemplate='/modaldynamix/modaliframe'
     
   	domain="grails.plugin.mailinglist.core.CategoryBase"
-
-	calctype="*"         
-            height="0.5"         
-            width="0.6"         
-            bodyheight="0.5"    
+  	
+  	  height="40em"         
+            width="50em"         
+            bodyheight="40em"    
             bodywidth='98%'     
             overflow="hidden"   
             position="fixed"    
@@ -39,4 +38,5 @@
             iframeheight='100%'  
             iframemargin='0'     
             iframepadding='0'    
+
   />
