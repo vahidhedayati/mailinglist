@@ -80,7 +80,7 @@
 		<td>
 		<g:if test="${deployInstance.scheduleCancelled.toString().equals('false') && deployInstance.scheduleComplete.toString().equals('false')  }">
 		<g:link controller="MailingListSchedule"  action="modSchedule" id="${deployInstance.id}" params="${[calltype:'cancel', jobName:deployInstance.scheduleName ]}" >
-			<g:if test="${mailinglist.verifyAppVersion().equals('resources')}">
+			<g:if test="${enduser?.verifyAppVersion().equals('resources')}">
 				<img src="${resource(dir: 'images', file: 'stop.png')}" data-tooltip="${message(code: 'default.stop.cancel.label', default: 'Stop/Cancel Schedule')}" alt="${message(code: 'default.stop.cancel.label', default: 'Stop/Cancel Schedule')}"/>
 			</g:if>	
 			<g:else>
@@ -88,7 +88,7 @@
 			</g:else>
 		</g:link>
 		<a  href="${createLink(uri: '/quartz/pause?jobName='+meta(name:'app.name')+'.'+deployInstance.scheduleName+'&jobGroup=GRAILS_JOBS')}">
-			<g:if test="${mailinglist.verifyAppVersion().equals('resources')}">
+			<g:if test="${enduser?.verifyAppVersion().equals('resources')}">
 				<img src="${resource(dir: 'images', file: 'pause.png')}" data-tooltip="${message(code: 'default.pause.job.label', default: 'Pause job')}" alt="${message(code: 'default.pause.job.label', default: 'Pause job')}"/>
 			</g:if>
 			<g:else>
@@ -98,7 +98,7 @@
 						
 		<quartzutils:displayResume jobName="${deployInstance.scheduleName}"  />
 		<a  href="${createLink(uri: '/quartz/runNow?jobName='+meta(name:'app.name')+'.'+deployInstance.scheduleName+'&jobGroup=GRAILS_JOBS')}">
-			<g:if test="${mailinglist.verifyAppVersion().equals('resources')}">
+			<g:if test="${enduser?.verifyAppVersion().equals('resources')}">
 				<img src="${resource(dir: 'images', file: 'run.png')}" data-tooltip="${message(code: 'default.run.job.label', default: 'Run job')}"  alt="${message(code: 'default.run.job.label', default: 'Run job')}"/>
 			</g:if>
 			<g:else>

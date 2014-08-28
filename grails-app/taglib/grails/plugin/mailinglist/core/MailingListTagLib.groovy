@@ -5,12 +5,8 @@ class MailingListTagLib {
 	static namespace = "mailinglist"
 	def mailingListEmailService
 	def grailsApplication
-
 	
-	def verifyAppVersion={attrs, body ->
-		def gfolder=returnAppVersion()
-		out << gfolder
-	}
+
 	/*
 	 * This loads in customised bootstrap.css and default bootstrap.js
 	 * If your site already has these then no need to run, otherwise:
@@ -27,8 +23,7 @@ class MailingListTagLib {
 	 */
 
 	def loadbootstrap= {
-		def gfolder=returnAppVersion()
-		out << g.render(contextPath: pluginContextPath,template: 'loadbootstrap' , model:[gfolder:gfolder])
+		out << g.render(contextPath: pluginContextPath,template: 'loadbootstrap' )
 	}
 
 
@@ -41,8 +36,7 @@ class MailingListTagLib {
 	 * </head>
 	 */
 	def loadplugincss= {
-		def gfolder=returnAppVersion()
-		out << g.render(contextPath: pluginContextPath,template: 'loadplugincss', model:[gfolder:gfolder])
+		out << g.render(contextPath: pluginContextPath,template: 'loadplugincss')
 	}
 
 
@@ -81,21 +75,5 @@ class MailingListTagLib {
 		}
 	}
 
-	private String returnAppVersion() {
-		def gver=grailsApplication.metadata['app.grails.version']
-		double verify=getGrailsVersion(gver)
-		def gfolder="resources"
-		if (verify >= 2.4 ) {
-			gfolder="assets"
-		}
-		return gfolder
-	}
-	// Returns users grails version
-	private getGrailsVersion(String appVersion) {
-		if (appVersion && appVersion.indexOf('.')>-1) {
-			int lastPos=appVersion.indexOf(".", appVersion.indexOf(".") + 1)
-			double verify=appVersion.substring(0,lastPos) as double
-		}
-	}
 
 }

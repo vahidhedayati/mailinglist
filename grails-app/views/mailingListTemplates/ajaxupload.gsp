@@ -1,7 +1,7 @@
 <html>
 	<head>
 	
-			<g:if test="${mailinglist.verifyAppVersion().equals('resources')}">
+			<g:if test="${enduser?.verifyAppVersion().equals('resources')}">
 				<meta name='layout' content="mailingListMini"/>
 			</g:if>	
 			<g:else>

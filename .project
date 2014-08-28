@@ -20,7 +20,7 @@
 		<link>
 			<name>.link_to_grails_plugins</name>
 			<type>2</type>
-			<location>/home/vahid/kportal/mailinglist/target/plugins</location>
+			<location>/home/mx1/Documents/workspace-ggts-3.6.0.RELEASE/mailinglist/target/plugins</location>
 		</link>
 	</linkedResources>
 </projectDescription>

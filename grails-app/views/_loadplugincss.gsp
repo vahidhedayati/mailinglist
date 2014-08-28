@@ -1,4 +1,4 @@
-<g:if test="${gfolder.equals("resources") }">
+<g:if test="${enduser?.verifyAppVersion().equals('resources')}">
 	<link rel="stylesheet" href="${createLink(uri: '/css/mailingList.css')}" type="text/css">
 </g:if>
 <g:else>

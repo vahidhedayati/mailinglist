@@ -173,7 +173,7 @@
 		<label for="manager">
 			<g:message code="dateTime.label" default="dateTime" />
 		</label>
-		<g:if test="${mailinglist.verifyAppVersion().equals('resources')}">
+		<g:if test="${enduser?.verifyAppVersion().equals('resources')}">
 			<jqueryPicker:time name="dateTime" value="${curr }" />
 		</g:if>
 		<g:else>
@@ -186,7 +186,7 @@
 			<g:message code="setDate.label" default="Issue/Resolve Date:" />
 			<span class="required-indicator">*</span>
 		</label>
-		<g:if test="${mailinglist.verifyAppVersion().equals('resources')}">
+		<g:if test="${enduser?.verifyAppVersion().equals('resources')}">
 			 <jqueryPicker:date name="setDate" value="${params.setDate }" />
                 </g:if>
                 <g:else>
@@ -215,7 +215,7 @@
 	
 	<g:javascript>
 
-	<g:if test="${mailinglist.verifyAppVersion().equals('assets')}">
+	<g:if test="${enduser?.verifyAppVersion().equals('resources')}">
   	$().ready(function() {  
 		$('#dateTime').datetimepicker({
 			controlType: 'slider',
