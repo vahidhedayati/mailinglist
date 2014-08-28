@@ -1,5 +1,5 @@
 grails.project.work.dir = 'target'
-grails.project.dependency.resolver = 'maven'
+//grails.project.dependency.resolver = 'maven'
 grails.project.dependency.resolution = {
 
 	inherits 'global'
@@ -29,7 +29,7 @@ grails.project.dependency.resolution = {
 		compile ':mail:1.0.7'
 		compile ':quartz:1.0.2'
 		compile ":quartz-monitor:1.0"
-		compile ':tiny-mce:3.4.9'
+		//compile ':tiny-mce:3.4.9'
 		compile ":remote-pagination:0.4.6"
 		compile ":pretty-time:2.1.3.Final-1.0.1"
 		compile ":modaldynamix:0.10"
