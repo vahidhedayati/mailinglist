@@ -1,4 +1,4 @@
-mailinglist 0.26
+mailinglist 0.27
 =======================
 
 mailinglist is a Grails plugin which makes use of quartz to dynamically schedule either group or specific email address contact.
@@ -17,7 +17,7 @@ For a walk through guide on how to install this plugin goto : https://github.com
 ## Installation for grails 2.4+ assets based sites:
 Add plugin Dependency in BuildConfig.groovy :
 ```groovy
-compile ":mailinglist:0.26"
+compile ":mailinglist:0.27"
 ```
 
 #### Under 2.4.0 you may need to review hibernate version and update to:
