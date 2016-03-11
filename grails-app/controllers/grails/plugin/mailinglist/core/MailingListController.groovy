@@ -11,8 +11,8 @@ class MailingListController {
 	
 	def index() {
 		def paginationParams = [sort: 'lastUpdated', order: 'DESC', offset: 0, max: 5]
-		def found = ScheduleBase.findAllByScheduleComplete(true, paginationParams)
-		def total = ScheduleBase.countByScheduleComplete(true)
+		def found = ScheduleBase?.findAllByScheduleStatus(ScheduleBase.SCHEDULE_COMPLETE, paginationParams)
+		def total = ScheduleBase?.countByScheduleStatus(ScheduleBase.SCHEDULE_COMPLETE)
 		[scheduleCompleted:found, total:total]
 	}
 

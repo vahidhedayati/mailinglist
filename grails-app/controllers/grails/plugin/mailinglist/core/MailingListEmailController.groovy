@@ -86,12 +86,14 @@ class MailingListEmailController {
 		}
 		def warnResend
 		if (foundrecord) {
-			warnResend="""Warning you have sent an email out to this recipientGroup on ${foundrecord.dateTime} with the following subject: ${foundrecord.subject}, click send to Proceed!"""
+			warnResend="""Warning you have sent an email out to this recipientGroup on
+						${foundrecord.dateTime} with the following subject: 
+						${foundrecord.subject}, click send to Proceed!"""
 		}
 		
 		
-		if (!params.dateTime) {
-			flash.message = 'Please define dateTime for email schedule'
+		if (!params.dateTime && !params.cronExpression) {
+			flash.message = 'Please define dateTime or cronExpression for email schedule'
 			ok = false
 		}
 
@@ -123,93 +125,33 @@ class MailingListEmailController {
 		[params:params, warnResend:warnResend]
 	}
 
-	def scheduleEmail(String mailFrom, String recipientToGroup, String subject, String attachments,
-	                  String mailingListTemplate, String dateTime, String setDate, String setTime,
-	                  String sendType, String addedby, String recipientToList, String emailMessage,
-	                  String recipientCCList, String recipientBCCList,String sendtype) {
-		if (!recipientToGroup) {
-			if (!recipientToList && !recipientCCList && !recipientBCCList) {
-				flash.message = message(code: 'Forgot to define either To or BCC or CC field, no one to contact !')
-				render(view: "index", model: [mailingListScheduleInstance: params])
-				return
-			}
+	def scheduleEmail(ScheduleBaseBean bean) { 
+		String view="index"
+		if (bean.recipientToGroup) {
+			view="contactclients"
 		}
-		
-		if (!setTime) { setTime=''}
-		if (!setDate) { setDate=''}
-		if (!recipientToGroup) { recipientToGroup=''}
-		if (!mailingListTemplate) {mailingListTemplate=''}
-		if (!recipientToList) { recipientToList=''}
-		if (!recipientCCList) {recipientCCList='' }
-		if (!recipientBCCList) {recipientBCCList='' }
-		if (!emailMessage) { emailMessage='' }
-
-		String ttype = 'Email Announcement'
-		if (recipientToGroup) {
-			if (!sendtype) { sendtype='bulk' }
-			//emailMessage=''
-		}
-		else {
-			if (!sendtype) { sendtype='individual' }
-			ttype='Email Person'
-		}
-
-		if (!dateTime) {
-			flash.message = message(code: 'Forgot to define the Time and Date to be run !')
-			if (recipientToGroup) {
-				render(view: "contactclients", model: [mailingListScheduleInstance: params])
-			}
-			else{
-				render(view: "index", model: [mailingListScheduleInstance: params])
-			}
+		if (bean.hasErrors()) {
+			render(view: view, model: [mailingListScheduleInstance: bean])
 			return
 		}
-		// 0.10 to get around recipientToGroup and attachments appearing as Ljava.lang.String;@5792bb81 params added to both
-		def mailingListScheduleInstance = new ScheduleBase(
-			mailFrom:mailFrom, recipientToGroup: params.recipientToGroup, subject: subject, attachments: params.attachments,
-			mailingListTemplate: mailingListTemplate, dateTime: dateTime, setDate: setDate, setTime: setTime,
-			emailMessage: emailMessage, recipientToList: recipientToList,recipientCCList: recipientCCList,
-			recipientBCCList: recipientBCCList,  addedby: addedby, sendType: sendtype, scheduleCancelled: false,
-			scheduleComplete: false,scheduleName:'', deploymentComplete: false)
-			if (!mailingListScheduleInstance.save(flush:true)) {
-				log.info("Error saving ::: ")
-				//mailingListScheduleInstance.errors.allErrors.each{println it}
-				flash.message = message(code: 'Error saving schedule in DB table MailingListSchedule')
-				if (recipientToGroup) {
-					render(view: "contactclients", model: [mailingListScheduleInstance: mailingListScheduleInstance])
-				}
-				else{
-					render(view: "index", model: [mailingListScheduleInstance: mailingListScheduleInstance])
-				}
-				return
-			}
-
-		params.id = mailingListScheduleInstance.id
+		bean.formatContent()
+		def paramsMap=bean.loadValues()
+		ScheduleBase mailingListScheduleInstance = new ScheduleBase(paramsMap)
+		bean.attachments?.each {
+			mailingListScheduleInstance.addToAttachments(it)
+		}
+		if (!mailingListScheduleInstance.save(flush:true)) {
+			flash.message = message(code:'mailinglist.failed.to.save')
+			render(view: view, model: [mailingListScheduleInstance: bean])
+			return
+		}
+		bean.id = mailingListScheduleInstance.id
+		bean.dateFormat=g.message(code:'mailinglist.date.format', default:'dd MMM yyyy')
+		paramsMap.id=bean.id
 		log.info("Schedule Email Parameters: $params")
-		def d = new Date()
-		if (!params.setDate) {
-			params.setDate = d.format('dd MMM yyyy')
-		}
-		else {
-			d = new SimpleDateFormat("dd/MM/yyyy").parse(params.setDate)
-			params.setDate = d.format('dd MMM yyyy')
-		}
-		if (!params.setTime_hour) {
-			params.setTime = d.format('HH:MM')
-		}
-		else {
-			params.setTime = params.setTime_hour + ":" + params.setTime_minute
-		}
-
-		if (params.emailMessage.indexOf('[SETDATE]') > -1) {
-			params.emailMessage = params.emailMessage.replace('[SETDATE]', params.setDate)
-		}
-		if (params.emailMessage.indexOf('[SETTIME]') >- 1) {
-			params.emailMessage = params.emailMessage.replace('[SETTIME]', params.setTime)
-		}
-		def result = quartzEmailCheckerService.queueEmail(params)
+		def result = quartzEmailCheckerService.queueEmail(paramsMap)
 		if (result) {
-			ScheduleBase sb= ScheduleBase.findById(mailingListScheduleInstance.id, [lock: true])
+			ScheduleBase sb= ScheduleBase.get(mailingListScheduleInstance.id) //, [lock: true])
 			if (sb) {
 				sb.scheduleName = result
 				sb.merge()
@@ -227,12 +169,7 @@ class MailingListEmailController {
 			return
 		}
 		flash.message = message(code: 'Could not queue job please check quartz queue to ensure schedule slots are free')
-		if (recipientToGroup) {
-			render(view: "contactclients", model: [mailingListScheduleInstance: mailingListScheduleInstance])
-		}
-		else {
-			render(view: "index", model: [mailingListScheduleInstance: mailingListScheduleInstance])
-		}
+		render(view: view, model: [mailingListScheduleInstance: bean])
 	}
 					  
 	private List domainList(def ccontroller) {

@@ -27,13 +27,6 @@
 	<g:textField name="dateTime" value="${mailingListScheduleInstance?.dateTime}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'deploymentComplete', 'error')} ">
-	<label for="deploymentComplete">
-		<g:message code="mailingListSchedule.deploymentComplete.label" default="Deployment Complete" />
-		
-	</label>
-	<g:checkBox name="deploymentComplete" value="${mailingListScheduleInstance?.deploymentComplete}" />
-</div>
 
 <div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'emailMessage', 'error')} ">
 	<label for="emailMessage">
@@ -91,20 +84,11 @@
 	<g:textField name="recipientToList" value="${mailingListScheduleInstance?.recipientToList}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'scheduleCancelled', 'error')} ">
-	<label for="scheduleCancelled">
-		<g:message code="mailingListSchedule.scheduleCancelled.label" default="Schedule Cancelled" />
-		
+<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'scheduleStatus', 'error')} ">
+	<label for="scheduleStatus">
+		<g:message code="mailingListSchedule.scheduleStatus.label" default="Schedule Status" />
 	</label>
-	<g:checkBox name="scheduleCancelled" value="${mailingListScheduleInstance?.scheduleCancelled}" />
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'scheduleComplete', 'error')} ">
-	<label for="scheduleComplete">
-		<g:message code="mailingListSchedule.scheduleComplete.label" default="Schedule Complete" />
-		
-	</label>
-	<g:checkBox name="scheduleComplete" value="${mailingListScheduleInstance?.scheduleComplete}" />
+	<g:textField value="${mailingListScheduleInstance?.scheduleStatus}"
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'sendType', 'error')} ">

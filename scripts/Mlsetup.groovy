@@ -23,6 +23,8 @@ target(mlsetup: 'Sets up a new mailing list project') {
 
 	StringBuilder cad = new StringBuilder()
 	StringBuilder cad1 = new StringBuilder()
+	StringBuilder cad2 = new StringBuilder()
+	StringBuilder cad3 = new StringBuilder()
 	// Create jobs
 	if (amount) {
 		String jobPath = "grails-app/jobs/$pack"
@@ -53,6 +55,20 @@ target(mlsetup: 'Sets up a new mailing list project') {
 			cad1.append('\t\t\t\t\t\tisStarted=true\n')
 			cad1.append('\t\t\t\t\t\treturn\n')
 			cad1.append('\t\t\t\t\t}\n')
+			
+			cad2.append('\t\t\t\t\tif (i==').append(i).append(') {\n')
+			cad2.append('\t\t\t\t\t\t').append(jobName).append('.schedule(cronExpression, params)\n')
+			cad2.append('\t\t\t\t\t\tsb.append("').append(jobName).append('")\n')
+			cad2.append('\t\t\t\t\t\tisStarted=true\n')
+			cad2.append('\t\t\t\t\t\treturn\n')
+			cad2.append('\t\t\t\t\t}\n')
+			
+			cad3.append('\t\t\t\t\tif (i==').append(i).append(') {\n')
+			cad3.append('\t\t\t\t\t\t').append(jobName).append('.schedule(cronExpression, paramsMap)\n')
+			cad3.append('\t\t\t\t\t\tsb.append("').append(jobName).append('")\n')
+			cad3.append('\t\t\t\t\t\tisStarted=true\n')
+			cad3.append('\t\t\t\t\t\treturn\n')
+			cad3.append('\t\t\t\t\t}\n')
 		}
 	}
 	
@@ -115,7 +131,6 @@ target(mlsetup: 'Sets up a new mailing list project') {
 	generateDomainClass 'MailingListTemplates', packdir, basedir, engine, pack, 'TemplatesBase'
 	generateDomainClass 'MailingListSenders', packdir, basedir, engine, pack, 'SendersBase'
 	
-	
 /*
 	println "Creating controllers within your project: grails-app/controllers/$packdir"
 	//mkdir(dir:"${basedir}/grails-app/controllers/$packdir")
@@ -142,7 +157,7 @@ target(mlsetup: 'Sets up a new mailing list project') {
 	localmkdir("${basedir}/grails-app/services/$packdir")
 	
 	
-	def checkerConf = [pack: pack, amount: amount, jobMapping: cad, queueMapping: cad1]
+	def checkerConf = [pack: pack, amount: amount, jobMapping: cad, queueMapping: cad1,expressionMapping: cad2,expressionMapping2: cad3,]
 	def qecs = createTemplate(engine, 'services/QuartzEmailCheckerService.groovy', checkerConf)
 	//new File(basedir, "grails-app/services/$packdir/QuartzEmailCheckerService.groovy").write(qecs.toString())
 	writeToFile("grails-app/services/$packdir/QuartzEmailCheckerService.groovy",qecs.toString())

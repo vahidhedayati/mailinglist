@@ -1,49 +1,39 @@
 package grails.plugin.mailinglist.core
 
 class ScheduleBase implements Serializable {
-
+	
+	public static final byte NONE=0
+	public static final byte SCHEDULE_CANCELLED=1
+	public static final byte SCHEDULE_RUNNING=2
+	public static final byte SCHEDULE_COMPLETE=3
+	public static final byte CRON=4
+	public static final byte CRON_CANCELLED=5
+	public static final List SCHEDULE_TYPES=[NONE,SCHEDULE_CANCELLED,SCHEDULE_RUNNING,SCHEDULE_COMPLETE,CRON,CRON_CANCELLED]
+	
 	Date dateCreated
 	Date lastUpdated
 	String mailFrom
-	String recipientToGroup=''
-	String recipientToList=''
-	String recipientBCCList=''
-	String recipientCCList=''
+	String recipientToGroup
+	String recipientToList
+	String recipientBCCList
+	String recipientCCList
 	String subject
-	String mailingListTemplate=''
+	String mailingListTemplate
 	String emailMessage
-	String dateTime=''
-	String setDate=''
-	String setTime=''
-	String sendType=''
-	String addedby=''
-	String scheduleName=''
+	String dateTime
+	String setDate
+	String setTime
+	String sendType
+	String addedby
+	String scheduleName
+	String cronExpression
 
 	static hasMany = [ attachments: AttachmentsBase]
 
-	Boolean scheduleCancelled = false
-	Boolean scheduleComplete = false
-	Boolean deploymentComplete = false
+	Byte scheduleStatus=NONE
 
 	static mapping = { applicationContext ->
 		emailMessage type: 'text'
-		mailFrom defaultValue: ''
-		recipientToGroup defaultValue: ''
-		recipientToList defaultValue: ''
-		recipientBCCList defaultValue: ''
-		recipientCCList defaultValue: ''
-		subject defaultValue: ''
-		mailingListTemplate defaultValue: ''
-		emailMessage defaultValue: ''
-		dateTime defaultValue: ''
-		setDate defaultValue: ''
-		setTime defaultValue: ''
-		sendType defaultValue: ''
-		addedby defaultValue: ''
-		scheduleName defaultValue: ''
-		scheduleCancelled defaultValue: false
-		scheduleComplete defaultValue: false
-		deploymentComplete defaultValue: false
 		//table applicationContext.grailsApplication.config.mailinglist.table.schedule ?: 'MailingListSchedule'
 		table applicationContext.getBean('grailsApplication').config.mailinglist.table.schedule ?: 'mailing_list_schedule'
 	}
@@ -51,13 +41,18 @@ class ScheduleBase implements Serializable {
 	static constraints = {
 		addedby nullable: true
 		scheduleName nullable: true
+		cronExpression nullable: true
 		recipientToGroup nullable: true
+		recipientToList nullable: true
+		recipientBCCList nullable: true
+		mailingListTemplate nullable:true
+		recipientCCList nullable: true
 		setTime nullable: true
 		setDate nullable: true
-		recipientToList nullable: true
-		recipientCCList nullable: true
-		recipientBCCList nullable: true
-		mailingListTemplate nullable: true
+		sendType nullable: true
+		addedby nullable:true
+		scheduleStatus(min:(byte)0, max:(byte)5, inList:SCHEDULE_TYPES)
+		dateTime(nullable:true)
 	}
 	String toString() { id }
 }

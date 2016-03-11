@@ -112,6 +112,16 @@
 			<g:hiddenField name="dateTime" value="${params.dateTime }"/>
 			${params.dateTime}
 		</div>
+		
+		
+	<div class="fieldcontain ${hasErrors(bean: params, field: 'cronExpression', 'error')}">
+		<label for="cronExpression">
+			<g:message code="cronExpression.label" default="cronExpression" />
+		</label>
+		<g:hiddenField  name="cronExpression" value="${params?.cronExpression}"/>
+		${params?.cronExpression}
+	</div>
+	
 		<div class="fieldcontain ${hasErrors(bean: params, field: 'setDate', 'error')} ">
 			<label for="setDate">
 				<g:message code="setDate.label" default="Issue/Resolve Date:" />

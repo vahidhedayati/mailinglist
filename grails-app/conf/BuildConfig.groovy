@@ -6,17 +6,17 @@ grails.project.dependency.resolution = {
 	log 'warn'
 
 	repositories {
+		grailsCentral()
 		mavenLocal()
 		mavenCentral()
-		grailsCentral()
-		//http://stackoverflow.com/questions/24411420/grails-export-plugin-errors
+		mavenRepo "https://repo.grails.org/grails/plugins"
 		mavenRepo "http://repo.grails.org/grails/core"
-		
 	}
 	
 	//http://stackoverflow.com/questions/24411420/grails-export-plugin-errors
 	dependencies {
 		compile 'commons-beanutils:commons-beanutils:1.8.3'
+		compile 'org.apache.commons:commons-io:1.3.2'
 	}
 	
 	plugins {

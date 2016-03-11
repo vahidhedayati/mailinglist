@@ -95,12 +95,24 @@
 	
 	
 	
-	<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'dateTime', 'error')} required">
-	<label for="manager">
-		<g:message code="dateTime.label" default="dateTime" />
-	</label>
-	<jqueryPicker:time name="dateTime" value="${curr }" />
+	<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'dateTime', 'error')}">
+		<label for="manager">
+			<g:message code="dateTime.label" default="dateTime" />
+		</label>
+		<g:if test="${enduser?.verifyAppVersion().equals('resources')}">
+			<jqueryPicker:time name="dateTime" value="${curr }" />
+		</g:if>
+		<g:else>
+			<input type="text" name="dateTime" id="dateTime" value="${current}" />
+		</g:else>
 	</div>
+	<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'cronExpression', 'error')}">
+		<label for="cronExpression">
+			<g:message code="cronExpression.label" default="cronExpression" />
+		</label>
+		<g:textField name="cronExpression" value="${mailingListScheduleInstance?.cronExpression}"/>
+	</div>
+	
 	<div class="fieldcontain ${hasErrors(bean: params, field: 'send', 'error')} ">
 		<label for="Trigger">
 			<g:message code="dateTime.label" default="Trigger" />
@@ -111,4 +123,6 @@
 	</div>		
 	</g:form>
 </div>
-</body></html>
+
+</body>
+</html>

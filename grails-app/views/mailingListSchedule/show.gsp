@@ -49,13 +49,6 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${mailingListScheduleInstance?.deploymentComplete}">
-				<li class="fieldcontain">
-					<span id="deploymentComplete-label" class="property-label"><g:message code="mailingListSchedule.deploymentComplete.label" default="Deployment Complete" /></span>
-					<span class="property-value" aria-labelledby="deploymentComplete-label"><g:formatBoolean boolean="${mailingListScheduleInstance?.deploymentComplete}" /></span>
-				</li>
-				</g:if>
-			
 				<g:if test="${mailingListScheduleInstance?.emailMessage}">
 				<li class="fieldcontain">
 					<span id="emailMessage-label" class="property-label"><g:message code="mailingListSchedule.emailMessage.label" default="Email Message" /></span>
@@ -112,20 +105,12 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${mailingListScheduleInstance?.scheduleCancelled}">
+				<g:if test="${mailingListScheduleInstance?.scheduleStatus}">
 				<li class="fieldcontain">
-					<span id="scheduleCancelled-label" class="property-label"><g:message code="mailingListSchedule.scheduleCancelled.label" default="Schedule Cancelled" /></span>
-					<span class="property-value" aria-labelledby="scheduleCancelled-label"><g:formatBoolean boolean="${mailingListScheduleInstance?.scheduleCancelled}" /></span>
+					<span id="scheduleStatus" class="property-label"><g:message code="mailingListSchedule.scheduleStatus.label" default="Schedule Cancelled" /></span>
+					<span class="property-value" aria-labelledby="scheduleStatus"><g:message code="mailinglist.status.${l.scheduleStatus}"/> </span>
 				</li>
 				</g:if>
-			
-				<g:if test="${mailingListScheduleInstance?.scheduleComplete}">
-				<li class="fieldcontain">
-					<span id="scheduleComplete-label" class="property-label"><g:message code="mailingListSchedule.scheduleComplete.label" default="Schedule Complete" /></span>
-					<span class="property-value" aria-labelledby="scheduleComplete-label"><g:formatBoolean boolean="${mailingListScheduleInstance?.scheduleComplete}" /></span>
-				</li>
-				</g:if>
-			
 				<g:if test="${mailingListScheduleInstance?.sendType}">
 				<li class="fieldcontain">
 					<span id="sendType-label" class="property-label"><g:message code="mailingListSchedule.sendType.label" default="Send Type" /></span>

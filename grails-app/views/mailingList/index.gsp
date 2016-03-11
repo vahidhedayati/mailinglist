@@ -44,7 +44,8 @@
 		</div></li></ul>
 		
 		<div id="the_box1" class="the_box" role="complementary">
-		<g:if test="${scheduleCompleted}">
+		
+		<g:if test="${scheduleStatus==grails.plugin.mailinglist.core.ScheduleBase.SCHEDULE_COMPLETE}">
 		<div id="returnPanel" class="resultsPane">
 			<g:render template="/mailingList/scheduleCompleted" model="[sc:scheduleCompleted, total: total]"></g:render>
 		</div>		

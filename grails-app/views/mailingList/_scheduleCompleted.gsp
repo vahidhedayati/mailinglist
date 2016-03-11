@@ -44,8 +44,7 @@
 						/>
 		</div>
 		<div class="mail-completed">
-		<b><g:message code="default.completed.label" default="Completed"/>:</b>	${l.scheduleComplete.toString()} |
-		<b><g:message code="default.cancelled.label" default="Cancelled"/>:</b> ${l.scheduleCancelled.toString()}
+			<g:message code="mailinglist.status.${l.scheduleStatus}"/> 
 		</div>	
   	</div>
 	</g:each>

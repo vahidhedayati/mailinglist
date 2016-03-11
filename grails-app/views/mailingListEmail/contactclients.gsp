@@ -169,7 +169,7 @@
 		<div id="loadMessageBox"></div>
 	</g:else>
    			
-	<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'dateTime', 'error')} required">
+	<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'dateTime', 'error')}">
 		<label for="manager">
 			<g:message code="dateTime.label" default="dateTime" />
 		</label>
@@ -179,6 +179,13 @@
 		<g:else>
 			<input type="text" name="dateTime" id="dateTime" value="${current}" />
 		</g:else>
+	</div>
+	
+	<div class="fieldcontain ${hasErrors(bean: params, field: 'cronExpression', 'error')}">
+		<label for="cronExpression">
+			<g:message code="cronExpression.label" default="cronExpression" />
+		</label>
+		<g:textField name="cronExpression" value="${params?.cronExpression}"/>
 	</div>
 		
 	<div class="fieldcontain ${hasErrors(bean: params, field: 'setDate', 'error')} ">

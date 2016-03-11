@@ -75,5 +75,55 @@ class MailingListTagLib {
 		}
 	}
 
+	def translateCronExpress={attrs ->
+		String ce=attrs.cronExpression
+		def c=ce.split(' ',-1)
+		String seconds=c[0] //0-59
+		String minutes=c[1] //0-59
+		String hours=c[2] //0-23
+		String dayOfMonth=c[3] //1-31
+		String month=c[4] //1-2 or JAN - DEC, ?
+		String dayOfWeek=c[5]  //1-7 or SUN-SAT, ?
+		String year  //[optional]
+		if (c.length>6) {
+			year=c[6]
+		}
+		String always='*'
+		String startTime='?'
+		def weekDays=[:]
+		int i=1
+		while (i < 8) {
+			weekDays."${i}"=g.message(code:"mailinglist.dow.${i}")
+			i++
+		}
+		int j=1
+		def months=[:]
+		while (j < 13) {
+			months."${j}"=g.message(code:"mailinglist.month.${i}")
+			j++
+		}
+		
+			
+		StringBuilder sb = new StringBuilder()
+		sb.append((hours==always?hours:g.message(code:'mailinglist.cron.hours',args:[hours])))
+		sb.append(":"+(minutes==always?minutes:g.message(code:'mailinglist.cron.minutes',args:[minutes])))
+		sb.append(":"+(seconds==always?always:g.message(code:'mailinglist.cron.seconds',args:[seconds]))+", ")
+		if (dayOfMonth!=startTime&&dayOfMonth!=always) {		
+			sb.append(g.message(code:'mailinglist.cron.dayOfMonth',args:[dayOfMonth])+", ")
+		}
+		if (month!=startTime&&month!=always) {
+			sb.append(g.message(code:'mailinglist.cron.month',args:[months."${month}"])+", ")
+		}
+		if (dayOfWeek!=startTime&&dayOfWeek!=always) {
+			sb.append(g.message(code:'mailinglist.cron.dayOfWeek',args:[weekDays."${dayOfWeek}"]))
+		}	
+		if (year) {
+			sb.append(", "+(year==always?g.message(code:'mailinglist.cron.all.year'):g.message(code:'mailinglist.cron.year',args:[year])))
+		}
+		out << sb.toString()
+	}
 
+	private String defineDayOfMonth(String day) {
+		defineDayMonth
+	}
 }

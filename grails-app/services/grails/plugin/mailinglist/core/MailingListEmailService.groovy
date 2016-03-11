@@ -315,8 +315,7 @@ class MailingListEmailService {
 		ScheduleBase foundit = ScheduleBase.get(scheduleid)
 		//ScheduleBase foundit= ScheduleBase.findById(scheduleid, [lock: true])
 		if (foundit) {
-			foundit.scheduleComplete = true
-			foundit.deploymentComplete = true
+			foundit.scheduleStatus = ScheduleBase.SCHEDULE_COMPLETE
 			foundit.merge()
 			foundit.save(flush:true)
 		}

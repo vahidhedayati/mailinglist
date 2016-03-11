@@ -24,27 +24,25 @@
 						<g:sortableColumn property="addedby" title="${message(code: 'mailingListSchedule.addedby.label', default: 'Addedby')}" />
 						<g:sortableColumn property="dateCreated" title="${message(code: 'mailingListSchedule.dateCreated.label', default: 'Date Created')}" />
 						<g:sortableColumn property="dateTime" title="${message(code: 'mailingListSchedule.dateTime.label', default: 'Date Time')}" />
-						<g:sortableColumn property="deploymentComplete" title="${message(code: 'mailingListSchedule.deploymentComplete.label', default: 'Deployment Complete')}" />
 						<g:sortableColumn property="emailMessage" title="${message(code: 'mailingListSchedule.emailMessage.label', default: 'Email Message')}" />
 						<g:sortableColumn property="lastUpdated" title="${message(code: 'mailingListSchedule.lastUpdated.label', default: 'Last Updated')}" />
 					
 					</tr>
 				</thead>
 				<tbody>
-				<g:each in="${mailingListScheduleInstanceList}" status="i" var="mailingListScheduleInstance">
+				<g:each in="${mailingListScheduleInstance}" status="i" var="instance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-						<td><g:link action="show" id="${mailingListScheduleInstance.id}">${fieldValue(bean: mailingListScheduleInstance, field: "addedby")}</g:link></td>
-						<td><g:formatDate date="${mailingListScheduleInstance.dateCreated}" /></td>
-						<td>${fieldValue(bean: mailingListScheduleInstance, field: "dateTime")}</td>
-						<td><g:formatBoolean boolean="${mailingListScheduleInstance.deploymentComplete}" /></td>
-						<td>${fieldValue(bean: mailingListScheduleInstance, field: "emailMessage")}</td>
-						<td><g:formatDate date="${mailingListScheduleInstance.lastUpdated}" /></td>
+						<td><g:link action="show" id="${instance.id}">${fieldValue(bean: instance, field: "addedby")}</g:link></td>
+						<td><g:formatDate date="${instance.dateCreated}" /></td>
+						<td>${fieldValue(bean: instance, field: "dateTime")}</td>
+						<td>${fieldValue(bean: instance, field: "emailMessage")}</td>
+						<td><g:formatDate date="${instance.lastUpdated}" /></td>
 					</tr>
 				</g:each>
 				</tbody>
 			</table>
 			<div class="pagination">
-				<g:paginate total="${mailingListScheduleInstanceTotal}" />
+				<g:paginate total="${total}" />
 			</div>
 
 <div class="export">

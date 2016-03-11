@@ -39,12 +39,12 @@ class MailingListScheduleController {
 				total = ScheduleBase.countByAddedby(params.id)
 				break
 			case 'od':
-				foundHistory = ScheduleBase.findAllByScheduleComplete(true, paginationParams)
-				total = ScheduleBase.countByScheduleComplete(true)
+				foundHistory = ScheduleBase.findAllByScheduleStatus(ScheduleBase.SCHEDULE_COMPLETE, paginationParams)
+				total = ScheduleBase.countByScheduleStatus(ScheduleBase.SCHEDULE_COMPLETE)
 				break
 			case 'oc':
-				foundHistory = ScheduleBase.findAllByScheduleCancelled(true, paginationParams)
-				total = ScheduleBase.countByScheduleCancelled(true)
+				foundHistory = ScheduleBase.findAllByScheduleStatus(ScheduleBase.SCHEDULE_CANCELLED, paginationParams)
+				total = ScheduleBase.countByScheduleStatus(ScheduleBase.SCHEDULE_CANCELLED)
 				break
 			case 'all':
 				foundHistory = ScheduleBase.findAll()
@@ -52,14 +52,14 @@ class MailingListScheduleController {
 				break			
 			default:
 				s = 'oa'
-				foundHistory = ScheduleBase.findAllByScheduleCompleteAndScheduleCancelled(false, false, paginationParams)
-				total = ScheduleBase.countByScheduleComplete(false)
+				foundHistory = ScheduleBase.findAllByScheduleStatusInList([ScheduleBase.SCHEDULE_CANCELLED, ScheduleBase.SCHEDULE_COMPLETE], paginationParams)
+				total = ScheduleBase.countByScheduleStatusInList([ScheduleBase.SCHEDULE_CANCELLED, ScheduleBase.SCHEDULE_COMPLETE])
 		}
 		params.template = request.xhr ? "mini-main" : "main"
 		render view: 'list2', model: [now: new Date(), scheduler: quartzScheduler, divupdate: 'siteContent', evid:envid,
 		                              pageSizes: pageSizes, offset: offset, viewtype: viewtype ?: "normal", max: max,
-		                              userchoice: userchoice, deploymentInfoHistoryInstanceList: foundHistory,
-		                              deploymentInfoHistoryInstanceTotal: total, inputid: inputid, s: s, order: order,
+		                              userchoice: userchoice, mailingListScheduleInstance: foundHistory,
+		                              total: total, inputid: inputid, s: s, order: order,
 		                              sortby:sortby, action: 'br', template: params.template]
 	}
 
@@ -71,11 +71,11 @@ class MailingListScheduleController {
 				cr?.each { crec ->
 					if (calltype.equals('cancel')) {
 						sb.append('MailingListSchedule row marked as Cancelled ')
-						crec.scheduleCancelled=true
+						crec.scheduleStatus=ScheduleBase.SCHEDULE_CANCELLED
 					}
 					if (calltype.equals('complete')) {
 						sb.append('MailingListSchedule row marked as completed ')
-						crec.scheduleComplete=true
+						crec.scheduleStatus=ScheduleBase.SCHEDULE_COMPLETE
 					}
 					cr.save(flush:true)
 				}
