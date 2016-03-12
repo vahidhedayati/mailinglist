@@ -7,7 +7,7 @@ import org.joda.time.Years
 
 @Validateable
 class ScheduleBaseBean {
-	def id 
+	def id
 	String mailFrom
 	//we will sort out previous issues and do 2 setters
 	String recipientToGroup
@@ -22,25 +22,25 @@ class ScheduleBaseBean {
 
 	String sendType
 	String addedby
-	String recipientToList 
+	String recipientToList
 	String emailMessage
 	String recipientCCList
 	String recipientBCCList
 	//String sendtype
 	String quartzSchedule
-	
+
 	String setTime_hour
 	String setTime_minute
 	List storeAttachments=[]
-	
+
 	Byte scheduleStatus=ScheduleBase.SCHEDULE_RUNNING
 	String scheduleName=''
-	
-	
+
+
 	//Content outside of params used for rendering and services
 	String ttype = 'Email Announcement'
 	String dateFormat='dd MMM yyyy'
-	
+
 	static constraints = {
 		id(nullable:true,bindable:true)
 		addedby nullable: true
@@ -62,11 +62,21 @@ class ScheduleBaseBean {
 		attachments(nullable:true)
 		setTime_hour(nullable:true)
 		setTime_minute(nullable:true)
-		
+
 	}
+
 	static def checkCronExpression = {val,obj,errors->
 		if (val) {
 			String ce=val
+			if (ce.contains(' ')) {
+				if (ce.split(' ',-1).length<5 || ce.split(' ',-1).length>7) {
+					errors.rejectValue(propertyName,"cron.invalid.expression",[''] as Object[],'')
+					return
+				}
+			} else {
+				errors.rejectValue(propertyName,"cron.invalid.expression",[''] as Object[],'')
+				return
+			}
 			def c=ce.split(' ',-1)
 			String seconds=c[0] //0-59
 			String minutes=c[1] //0-59
@@ -82,164 +92,207 @@ class ScheduleBaseBean {
 			String startupTime='?'
 			if (seconds.contains('-')) {
 				def sec=seconds.split('-')
-				int sec1=sec[0] as int
-				int sec2=sec[1] as int
-				if ((sec1 < 0 || sec1 >59)||(sec2 < 0 || sec2 >59)) {
+				def sec1=sec[0].isNumber() ? (sec[0] as int): null
+				def sec2=sec[1].isNumber() ? (sec[1] as int): null
+				if (sec && sec2) {
+					if  (sec1 < 0 || sec1 >59||sec2 < 0 || sec2 >59) {
+						errors.rejectValue(propertyName,"cron.seconds.invalid",[''] as Object[],'')
+					}
+				} else{
 					errors.rejectValue(propertyName,"cron.seconds.invalid",[''] as Object[],'')
 				}
 			} else if (seconds.contains('/')) {
 				def sec=seconds.split('/')
-				int sec1=sec[0] as int
-				int sec2=sec[1] as int
-				if ((sec1 < 0 || sec1 >59) && (sec2 < 0 || sec2 >59)) {
+				def sec1=sec[0].isNumber() ? (sec[0] as int): null
+				def sec2=sec[1].isNumber() ? (sec[1] as int): null
+				if (sec && sec2) {
+					if  (sec1 < 0 || sec1 >59||sec2 < 0 || sec2 >59) {
+						errors.rejectValue(propertyName,"cron.seconds.invalid",[''] as Object[],'')
+					}
+				} else{
 					errors.rejectValue(propertyName,"cron.seconds.invalid",[''] as Object[],'')
 				}
 			} else {
 				if (seconds!=always && seconds !=startupTime) {
-					def sec=seconds as int
-					if (sec < 0 || sec >59) {
+					def sec=seconds.isNumber() ? (seconds as int): null
+					if (sec) {
+						if (sec < 0 || sec >59) {
+							errors.rejectValue(propertyName,"cron.seconds.invalid",[''] as Object[],'')
+						}
+					}else{
 						errors.rejectValue(propertyName,"cron.seconds.invalid",[''] as Object[],'')
 					}
 				}
 			}
-			
 			if (minutes.contains('-')) {
 				def sec=minutes.split('-')
-				int sec1=sec[0] as int
-				int sec2=sec[1] as int
-				if ((sec1 < 0 || sec1 >59)||(sec2 < 0 || sec2 >59)) {
+				def sec1=sec[0].isNumber() ? (sec[0] as int): null
+				def sec2=sec[1].isNumber() ? (sec[1] as int): null
+				if (sec && sec2) {
+					if  (sec1 < 0 || sec1 >59||sec2 < 0 || sec2 >59) {
+						errors.rejectValue(propertyName,"cron.minutes.invalid",[''] as Object[],'')
+					}
+				} else{
 					errors.rejectValue(propertyName,"cron.minutes.invalid",[''] as Object[],'')
 				}
 			} else if (minutes.contains('/')) {
 				def sec=minutes.split('/')
-				int sec1=sec[0] as int
-				int sec2=sec[1] as int
-				if ((sec1 < 0 || sec1 >59)||(sec2 < 0 || sec2 >59)) {
+				def sec1=sec[0].isNumber() ? (sec[0] as int): null
+				def sec2=sec[1].isNumber() ? (sec[1] as int): null
+				if (sec && sec2) {
+					if  (sec1 < 0 || sec1 >59||sec2 < 0 || sec2 >59) {
+						errors.rejectValue(propertyName,"cron.minutes.invalid",[''] as Object[],'')
+					}
+				} else{
 					errors.rejectValue(propertyName,"cron.minutes.invalid",[''] as Object[],'')
-				} 	
+				}
 			} else {
 				if (minutes!=always && minutes !=startupTime) {
-					def sec=minutes as int
-					if (sec < 0 || sec >59) {
+					def sec=minutes.isNumber() ? (minutes as int): null
+					if (sec) {
+						if (sec < 0 || sec >59) {
+							errors.rejectValue(propertyName,"cron.minutes.invalid",[''] as Object[],'')
+						}
+					}else{
 						errors.rejectValue(propertyName,"cron.minutes.invalid",[''] as Object[],'')
 					}
 				}
 			}
-			
 			if (hours.contains('-')) {
 				def sec=hours.split('-')
-				int sec1=sec[0] as int
-				int sec2=sec[1] as int
-				if ((sec1 < 0 || sec1 >23)||(sec2 < 0 || sec2 >23)) {
+				def sec1=sec[0].isNumber() ? (sec[0] as int): null
+				def sec2=sec[1].isNumber() ? (sec[1] as int): null
+				if (sec && sec2) {
+					if  (sec1 < 0 || sec1 >23||sec2 < 0 || sec2 >23) {
+						errors.rejectValue(propertyName,"cron.hours.invalid",[''] as Object[],'')
+					}
+				} else{
 					errors.rejectValue(propertyName,"cron.hours.invalid",[''] as Object[],'')
 				}
 			} else if (hours.contains('/')) {
 				def sec=hours.split('/')
-				int sec1=sec[0] as int
-				int sec2=sec[1] as int
-				if ((sec1 < 0 || sec1 >23)||(sec2 < 0 || sec2 >23)) {
+				def sec1=sec[0].isNumber() ? (sec[0] as int): null
+				def sec2=sec[1].isNumber() ? (sec[1] as int): null
+				if (sec && sec2) {
+					if  (sec1 < 0 || sec1 >23||sec2 < 0 || sec2 >23) {
+						errors.rejectValue(propertyName,"cron.hours.invalid",[''] as Object[],'')
+					}
+				} else{
 					errors.rejectValue(propertyName,"cron.hours.invalid",[''] as Object[],'')
 				}
 			} else {
 				if (hours!=always && hours !=startupTime) {
-					def sec=hours as int
-					if (sec < 0 || sec >23) {
+					def sec=hours.isNumber() ? (hours as int): null
+					if (sec) {
+						if (sec < 0 || sec >23) {
+							errors.rejectValue(propertyName,"cron.hours.invalid",[''] as Object[],'')
+						}
+					}else{
 						errors.rejectValue(propertyName,"cron.hours.invalid",[''] as Object[],'')
 					}
 				}
 			}
-			
 			if (dayOfMonth.contains('-')) {
 				def sec=dayOfMonth.split('-')
-				int sec1=sec[0] as int
-				int sec2=sec[1] as int
-				if ((sec1 < 1 || sec1 >31)||(sec2 < 1 || sec2 >31)) {
-					errors.rejectValue(propertyName,"cron.dayOfMonth.invalid",[''] as Object[],'')
-				} else {
-					if (dayOfWeek != startupTime) { 
-						errors.rejectValue(propertyName,"cron.invalid.dom.dow",[''] as Object[],'')
+				def sec1=sec[0].isNumber() ? (sec[0] as int): null
+				def sec2=sec[1].isNumber() ? (sec[1] as int): null
+				if (sec && sec2) {
+					if  (sec1 < 1 || sec1 >31||sec2 < 1 || sec2 >31) {
+						errors.rejectValue(propertyName,"cron.dayOfMonth.invalid",[''] as Object[],'')
 					}
+				} else{
+					errors.rejectValue(propertyName,"cron.dayOfMonth.invalid",[''] as Object[],'')
 				}
 			} else if (dayOfMonth.contains('/')) {
 				def sec=dayOfMonth.split('/')
-				int sec1=sec[0] as int
-				int sec2=sec[1] as int
-				if ((sec1 < 1 || sec1 >31)||(sec2 < 1 || sec2 >31)) {
-					errors.rejectValue(propertyName,"cron.dayOfMonth.invalid",[''] as Object[],'')
-				} else {
-					if (dayOfWeek != startupTime) { 
-						errors.rejectValue(propertyName,"cron.invalid.dom.dow",[''] as Object[],'')
+				def sec1=sec[0].isNumber() ? (sec[0] as int): null
+				def sec2=sec[1].isNumber() ? (sec[1] as int): null
+				if (sec && sec2) {
+					if  (sec1 < 1 || sec1 >31||sec2 < 1 || sec2 >31) {
+						errors.rejectValue(propertyName,"cron.dayOfMonth.invalid",[''] as Object[],'')
 					}
+				} else{
+					errors.rejectValue(propertyName,"cron.dayOfMonth.invalid",[''] as Object[],'')
 				}
 			} else {
 				if (dayOfMonth!=always && dayOfMonth !=startupTime) {
-					def sec=dayOfMonth as int
-					if (sec < 1 || sec >31) {
-						errors.rejectValue(propertyName,"cron.dayOfMonth.invalid",[''] as Object[],'')
-					} else {
-						if (dayOfWeek != startupTime) { 
-							errors.rejectValue(propertyName,"cron.invalid.dom.dow",[''] as Object[],'')
+					def sec=dayOfMonth.isNumber() ? (dayOfMonth as int): null
+					if (sec) {
+						if (sec < 1 || sec >31) {
+							errors.rejectValue(propertyName,"cron.dayOfMonth.invalid",[''] as Object[],'')
 						}
-					}	
+					}else{
+						errors.rejectValue(propertyName,"cron.dayOfMonth.invalid",[''] as Object[],'')
+					}
 				}
 			}
-			
 			if (month.contains('-')) {
 				def sec=month.split('-')
-				int sec1=sec[0] as int
-				int sec2=sec[1] as int
-				if ((sec1 < 1 || sec1 >12)||(sec2 < 1 || sec2 >12)) {
+				def sec1=sec[0].isNumber() ? (sec[0] as int): null
+				def sec2=sec[1].isNumber() ? (sec[1] as int): null
+				if (sec && sec2) {
+					if  (sec1 < 1 || sec1 >12||sec2 < 1 || sec2 >12) {
+						errors.rejectValue(propertyName,"cron.month.invalid",[''] as Object[],'')
+					}
+				} else{
 					errors.rejectValue(propertyName,"cron.month.invalid",[''] as Object[],'')
 				}
 			} else if (month.contains('/')) {
 				def sec=month.split('/')
-				int sec1=sec[0] as int
-				int sec2=sec[1] as int
-				if ((sec1 < 1 || sec1 >12)||(sec2 < 1 || sec2 >12)) {
+				def sec1=sec[0].isNumber() ? (sec[0] as int): null
+				def sec2=sec[1].isNumber() ? (sec[1] as int): null
+				if (sec && sec2) {
+					if  (sec1 < 1 || sec1 >12||sec2 < 1 || sec2 >12) {
+						errors.rejectValue(propertyName,"cron.month.invalid",[''] as Object[],'')
+					}
+				} else{
 					errors.rejectValue(propertyName,"cron.month.invalid",[''] as Object[],'')
 				}
 			} else {
 				if (month!=always && month !=startupTime) {
-					def sec=month as int
-					if (sec < 1 || sec >12) {
+					def sec=month.isNumber() ? (month as int): null
+					if (sec) {
+						if (sec < 1 || sec >12) {
+							errors.rejectValue(propertyName,"cron.month.invalid",[''] as Object[],'')
+						}
+					}else{
 						errors.rejectValue(propertyName,"cron.month.invalid",[''] as Object[],'')
 					}
 				}
 			}
-			
+
 			if (dayOfWeek.contains('-')) {
 				def sec=dayOfWeek.split('-')
-				int sec1=sec[0] as int
-				int sec2=sec[1] as int
-				if ((sec1 < 1 && sec1 >7)||(sec2 < 1 && sec2 >7)) {
-					errors.rejectValue(propertyName,"cron.dayOfWeek.invalid",[''] as Object[],'')
-				} else {
-					if (dayOfMonth != startupTime) { 
-						errors.rejectValue(propertyName,"cron.invalid.dom.dow1",[''] as Object[],'')
+				def sec1=sec[0].isNumber() ? (sec[0] as int): null
+				def sec2=sec[1].isNumber() ? (sec[1] as int): null
+				if (sec && sec2) {
+					if  (sec1 < 1 || sec1 >7||sec2 < 1 || sec2 >7) {
+						errors.rejectValue(propertyName,"cron.dayOfWeek.invalid",[''] as Object[],'')
 					}
-				}	
+				} else{
+					errors.rejectValue(propertyName,"cron.dayOfWeek.invalid",[''] as Object[],'')
+				}
 			} else if (dayOfWeek.contains('/')) {
 				def sec=dayOfWeek.split('/')
-				int sec1=sec[0] as int
-				int sec2=sec[1] as int
-				if ((sec1 < 1 || sec1 >7)||(sec2 < 1 || sec2 >7)) {
-					errors.rejectValue(propertyName,"cron.dayOfWeek.invalid",[''] as Object[],'')
-				} else {
-					if (dayOfMonth != startupTime) { 
-						errors.rejectValue(propertyName,"cron.invalid.dom.dow1",[''] as Object[],'')
+				def sec1=sec[0].isNumber() ? (sec[0] as int): null
+				def sec2=sec[1].isNumber() ? (sec[1] as int): null
+				if (sec && sec2) {
+					if  (sec1 < 1 || sec1 >7||sec2 < 1 || sec2 >7) {
+						errors.rejectValue(propertyName,"cron.dayOfWeek.invalid",[''] as Object[],'')
 					}
-				}	
+				} else{
+					errors.rejectValue(propertyName,"cron.dayOfWeek.invalid",[''] as Object[],'')
+				}
 			} else {
 				if (dayOfWeek!=always && dayOfWeek !=startupTime) {
-					def sec=dayOfWeek as int
-					if (sec < 1 || sec >7) {
-						errors.rejectValue(propertyName,"cron.dayOfWeek.invalid",[''] as Object[],'')
-					} else {
-						if (dayOfMonth != startupTime) { 
-							errors.rejectValue(propertyName,"cron.invalid.dom.dow1",[''] as Object[],'')
+					def sec=dayOfWeek.isNumber() ? (dayOfWeek as int): null
+					if (sec) {
+						if (sec < 1 || sec >7) {
+							errors.rejectValue(propertyName,"cron.dayOfWeek.invalid",[''] as Object[],'')
 						}
+					}else{
+						errors.rejectValue(propertyName,"cron.dayOfWeek.invalid",[''] as Object[],'')
 					}
-					
 				}
 			}
 			if (year) {
@@ -253,21 +306,21 @@ class ScheduleBaseBean {
 				}
 			}
 		}
-		
+
 	}
 	static def checkEmailTo = {val,obj,errors->
 		if (!obj.recipientToGroup && !obj.recipientToList && !obj.recipientCCList && !obj.recipientBCCList) {
 			errors.rejectValue(propertyName,"mailingList.define.to.address",[''] as Object[],'')
 		}
 	}
-	
+
 	static def checkDateTime = {val,obj,errors->
 		if (!obj.dateTime && !obj.cronExpression) {
 			errors.rejectValue(propertyName,"mailinglist.define.date.or.cron",[''] as Object[],'')
 			return
 		}
 	}
-	
+
 	String getEmailMessage() {
 		return emailMessage?.trim()?.replace('[SETDATE]',setDate ? setDate : '' )?.replace('[SETTIME]', setTime ? setTime : '')
 	}
@@ -287,7 +340,7 @@ class ScheduleBaseBean {
 		return [mailFrom:mailFrom, recipientToGroup: recipientToGroup, subject: subject,
 			mailingListTemplate: mailingListTemplate, dateTime: dateTime, setDate: setDate,
 			setTime: setTime,emailMessage: emailMessage, recipientToList: recipientToList,
-			recipientCCList: recipientCCList, cronExpression: cronExpression, 
+			recipientCCList: recipientCCList, cronExpression: cronExpression,
 			recipientBCCList: recipientBCCList, addedby: addedby,
 			sendType: sendType, scheduleStatus: scheduleStatus
 		]
