@@ -94,13 +94,13 @@
           from="${['bulk':'bulk', 'individual':'individual']}"
           optionKey="key" optionValue="value"
           noSelection="['bulk': 'bulk']"
-          required=""      
+          required="required"      
            />
            <g:message code="default.bulk.message.label" default="Bulk = one email with all users in one line and put it in BCC field "/><br/>
            <g:message code="default.individual.message.label" default="Individual = will create 1 email per user and send To each user"/>
 		</div>
 	</div>
-	<div class="fieldcontain ${hasErrors(bean: params, field: 'mailFrom', 'error')} required">
+	<div class="fieldcontain ${hasErrors(bean: params, field: 'mailFrom', 'error')} " required="required">
 	<label for="mailFrom">
 		<g:message code="manager.label" default="mailFrom" />
 		<span class="required-indicator">*</span>
@@ -121,7 +121,7 @@
 	
 
 	<div id="contact-area">
-	<div class="fieldcontain ${hasErrors(bean: params, field: 'subject', 'error')} required">
+	<div class="fieldcontain ${hasErrors(bean: params, field: 'subject', 'error')}" required="required">
 	<label for="subject">
 		<g:message code="manager.label" default="subject" />
 		<span class="required-indicator">*</span>
@@ -144,7 +144,7 @@
 		<g:if test="${params.mailingListTemplate}">
 			<g:hiddenField name="mailingListTemplate" value="${params.mailingListTemplate }"/>
 		</g:if>
-		<div class="fieldcontain ${hasErrors(bean: params, field: 'emailMessage', 'error')} required">
+		<div class="fieldcontain ${hasErrors(bean: params, field: 'emailMessage', 'error')}" required="required">
 		<label for="manager">
 			<g:message code="emailMessage.label" default="Message" />
 		</label>
@@ -157,7 +157,7 @@
 		</div>
 	</g:if>
 	<g:else>
-		<div class="fieldcontain ${hasErrors(bean: params, field: 'mailingListScheduleInstance', 'error')} required">
+		<div class="fieldcontain ${hasErrors(bean: params, field: 'mailingListScheduleInstance', 'error')}"  required="required">
 		<label for="mailingListTemplates">
 			<g:message code="mailingListTemplates.label" default="Template" />
 			<span class="required-indicator">*</span>

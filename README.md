@@ -17,7 +17,7 @@ For a walk through guide on how to install this plugin goto : https://github.com
 ## Installation for grails 2.4+ assets based sites:
 Add plugin Dependency in BuildConfig.groovy :
 ```groovy
-compile ":mailinglist:0.30"
+compile ":mailinglist:0.31"
 ```
 
 #### Under 2.4.0 you may need to review hibernate version and update to:
@@ -126,6 +126,12 @@ From 1.17 you can configure your i18n/messages_{locale}.properties to include tr
 
 ## Version changes
 ```
+0.31 #3 Improvement of the mlsetup script and produced services 
+	If you have refreshed mlsetup script as part of 0.30, its worth doing it again. This will produce tidier services.
+0.30 #3 further tidyup of cron expression rule checking
+0.29 #3 Cron expressions introduced so either send via cron schedule or specify date time
+0.28 minor change update modaldynamix to 0.28  and pluginbuddy 0.3 
+0.27 minor change update to modaldynamix ver 0.27
 0.26 Updated to 2.4.2, cleaned up end user app verification by using pluginbuddy. 
 0.25 latest modaldynamix called - pop up boxes loading correctly according to screen size
 0.24 Fixed datetime issue under assets based sites.

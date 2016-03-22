@@ -33,7 +33,7 @@
 		<div id="contact-area">
 
 			<g:render template="/mailingList/addedby"  model="[caller: 'mailingListScheduleInstance']"/>
-			<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'mailFrom', 'error')} required">
+			<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'mailFrom', 'error')}" required="required">
 			<label for="manager">
 				<g:message code="manager.label" default="mailFrom" />
 			</label>
@@ -62,7 +62,7 @@
 			<g:textField name="recipientBCCList" value="${params?.recipientBCCList}"/>	
 			</div>	
 		
-			<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'subject', 'error')} required">
+			<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'subject', 'error')}" required="required">
 			<label for="manager">
 				<g:message code="manager.label" default="subject" />
 			</label>
@@ -81,7 +81,7 @@
 	</div>
 	
 	<div id="contact-area">
-	<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'emailMessage', 'error')} required">
+	<div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'emailMessage', 'error')}" required="required">
 	<label for="manager">
 		<g:message code="emailMessage.label" default="emailMessage" />
 	</label>

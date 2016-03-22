@@ -47,11 +47,7 @@ class QuartzEmailCheckerService {
 						sendType: params.sendType,
 						id: params.id,
 						scheduleid: params.id]
-if (params.cronExpression) {
-$expressionMapping2
-} else {
 $jobMapping
-}
 				}
 				catch(e) {
 					//log.error("ERROR: Cannot parse \$cdt: \$e.message", e)
@@ -88,12 +84,7 @@ $jobMapping
 						log.info messageSource.getMessage('default.schedule.set.label', ["\${cdt}","\${scheduledDate}"].toArray(), "Scheduled EMAIL set for \$cdt (\$scheduledDate)", LCH.getLocale())
 					}
 					sb = new StringBuilder()
-				
-if (params.cronExpression) {
-$expressionMapping
-} else {
 $queueMapping
-}
 				
 				}
 				catch(e) {
