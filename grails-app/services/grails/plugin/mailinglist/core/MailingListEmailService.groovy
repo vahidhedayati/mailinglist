@@ -88,22 +88,22 @@ class MailingListEmailService {
 
 		def recipientToList=recipientTo
 		if (recipientTo){
-			recipientToList=returnEmailArrary(recipientTo)
+			recipientToList=returnEmailArray(recipientTo)
 		}
 		
 		def recipientToList2=recipientTo2
 		if (recipientTo2){
-			recipientToList2=returnEmailArrary(recipientTo2)
+			recipientToList2=returnEmailArray(recipientTo2)
 		}
 		
 		def recipientCCList=recipientCC
 		if (recipientCC){
-			recipientCCList=returnEmailArrary(recipientCC)
+			recipientCCList=returnEmailArray(recipientCC)
 		}
 		
 		def recipientBCCList=recipientBCC
 		if (recipientBCC){
-			recipientBCCList=returnEmailArrary(recipientBCC)
+			recipientBCCList=returnEmailArray(recipientBCC)
 		}
 		
 		if (!scheduleid) {
@@ -359,9 +359,9 @@ class MailingListEmailService {
 		s.substring(0,1).toUpperCase() + s.substring(1)
 	}
 	
-	def returnEmailArrary(String email) {
+	def returnEmailArray(def email) {
 		List<String> recipients
-		if (email.toString().indexOf(',')>-1) {
+		if (email.toString().indexOf(',')>-1 && !(email instanceof List)) {
 			recipients =email.split(',').collect { it.trim() }
 			return recipients
 		}
