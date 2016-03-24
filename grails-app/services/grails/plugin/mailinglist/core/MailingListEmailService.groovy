@@ -83,26 +83,27 @@ class MailingListEmailService {
 		def emailFrom = paramsMap.mailFrom
 		def recipientToGroup = paramsMap.recipientToGroup
 		def template = paramsMap.mailingListTemplate
+		def templateModel = paramsMap.mailingListTemplateModel
 		def scheduleid = paramsMap.id
-		
+
 		def recipientToList=recipientTo
 		if (recipientTo){
-			recipientToList=returnEmailArrary(recipientTo)
+			recipientToList=returnEmailArray(recipientTo)
 		}
 		
 		def recipientToList2=recipientTo2
 		if (recipientTo2){
-			recipientToList2=returnEmailArrary(recipientTo2)
+			recipientToList2=returnEmailArray(recipientTo2)
 		}
 		
 		def recipientCCList=recipientCC
 		if (recipientCC){
-			recipientCCList=returnEmailArrary(recipientCC)
+			recipientCCList=returnEmailArray(recipientCC)
 		}
 		
 		def recipientBCCList=recipientBCC
 		if (recipientBCC){
-			recipientBCCList=returnEmailArrary(recipientBCC)
+			recipientBCCList=returnEmailArray(recipientBCC)
 		}
 		
 		if (!scheduleid) {
@@ -196,7 +197,11 @@ class MailingListEmailService {
 					if (!recipientToList && recipientToList2) { to recipientToList2 }
 					if (recipientCCList) { cc recipientCCList}
 					if (recipientBCCList) { bcc recipientBCCList}
-					html message
+					if(template){
+						html grailsApplication.mainContext.groovyPageRenderer.render(template: template, model: templateModel)
+					} else {
+						html message
+					}
 					currentMap.each { k, v ->
 						inline k, 'image/jpg', new File(System.properties['catalina.base'], "webapps/$v")
 					}
@@ -244,7 +249,11 @@ class MailingListEmailService {
 								if (!recipientToList && recipientToList2) {to recipientToList2 }
 								if (recipientCCList) { cc recipientCCList}
 								if (recipientBCCList) { bcc recipientBCCList}
-								html message
+								if(template){
+									html grailsApplication.mainContext.groovyPageRenderer.render(template: template, model: templateModel)
+								} else {
+									html message
+								}
 								currentMap.each { k, v ->
 									inline k, 'image/jpg', new File(System.properties['catalina.base'], "webapps/$v")
 								}
@@ -287,7 +296,11 @@ class MailingListEmailService {
 						if (!recipientToList && recipientToList2) {to recipientToList2 }
 						if (recipientCCList) { cc recipientCCList}
 						if (recipientBCCList) { bcc recipientBCCList}
-						html message
+						if(template){
+							html grailsApplication.mainContext.groovyPageRenderer.render(template: template, model: templateModel)
+						} else {
+							html message
+						}
 						currentMap.each { k, v ->
 							inline k, 'image/jpg', new File(System.properties['catalina.base'], "webapps/$v")
 						}
@@ -354,9 +367,9 @@ class MailingListEmailService {
 		s.substring(0,1).toUpperCase() + s.substring(1)
 	}
 	
-	def returnEmailArrary(String email) {
+	def returnEmailArray(def email) {
 		List<String> recipients
-		if (email.toString().indexOf(',')>-1) {
+		if (email.toString().indexOf(',')>-1 && !(email instanceof List)) {
 			recipients =email.split(',').collect { it.trim() }
 			return recipients
 		}
