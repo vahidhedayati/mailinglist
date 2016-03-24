@@ -126,6 +126,14 @@ From 1.17 you can configure your i18n/messages_{locale}.properties to include tr
 
 ## Version changes
 ```
+0.32 Pull request https://github.com/vahidhedayati/mailinglist/pull/5 
+
+martofeld added some commits 5 hours ago
+ @martofeld	Add support for using templates in the mail			5495ef2
+ @martofeld	Avoid parsing if values are already a List + fix typo			ed30889
+ @martofeld	Missed some implementations of the new template			a3a5601
+ 
+ 
 0.31 #3 Improvement of the mlsetup script and produced services 
 	If you have refreshed mlsetup script as part of 0.30, its worth doing it again. This will produce tidier services.
 0.30 #3 further tidyup of cron expression rule checking
