@@ -249,7 +249,11 @@ class MailingListEmailService {
 								if (!recipientToList && recipientToList2) {to recipientToList2 }
 								if (recipientCCList) { cc recipientCCList}
 								if (recipientBCCList) { bcc recipientBCCList}
-								html message
+								if(template){
+									html grailsApplication.mainContext.groovyPageRenderer.render(template: template, model: templateModel)
+								} else {
+									html message
+								}
 								currentMap.each { k, v ->
 									inline k, 'image/jpg', new File(System.properties['catalina.base'], "webapps/$v")
 								}
@@ -292,7 +296,11 @@ class MailingListEmailService {
 						if (!recipientToList && recipientToList2) {to recipientToList2 }
 						if (recipientCCList) { cc recipientCCList}
 						if (recipientBCCList) { bcc recipientBCCList}
-						html message
+						if(template){
+							html grailsApplication.mainContext.groovyPageRenderer.render(template: template, model: templateModel)
+						} else {
+							html message
+						}
 						currentMap.each { k, v ->
 							inline k, 'image/jpg', new File(System.properties['catalina.base'], "webapps/$v")
 						}
