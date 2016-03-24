@@ -83,8 +83,9 @@ class MailingListEmailService {
 		def emailFrom = paramsMap.mailFrom
 		def recipientToGroup = paramsMap.recipientToGroup
 		def template = paramsMap.mailingListTemplate
+		def templateModel = paramsMap.mailingListTemplateModel
 		def scheduleid = paramsMap.id
-		
+
 		def recipientToList=recipientTo
 		if (recipientTo){
 			recipientToList=returnEmailArrary(recipientTo)
@@ -196,7 +197,11 @@ class MailingListEmailService {
 					if (!recipientToList && recipientToList2) { to recipientToList2 }
 					if (recipientCCList) { cc recipientCCList}
 					if (recipientBCCList) { bcc recipientBCCList}
-					html message
+					if(template){
+						html grailsApplication.mainContext.groovyPageRenderer.render(template: template, model: templateModel)
+					} else {
+						html message
+					}
 					currentMap.each { k, v ->
 						inline k, 'image/jpg', new File(System.properties['catalina.base'], "webapps/$v")
 					}
