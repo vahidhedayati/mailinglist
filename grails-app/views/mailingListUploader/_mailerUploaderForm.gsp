@@ -1,4 +1,4 @@
-<g:modalForm
+<md:modalForm
 
   id="ModalDynamixIFRAMEUPLOADS"
   formId="MyCSVForm"
@@ -9,7 +9,7 @@
   returnController="mailingListUploader"
   
 
-	fromPlugin="mailinglist"
+
 
   	modalTemplatePage="/mailingListUploader/formuploader"
   

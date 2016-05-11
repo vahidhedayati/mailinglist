@@ -29,7 +29,7 @@
 	</g:if>
 	
 			
-     <g:genModalButton
+     <md:genModalButton
    	id="ModalDynamixSELFPOST"
    	divId="mailerTemplates1"
    	title="Create New Template"
@@ -38,14 +38,14 @@
      />
    
 	
-     <g:genModalButton
+     <md:genModalButton
    	id="ModalDynamixIFRAMEUPLOADS"
    	divId="mailerUploader1"
    	title="Upload CSV Mail To Group?"
    	value="Upload CSV"
    	style='btn btn-danger'
      />
-      <g:genModalButton
+      <md:genModalButton
 	  id="ModalDynamixIFRAMEATTACH"
 	  divId="mailerAttachments1"
 	  title="New Attachment?"
@@ -53,7 +53,7 @@
 	  style='btn btn-warning'
 	/>
 	
-   	<g:genModalButton
+   	<md:genModalButton
    	id="ModalDynamixRemoteFORM"
    	divId="mailerSenders1"
    	title="New Email From field"

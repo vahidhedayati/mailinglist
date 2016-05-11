@@ -88,7 +88,7 @@
 	<label for="scheduleStatus">
 		<g:message code="mailingListSchedule.scheduleStatus.label" default="Schedule Status" />
 	</label>
-	<g:textField value="${mailingListScheduleInstance?.scheduleStatus}"
+	<g:textField name="scheduleStatus" value="${mailingListScheduleInstance?.scheduleStatus}" />
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: mailingListScheduleInstance, field: 'sendType', 'error')} ">

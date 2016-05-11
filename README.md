@@ -20,12 +20,21 @@ Add plugin Dependency in BuildConfig.groovy :
 compile ":mailinglist:0.32"
 ```
 
+## Installation for grails 3+
+```groovy
+compile "org.grails.plugins:mailinglist:3.0.1"
+```
+
+
+
 #### Under 2.4.0 you may need to review hibernate version and update to:
 ```
 runtime ":hibernate4:4.3.5.4"
 ```
 
-Please refer to [example site:](https://github.com/vahidhedayati/testmlist)
+Please refer to [example site grails 2:](https://github.com/vahidhedayati/testmlist)
+
+Please refer to [example site grails 3:](https://github.com/vahidhedayati/testmlist3)
 
 
 ## Installation for grails < 2.4 based resources sites 2.X -> 2.3.X
