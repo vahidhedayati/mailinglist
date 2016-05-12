@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="layout" content="main">
+		<meta name="layout" content="mailingListMini">
 
 		<g:set var="entityName" value="${message(code: 'mailingListTemplates.label', default: 'MailingListTemplates')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
@@ -11,7 +11,7 @@
 		<g:render template="/mainmenu"  />
 		
 	</div>	
-		<div id="create-mailingListTemplates" class="content scaffold-create" role="main">
+		<div id="create-mailingListTemplates" class="content scaffold-create" role="mailingListMini">
 			<h1><g:message code="default.create.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>

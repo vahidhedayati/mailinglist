@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="layout" content="main">
+		<meta name="layout" content="mailingListMini">
 		<g:set var="entityName" value="${message(code: 'mailingListSenders.label', default: 'MailingListSenders')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 	</head>
@@ -13,7 +13,7 @@
 				<li class="btn btn-default"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
 		</ul>
 	</div>	
-		<div id="list-mailingListSenders" class="content scaffold-list" role="main">
+		<div id="list-mailingListSenders" class="content scaffold-list" role="mailingListMini">
 			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>

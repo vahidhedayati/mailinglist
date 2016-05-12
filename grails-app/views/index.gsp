@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-    <meta name="layout" content="main"/>
+    <meta name="layout" content="mailingListMini"/>
     <title>Welcome to Grails</title>
 
     <asset:link rel="icon" href="favicon.ico" type="image/x-ico" />
@@ -51,7 +51,7 @@
         </div>
     </div>
 
-    <div id="content" role="main">
+    <div id="content" role="mailingListMini">
         <section class="row colset-2-its">
             <h1>Welcome to Grails</h1>
 

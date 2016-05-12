@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="layout" content="main">
+		<meta name="layout" content="mailingListMini">
 		<g:set var="entityName" value="${message(code: 'emailaperson.label', default: 'Contact A Person')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 		<ckeditor:resources/>
@@ -16,7 +16,7 @@
 		<g:render template="/mainmenu"  />
 		 
 	</div>	
-		<div id="create-mailingList" class="content scaffold-create" role="main">
+		<div id="create-mailingList" class="content scaffold-create" role="mailingListMini">
 			<h1><g:message code="default.contactperson.label" args="[entityName]" default='Define Schedule to Email a Person' /></h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>

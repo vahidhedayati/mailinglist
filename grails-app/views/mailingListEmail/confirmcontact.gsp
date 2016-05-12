@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="layout" content="main">
+		<meta name="layout" content="mailingListMini">
 		<g:set var="entityName" value="${message(code: 'ContactClients.label', default: 'Contact Clients')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 		<ckeditor:resources/>

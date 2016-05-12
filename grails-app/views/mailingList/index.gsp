@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="layout" content="main">
+		<meta name="layout" content="mailingListMini">
 		<g:set var="entityName" value="${message(code: 'mailingList.label', default: 'MailingList')}" />
 		<title><g:message code="default.admin.menu.label" args="[entityName]" default="Welcome to ${entityName}" /></title>
 	</head>

@@ -1,13 +1,7 @@
 <html>
 	<head>
 	
-	
-			<g:if test="${enduser?.verifyAppVersion().equals('resources')}">
 				<meta name='layout' content="mailingListMini"/>
-			</g:if>	
-			<g:else>
-				<meta name='layout' content="mailingListMiniAssets"/>
-			</g:else>
 	
 		
     	<g:set var="entityName" value="${message(code: 'MailingListSchedule.label', default: 'MailingList Schedule')}" />

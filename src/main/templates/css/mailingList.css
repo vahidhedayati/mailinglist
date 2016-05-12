@@ -118,55 +118,55 @@
 #scheduler-logo {
 	width: 100%;
     height: 64px;
-    background: #ccc url(../images/mailingList/scheduler.png) no-repeat top right;
+    background: #ccc url(../../../../grails-app/assets/images/mailingList/scheduler.png) no-repeat top right;
     float: right;
 }
 
 #attachment-logo {
 	width: 100%;
     height: 64px;
-    background: #ccc url(../images/mailingList/Email-Attachment.png) no-repeat top right;
+    background: #ccc url(../../../../grails-app/assets/images/mailingList/Email-Attachment.png) no-repeat top right;
     float: right;
 }
 
 #templates-logo {
 	width: 100%;
     height: 64px;
-    background: #ccc url(../images/mailingList/templates.png) no-repeat top right;
+    background: #ccc url(../../../../grails-app/assets/images/mailingList/templates.png) no-repeat top right;
     float: right;
 }
 #mailinglistcat-logo {
 	width: 100%;
     height: 64px;
-    background: #ccc url(../images/mailingList/mailing-categories.png) no-repeat top right;
+    background: #ccc url(../../../../grails-app/assets/images/mailingList/mailing-categories.png) no-repeat top right;
     float: right;
 }
 
 #mailinglist-logo {
 	width: 100%;
     height: 64px;
-    background: #ccc url(../images/mailingList/mailing-list.png) no-repeat top right;
+    background: #ccc url(../../../../grails-app/assets/images/mailingList/mailing-list.png) no-repeat top right;
     float: right;
 }
 
 #mailinglistsenders-logo {
 	width: 100%;
     height: 64px;
-    background: #ccc url(../images/mailingList/email_sender.jpg) no-repeat top right;
+    background: #ccc url(../../../../grails-app/assets/images/mailingList/email_sender.jpg) no-repeat top right;
     float: right;
 }
 
 #csv-logo {
 	width: 100%;
     height: 64px;
-    background: #ccc url(../images/mailingList/csv-import.png) no-repeat top right;
+    background: #ccc url(../../../../grails-app/assets/images/mailingList/csv-import.png) no-repeat top right;
     float: right;
 }
 
 #scheduled-email-logo {
 	width: 100%;
     height: 64px;
-    background: #AAA url(../images/mailingList/scheduler.png) no-repeat bottom right;
+    background: #AAA url(../../../../grails-app/assets/images/mailingList/scheduler.png) no-repeat bottom right;
     float: right;
 }
 
@@ -179,9 +179,9 @@
 
 	background-color: transparent;
 	box-shadow:
-        inset 0 2px 3px rgbargba(248, 248, 248, 1),
-        inset 0 -2px 3px rgbargba(248, 248, 248, 1),
-        0 1px 1px rgbargba(248, 248, 248, 1);
+        inset 0 2px 3px rgba(248, 248, 248, 1),
+        inset 0 -2px 3px rgba(248, 248, 248, 1),
+        0 1px 1px rgba(248, 248, 248, 1);
 }
 .clearall{
      clear: both;
@@ -337,47 +337,18 @@
     background-color:GoldenRod
 }
 
-
-
-
-
-
-
-
-
-
-
-
-/* VH */
-
-
-
 #loginBox66 { 
 	color: #FFF;
 color: rgb(255, 255, 255);
-/*margin-right: 2em;*/
-/*top:1em;*/
-/*background-color: rgb(61, 61, 61);*/
 padding: 1em;
-/*box-shadow: 0px 0px 3px 1px rgb(170, 170, 170);*/
-/*border-radius: 61px 61px 61px 61px;*/
 font-size: 0.8em;
 margin-top: -5px;		
 }
-/*
 .loginBox {
 	position:absolute;
 	right:0px;
 	top:4px;
 }
-*/
-
-.loginBox {
-	position:absolute;
-	right:0px;
-	top:4px;
-}
-
 
 #loginBox { 
 	color: #FFF;
@@ -430,9 +401,9 @@ font-size: 0.8em;
 
 	background-color: transparent;
 	box-shadow:
-        inset 0 2px 3px rgbargba(248, 248, 248, 1),
-        inset 0 -2px 3px rgbargba(248, 248, 248, 1),
-        0 1px 1px rgbargba(248, 248, 248, 1);
+        inset 0 2px 3px rgba(248, 248, 248, 1),
+        inset 0 -2px 3px rgba(248, 248, 248, 1),
+        0 1px 1px rgba(248, 248, 248, 1);
 }
 
 #boxbtnlink {
@@ -445,7 +416,7 @@ font-size: 0.8em;
 	box-shadow:
         inset 0 2px 3px rgba(248, 248, 248, 1),
         inset 0 -2px 3px rgba(248, 248, 248, 1),
-        0 1px 1px rgbargba(248, 248, 248, 1);
+        0 1px 1px rgba(248, 248, 248, 1);
 }
 
 #boxbtn1 {
@@ -457,14 +428,14 @@ font-size: 0.8em;
 }
 
 button.boxbtn1 a {
-	color: #FF000;
+	color: #FF0000;
 	
 	background-color: transparent;
 	
 }
 
 button.boxbtn1 a:hover{
-	color: #00000;
+	color: #000000;
 	
 	background-color: transparent;
 	
@@ -637,7 +608,7 @@ button.boxbtn1 a:hover{
 	
 	width:  98%;
 	min-height: 64px;
-	height: auto \9;
+	height: auto;
     margin-right: 2px;
  	overflow: hidden;
 	font-weight: bold;
@@ -716,11 +687,17 @@ button.close{
 	position:relative;
 	height:0;
 	overflow:hidden;
-	overflow:visible \9;
+	overflow:visible;
 	-webkit-transition:height 0.35s ease;
 	-moz-transition:height 0.35s ease;
 	-o-transition:height 0.35s ease;
 	transition:height 0.35s ease;
+}
+#mailMenu li {
+	list-style: none;
+}
+#mailMenu li  a{
+	text-decoration: none;
 }
 
 .collapse.in{
@@ -799,10 +776,6 @@ div[class*="embossed"] {
 	display: inline-block;
  	position:relative;
  	margin: 10px auto;
-   /* background-image: linear-gradient(rgba(255, 238, 251, 1),rgba(202, 255, 216, 1), rgba(196, 171, 254, 1));*/
-    
-  /* background-image: linear-gradient(rgba(192,192,195,0.11),rgba(192,192,192,7), rgba(192,192,192,0.3), rgba(192,192,192,0.1));*/
-   /*  background-image: linear-gradient(rgba(192,192,195,0.11),rgba(192,192,192,7),rgba(196, 171, 254, 1), rgba(192,192,192,0.1));*/
  background-image: linear-gradient(rgba(192,192,195,0.11),rgba(192,192,192,7), rgba(192,192,192,0.3), rgba(192,192,192,0.1));
 	padding:  0.4em 0.4em 0.4em 0.4em;
     border: 1px solid rgba(0,0,0,0.05);
@@ -913,7 +886,6 @@ div[class*="embossed"] {
 div[class*="internal"] {
 	display: inline-block;
  	position:relative;
-   	background-image: radial-gradient(center 0, circle farthest-corner, rgba(255,255,255,0.4), rgba(255,255,255,0));
 	width: 385px;
     color: #333;
     text-shadow: 0px 5px 5px rgba(0,0,0,0.1),
@@ -927,7 +899,6 @@ div[class*="internal"] {
 	padding:  0.1em 0.1em 1em;
     border: 1px solid rgba(0,0,0,0.05);
     width: 300px;
-    background-image: radial-gradient(center 0, circle farthest-corner, rgba(0,0,0,0.15), rgba(0,0,0,0));
     box-shadow: 0 0 0 1px #a27b62;
 }
 
@@ -973,7 +944,6 @@ div[class*="instances"] {
 	color:    	#F80000 ; 
 }
 
-
 #the_box1 {
 	z-index: 0;
 }
@@ -981,9 +951,6 @@ div[class*="instances"] {
 #the_box1 ul {
 	list-style-type:none;
 }
-
-
-
 #the_box1 li {
 	list-style-type:none;
 	float: left;
@@ -1013,7 +980,6 @@ div[class*="instances"] {
 .box_text {
   	text-align: left;
 }
-
 
 			
 .clearall{
@@ -1075,32 +1041,16 @@ width:300px;
 .top10Users a:link, .top10Users a:visited {
 
 }
-.#top10Panel h2 {
+#top10Panel h2 {
 font-size:1.2em;
 }
-
-
- ul.tree, ul.tree ul {  list-style-type: none; background: url('../images/vline.png') repeat-y; margin: 0; padding: 0; }
- 
- ul.tree ul { margin-left: 10px; } 
- ul.tree li { margin: 0; padding: 0 12px; line-height: 20px; background: url('../images/node.png') no-repeat; color: #000033; font-weight: bold; } 
- ul.tree li.last { background: #fff url('../images/lastnode.png') no-repeat; } 
- 
-
 #graphstats {
-
 	overflow-x:  scroll;
 	overflow-y:  scroll;
 } 
-
-
-
-
-
 #floatbar {
     position:relative;
 }
-
 .popup {
     position:absolute;
     top:10px;
@@ -1109,11 +1059,7 @@ font-size:1.2em;
     background:#ccc;
     display:none;
 }
-
-
-
 #searchForm{
-	/* The search form. */
 	background-color: rgb(76, 90, 101);
 	padding: 2em 5em 1em;
 	margin: 1em;
@@ -1136,7 +1082,7 @@ fieldset{
 	/* This div contains the transparent search box */
 	width:420px;
 	height:36px;
-	background:url("searchBox.png") no-repeat;
+	background:url(../../../../grails-app/assets/images/searchBox.png) no-repeat;
 	float:left;
 	margin-right:12px;
 }
@@ -1146,7 +1092,7 @@ fieldset{
 	
 	border:none;
 	color:#888888;
-	background:url("searchBox.png") no-repeat;
+	background:url(../../../../grails-app/assets/images/searchBox.png) no-repeat;
 	display: inline-block;
     *zoom: 1;
     *display: inline;
@@ -1158,94 +1104,38 @@ fieldset{
 	width:auto;
 }
 
-/* The UL that contains the search type icons */
-
-.icons{
-	list-style:none;
-	margin:10px 0 0 335px;
-	height:19px;
-	position:relative;
+#submitButton:hover {
+	background-position: bottom;
 }
-
-.icons li{
-	background:url("../images/search/icons.png") no-repeat;
-	float:left;
-	height:19px;
-	text-indent:-9999px;
-	cursor:pointer;
-	margin-right:5px;
-}
-
-/* The submit button */
-
-
-#submitButton{
-	background:url('../images/search/buttons.png') no-repeat;
-	width:83px;
-	height:36px;
-	text-indent:-9999px;
-	overflow:hidden;
-	text-transform:uppercase;
-	border:none;
-	cursor:pointer;
-	display: inline-block;
-    *zoom: 1;
-    *display: inline;
-}
-
-#submitButton:hover{
-	background-position:left bottom;
-}
-
-
-/* The Search tutorialzine.com / Search the Web radio buttons */
-
-
 #searchInContainer{
 	float:left;
 	margin-top:12px;
 	width:330px;
 }
 
-
-
 input[type=radio]{
 	cursor:pointer;
 	/*float:left;*/
 }
 
-
-/* Styling the search results */
-
-
 .pageContainer{
-	/* Holds each page with search results. Has an inset bottom border. */
 	border-bottom:1px solid #5e7481;
 	margin-bottom:50px;
-	/* Adding a dark bottom border with box shadow */
 	-moz-box-shadow:0 1px 0 #798e9c;
 	-webkit-box-shadow:0 1px 0 #798e9c;
 	box-shadow:0 1px 0 #798e9c;
 }
 
-
 p.notFound{
 	text-align:center;
 	padding:0 0 40px;
 }
-
-
-/* Web & news results */
-
-
 .webResult{ text-shadow:1px 1px 0 #586a75;margin-bottom:50px;}
 .webResult h2{ 
 	background-color:#5D6F7B;
 	font-size:1.3em;
 	font-weight:normal;
 	padding:8px 20px;
-	
-	/* Applying CSS3 rounded corners */
 	-moz-border-radius:18px;
 	-webkit-border-radius:18px;
 	border-radius:18px;
@@ -1255,11 +1145,6 @@ p.notFound{
 .webResult p{ line-height:1.5;padding:15px 20px;}
 .webResult p b{ color:white;}
 .webResult > a{ margin-left:20px;}
-
-
-/* Image & video search results */
-
-
 .imageResult{
 	float:left;
 	height:180px;
@@ -1274,16 +1159,6 @@ p.notFound{
 	outline:1px solid #777;
 	display:block;
 	margin:0 auto 15px;
-}
-
-/* The show more button */
-
-#more{
-	width:83px;
-	height:24px;
-	background:url('../images/search/more.png') no-repeat;
-	cursor:pointer;
-	margin:40px auto;
 }
 
 #more:hover{

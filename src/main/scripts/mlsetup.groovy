@@ -86,6 +86,13 @@ if (args.size() < 2) {
 		destination: file( "grails-app/services/$packdir/QuartzEmailCheckerService.groovy"),
 		model: checkerConf
 
+		render  template:'css/mailingList.css',
+		destination: file( "grails-app/assets/stylesheets/mailingList.css")
+
+		render  template:'css/bootstrap-datetimepicker.min.css',
+		destination: file( "grails-app/assets/stylesheets/bootstrap-datetimepicker.min.css")
+		//render  template:'js/bootstrap-datetimepicker.min.js',
+		//destination: file( "grails-app/assets/javascripts/bootstrap-datetimepicker.min.js")
 
 	println """\
 		Finished generating classes.

@@ -22,8 +22,14 @@ compile ":mailinglist:0.32"
 
 ## Installation for grails 3+
 ```groovy
-compile "org.grails.plugins:mailinglist:3.0.1"
+compile "org.grails.plugins:mailinglist:3.0.2"
 ```
+
+For grails 3 You will need to add bootstrap-datetimepicker.min.js to your grails-app/js/javascripts folder
+
+The file can be found here:
+
+https://github.com/vahidhedayati/mailinglist/tree/master/src/main/templates/js or https://tarruda.github.io/bootstrap-datetimepicker/
 
 
 

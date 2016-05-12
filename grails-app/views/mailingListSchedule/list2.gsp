@@ -7,15 +7,10 @@
 <html>
 	<head>
 		<g:if test="${!request.xhr }">
-    		<meta name='layout' content="main"/>
+    		<meta name='layout' content="mailingListMini"/>
     	</g:if>
 		<g:else>
-			<g:if test="${enduser?.verifyAppVersion().equals('resources')}">
 				<meta name='layout' content="mailingListMini"/>
-			</g:if>	
-			<g:else>
-				<meta name='layout' content="mailingListMiniAssets"/>
-			</g:else>
 		</g:else>
 
 		<title><g:message code="default.list.label" args="[entityName]" /></title>

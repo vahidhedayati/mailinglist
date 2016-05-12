@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="layout" content="main">
+		<meta name="layout" content="mailingListMini">
 		<g:set var="entityName" value="${message(code: 'mailingList.label', default: 'MailingList')}" />
 		<title><g:message code="default.edit.label" args="[entityName]" /></title>
 	</head>
@@ -15,7 +15,7 @@
 		</ul>
 	</div>	
 		
-		<div id="edit-mailingList" class="content scaffold-edit" role="main">
+		<div id="edit-mailingList" class="content scaffold-edit" role="mailingListMini">
 			<h1><g:message code="default.edit.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>

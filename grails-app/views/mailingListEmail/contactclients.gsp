@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="layout" content="main">
+		<meta name="layout" content="mailingListMini">
 		<g:set var="entityName" value="${message(code: 'ContactClients.label', default: 'Contact Clients')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 		<ckeditor:resources/>
@@ -173,12 +173,9 @@
 		<label for="manager">
 			<g:message code="dateTime.label" default="dateTime" />
 		</label>
-		<g:if test="${enduser?.verifyAppVersion().equals('resources')}">
-			<jqueryPicker:time name="dateTime" value="${curr }" />
-		</g:if>
-		<g:else>
-			<input type="text" name="dateTime" id="dateTime" value="${current}" />
-		</g:else>
+
+			<g:field  type="text" name="dateTime"  data-format="dd/MM/yyyy hh.mm" value="${current}" />
+
 	</div>
 	
 	<div class="fieldcontain ${hasErrors(bean: params, field: 'cronExpression', 'error')}">
@@ -193,12 +190,13 @@
 			<g:message code="setDate.label" default="Issue/Resolve Date:" />
 			<span class="required-indicator">*</span>
 		</label>
-		<g:if test="${enduser?.verifyAppVersion().equals('resources')}">
-			 <jqueryPicker:date name="setDate" value="${params.setDate }" />
-                </g:if>
-                <g:else>
-			<input type="text" name="setDate" id="setDate" value="${params.setDate}" />
-		</g:else>
+
+			<input type="text" name="setDate" id="setDate"  value="${params.setDate}" />
+		<span class="add-on">
+			<i data-time-icon="icon-time" data-date-icon="icon-calendar">
+			</i>
+		</span>
+
 	</div>	
 		
 	<div class="fieldcontain ${hasErrors(bean: params, field: 'setTime', 'error')} ">
@@ -222,17 +220,20 @@
 	
 	<g:javascript>
 
-	<g:if test="${enduser?.verifyAppVersion().equals('resources')}">
+
   	$().ready(function() {  
+		$('#setDate').datetimepicker({
+			language: 'en',
+			pickDate: true,            // disables the date picker
+			pickTime: true,            // disables de time picker
+
+		});
 		$('#dateTime').datetimepicker({
-			controlType: 'slider',
-			timeFormat: 'HH.mm',
-			dateFormat: "dd/mm/yy"
+			language: 'en',
+			pickDate: true,            // disables the date picker
+			pickTime: true,            // disables de time picker
+		});
 	});
-		$('#setDate').datepicker({dateFormat: "dd/mm/yy"});
-	
-	});
-	</g:if>
 
    	$('form').submit(function() {  
      		$('#select2 option').each(function(i) {  
