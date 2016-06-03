@@ -486,6 +486,13 @@ A big thank you as always to Burt Beckwith for cleaning up the code:
 Unfortunately due to issues with merging repo was cleaned up, original code cna be found here:
 Those changes are here: https://github.com/burtbeckwith/mailinglist/
 
+[@martofeld martin](https://github.com/martofeld) For adding template support to the plugin
+
+
+[Sergey Ponomarev](https://github.com/stokito) For cleaning up and adding formating to the README.md 
+
+Thank you all for you contributions. If you wish to contribute or add stuff I be happy to add you as a project member. I am no longer using this project so will not be getting much updates from me.
+
    
  
 
