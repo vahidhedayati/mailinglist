@@ -58,7 +58,7 @@
 			</g:if>
 		</td>
 		<td>${fieldValue(bean: instance, field: "dateTime")}
-		<g:if test="${instance.setDate && nstance.setTime}">
+		<g:if test="${instance.setDate && instance.setTime}">
 			<br/>
 		 	${fieldValue(bean: instance, field: "setDate")} - ${fieldValue(bean: instance, field: "setTime")}
 		 </g:if>
