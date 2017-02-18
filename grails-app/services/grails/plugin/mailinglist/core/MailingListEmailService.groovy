@@ -148,7 +148,6 @@ class MailingListEmailService {
 				currentMap1[cidimg] = aimage
 			}
 		}
-
 		if (sendtype.equals('bulk')) {
 			def primary = []
 			if (recipientToGroup) {
@@ -196,8 +195,8 @@ class MailingListEmailService {
 					if (recipientToList) {to recipientToList }
 					if (!recipientToList && recipientToList2) { to recipientToList2 }
 					if (recipientCCList) { cc recipientCCList}
-					if (recipientBCCList) { bcc recipientBCCList}
-					if(template){
+					if (recipientBCCList) { bcc recipientBCCList}					
+					if(template && templateModel){
 						html grailsApplication.mainContext.groovyPageRenderer.render(template: template, model: templateModel)
 					} else {
 						html message
@@ -248,8 +247,8 @@ class MailingListEmailService {
 								if (recipientToList) {to recipientToList }
 								if (!recipientToList && recipientToList2) {to recipientToList2 }
 								if (recipientCCList) { cc recipientCCList}
-								if (recipientBCCList) { bcc recipientBCCList}
-								if(template){
+								if (recipientBCCList) { bcc recipientBCCList}								
+								if(template && templateModel){
 									html grailsApplication.mainContext.groovyPageRenderer.render(template: template, model: templateModel)
 								} else {
 									html message
@@ -295,8 +294,8 @@ class MailingListEmailService {
 						if (recipientToList) {to recipientToList }
 						if (!recipientToList && recipientToList2) {to recipientToList2 }
 						if (recipientCCList) { cc recipientCCList}
-						if (recipientBCCList) { bcc recipientBCCList}
-						if(template){
+						if (recipientBCCList) { bcc recipientBCCList}						
+						if(template && templateModel){
 							html grailsApplication.mainContext.groovyPageRenderer.render(template: template, model: templateModel)
 						} else {
 							html message

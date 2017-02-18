@@ -12,6 +12,7 @@
 		<ckeditor:resources/>
 	</head>
 	<body>
+	<div class="container">
 	<div class="envtabs  navbar">
 		<g:render template="/mainmenu"  />
 		 
@@ -140,13 +141,14 @@
 		</div>
 		
 	<div class="whitefont">
-			<g:submitButton name="Confirmed Send it now"  class="btn btn-danger btn-lg  nav-pills pull-right" value="${message(code: 'default.button.SendEmail.label', default: 'Send Email')}" />
+			<g:submitButton name="Confirmed Send it now"  class="btn btn-danger nav-pills pull-right" value="${message(code: 'default.button.SendEmail.label', default: 'Send Email')}" />
 	</div>
 
 
 	</g:form>
 	
-	<div class="whitefont" style="position: absolute; margin-top: -40px; margin-left: 100px;" >
+	<div class="btn btn-primary" >
 <g:render template="goback"/>
+	</div>
 	</div>
 	</body></html>

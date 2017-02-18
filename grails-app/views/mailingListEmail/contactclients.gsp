@@ -12,6 +12,7 @@
 		<ckeditor:resources/>
 	</head>
 	<body>
+	<div class="container">
 	<div class="envtabs  navbar">
 		<g:render template="/mainmenu"  />
 		 
@@ -64,22 +65,7 @@
 <div style="clear:both;"></div>
 
 		
-      <div id="mailerTemplates1" style="display:none;">
-	<g:render template="/mailingListTemplates/mailerTemplatesForm" />
-      </div>
-      <div id="mailerUploader1" style="display:none;">
-	<g:render template="/mailingListUploader/mailerUploaderForm" />
-      </div>
-    	
-      <div id="mailerAttachments1" style="display:none;">
-	<g:render template="/mailingListAttachments/mailerAttachmentsForm" />
-      </div>
-      <div id="mailerSenders1" style="display:none;">
-	  <g:render template="/mailingListSenders/mailerSendersForm" />
-      </div>
 
-
-<div style="clear:both;"></div>
 
 	<g:form action="confirmcontact" >
 	
@@ -93,7 +79,6 @@
 		<g:select id="sendType" name="sendType" value="${params.sendType }"
           from="${['bulk':'bulk', 'individual':'individual']}"
           optionKey="key" optionValue="value"
-          noSelection="['bulk': 'bulk']"
           required="required"      
            />
            <g:message code="default.bulk.message.label" default="Bulk = one email with all users in one line and put it in BCC field "/><br/>
@@ -126,7 +111,7 @@
 		<g:message code="manager.label" default="subject" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:textField name="subject" value="${params?.subject}" size="60" />
+	<g:textField name="subject" required="" value="${params?.subject}" size="60" />
 	</div>
 	
 </div>
@@ -219,7 +204,23 @@
 	
 	</div>	
 	</g:form>
-	
+	</div>
+	      <div id="mailerTemplates1" style="display:none;">
+	<g:render template="/mailingListTemplates/mailerTemplatesForm" />
+      </div>
+      <div id="mailerUploader1" style="display:none;">
+	<g:render template="/mailingListUploader/mailerUploaderForm" />
+      </div>
+    	
+      <div id="mailerAttachments1" style="display:none;">
+	<g:render template="/mailingListAttachments/mailerAttachmentsForm" />
+      </div>
+      <div id="mailerSenders1" style="display:none;">
+	  <g:render template="/mailingListSenders/mailerSendersForm" />
+      </div>
+
+
+<div style="clear:both;"></div>
 	<g:javascript>
 
 	<g:if test="${enduser?.verifyAppVersion().equals('resources')}">

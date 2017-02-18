@@ -47,7 +47,7 @@ class MailingListEmailController {
 	def confirmcontact() {
 
 		boolean ok = true
-
+		def curr = new Date()
 		String warnDuplicate=grailsApplication.config.mailinglist.warn.duplicate ?: 'N'
 		def period=grailsApplication.config.mailinglist.warn.period
 		def today= new Date()
@@ -118,11 +118,11 @@ class MailingListEmailController {
 		}
 
 		if (!ok) {
-			render(view: 'contactclients', model: [ params:params ])
+			render(view: 'contactclients', model: [ params:params,current: new SimpleDateFormat(DATE_FORMAT).format(curr), curr: curr ])
 			return
 		}
 
-		[params:params, warnResend:warnResend]
+		[params:params, warnResend:warnResend ]
 	}
 
 	def scheduleEmail(ScheduleBaseBean bean) { 

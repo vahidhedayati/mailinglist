@@ -12,6 +12,7 @@
 		<ckeditor:resources/>
 	</head>
 	<body>
+	<div class="container">
 	<div class="envtabs  navbar">
 		<g:render template="/mainmenu"  />
 		 
@@ -37,7 +38,7 @@
 			<label for="manager">
 				<g:message code="manager.label" default="mailFrom" />
 			</label>
-			<g:textField name="mailFrom"   value="${params?.mailFrom }"/>
+			<g:textField name="mailFrom"  required=""  value="${params?.mailFrom }"/>
 			</div>
 	
 	
@@ -66,7 +67,7 @@
 			<label for="manager">
 				<g:message code="manager.label" default="subject" />
 			</label>
-			<g:textField name="subject" value="${params?.subject}" size="50"/>
+			<g:textField name="subject" required="" value="${params?.subject}" size="50"/>
 			</div>
 		</div>
 	
@@ -123,6 +124,6 @@
 	</div>		
 	</g:form>
 </div>
-
+</div>
 </body>
 </html>
