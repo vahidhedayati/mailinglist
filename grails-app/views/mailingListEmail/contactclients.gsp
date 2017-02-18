@@ -12,6 +12,7 @@
 		<ckeditor:resources/>
 	</head>
 	<body>
+	<div class="container">
 	<div class="envtabs  navbar">
 		<g:render template="/mainmenu"  />
 		 
@@ -28,7 +29,7 @@
 		<div class="message" role="status">${flash.message}</div>
 	</g:if>
 	
-			
+
      <md:genModalButton
    	id="ModalDynamixSELFPOST"
    	divId="mailerTemplates1"
@@ -36,8 +37,8 @@
    	value="New Template"
    	style='btn btn-primary'
      />
-   
-	
+
+
      <md:genModalButton
    	id="ModalDynamixIFRAMEUPLOADS"
    	divId="mailerUploader1"
@@ -52,7 +53,7 @@
 	  value="New Attachment"
 	  style='btn btn-warning'
 	/>
-	
+
    	<md:genModalButton
    	id="ModalDynamixRemoteFORM"
    	divId="mailerSenders1"
@@ -60,24 +61,6 @@
    	value="New Sender"
    	style='btn btn-success'
 	/>
-	
-<div style="clear:both;"></div>
-
-		
-      <div id="mailerTemplates1" style="display:none;">
-	<g:render template="/mailingListTemplates/mailerTemplatesForm" />
-      </div>
-      <div id="mailerUploader1" style="display:none;">
-	<g:render template="/mailingListUploader/mailerUploaderForm" />
-      </div>
-    	
-      <div id="mailerAttachments1" style="display:none;">
-	<g:render template="/mailingListAttachments/mailerAttachmentsForm" />
-      </div>
-      <div id="mailerSenders1" style="display:none;">
-	  <g:render template="/mailingListSenders/mailerSendersForm" />
-      </div>
-
 
 <div style="clear:both;"></div>
 
@@ -87,13 +70,12 @@
 		<g:render template="/mailingList/addedby"  model="[caller: 'params']"/>
 		<div class="fieldcontain ${hasErrors(bean: params, field: 'sendType', 'error')} ">
 		<label for="sendType">
-			<g:message code="manager.label" default="sendType" />
+			<g:message code="sendType.label" default="sendType" />
 		<span class="required-indicator">*</span>
 		</label>
 		<g:select id="sendType" name="sendType" value="${params.sendType }"
           from="${['bulk':'bulk', 'individual':'individual']}"
           optionKey="key" optionValue="value"
-          noSelection="['bulk': 'bulk']"
           required="required"      
            />
            <g:message code="default.bulk.message.label" default="Bulk = one email with all users in one line and put it in BCC field "/><br/>
@@ -102,7 +84,7 @@
 	</div>
 	<div class="fieldcontain ${hasErrors(bean: params, field: 'mailFrom', 'error')} " required="required">
 	<label for="mailFrom">
-		<g:message code="manager.label" default="mailFrom" />
+		<g:message code="mailFrom.label" default="mailFrom" />
 		<span class="required-indicator">*</span>
 	</label>
 	<div id="mailerSenders" style="display:inline-block;*display:inline;*zoom:1;">
@@ -123,7 +105,7 @@
 	<div id="contact-area">
 	<div class="fieldcontain ${hasErrors(bean: params, field: 'subject', 'error')}" required="required">
 	<label for="subject">
-		<g:message code="manager.label" default="subject" />
+		<g:message code="subject.label" required="" default="subject" />
 		<span class="required-indicator">*</span>
 	</label>
 	<g:textField name="subject" value="${params?.subject}" size="60" />
@@ -215,9 +197,26 @@
 	</div>
 	
 	
-	</div>	
+	</div>
 	</g:form>
-	
+</div>
+	<div style="clear:both;"></div>
+
+
+	<div id="mailerTemplates1" style="display:none;">
+		<g:render template="/mailingListTemplates/mailerTemplatesForm" />
+	</div>
+	<div id="mailerUploader1" style="display:none;">
+		<g:render template="/mailingListUploader/mailerUploaderForm" />
+	</div>
+
+	<div id="mailerAttachments1" style="display:none;">
+		<g:render template="/mailingListAttachments/mailerAttachmentsForm" />
+	</div>
+	<div id="mailerSenders1" style="display:none;">
+		<g:render template="/mailingListSenders/mailerSendersForm" />
+	</div>
+
 	<g:javascript>
 
 

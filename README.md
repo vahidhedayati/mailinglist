@@ -1,4 +1,4 @@
-mailinglist 0.32
+mailinglist 0.34
 =======================
 
 mailinglist is a Grails plugin which makes use of quartz to dynamically schedule either group or specific email address contact.
@@ -17,12 +17,12 @@ For a walk through guide on how to install this plugin goto : https://github.com
 ## Installation for grails 2.4+ assets based sites:
 Add plugin Dependency in BuildConfig.groovy :
 ```groovy
-compile ":mailinglist:0.32"
+compile ":mailinglist:0.34"
 ```
 
 ## Installation for grails 3+
 ```groovy
-compile "org.grails.plugins:mailinglist:3.0.2"
+compile "org.grails.plugins:mailinglist:3.0.4"
 ```
 
 For grails 3 You will need to add bootstrap-datetimepicker.min.js to your grails-app/js/javascripts folder
@@ -141,6 +141,8 @@ From 1.17 you can configure your i18n/messages_{locale}.properties to include tr
 
 ## Version changes
 ```
+0.34 @idiengaid identified issue with bulk emails and templates, earlier work from 0.32 needed additional if check around template
+0.33 @idiengaid spotted instance with missing i
 0.32 Pull request https://github.com/vahidhedayati/mailinglist/pull/5 
 
 martofeld added some commits 5 hours ago

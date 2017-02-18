@@ -48,12 +48,10 @@ class MailingListEmailController implements GrailsApplicationAware {
 	}
 
 	def confirmcontact() {
-
 		boolean ok = true
-
+		def curr = new Date()
 		String warnDuplicate=grailsApplication.config.mailinglist.warn.duplicate ?: 'N'
 		def period=grailsApplication.config.mailinglist.warn.period
-		def today= new Date()
 		def goback
 		def foundrecord
 		use(TimeCategory) {
@@ -121,7 +119,7 @@ class MailingListEmailController implements GrailsApplicationAware {
 		}
 
 		if (!ok) {
-			render(view: 'contactclients', model: [ params:params ])
+			render(view: 'contactclients', model: [ params:params,current: new SimpleDateFormat(DATE_FORMAT).format(curr), curr: curr  ])
 			return
 		}
 

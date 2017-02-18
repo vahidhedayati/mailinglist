@@ -12,6 +12,7 @@
 		<ckeditor:resources/>
 	</head>
 	<body>
+	<div class="container">
 	<div class="envtabs  navbar">
 		<g:render template="/mainmenu"  />
 		 
@@ -36,14 +37,14 @@
 		<div id="contact-area">
 		<div class="fieldcontain ${hasErrors(bean: params, field: 'sendType', 'error')} ">
 				<label for="sendType">
-					<g:message code="manager.label" default="sendType" />
+					<g:message code="sendType.label" default="sendType" />
 				</label>
 				<g:hiddenField name="sendType" value="${params.sendType }"/>${params.sendType }
 		</div>
 			
 		<div class="fieldcontain ${hasErrors(bean: params, field: 'mailFrom', 'error')} ">
 				<label for="mailFrom">
-					<g:message code="manager.label" default="mailFrom" />	
+					<g:message code="mailFrom.label" default="mailFrom" />
 				</label>
 				<g:hiddenField name="mailFrom" value="${params.mailFrom }"/>${params.mailFrom }
 		</div>
@@ -68,7 +69,7 @@
 		<g:hiddenField name="addedby" value="${params.addedby }"/>
 		<div class="fieldcontain ${hasErrors(bean: params, field: 'subject', 'error')} ">
 			<label for="subject">
-				<g:message code="manager.label" default="subject" />
+				<g:message code="subject.label" default="subject" />
 			</label>
 			<g:hiddenField name="subject" value="${params.subject }"/>${params.subject }</div>
 		</div>
@@ -140,13 +141,14 @@
 		</div>
 		
 	<div class="whitefont">
-			<g:submitButton name="Confirmed Send it now"  class="btn btn-danger btn-lg  nav-pills pull-right" value="${message(code: 'default.button.SendEmail.label', default: 'Send Email')}" />
+			<g:submitButton name="Confirmed Send it now"  class="btn btn-danger nav-pills pull-right" value="${message(code: 'default.button.SendEmail.label', default: 'Send Email')}" />
 	</div>
 
 
 	</g:form>
 	
-	<div class="whitefont" style="position: absolute; margin-top: -40px; margin-left: 100px;" >
+	<div class="btn btn-primary" >
 <g:render template="goback"/>
+	</div>
 	</div>
 	</body></html>

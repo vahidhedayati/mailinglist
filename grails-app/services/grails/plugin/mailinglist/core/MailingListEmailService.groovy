@@ -200,7 +200,7 @@ class MailingListEmailService implements GrailsApplicationAware {
 					if (!recipientToList && recipientToList2) { to recipientToList2 }
 					if (recipientCCList) { cc recipientCCList}
 					if (recipientBCCList) { bcc recipientBCCList}
-					if(template){
+					if(template && templateModel){
 						html grailsApplication.mainContext.groovyPageRenderer.render(template: template, model: templateModel)
 					} else {
 						html message
@@ -252,7 +252,7 @@ class MailingListEmailService implements GrailsApplicationAware {
 								if (!recipientToList && recipientToList2) {to recipientToList2 }
 								if (recipientCCList) { cc recipientCCList}
 								if (recipientBCCList) { bcc recipientBCCList}
-								if(template){
+								if(template && templateModel){
 									html grailsApplication.mainContext.groovyPageRenderer.render(template: template, model: templateModel)
 								} else {
 									html message
@@ -299,7 +299,7 @@ class MailingListEmailService implements GrailsApplicationAware {
 						if (!recipientToList && recipientToList2) {to recipientToList2 }
 						if (recipientCCList) { cc recipientCCList}
 						if (recipientBCCList) { bcc recipientBCCList}
-						if(template){
+						if(template && templateModel){
 							html grailsApplication.mainContext.groovyPageRenderer.render(template: template, model: templateModel)
 						} else {
 							html message
